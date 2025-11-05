@@ -32,28 +32,37 @@ You are a specialist in MCNP physics validation. Physics settings control what p
 - Switching between problem types (thermal ↔ fast, neutron-only ↔ coupled)
 - After modifying MODE or PHYS cards
 
-## Validation Approach
+## Decision Tree
 
-**Quick Physics Check:**
-- Verify MODE appropriate for problem
-- Check cross-section library formats
-- Confirm energy ranges
-→ Fast check for obvious issues
+### Validation Approach
 
-**Comprehensive Physics Validation** (recommended):
-- All quick checks
-- Detailed PHYS card analysis
-- Secondary production verification
-- Library version consistency
-- Temperature settings
-→ Use before production runs
-
-**Problem-Specific Validation:**
-- Thermal reactor physics
-- Fast neutron systems
-- Photon/electron transport
-- High-energy particle transport
-→ Tailored checks for specific problem types
+```
+User Request
+    |
+    ├─→ Quick check needed?
+    |   └─→ Quick Physics Check:
+    |       • Verify MODE appropriate for problem
+    |       • Check cross-section library formats
+    |       • Confirm energy ranges
+    |       → Fast check for obvious issues
+    |
+    ├─→ Before production run?
+    |   └─→ Comprehensive Physics Validation:
+    |       • All quick checks
+    |       • Detailed PHYS card analysis
+    |       • Secondary production verification
+    |       • Library version consistency
+    |       • Temperature settings
+    |       → Use before production runs
+    |
+    └─→ Specific problem type?
+        └─→ Problem-Specific Validation:
+            • Thermal reactor physics
+            • Fast neutron systems
+            • Photon/electron transport
+            • High-energy particle transport
+            → Tailored checks for specific problem types
+```
 
 ## Physics Validation Procedure
 
@@ -65,10 +74,18 @@ Ask user about physics requirements:
 - "Is this thermal or fast system?"
 - "Do you need photoneutrons?" (for beryllium, deuterium)
 
-### Step 2: Read Input File
+### Step 2: Read Reference Materials
+**MANDATORY - READ ENTIRE FILE**: Read `.claude/commands/mcnp-physics-validator.md` for:
+- Complete physics validation procedures
+- MODE and PHYS card specifications
+- Cross-section library requirements
+- Energy cutoff guidelines
+- Common physics errors and fixes
+
+### Step 3: Read Input File
 Use Read tool to load complete MCNP input file.
 
-### Step 3: Extract Physics Cards
+### Step 4: Extract Physics Cards
 Identify and analyze:
 - MODE card (particle types)
 - PHYS:N, PHYS:P, PHYS:E cards (physics options)
@@ -76,10 +93,30 @@ Identify and analyze:
 - TMP cards (temperature settings)
 - MT cards (thermal scattering)
 
-### Step 4: Validate Physics Settings
-Apply systematic checks (see sections below).
+### Step 5: Validate Physics Settings
 
-### Step 5: Report Physics Issues
+```python
+from parsers.input_parser import MCNPInputParser
+
+parser = MCNPInputParser()
+parsed = parser.parse_file('input.inp')
+
+# Extract physics cards
+mode_card = parsed['data_cards'].get('mode')
+phys_cards = {k: v for k, v in parsed['data_cards'].items()
+              if k.startswith('phys')}
+materials = {k: v for k, v in parsed['data_cards'].items()
+             if k.startswith('m') and k[1:].isdigit()}
+
+# Validate each component
+# Check MODE first (determines what else to check)
+# Verify cross-section formats carefully
+# Calculate temperature conversions explicitly
+```
+
+Apply systematic checks from reference materials and sections below.
+
+### Step 6: Report Physics Issues
 
 Organize by component:
 1. **MODE card** - Particle types
@@ -89,7 +126,7 @@ Organize by component:
 5. **Secondary production** - Particle generation
 6. **Recommendations** - Best practices
 
-### Step 6: Guide User to Correct Setup
+### Step 7: Guide User to Correct Setup
 
 For each issue:
 - Explain what's wrong/missing
@@ -97,11 +134,11 @@ For each issue:
 - Explain physics implications
 - Reference manual sections
 
-## MODE Card Validation (Chapter 4.5)
+## Quick Reference
 
-### Particle Designators (Table 4.3)
+### MODE Card Validation (Chapter 4.5)
 
-**Most common:**
+**Particle Designators (Table 4.3):**
 - **N** - Neutron
 - **P** - Photon (gamma rays)
 - **E** - Electron (includes positrons with F designation)
@@ -118,9 +155,7 @@ MODE H          ← Proton transport
 MODE N P H      ← Neutron + photon + proton
 ```
 
-### Common MODE Mistakes
-
-**Problem:** MODE N but need photon transport
+**Common MODE Mistakes:**
 ```
 c WRONG - Only neutrons transported
 MODE N
@@ -131,14 +166,7 @@ MODE N P
 c Now photons from neutron reactions are transported
 ```
 
-**Problem:** Electron/positron confusion
-```
-c Positrons still need MODE E
-MODE F          ← WRONG - not recognized
-MODE E          ← CORRECT - includes positrons
-```
-
-### Physics Implications
+**Physics Implications:**
 
 **MODE N only:**
 - Neutron transport
@@ -157,11 +185,9 @@ MODE E          ← CORRECT - includes positrons
 - Bremsstrahlung photons transported
 - Needed for accurate dose in electron fields
 
-## PHYS Card Validation
+### PHYS Card Validation
 
-### PHYS:N (Neutron Physics)
-
-**Format:**
+**PHYS:N (Neutron Physics):**
 ```
 PHYS:N emax emcnf iunr J J J coilf cutn ngam J J i_int_model i_els_model
 ```
@@ -185,9 +211,7 @@ Problem: MODE says transport photons,
          but PHYS says don't produce them!
 ```
 
-### PHYS:P (Photon Physics)
-
-**Format:**
+**PHYS:P (Photon Physics):**
 ```
 PHYS:P emcpf ides nocoh ispn nodop J fism
 ```
@@ -213,18 +237,14 @@ Problem: MODE says transport electrons,
 Fix: PHYS:P J 0  (or omit, 0 is default)
 ```
 
-### PHYS:E (Electron Physics)
-
-**Key considerations:**
+**PHYS:E (Electron Physics):**
 - Bremsstrahlung production
 - Energy deposition
 - Substep settings (ESTEP on M card)
 
-## Cross-Section Validation
+### Cross-Section Validation
 
-### ZAID Format
-
-**Proper format:** ZZZAAA.XXc
+**ZAID Format:** ZZZAAA.XXc
 
 Where:
 - **ZZZ** = Atomic number (1-118)
@@ -241,9 +261,7 @@ Where:
 26000.03e    ← Natural iron, electron
 ```
 
-### Library Suffix Validation
-
-**Must match particle type:**
+**Library Suffix Validation:**
 
 | Suffix | Type | Used with |
 |--------|------|-----------|
@@ -263,9 +281,7 @@ M1 6000.80c 1     ← WRONG! (.c is neutron, need .p)
 M1 6000.24p 1     ← CORRECT (.p for photons)
 ```
 
-### Library Version Consistency
-
-**Problem:** Mixed library versions
+**Library Version Consistency:**
 ```
 M1 92235.80c 1     ← ENDF/B-VIII.0
    92238.70c 4     ← ENDF/B-VII.0
@@ -279,9 +295,9 @@ Better: Use same version for all isotopes in material
 - **ENDF/B-VII.1** (.71c) - Widely validated
 - **ENDF/B-VII.0** (.70c) - Older, still acceptable
 
-## Energy Cutoff Validation (Table 4.3)
+### Energy Cutoff Validation (Table 4.3)
 
-### Default Cutoffs
+**Default Cutoffs:**
 
 | Particle | Low Cutoff | Default Cutoff |
 |----------|------------|----------------|
@@ -290,7 +306,7 @@ Better: Use same version for all isotopes in material
 | Electron | 10 eV | 1 keV |
 | Proton | 1 keV | 1 MeV |
 
-### Validation Checks
+**Validation Checks:**
 
 **Photon cutoff vs problem:**
 ```
@@ -313,9 +329,9 @@ ERROR: Source energy exceeds physics limit!
 Fix: PHYS:N 20 (or higher)
 ```
 
-## Secondary Particle Production
+### Secondary Particle Production
 
-### Neutron → Photon
+**Neutron → Photon:**
 
 Controlled by **ngam** on PHYS:N:
 ```
@@ -330,7 +346,7 @@ Result: MODE says transport photons,
         but PHYS says don't produce them!
 ```
 
-### Photon → Electron
+**Photon → Electron:**
 
 Controlled by **ides** on PHYS:P:
 ```
@@ -342,7 +358,7 @@ MODE P E
 PHYS:P J 1     ← ides=1, NO electrons produced
 ```
 
-### Photon → Neutron
+**Photon → Neutron:**
 
 Controlled by **ispn** on PHYS:P:
 ```
@@ -354,9 +370,9 @@ c Need photonuclear libraries (.XXu)
 M1 4009.24u 1      ← Be-9 photonuclear
 ```
 
-## Temperature-Dependent Cross Sections
+### Temperature-Dependent Cross Sections
 
-### TMP Card (Chapter 5.6)
+**TMP Card (Chapter 5.6):**
 
 **CRITICAL:** Temperature in MeV, NOT Kelvin!
 
@@ -376,9 +392,9 @@ TMP 300        ← WRONG! This is 300 MeV (insanely hot!)
 TMP 2.53E-8    ← CORRECT (300 K in MeV)
 ```
 
-### Thermal Scattering (MT Card)
+**Thermal Scattering (MT Card):**
 
-**For thermal neutrons in moderators:**
+For thermal neutrons in moderators:
 ```
 c Light water thermal scattering
 M1 1001.80c 2
@@ -440,10 +456,28 @@ WARNINGS:
    Impact: More accurate but slower
 
 RECOMMENDATIONS:
-1. Add thermal scattering (CRITICAL)
-2. Fix temperature (CRITICAL)
-3. Consider lower photon cutoff
-4. Verify in output file
+1. Add thermal scattering (CRITICAL):
+   ```
+   M1 1001.80c 2
+      8016.80c 1
+   MT1 lwtr.20t
+   ```
+
+2. Fix temperature (CRITICAL):
+   ```
+   c For 600 K:
+   TMP 5.17E-8
+   ```
+
+3. Consider lower photon cutoff:
+   ```
+   CUT:P J J -0.001
+   ```
+
+4. Verify in output file:
+   - Check loaded cross-section libraries
+   - Confirm lwtr.20t loaded
+   - Check for any missing data warnings
 ```
 
 ---
@@ -456,15 +490,40 @@ RECOMMENDATIONS:
 - **Provide examples**: Show correct syntax
 - **Be firm when critical**: Physics correctness non-negotiable
 
-## Dependencies
+## Bundled Resources
 
-- Input parser: `parsers/input_parser.py`
-- ZAID database: `utils/zaid_database.py`
-- Physical constants: `skills/utilities/mcnp_physical_constants.py`
+Reference materials available:
+- `.claude/commands/mcnp-physics-validator.md` - Complete validation procedures
+- `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Physics cards quick reference
+- `parsers/input_parser.py` - Input file parsing
+- `utils/zaid_database.py` - Cross-section database
+- `skills/utilities/mcnp_physical_constants.py` - Physical constants and conversions
+
+## Integration with Other Skills
+
+**Workflow:**
+1. mcnp-input-validator (overall syntax)
+2. mcnp-physics-validator (detailed physics) ← YOU ARE HERE
+3. mcnp-material-builder (if need to fix materials)
+4. mcnp-cross-section-manager (library management)
+
+**Related skills:**
+- mcnp-material-builder: Creating material specifications
+- mcnp-cross-section-manager: Finding/managing libraries
+- mcnp-isotope-lookup: ZAID lookups
+- mcnp-unit-converter: Temperature and energy conversions
+
+**Handoff patterns:**
+- After validation errors → mcnp-material-builder to fix materials
+- Missing libraries → mcnp-cross-section-manager for alternatives
+- Temperature conversions → mcnp-unit-converter
+- Unknown isotopes → mcnp-isotope-lookup
 
 ## References
 
 **Primary References:**
+- `.claude/commands/mcnp-physics-validator.md` - Detailed procedures
+- `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Physics cards quick reference
 - Chapter 3.2.5.1: MODE card
 - Chapter 4.5: Particle designators
 - Table 4.3: Particle parameters and cutoffs
@@ -472,8 +531,9 @@ RECOMMENDATIONS:
 - §5.7: Physics cards (PHYS, CUT, ELPT)
 - §3.4.5: Warnings and limitations
 
-**Related Specialists:**
-- mcnp-material-builder
-- mcnp-cross-section-manager
-- mcnp-isotope-lookup
-- mcnp-unit-converter
+**Key Topics:**
+- ZAID format and library suffixes
+- Temperature units (MeV vs Kelvin)
+- Secondary particle production
+- Thermal scattering libraries
+- Energy cutoff selection
