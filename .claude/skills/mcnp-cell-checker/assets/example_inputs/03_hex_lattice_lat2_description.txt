@@ -1,0 +1,41 @@
+Example: 03_hex_lattice_lat2.i
+
+Purpose: Demonstrate LAT=2 (hexagonal) lattice specification
+
+Geometry:
+- Lattice cell 1: 7x7x1 hexagonal array
+- Fill range: -3:3 (i), -3:3 (j), 0:0 (k)
+- Total elements: 7 × 7 × 1 = 49 universe IDs
+- Boundary: 6 planar surfaces (hex sides) + 2 PZ (top/bottom)
+
+Universe Structure:
+- Universe 20: Contains the lattice
+- Universe 1: Graphite reflector pins (outer ring)
+- Universe 2: Standard fuel pins (3% enriched)
+- Universe 3: High-enrichment fuel (20% enriched)
+- Universe 4: Control rod (center position)
+
+Fill Array Pattern (hexagonal arrangement):
+```
+1 1 1 1 1 1 1    (j=-3) ← Reflector ring
+1 2 2 2 2 2 1    (j=-2)
+1 2 3 3 3 2 1    (j=-1)
+1 2 3 4 3 2 1    (j=0)  ← Control rod at center
+1 2 3 3 3 2 1    (j=1)
+1 2 2 2 2 2 1    (j=2)
+1 1 1 1 1 1 1    (j=3)
+```
+
+Validation Checks:
+✓ LAT=2 (hexagonal lattice type)
+✓ Cell 1 is void (material 0)
+✓ FILL parameter present
+✓ Fill array size: 49 values provided, 49 expected
+✓ Boundary: 8 surfaces (6 hex + 2 bases) appropriate for LAT=2
+✓ All universes (1, 2, 3, 4) are defined
+
+Use Case:
+- HTGR prismatic block modeling
+- Hexagonal fuel assembly arrays
+- Testing lattice validator with LAT=2
+- Demonstrating hexagonal prism boundaries

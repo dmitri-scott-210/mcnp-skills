@@ -1,0 +1,23 @@
+Example: 01_simple_universe_valid.i
+
+Purpose: Demonstrate basic universe definition and fill mechanism
+
+Geometry:
+- Real world (u=0): Large sphere containing universe 1
+- Universe 1: Aluminum sphere (r=5 cm) with void outside
+
+Universe Structure:
+- Cell 1 (u=0): Fills with universe 1
+- Cells 10, 11 (u=1): Define universe 1 content
+- Cell 999 (u=0): Graveyard
+
+Validation Checks:
+✓ Universe 1 is defined (cells 10, 11 have u=1)
+✓ Universe 1 is used (cell 1 has fill=1)
+✓ No circular references
+✓ Nesting depth: 1 level
+
+Use Case:
+- Basic universe introduction
+- Template for simple fill operations
+- Testing universe validator

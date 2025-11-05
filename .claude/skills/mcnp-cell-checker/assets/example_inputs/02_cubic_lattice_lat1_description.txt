@@ -1,0 +1,37 @@
+Example: 02_cubic_lattice_lat1.i
+
+Purpose: Demonstrate LAT=1 (cubic/rectangular) lattice specification
+
+Geometry:
+- Lattice cell 1: 5x5x1 cubic array
+- Fill range: -2:2 (i), -2:2 (j), 0:0 (k)
+- Total elements: 5 × 5 × 1 = 25 universe IDs
+- Boundary: RPP (rectangular parallelepiped) macrobody
+
+Universe Structure:
+- Universe 10: Contains the lattice
+- Universe 1: Fuel pins (UO2)
+- Universe 2: Moderator pins (H2O)
+- Universe 3: Control rod (B-10) - center position
+
+Fill Array Pattern:
+```
+1 2 1 2 1    (j=-2)
+2 1 2 1 2    (j=-1)
+1 2 3 2 1    (j=0)  ← Control rod at center
+2 1 2 1 2    (j=1)
+1 2 1 2 1    (j=2)
+```
+
+Validation Checks:
+✓ LAT=1 (cubic lattice type)
+✓ Cell 1 is void (material 0)
+✓ FILL parameter present
+✓ Fill array size: 25 values provided, 25 expected
+✓ Boundary: RPP appropriate for LAT=1
+✓ All universes (1, 2, 3) are defined
+
+Use Case:
+- Reactor core modeling
+- Fuel assembly arrays
+- Testing lattice validator with LAT=1
