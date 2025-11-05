@@ -206,7 +206,7 @@ python ../../scripts/validate_input_structure.py my_problem.i
 
 **See also:**
 - `../example_inputs/` - Real example files from basic_examples/
-- `../../references/` - Detailed format specifications
+- `../../` - Detailed format specifications
 - `../../scripts/` - Automation tools
 
 ---

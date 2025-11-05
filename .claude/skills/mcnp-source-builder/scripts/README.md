@@ -154,7 +154,7 @@ Summary:
 python source_spectrum_plotter.py --type watt --param1 0.988 --param2 2.249
 
 # 2. Create MCNP input with SDEF
-# (See assets/templates/energy_spectrum_templates.i)
+# (See templates/energy_spectrum_templates.i)
 
 # 3. Validate source definition
 python source_validator.py input.i
@@ -220,8 +220,8 @@ pip install matplotlib numpy
 ## References
 
 - MCNP Manual Chapter 5.08: Source Data Cards
-- `references/source_distribution_reference.md` - Complete SI/SP specification
-- `references/source_error_catalog.md` - Common source definition errors
+- `source_distribution_reference.md` - Complete SI/SP specification
+- `source_error_catalog.md` - Common source definition errors
 
 ---
 

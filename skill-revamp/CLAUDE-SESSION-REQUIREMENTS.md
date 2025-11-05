@@ -492,7 +492,9 @@ c ======================
 
 **5. Extract Content to Root Skill Directory (SAME LEVEL AS SKILL.md):**
 
-**CRITICAL STRUCTURE REQUIREMENT:**
+**🚨 CRITICAL STRUCTURE REQUIREMENT - ZERO TOLERANCE 🚨**
+
+**CORRECT Structure (MANDATORY):**
 ```
 .claude/skills/[skill-name]/
 ├── SKILL.md                          ← Main skill file
@@ -501,19 +503,45 @@ c ======================
 ├── detailed_examples.md              ← Same level as SKILL.md
 ├── error_catalog.md                  ← Root skill directory
 ├── [other-topic-specific].md         ← Root skill directory
-├── scripts/                          ← Subdirectory for scripts
+├── scripts/                          ← Subdirectory for scripts ONLY
 │   └── [script files]
-└── assets/                           ← Subdirectory for examples
+├── templates/                        ← Subdirectory at ROOT (NOT in assets/)
+│   └── [template files]
+└── example_inputs/                   ← Subdirectory at ROOT (NOT in assets/)
     └── [example files]
+    OR
+└── example_geometries/               ← Skill-specific naming (NOT in assets/)
+    └── [geometry files]
 ```
 
-**WRONG Structure (DO NOT DO THIS):**
+**❌ WRONG Structures (NEVER DO THESE):**
+
+**WRONG #1: references/ subdirectory**
 ```
 .claude/skills/[skill-name]/
 ├── SKILL.md
 └── references/                       ← WRONG - No subdirectory!
     └── [reference files]             ← Should be at root level
 ```
+
+**WRONG #2: assets/ subdirectory (MOST COMMON ERROR)**
+```
+.claude/skills/[skill-name]/
+├── SKILL.md
+└── assets/                           ← WRONG - assets/ SHOULD NEVER EXIST!
+    ├── templates/                    ← Should be at root level
+    └── example_inputs/               ← Should be at root level
+```
+
+**🚨 CRITICAL RULE: NO assets/ DIRECTORY - EVER! 🚨**
+
+The `assets/` subdirectory should **NEVER** exist in any skill directory. ALL subdirectories (templates/, example_inputs/, example_geometries/, scripts/) must be placed DIRECTLY at the root skill directory level, alongside SKILL.md.
+
+**Why this matters:**
+- Violates project-specific structural requirements
+- Creates unnecessary nesting
+- Inconsistent with completed skills
+- Causes confusion for future sessions
 
 **Extract to root skill directory:** `.claude/skills/[skill-name]/`
 - card_specifications.md (if applicable)
@@ -531,9 +559,12 @@ c ======================
 - NO `references/` subdirectory - files go at root level
 
 **6. Add Example Files and Templates**
-Create subdirectories: 
-- `.claude/skills/[skill-name]/templates/` - Template MCNP input files
-- `example_inputs/` or `example_geometries/` - 5-10 relevant examples
+
+**🚨 CRITICAL: Create subdirectories DIRECTLY at root skill level - NO assets/ parent! 🚨**
+
+Create these subdirectories at `.claude/skills/[skill-name]/` (root level):
+- `templates/` - Template MCNP input files (DIRECTLY at root, NOT in assets/)
+- `example_inputs/` or `example_geometries/` - 5-10 relevant examples (DIRECTLY at root, NOT in assets/)
 
 **Selection criteria:**
 - Relevant to skill's purpose
@@ -601,7 +632,7 @@ dependencies: "[if applicable]"
 **Target:** <3k words (preferred), <5k words (maximum)
 
 **9. Validate Quality**
-Run through 25-item quality checklist (see Section below)
+Run through 26-item quality checklist (see Section below)
 
 **10. Test Skill**
 - Invoke skill with Claude Code
@@ -611,7 +642,7 @@ Run through 25-item quality checklist (see Section below)
 
 ---
 
-## QUALITY ASSURANCE CHECKLIST (25 ITEMS)
+## QUALITY ASSURANCE CHECKLIST (26 ITEMS)
 
 Before marking any skill as complete, verify ALL items:
 
@@ -634,19 +665,20 @@ Before marking any skill as complete, verify ALL items:
 - [ ] 14. Word count <3k (preferred) or <5k (maximum)
 - [ ] 15. No duplication with `reference` document content
 
-### Bundled Resources (7 items)
-- [ ] 16. Additional reference .md documents exists with relevant content
+### Bundled Resources (8 items)
+- [ ] 16. Additional reference .md documents exists with relevant content AT ROOT LEVEL (not in subdirectories)
 - [ ] 17. Large content (>500 words single topic) extracted to supplementary .md files in root skill directory
-- [ ] 18. scripts/ directory exists if skill mentions automation
+- [ ] 18. scripts/ directory exists if skill mentions automation (DIRECTLY at root level)
 - [ ] 19. Python modules in scripts/ are functional
-- [ ] 20. Relevant examples are contained in example_files/
-- [ ] 21. templates/ has template files (if applicable)
+- [ ] 20. Relevant examples are contained in example_inputs/ or example_geometries/ (DIRECTLY at root level, NOT in assets/)
+- [ ] 21. templates/ directory exists at ROOT level (NOT in assets/) with template files (if applicable)
 - [ ] 22. Each example has description/explanation
+- [ ] 23. **CRITICAL:** NO assets/ directory exists (ZERO TOLERANCE - auto-fail if present)
 
 ### Content Quality (3 items)
-- [ ] 23. ALL code examples are valid MCNP syntax
-- [ ] 24. Cross-references to other skills are accurate
-- [ ] 25. Documentation references are correct (file paths, sections)
+- [ ] 24. ALL code examples are valid MCNP syntax
+- [ ] 25. Cross-references to other skills are accurate
+- [ ] 26. Documentation references are correct (file paths, sections)
 
 **If any item fails:** Document issue and fix before proceeding to next skill.
 
@@ -940,7 +972,7 @@ I need guidance on skill structure per Anthropic standards
 
 8. **Quality Over Speed**
    - Better to do 5 skills excellently than 10 poorly
-   - Use full 25-item checklist for each skill
+   - Use full 26-item checklist for each skill
    - Don't skip validation steps
 
 9. **Communicate with User**
@@ -1010,14 +1042,16 @@ c:\Users\dman0\mcnp_projects\
 - ✅ Every skill has example files from `C:\Users\dman0\mcnp_projects\example_files`
 - ✅ Applicable skills have scripts/ with bundled Python modules
 - ✅ All SKILL.md files are <5k words (ideally <3k)
-- ✅ All 36 skills pass 25-item quality checklist
+- ✅ All 36 skills pass 26-item quality checklist
 - ✅ Integration map created showing skill connections
 - ✅ All testing complete and validated
+- ✅ NO skills contain assets/ subdirectory
 
 ### Per-Skill Complete When:
-- ✅ 25-item quality checklist passed (see QUALITY ASSURANCE CHECKLIST section above)
+- ✅ 26-item quality checklist passed (see QUALITY ASSURANCE CHECKLIST section above)
 - ✅ Tested with Claude Code invocation
 - ✅ Active phase status document updated
+- ✅ NO assets/ directory exists in skill
 
 ---
 
@@ -1069,7 +1103,7 @@ c:\Users\dman0\mcnp_projects\
 ### During Session
 3. ✅ Update phase status continuously (detailed requirements: lines 567-640)
 4. ✅ Follow MCNP format rules for ALL content (lines 160-268)
-5. ✅ Use 25-item quality checklist for each skill (lines 458-495)
+5. ✅ Use 26-item quality checklist for each skill (including NO assets/ check)
 
 ### Before Session End
 6. ✅ Reserve 15-20k tokens for handoff documentation

@@ -273,9 +273,9 @@ all_errors.extend(check_custom_rule(lines))
 ## Further Help
 
 - **Skill:** mcnp-input-builder - Complete input file creation guide
-- **Templates:** `../assets/templates/` - Template input files
-- **Examples:** `../assets/example_inputs/` - Real example files
-- **References:** `../references/` - Format specifications
+- **Templates:** `../templates/` - Template input files
+- **Examples:** `../example_inputs/` - Real example files
+- **References:** `../` - Format specifications
 
 ---
 

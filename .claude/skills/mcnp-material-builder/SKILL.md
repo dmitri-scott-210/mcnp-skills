@@ -172,7 +172,7 @@ M4   1001.80c  -0.01  6000.80c  -0.001  8016.80c  -0.529  &
 - Weight fractions for complex mixture (sums to -1.0)
 - Consider adding MT card for hydrogen if thermal neutrons important
 - Multiple lines with continuation for clarity
-- See assets/example_materials/04_shielding_materials.txt for variations
+- See ""example_materials/04_shielding_materials.txt for variations
 
 **Expected Results:** Accurate gamma and neutron attenuation for dose calculations
 
@@ -257,17 +257,17 @@ Result: Validated PWR pin cell input ready for simulation
 - Material error troubleshooting (10 errors): `material_error_catalog.md`
 
 **Templates and Examples:**
-- Water materials (H₂O, D₂O, hot water): `assets/templates/water_materials_template.i`
-- Fuel materials (UO₂, MOX, various enrichments): `assets/templates/fuel_materials_template.i`
-- Structural materials (steel, Zircaloy, concrete): `assets/templates/structural_materials_template.i`
-- Moderator materials (graphite, polyethylene, beryllium): `assets/templates/moderator_materials_template.i`
-- Template usage guide: `assets/templates/README.md`
-- PWR core materials: `assets/example_materials/01_pwr_core_materials.txt`
-- HTGR TRISO materials: `assets/example_materials/02_htgr_materials.txt`
-- Fast reactor materials: `assets/example_materials/03_fast_reactor_materials.txt`
-- Shielding materials: `assets/example_materials/04_shielding_materials.txt`
-- Research reactor materials: `assets/example_materials/05_research_reactor_materials.txt`
-- Criticality safety materials: `assets/example_materials/06_criticality_safety_materials.txt`
+- Water materials (H₂O, D₂O, hot water): `templates/water_materials_template.i`
+- Fuel materials (UO₂, MOX, various enrichments): `templates/fuel_materials_template.i`
+- Structural materials (steel, Zircaloy, concrete): `templates/structural_materials_template.i`
+- Moderator materials (graphite, polyethylene, beryllium): `templates/moderator_materials_template.i`
+- Template usage guide: `templates/README.md`
+- PWR core materials: `example_materials/01_pwr_core_materials.txt`
+- HTGR TRISO materials: `example_materials/02_htgr_materials.txt`
+- Fast reactor materials: `example_materials/03_fast_reactor_materials.txt`
+- Shielding materials: `example_materials/04_shielding_materials.txt`
+- Research reactor materials: `example_materials/05_research_reactor_materials.txt`
+- Criticality safety materials: `example_materials/06_criticality_safety_materials.txt`
 
 **Automation Tools:**
 - Material density calculator: `scripts/material_density_calculator.py`

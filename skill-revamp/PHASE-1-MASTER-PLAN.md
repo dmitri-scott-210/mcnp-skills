@@ -303,24 +303,24 @@ Read: .claude/skills/[skill-name]/SKILL.md
 ### Step 4: Create Skill Revamp Plan (1k tokens)
 **Document detailed checklist in STATUS:**
 
-**Content to extract to references/:**
+**Content to extract to root-level .md files:**
 - [ ] Card specifications (which cards, which sections from Ch 5)
 - [ ] Theory/background (if applicable)
 - [ ] Detailed examples (beyond 3-5 for SKILL.md)
 - [ ] Error patterns (common mistakes)
 
-**Examples to add to assets/:**
+**Examples to add to example_inputs/ (DIRECTLY at root):**
 - [ ] From basic_examples/: [list specific files]
 - [ ] From reactor-model_examples/: [list specific files]
 - [ ] From [other category]/: [list specific files]
 - [ ] Total: 5-10 examples covering basic → advanced
 
-**Scripts to create:**
+**Scripts to create in scripts/:**
 - [ ] [script name].py - [purpose]
 - [ ] [script name].sh - [purpose]
 - [ ] README.md explaining usage
 
-**Templates for assets/:**
+**Templates for templates/ (DIRECTLY at root):**
 - [ ] basic_template.i
 - [ ] intermediate_template.i (if applicable)
 
@@ -328,11 +328,11 @@ Read: .claude/skills/[skill-name]/SKILL.md
 - Current word count: [X words]
 - Target word count: <3k words (preferred) or <5k (max)
 - Sections to condense: [list]
-- Content to move to references/: [list]
+- Content to move to root-level .md files: [list]
 
 ### Step 5: Extract Content to Root Skill Directory (2k tokens)
 
-**CRITICAL: Reference `.md` files go at ROOT skill directory level (same as SKILL.md)**
+**🚨 CRITICAL: Reference `.md` files go at ROOT skill directory level (same as SKILL.md) - NO assets/ subdirectory! 🚨**
 
 **Correct structure:**
 ```bash
@@ -343,7 +343,8 @@ Read: .claude/skills/[skill-name]/SKILL.md
 ├── detailed_examples.md         ← Root level
 ├── error_catalog.md             ← Root level
 ├── scripts/                     ← Subdirectory for scripts
-└── assets/                      ← Subdirectory for examples
+├── templates/                   ← DIRECTLY at root (NOT in assets/)
+└── example_inputs/              ← DIRECTLY at root (NOT in assets/)
 ```
 
 **Create reference files at root level:**
@@ -384,8 +385,8 @@ Read: .claude/skills/[skill-name]/SKILL.md
 - ✅ Complete input files (.i, .inp) - EXACTLY 2 blank lines
 - ✅ Material library files (.txt, .dat) - ZERO blank lines within definitions
 - ✅ Code snippets in markdown (.md) - ZERO blank lines within code blocks
-- ✅ All templates in assets/templates/
-- ✅ All examples in assets/example_*/
+- ✅ All templates in templates/ (at root level)
+- ✅ All examples in example_inputs/ (at root level)
 - ✅ Python-generated MCNP content
 
 ### Pre-Write Verification Checklist
@@ -402,20 +403,25 @@ Read: .claude/skills/[skill-name]/SKILL.md
 
 ---
 
-### Step 6: Add Example Files to assets/ (1k tokens)
+### Step 6: Add Example Files to example_inputs/ at ROOT Level (1k tokens)
+
+**🚨 CRITICAL: Create example_inputs/ DIRECTLY at root - NO assets/ parent! 🚨**
 **Create directory structure:**
 ```bash
-.claude/skills/[skill-name]/assets/
-  ├── templates/
-  │   ├── basic_template.i
-  │   ├── intermediate_template.i (optional)
-  │   └── template_README.md
-  └── example_inputs/
-      ├── example_01_[descriptive-name].i
-      ├── example_01_description.txt
-      ├── example_02_[descriptive-name].i
-      ├── example_02_description.txt
-      └── [5-10 total examples]
+.claude/skills/[skill-name]/
+├── SKILL.md
+├── [reference].md files (at root)
+├── scripts/
+├── templates/                        ← DIRECTLY at root (NOT in assets/)
+│   ├── basic_template.i
+│   ├── intermediate_template.i (optional)
+│   └── template_README.md
+└── example_inputs/                   ← DIRECTLY at root (NOT in assets/)
+    ├── example_01_[descriptive-name].i
+    ├── example_01_description.txt
+    ├── example_02_[descriptive-name].i
+    ├── example_02_description.txt
+    └── [5-10 total examples]
 ```
 
 **Example selection criteria:**
@@ -619,8 +625,8 @@ Result: [Final output]
 - Error troubleshooting: See `references/error_catalog.md`
 
 **Templates and Examples:**
-- Input templates: See `assets/templates/`
-- Validated examples: See `assets/example_inputs/`
+- Input templates: See `templates/` (at root level)
+- Validated examples: See `example_inputs/` (at root level)
 
 **Automation Tools:**
 - Python scripts: See `scripts/README.md`
@@ -681,14 +687,15 @@ Run through complete checklist from CLAUDE-SESSION-REQUIREMENTS.md:
 - [ ] 17. Large content (>500 words single topic) extracted
 - [ ] 18. scripts/ directory exists if skill mentions automation
 - [ ] 19. Python modules in scripts/ are functional
-- [ ] 20. assets/ directory has relevant examples from example_files/
-- [ ] 21. assets/templates/ has template files (if applicable)
+- [ ] 20. example_inputs/ directory at ROOT level has relevant examples from example_files/
+- [ ] 21. templates/ directory at ROOT level has template files (if applicable)
 - [ ] 22. Each example has description/explanation
+- [ ] 23. **CRITICAL:** NO assets/ directory exists (ZERO TOLERANCE - auto-fail if present)
 
 **Content Quality (3 items):**
-- [ ] 23. All code examples are valid MCNP syntax
-- [ ] 24. Cross-references to other skills are accurate
-- [ ] 25. Documentation references are correct (paths, sections)
+- [ ] 24. All code examples are valid MCNP syntax
+- [ ] 25. Cross-references to other skills are accurate
+- [ ] 26. Documentation references are correct (paths, sections)
 
 **If any item fails:** Document in STATUS, fix before marking skill complete
 
@@ -700,9 +707,10 @@ Run through complete checklist from CLAUDE-SESSION-REQUIREMENTS.md:
 
 **Verify:**
 - Skill activates correctly
-- references/ files load when referenced
+- Reference .md files (at root) load when referenced
 - scripts/ execute without errors
-- assets/ examples are accessible
+- example_inputs/ examples are accessible (at root level)
+- NO assets/ directory exists
 - Integration links work
 
 **If issues found:** Document and fix before proceeding
@@ -715,7 +723,7 @@ Run through complete checklist from CLAUDE-SESSION-REQUIREMENTS.md:
 ### [N]. [skill-name] ✅
 - **Completed:** [Date/Session]
 - **Changes:** [3-5 bullets summarizing key changes]
-- **Structure:** references/[X files], scripts/[Y files], assets/[Z examples]
+- **Structure:** [X reference .md files at root], scripts/[Y files], templates/[Z templates], example_inputs/[N examples]
 - **Validation:** 25-item checklist passed
 - **Word count:** [X words] (<3k ✅ or <5k ✅)
 ```
@@ -942,7 +950,8 @@ Run through complete checklist from CLAUDE-SESSION-REQUIREMENTS.md:
 ### Per-Skill Success:
 - ✅ SKILL.md streamlined to <5k words (ideally <3k)
 - ✅ references/ created with extracted content
-- ✅ assets/ populated with 5-10 relevant examples
+- ✅ example_inputs/ (at root level) populated with 5-10 relevant examples
+- ✅ NO assets/ directory exists
 - ✅ scripts/ created if applicable
 - ✅ 25-item checklist passed
 - ✅ Tested with Claude Code

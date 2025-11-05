@@ -1,8 +1,8 @@
 # MCNP SKILLS REVAMP - LESSONS LEARNED
 
-**Version:** 1.3 (Added Lesson #15 - Working in Wrong Directory AGAIN)
+**Version:** 1.4 (Added Lesson #16 - assets/ Subdirectory Created Despite Explicit Prohibition)
 **Created:** 2025-11-03 (Session 11)
-**Updated:** 2025-11-04 (Session 13 - Added Lesson #15)
+**Updated:** 2025-11-05 (Session 19 - Added Lesson #16)
 **Purpose:** Institutional knowledge and accumulated wisdom from project execution
 
 ---
@@ -131,6 +131,50 @@
 - [ ] Next Claude can find and understand the requirement
 
 **Status:** ✅ Applied - Created enforcement documentation with checklists and verification
+
+---
+
+#### Lesson #16: assets/ Subdirectory Created Despite Explicit Prohibition (Session 18, 2025-11-05)
+**What happened:**
+- Previous Claude (Session 18) created mcnp-cell-checker skill with `assets/` subdirectory
+- `assets/` contained `example_inputs/` subdirectory
+- User explicitly stated: "NO assets/ directory should EVER exist in any skill"
+- This violated explicit project-specific structural requirements
+- User had to manually correct and provide feedback in Session 19
+
+**Why it was wrong:**
+- Violated explicit user requirement stated multiple times
+- Created unnecessary nesting (assets/example_inputs/ instead of example_inputs/)
+- Inconsistent with project structure requirements
+- Confuses future Claude sessions
+- User had to waste time correcting this in subsequent session
+- References in SKILL.md and scripts/README.md used incorrect paths (assets/example_inputs/)
+
+**Root cause:**
+- Documentation (CLAUDE-SESSION-REQUIREMENTS.md, SKILL-REVAMP-OVERVIEW.md) showed examples with assets/ subdirectory
+- Possibly influenced by Anthropic's general skill-creator standards which mention "assets" as optional
+- Didn't verify project-specific requirements vs general Anthropic standards
+- No explicit "DO NOT CREATE assets/" prohibition in docs until Session 19
+- Quality checklist didn't include "NO assets/ directory" as an item
+
+**How to prevent:**
+1. **ZERO TOLERANCE RULE:** NEVER create `assets/` subdirectory in ANY skill directory
+2. **Correct structure:** ALL subdirectories (templates/, example_inputs/, example_geometries/, scripts/) go DIRECTLY at root skill level
+3. **Quality checklist:** Added item #23: "NO assets/ directory exists (ZERO TOLERANCE - auto-fail if present)"
+4. **All docs updated:** CLAUDE-SESSION-REQUIREMENTS.md, SKILL-REVAMP-OVERVIEW.md, PHASE-1-MASTER-PLAN.md all explicitly prohibit assets/
+5. **Visual examples:** All structure diagrams show correct layout without assets/ parent directory
+6. **Before creating ANY skill subdirectory:** Verify it's being created at root level, NOT inside assets/
+
+**Verification:**
+- [ ] NO assets/ directory exists in skill being worked on
+- [ ] templates/ exists DIRECTLY at `.claude/skills/[skill-name]/` (root level)
+- [ ] example_inputs/ OR example_geometries/ exists DIRECTLY at root level
+- [ ] scripts/ exists DIRECTLY at root level
+- [ ] All reference .md files are DIRECTLY at root level (NOT in references/ subdirectory)
+- [ ] All file path references in SKILL.md point to root-level subdirectories (NOT assets/)
+- [ ] Quality checklist item #23 verified before marking skill complete
+
+**Status:** ✅ Applied - All documentation updated with explicit prohibition, mcnp-cell-checker corrected
 
 ---
 
@@ -832,34 +876,37 @@
 
 ## 📊 LESSONS LEARNED STATISTICS
 
-**Total Lessons:** 15
+**Total Lessons:** 16
 **By Category:**
 - Session Startup: 2 (Lessons #1, #10)
-- Planning: 3 (Lessons #2, #3, #8)
-- MCNP Format: 6 (Lessons #4, #5, #6, #9, #11, #14) ← MOST COMMON ERROR TYPE (REPEATED VIOLATIONS - 40% OF ALL LESSONS)
-- Project Management: 2 (Lessons #7, #15) ← Includes directory management
+- Planning and Structure: 4 (Lessons #2, #3, #8, #16) ← Includes directory/structure violations
+- MCNP Format: 6 (Lessons #4, #5, #6, #9, #11, #14) ← MOST COMMON ERROR TYPE (REPEATED VIOLATIONS - 37.5% OF ALL LESSONS)
+- Project Management: 2 (Lessons #7, #15) ← Includes working directory management
 - Quality Control: 1 (Lesson #8 - ongoing)
 - Context and Knowledge Management: 2 (Lessons #12, #13) ← FUNDAMENTAL REQUIREMENTS
 
 **Most Critical (Cannot Violate):**
-1. **Lesson #15: Working in correct directory** ← REPEATED FAILURE Session 12→13 (Session 13)
-2. **Lesson #14: MUST use completed skills before creating MCNP files** ← FIFTH FORMAT VIOLATION (Session 11)
-3. **Lesson #13: Document deprecation requires line-by-line verification** ← SAFETY-CRITICAL (Session 11)
-4. **Lesson #12: Documentation must be in YOUR context before gap analysis** ← FUNDAMENTAL REQUIREMENT
-5. **Lesson #11: MCNP format applies to ALL content types** ← MOST VIOLATED (4 incidents)
-6. **Lesson #9: NO blank lines between materials (first occurrence)**
-7. **Lesson #4: EXACTLY 2 blank lines total in MCNP files**
-8. **Lesson #1: Read mandatory startup documents**
-9. **Lesson #10: Read phase master plans**
-10. Lesson #5: RHP/HEX specification accuracy
-11. Lesson #3: Enforce commitments with documentation
+1. **Lesson #16: NO assets/ subdirectory - ZERO TOLERANCE** ← NEW (Session 18, corrected Session 19)
+2. **Lesson #15: Working in correct directory** ← REPEATED FAILURE Session 12→13 (Session 13)
+3. **Lesson #14: MUST use completed skills before creating MCNP files** ← FIFTH FORMAT VIOLATION (Session 11)
+4. **Lesson #13: Document deprecation requires line-by-line verification** ← SAFETY-CRITICAL (Session 11)
+5. **Lesson #12: Documentation must be in YOUR context before gap analysis** ← FUNDAMENTAL REQUIREMENT
+6. **Lesson #11: MCNP format applies to ALL content types** ← MOST VIOLATED (4 incidents)
+7. **Lesson #9: NO blank lines between materials (first occurrence)**
+8. **Lesson #4: EXACTLY 2 blank lines total in MCNP files**
+9. **Lesson #1: Read mandatory startup documents**
+10. **Lesson #10: Read phase master plans**
+11. Lesson #5: RHP/HEX specification accuracy
+12. Lesson #3: Enforce commitments with documentation
 
-**⚠️⚠️ REPEATED FAILURES: 2 categories with multiple incidents**
-- FORMAT VIOLATIONS: 6 lessons, 5+ separate incidents (40% of all lessons)
-- DIRECTORY ERRORS: 2 consecutive sessions (Sessions 12, 13)
+**⚠️⚠️ REPEATED FAILURES: 3 categories with multiple incidents**
+- FORMAT VIOLATIONS: 6 lessons, 5+ separate incidents (37.5% of all lessons)
+- DIRECTORY ERRORS: 3 total (wrong working directory Sessions 12, 13; assets/ subdirectory Session 18)
+- STRUCTURE VIOLATIONS: 1 lesson (assets/ subdirectory - Session 18, corrected Session 19)
 
 **Sessions With Lessons:**
-- Session 18: 0 major lessons (directory structure corrected same-session per user feedback - no violations)
+- Session 19: 1 lesson (assets/ subdirectory prohibition - correcting Session 18 error)
+- Session 18: 1 lesson retrospectively identified (created assets/ subdirectory - violated user requirement)
 - Session 17: 0 major lessons (successful execution of 5 skills with proper structure)
 - Session 16: 0 major lessons (successful execution of mcnp-lattice-builder)
 - Session 13: 1 lesson (wrong directory AGAIN - repeated from Session 12)
@@ -871,11 +918,14 @@
 - Ongoing: 1 protocol (update this file)
 
 **⚠️⚠️⚠️ CRITICAL PATTERNS IDENTIFIED:**
-- **NEW:** Wrong directory errors in 2 consecutive sessions (12, 13) - SYSTEMATIC FAILURE to remember working location
+- **NEW:** assets/ subdirectory created despite user prohibition (Session 18) - Documentation did not explicitly prohibit until Session 19
+- Wrong directory errors in 2 consecutive sessions (12, 13) - SYSTEMATIC FAILURE to remember working location
 - MCNP format violations across 5 sessions (6-7, 9, 10, 11) - SYSTEMATIC FAILURE to apply learning
 - Blank line errors: 4 lessons covering 5+ individual violations
-- MCNP format errors: 40% of all documented mistakes (6 of 15 lessons)
+- MCNP format errors: 37.5% of all documented mistakes (6 of 16 lessons)
+- **Structure/directory errors: 3 total (working dir Session 12, 13; assets/ subdirectory Session 18)**
 - **Repeated failures indicate requirements are not being internalized between sessions**
+- **Documentation gaps can lead to violations - must be EXTREMELY explicit**
 
 ---
 

@@ -254,9 +254,9 @@ mcnp-cell-checker       → Cell parameter optimization
 - `scripts/README.md` - Complete usage documentation
 
 **Example Files:**
-- `assets/example_inputs/01-04_*_INVALID.i` - Common error examples
-- `assets/example_inputs/01-04_*_FIXED.i` - Corrected versions
-- `assets/example_inputs/*_description.txt` - Error explanations
+- `example_inputs/01-04_*_INVALID.i` - Common error examples
+- `example_inputs/01-04_*_FIXED.i` - Corrected versions
+- `example_inputs/*_description.txt` - Error explanations
 
 **External Documentation:**
 - MCNP6 Manual Chapter 4: Input File Format

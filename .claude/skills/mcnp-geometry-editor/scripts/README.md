@@ -271,8 +271,8 @@ Planned additions:
 
 - MCNP6 Manual Chapter 5: Geometry Specification
 - mcnp-geometry-builder skill documentation
-- transformation_specifications.md (in references/)
-- surface_editing_guide.md (in references/)
+- transformation_specifications.md (in )
+- surface_editing_guide.md (in )
 
 ---
 

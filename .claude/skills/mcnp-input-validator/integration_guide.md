@@ -59,7 +59,7 @@ This guide explains how mcnp-input-validator integrates with other MCNP skills a
 **How validator uses input-builder:**
 ```python
 # Validator references input-builder templates
-template = read_template('mcnp-input-builder/assets/templates/basic_template.i')
+template = read_template('mcnp-input-builder/templates/basic_template.i')
 expected_structure = parse_structure(template)
 
 # Compare user input to standard structure
@@ -69,7 +69,7 @@ if user_structure != expected_structure:
 
 **Reference files used:**
 - `mcnp-input-builder/input_structure_reference.md`
-- `mcnp-input-builder/assets/templates/*.i`
+- `mcnp-input-builder/templates/*.i`
 
 ---
 

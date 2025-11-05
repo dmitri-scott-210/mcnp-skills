@@ -226,7 +226,7 @@ Before using modified template:
 
 ## Additional Resources
 
-**Reference Documentation (in ../references/):**
+**Reference Documentation (in ../):**
 - `surface_types_comprehensive.md` - All surface types and equations
 - `macrobodies_reference.md` - Macrobody specifications (BOX, RPP, RCC, RHP, etc.)
 - `cell_definition_comprehensive.md` - Cell card format and Boolean operations

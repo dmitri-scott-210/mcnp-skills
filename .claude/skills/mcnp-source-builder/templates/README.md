@@ -279,9 +279,9 @@ python ../scripts/source_validator.py my_problem.i
 ## 📚 References
 
 - MCNP Manual Chapter 5.08: Source Data Cards
-- `../references/source_distribution_reference.md` - Complete SI/SP options
-- `../references/advanced_source_topics.md` - DS, TR, CCC, spontaneous fission
-- `../references/source_error_catalog.md` - Common mistakes
+- `../source_distribution_reference.md` - Complete SI/SP options
+- `../advanced_source_topics.md` - DS, TR, CCC, spontaneous fission
+- `../source_error_catalog.md` - Common mistakes
 
 ---
 
