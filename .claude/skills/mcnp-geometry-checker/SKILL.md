@@ -1,638 +1,291 @@
 ---
-name: "MCNP Geometry Checker"
+name: mcnp-geometry-checker
 description: "Validates MCNP geometry definitions for overlaps, gaps, Boolean errors, and surface issues. Use when analyzing geometry or debugging lost particles."
-version: "1.0.0"
-dependencies: "python>=3.8"
+version: "2.0.0"
+dependencies: "python>=3.8, mcnp-input-validator, mcnp-cross-reference-checker"
 ---
 
 # MCNP Geometry Checker
 
 ## Overview
 
-Geometry errors are the most common MCNP problem. This skill helps users find and fix:
-- Overlapping cells (multiple cells claim same space)
-- Gaps between cells (space belongs to no cell)
-- Incorrect Boolean operators (precedence errors, excessive # usage)
-- Surface definition errors (wrong sense, undefined surfaces)
-- Lost particle issues (particles escape valid geometry)
+Geometry errors are the most common cause of MCNP simulation failures. This skill validates geometry definitions for overlaps (multiple cells claiming the same space), gaps (space belonging to no cell), incorrect Boolean operators, surface definition errors, and lost particle issues. These problems cause "bad trouble" errors, incorrect physics, or wasted compute time.
 
-Use this skill when users report lost particles, want to verify geometry before running, or need help with geometry plotting and visualization.
+Proper geometry validation prevents lost particles, ensures physical correctness, and saves debugging time. MCNP's geometry plotter and VOID card test are essential tools for verification. This skill provides systematic checking procedures, automated validation scripts, and debugging workflows for complex geometries including lattices and repeated structures.
 
-## Workflow Decision Tree
+Use this skill after geometry modifications, before production runs, when debugging lost particles, or when setting up complex multi-region models. It integrates with MCNP's plotting tools and provides interpretation of geometry error messages.
 
-### When to Invoke
-- User mentions "lost particles" or geometry errors
-- Before production runs (proactive checking)
-- After geometry modifications
-- When setting up complex geometries
-- User asks about geometry plotting
+## When to Use This Skill
 
-### Validation Approach
+- Getting "lost particle" errors or "bad trouble" messages from MCNP
+- After modifying geometry (adding/deleting cells or surfaces)
+- Before production runs (proactive geometry validation)
+- Setting up complex geometries (lattices, nested structures)
+- Need help with geometry plotting and visualization
+- Interpreting dashed lines in MCNP plots
+- VOID card test setup and interpretation
+- Debugging overlapping cell issues
 
-**Quick Syntax Check:**
-- Verify surfaces referenced in cells exist
-- Check for unused surfaces
-- Basic Boolean expression validation
-→ Fast preliminary check
+## Decision Tree
 
-**Comprehensive Geometry Validation** (recommended):
-- All syntax checks
-- Generate plotting commands
-- Create VOID test setup
-- Analyze Boolean operators
-→ Use before production runs
-
-**Lost Particle Debugging:**
-- Parse lost particle event log from output
-- Plot geometry at lost particle location
-- Identify probable cause
-→ Use when particles already getting lost
-
-**Visualization Assistance:**
-- Generate plot commands for multiple views
-- Explain what dashed lines mean
-- Help interpret geometry plots
-→ Use when user needs plotting help
-
-## Tool Invocation
-
-This skill includes a Python implementation for automated geometry validation and analysis.
-
-### Importing the Tool
-
-```python
-from mcnp_geometry_checker import MCNPGeometryChecker
-
-# Initialize the checker
-checker = MCNPGeometryChecker()
+```
+User has geometry problem
+      ↓
+What type of check needed?
+      ├─→ [Quick Syntax Check]
+      │   └─→ Verify surfaces exist, basic Boolean validation
+      │       └─→ Issues found? → Fix syntax errors first
+      │
+      ├─→ [Comprehensive Validation]
+      │   └─→ Generate VOID test, plot commands, analyze Boolean
+      │       └─→ Run VOID test:
+      │           ├─→ Non-zero result → Overlaps exist (FATAL)
+      │           └─→ Zero result → No overlaps (OK)
+      │
+      ├─→ [Lost Particle Debugging]
+      │   └─→ Parse lost particle event from output
+      │       └─→ Plot geometry at lost particle location
+      │           └─→ Identify: Gap? Overlap? Boolean error?
+      │
+      └─→ [Visualization Help]
+          └─→ Generate plot commands for multiple views
+              └─→ Interpret dashed lines, cell colors
 ```
 
-### Basic Usage
+## Quick Reference
 
-**Check Geometry for Issues**:
-```python
-# Run geometry analysis
-issues = checker.check_geometry('path/to/input.inp')
+### Geometry Error Types
 
-# Review all issues
-for issue in issues:
-    issue_type = issue['type']  # 'error', 'warning', 'info', 'recommendation'
-    message = issue['message']
-    print(f"[{issue_type.upper()}] {message}")
+| Error Type | Symptom | Cause | Severity |
+|------------|---------|-------|----------|
+| Overlap | VOID test non-zero | Multiple cells claim space | FATAL |
+| Gap | Lost particles | Space belongs to no cell | FATAL |
+| Boolean Error | Wrong regions | Operator precedence wrong | FATAL |
+| Surface Sense | Cell in wrong half-space | Wrong +/- sign | FATAL |
+| Lost Particle | "lost particle" message | Gap or bad surface | FATAL |
+
+### MCNP Geometry Tools
+
+| Tool | Command | Purpose |
+|------|---------|---------|
+| Plot Mode | `mcnp6 ip i=file.inp` | Interactive geometry plotting |
+| VOID Test | Add `VOID` card | Detects overlapping cells |
+| Lost Particle Log | Check output file | Find where particles lost |
+| Cross Section | `plot basis=xy` | View XY cross-section |
+
+### Validation Workflow
+
+```
+1. mcnp-input-validator     → Syntax check
+2. mcnp-cross-reference-checker → References valid
+3. mcnp-geometry-checker    → Geometry valid (THIS SKILL)
+4. VOID test                → Overlap detection
+5. Geometry plotting        → Visual verification
 ```
 
-**Categorize Issues by Severity**:
-```python
-# Analyze geometry
-issues = checker.check_geometry('reactor.inp')
+## Use Cases
 
-# Group by type
-errors = [i for i in issues if i['type'] == 'error']
-warnings = [i for i in issues if i['type'] == 'warning']
-recommendations = [i for i in issues if i['type'] == 'recommendation']
+### Use Case 1: VOID Card Test for Overlaps
 
-print(f"❌ Errors: {len(errors)}")
-for err in errors:
-    print(f"  - {err['message']}")
+**Scenario:** Need to verify no overlapping cells before production run.
 
-print(f"\n⚠ Warnings: {len(warnings)}")
-for warn in warnings:
-    print(f"  - {warn['message']}")
+**Goal:** Use VOID card to detect any overlaps in geometry.
 
-print(f"\n💡 Recommendations: {len(recommendations)}")
-for rec in recommendations:
-    print(f"  - {rec['message']}")
+**Implementation:**
 ```
+Step 1: Add VOID card to input file
 
-**Generate Plotting Commands**:
-```python
-# Check geometry and generate visualization commands
-checker = MCNPGeometryChecker()
-issues = checker.check_geometry('input.inp')
-
-# Get recommended plot commands
-plot_cmds = checker.generate_plot_commands()
-
-print("Recommended geometry plots:")
-for cmd in plot_cmds:
-    print(f"  {cmd}")
-
-# Output:
-# plot origin=0 0 0 basis=xy extent=50 50  (top view)
-# plot origin=0 0 0 basis=xz extent=50 50  (side view)
-# plot origin=0 0 0 basis=yz extent=50 50  (front view)
-```
-
-**Generate VOID Test Input**:
-```python
-# Create VOID card test setup
-checker = MCNPGeometryChecker()
-void_test = checker.generate_void_test_input()
-
-print(void_test)
-# Outputs complete VOID test instructions
-```
-
-### Integration with MCNP Workflow
-
-```python
-from mcnp_geometry_checker import MCNPGeometryChecker
-
-def validate_geometry(input_file):
-    """Complete geometry validation workflow"""
-    print(f"Checking geometry for: {input_file}")
-    print("=" * 60)
-
-    checker = MCNPGeometryChecker()
-    issues = checker.check_geometry(input_file)
-
-    # Separate issues by type
-    errors = [i for i in issues if i['type'] == 'error']
-    warnings = [i for i in issues if i['type'] == 'warning']
-    infos = [i for i in issues if i['type'] == 'info']
-    recommendations = [i for i in issues if i['type'] == 'recommendation']
-
-    # Report errors
-    if errors:
-        print("\n❌ GEOMETRY ERRORS (must fix):")
-        for i, err in enumerate(errors, 1):
-            print(f"  {i}. {err['message']}")
-
-    # Report warnings
-    if warnings:
-        print("\n⚠ WARNINGS (should review):")
-        for warn in warnings:
-            print(f"  • {warn['message']}")
-
-    # Report info
-    if infos:
-        print("\n📝 INFO:")
-        for info in infos:
-            print(f"  • {info['message']}")
-
-    # Generate visualization commands
-    print("\n📊 RECOMMENDED PLOTTING COMMANDS:")
-    plot_cmds = checker.generate_plot_commands()
-    print("  mcnp6 ip i=" + input_file)
-    print("  Then in plotter:")
-    for cmd in plot_cmds:
-        print(f"    {cmd}")
-
-    # Provide VOID test
-    print("\n🧪 VOID CARD TEST (recommended):")
-    void_test = checker.generate_void_test_input()
-    print(void_test)
-
-    # Provide recommendations
-    if recommendations:
-        print("\n💡 GEOMETRY CHECKING RECOMMENDATIONS:")
-        for rec in recommendations:
-            print(f"  • {rec['message']}")
-
-    print("\n" + "=" * 60)
-
-    # Return validation status
-    return len(errors) == 0
-
-# Example usage
-if __name__ == "__main__":
-    import sys
-    input_file = sys.argv[1] if len(sys.argv) > 1 else "input.inp"
-
-    if validate_geometry(input_file):
-        print("\n✓ Geometry syntax checks passed")
-        print("⚠ IMPORTANT: Always plot geometry and run VOID test!")
-    else:
-        print("\n✗ Geometry errors found - fix before running")
-```
-
----
-
-## Geometry Validation Procedure
-
-### Step 1: Understand User's Geometry
-Ask clarifying questions:
-- "What type of geometry? (simple sphere, reactor, complex CAD import?)"
-- "Are you getting lost particles, or just want to verify?"
-- "Have you plotted the geometry yet?"
-- "Any specific regions you're concerned about?"
-
-### Step 2: Read Reference Materials
-**MANDATORY - READ ENTIRE FILE**: Read `.claude/commands/mcnp-geometry-checker.md` for:
-- Complete geometry checking procedures
-- Boolean operator rules and precedence
-- VOID card testing methodology
-- Lost particle debugging techniques
-
-### Step 3: Run Geometry Analysis
-
-Use the Python checker (see **Tool Invocation** section above for detailed usage):
-
-```python
-from mcnp_geometry_checker import MCNPGeometryChecker
-
-checker = MCNPGeometryChecker()
-issues = checker.check_geometry('input.inp')
-
-# Issues structure: list of dicts with 'type' and 'message'
-# types: 'error', 'warning', 'info', 'recommendation'
-
-# Generate plotting commands
-plot_cmds = checker.generate_plot_commands()
-
-# Generate VOID test input
-void_test = checker.generate_void_test_input()
-```
-
-### Step 4: Report Findings Clearly
-
-Group by severity:
-1. **ERRORS** - Will cause problems
-2. **WARNINGS** - Should review
-3. **RECOMMENDATIONS** - Essential practices
-
-### Step 5: Help Fix Geometry
-
-For each issue:
-- Explain the problem clearly
-- Show how to visualize it (plotting)
-- Provide fix with example
-- Verify fix resolves issue
-
-## Common Geometry Errors
-
-### Boolean Operator Errors (Chapter 4)
-
-**Precedence** (highest to lowest):
-1. **# (complement)** - NOT operation
-2. **space (intersection)** - AND operation
-3. **: (union)** - OR operation
-
-**Example confusion:**
-```
--1 2 : 3 4    ← means: (-1 AND 2) OR (3 AND 4)
-NOT: -1 AND (2 OR 3) AND 4
-
-Use parentheses for clarity:
--1 (2:3) 4    ← means: -1 AND (2 OR 3) AND 4
-```
-
-**Excessive complement operator (#):**
-```
-Cell defined as: #1 #2 #3 #4 #5
-
-Problem: Very complex, hard to debug
-Better: Use explicit surface definitions
-```
-
-### Surface Sense Errors
-
-**Surface sense (+/-):**
-- **-N** = inside surface N (negative sense)
-- **+N** = outside surface N (positive sense)
-
-**Common mistake:**
-```
-1 SO 10    ← Sphere radius 10 centered at origin
-
-Cell 1 0  -1   ← INSIDE sphere (correct for sphere)
-Cell 2 0   1   ← OUTSIDE sphere
-
-User often confuses signs!
-```
-
-### Overlapping Cells
-
-**Problem:** Two cells both claim same space
-```
-Cell 1: -1        ← Inside sphere 1
-Cell 2: -2        ← Inside sphere 2
-
-If spheres overlap → GEOMETRY ERROR
-```
-
-**Detection:** Particles get lost at overlap boundary
-
-**Fix:**
-- Make cells mutually exclusive: `-1 2` (inside 1, outside 2)
-- Or use cell complement: `#1 -2` (not in cell 1, inside 2)
-
-### Gaps in Geometry
-
-**Problem:** Space belongs to no cell
-```
-Cell 1: -1        ← Inside sphere r=5
-Cell 2:  1 -2     ← Between sphere 1 and 2 (r=5 to r=10)
-Cell 3:  2        ← Outside sphere 2 (r>10)
-
-No gap if spheres share boundary at r=5 and r=10
-Gap exists if spheres don't touch!
-```
-
-**Detection:** Particles get lost in gap
-
-**Fix:**
-- Ensure cells form complete partitioning of space
-- Use VOID card test to flood geometry
-
-## Geometry Plotting (Chapter 6)
-
-### Interactive Plotting
-
-**Command:**
-```bash
-mcnp6 ip i=input.inp
-```
-
-**Basic plot commands:**
-```
-# Three orthogonal views
-plot origin=0 0 0 basis=xy extent=50 50  # Top view
-plot origin=0 0 0 basis=xz extent=50 50  # Side view  
-plot origin=0 0 0 basis=yz extent=50 50  # Front view
-
-# Control options
-plot label=1        # Show cell numbers
-plot color=off      # Wire frame (clearer for errors)
-plot scales=0.5     # Zoom in (2x)
-plot scales=2.0     # Zoom out (0.5x)
-```
-
-### Interpreting Plots
-
-**Dashed lines indicate:**
-- ❌ Geometry error (overlap or gap)
-- Plot plane coincides with geometry plane
-- Cookie-cutter cells present
-- DXTRAN spheres present
-
-**Solid lines indicate:**
-- ✓ Correct geometry (one cell each side)
-
-**If you see dashed lines:**
-1. Note location of dashed line
-2. Zoom in to that region
-3. Turn color off for clarity
-4. Identify which cells/surfaces involved
-5. Fix the geometry error
-
-## VOID Card Testing (Chapter 3.2.8)
-
-### Purpose
-Flood geometry with particles to quickly find overlaps/gaps without physics calculations.
-
-### Procedure
-
-**1. Modify input file:**
-```
-c Add to data block:
+Add to Data Cards block:
 VOID
+
+Step 2: Run MCNP with minimal histories
+NPS 1000   $ Quick test
+
+Step 3: Check output for VOID result
+Search output for: "void"
+
+Result interpretation:
+- VOID = 0.00000E+00 → NO overlaps (PASS) ✓
+- VOID ≠ 0 → Overlaps exist (FAIL) ✗
+
+Step 4: If overlaps found:
+- Identify overlapping cells from output
+- Plot geometry in overlap region
+- Fix Boolean expressions or surface definitions
 ```
 
-**2. Create surface source:**
+**Key Points:**
+- VOID test is most reliable overlap detector
+- Always run before production (saves compute time)
+- Non-zero VOID means physics is WRONG (results invalid)
+- See geometry_validation_procedures.md for complete workflow
+
+### Use Case 2: Lost Particle Debugging
+
+**Scenario:** MCNP output shows "lost particle" errors.
+
+**Goal:** Find where particles are lost and fix the geometry gap.
+
+**Implementation:**
 ```
-c Add large sphere around geometry
-999 SO 1000    ← Surface card
+Step 1: Extract lost particle info from output
 
-c Split outside world
-997 0  998 -999    ← Space between geometry and sphere
-998 0  999         ← Outside new sphere (IMP=0)
+From MCNP output:
+lost particle at x=10.5 y=2.3 z=15.8
+  in cell 0 (void)
+  surface 25
 
-c Modify original outside world cell to be inside 999
+Step 2: Plot geometry at lost particle location
 
-c Add inward-directed source
-SDEF SUR=999 NRM=-1
-NPS 1000000
-```
-
-**3. Run short test:**
-```bash
-mcnp6 i=input_void.inp
-```
-
-**4. Check for lost particles:**
-- No lost particles = geometry likely OK
-- Lost particles = geometry errors exist at loss locations
-
-**5. Remove VOID card** after geometry verified
-
-## Lost Particle Debugging
-
-### When Particles Get Lost
-
-MCNP automatically:
-1. Reruns history with event logging ON
-2. Shows all surface crossings
-3. Prints position/direction at loss
-
-### Debugging Procedure
-
-**1. Find lost particle info in output:**
-```
- particle 12345 got lost at:
-   x=1.23 y=4.56 z=7.89
-   u=0.1 v=0.2 w=0.97
-   energy=2.5 MeV
-```
-
-**2. Plot geometry at that location:**
-```bash
 mcnp6 ip i=input.inp
+plot origin=10.5 2.3 15.8 extent=5 5 basis=xy
 
-# In plotter:
-plot origin=1.23 4.56 7.89 basis=xy extent=10 10
-plot color=off    # See structure clearly
+Step 3: Identify the problem
+- Dashed line → Gap between cells
+- Multiple cell colors at point → Overlap
+- No cell at location → Geometry incomplete
+
+Step 4: Fix geometry
+- Gap → Extend cell or add new cell
+- Overlap → Fix Boolean operators
+- Incomplete → Add missing cells
 ```
 
-**3. Look for:**
-- Dashed lines near particle location
-- Gaps between cells
-- Overlapping cell boundaries
-- Surface definition errors
+**Key Points:**
+- Lost particles indicate gaps in geometry (space with no cell)
+- Plot at exact lost particle coordinates
+- Dashed lines in plot show gaps/undefined regions
+- See lost_particle_debugging.md for systematic procedure
 
-**4. Common causes:**
-- Cells don't form closed volumes
-- Boolean operator precedence wrong
-- Surface sense backwards (+/- swapped)
-- Numerical precision issues (surfaces nearly coincident)
+### Use Case 3: Multi-View Geometry Plotting
 
-### Event Log Analysis
+**Scenario:** Complex 3D geometry, need to verify from multiple angles.
 
-**Event log shows:**
+**Goal:** Generate plots from XY, XZ, and YZ views to fully visualize.
+
+**Implementation:**
+```bash
+# Launch MCNP plotter
+mcnp6 ip i=reactor.inp
+
+# In plotter, use these commands:
+plot origin=0 0 0 basis=xy extent=50 50    # Top view (Z-axis out)
+plot origin=0 0 0 basis=xz extent=50 50    # Side view (Y-axis out)
+plot origin=0 0 0 basis=yz extent=50 50    # Front view (X-axis out)
+
+# Interpret plot:
+- Solid lines → Cell boundaries (surfaces)
+- Dashed lines → Gaps or undefined regions
+- Different colors → Different cells
+- White/void → No cell defined
 ```
-event   cell  surf  type
-  1      10    15    3
-  2      12    15   -3
-  3      12    20    2
-lost at cell 12, surface 20
-```
 
-**Interpret:**
-- Type 3/-3 = entering/exiting surface
-- Lost at surface 20 in cell 12
-- Check geometry definition of cell 12 near surface 20
-
-## Geometry Building Best Practices (§3.4.1)
-
-### Prevention is Best Medicine
-
-**Before creating geometry:**
-1. ✓ Draw geometry on paper first
-2. ✓ Start simple, add complexity incrementally
-3. ✓ Use simplest possible surfaces (RPP, SPH, RCC)
-4. ✓ Avoid excessive # operator
-5. ✓ Test each addition before continuing
-
-**While building:**
-1. ✓ Plot after each major addition
-2. ✓ Use simple cell definitions
-3. ✓ Break complex cells into multiple simple cells
-4. ✓ Add comments explaining geometry logic
-
-**Before production run:**
-1. ✓ Plot from 3 orthogonal views MINIMUM
-2. ✓ Run VOID card test
-3. ✓ Pre-calculate volumes, compare with VOL card
-4. ✓ Short test run (10k histories) to catch any remaining errors
+**Key Points:**
+- View from 3 orthogonal directions (XY, XZ, YZ)
+- Adjust origin to center of interest region
+- Extent controls plot size (cm)
+- See plotting_guide.md for advanced visualization
 
 ## Integration with Other Skills
 
-**Related skills:**
-- **mcnp-input-validator**: Overall syntax validation (use first)
-- **mcnp-geometry-builder**: Help create geometry correctly from start
-- **mcnp-plotter**: Advanced visualization and plotting
-- **mcnp-best-practices-checker**: Comprehensive problem setup review
+**Typical Validation Pipeline:**
+1. **mcnp-input-validator** → Basic syntax
+2. **mcnp-cross-reference-checker** → References valid
+3. **mcnp-geometry-checker** (THIS SKILL) → Geometry validated
+4. **mcnp-physics-validator** → Physics settings
 
-**Workflow:**
-1. Run mcnp-input-validator (basic checks)
-2. Run mcnp-geometry-checker (detailed geometry)
-3. Plot geometry interactively
-4. Fix any issues
-5. Run VOID test
-6. Proceed to production
+**Complementary Skills:**
+- **mcnp-geometry-builder:** Create correct geometry from start
+- **mcnp-input-validator:** Pre-geometry validation
+- **mcnp-fatal-error-debugger:** Interpret geometry error messages
 
-## Example Geometry Check Workflow
-
+**Workflow Example:**
 ```
-User: "I'm getting lost particles in my reactor model"
+Project: Shield geometry modification
 
-Claude: I'll help debug your geometry errors. Let me analyze your input file.
-
-[Reads .claude/commands/mcnp-geometry-checker.md]
-[Uses MCNPGeometryChecker]
-
-**Geometry Analysis Results:**
-
-ERRORS:
-❌ Cell 15: Excessive use of complement operator (#)
-   Geometry: #10 #11 #12 #13 #14
-   Problem: Very complex, difficult to verify
-   Fix: Redefine using explicit surfaces instead of complements
-   Reference: §3.4.1 item #6
-
-WARNINGS:
-⚠ Surface 42 defined but never used
-   Issue: May indicate incomplete cell definitions
-   Action: Verify surface 42 should be used, or remove it
-
-**Lost Particle Debugging:**
-
-From your output file, particles lost at:
-- Position: x=15.3, y=20.1, z=5.8
-- Cell: 15
-- Surface: 50
-
-**Recommended Actions:**
-
-1. **Plot geometry at loss location:**
-   ```bash
-   mcnp6 ip i=reactor.inp
-   
-   # In plotter:
-   plot origin=15.3 20.1 5.8 basis=xy extent=20 20
-   plot color=off
-   plot label=1
-   ```
-   Look for dashed lines near the loss point.
-
-2. **Simplify cell 15 geometry:**
-   Current: #10 #11 #12 #13 #14
-   Suggest: Define explicitly with surfaces
-   
-   Example fix:
-   ```
-   c Define bounding box for cell 15
-   105 PX 10
-   106 PX 20
-   107 PY 15
-   108 PY 25
-   109 PZ 0
-   110 PZ 10
-   
-   c Redefine cell 15
-   15 5 -2.7  105 -106 107 -108 109 -110
-   ```
-
-3. **Run VOID test:**
-   [Generates VOID test setup]
-   
-   This will quickly identify all geometry errors.
-
-4. **After fixes, verify:**
-   - Replot geometry from 3 views
-   - Run short test (10k particles)
-   - Check for any remaining lost particles
-
-Would you like me to:
-1. Help fix the cell 15 geometry definition?
-2. Generate complete VOID test input?
-3. Create plotting script for all suspect regions?
+Step 1: Modify geometry (add shield layers)
+Step 2: mcnp-cross-reference-checker → Verify references
+Step 3: mcnp-geometry-checker → Run VOID test
+Step 4: Plot geometry (verify visually)
+Step 5: Run MCNP (if VOID=0)
+Result: Validated geometry ready for simulation
 ```
-
-## Important Principles
-
-1. **ALWAYS plot before running** - Catches 90% of geometry errors
-2. **Dashed lines = problems** - Don't ignore them
-3. **VOID testing is essential** - Fast way to verify geometry
-4. **Simple is better** - Complex geometry = complex debugging
-5. **Incremental building** - Test each addition before continuing
-6. **Event logs are your friend** - Show exact path to error
-
-## Code Style
-
-When using geometry checker:
-- Generate multiple plot commands (3 views minimum)
-- Provide specific fixes, not just "fix geometry"
-- Show VOID test setup completely
-- Explain Boolean operators clearly
-- Reference manual sections for learning
-
-## Dependencies
-
-Required components:
-- Python module: `skills/validation/mcnp_geometry_checker.py`
-- Geometry evaluator: `utils/geometry_evaluator.py`
-- Input parser: `parsers/input_parser.py`
-- Reference: `.claude/commands/mcnp-geometry-checker.md`
 
 ## References
 
-**Primary References:**
-- `.claude/commands/mcnp-geometry-checker.md` - Detailed procedures
-- `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Surface types, Boolean operators
-- Chapter 3.2.8: VOID card testing and geometry checking
-- Chapter 3.4.1: Problem setup (items 1-7 on geometry)
-- Chapter 4.8: Geometry errors and detection
-- Chapter 6: Plotting geometry
+**Detailed Procedures:**
+- **geometry_validation_procedures.md** - Complete validation workflows
+- **lost_particle_debugging.md** - Systematic debugging procedures
+- **plotting_guide.md** - Geometry visualization techniques
 
-**Key Sections:**
-- §5.2: Cell cards (geometry specification)
-- §5.3: Surface cards (all surface types)
-- Boolean operator precedence rules
-- Lost particle debugging procedures
+**Examples:**
+- **example_inputs/** - Geometry error examples
+  - overlap_example.i (demonstrates cell overlap)
+  - gap_example.i (demonstrates geometry gap)
+  - Description files for each
 
-**Related Skills:**
-- mcnp-input-validator
-- mcnp-geometry-builder
-- mcnp-plotter
-- mcnp-best-practices-checker
+**Automation Tools:**
+- **scripts/mcnp_geometry_checker.py** - Automated validation
+- **scripts/README.md** - Complete documentation
+
+**External Documentation:**
+- MCNP6 Manual Chapter 3.3 (Geometry specification)
+- MCNP6 Manual Chapter 5.2 (Cell cards and Boolean operators)
+- MCNP6 Manual Chapter 5.3 (Surface cards)
+- MCNP6 Manual Appendix B (Geometry plotting)
+
+## Best Practices
+
+1. **Always Run VOID Test Before Production**
+   - Add VOID card to Data Cards block
+   - Run with NPS 1000 for quick check
+   - VOID=0 required (non-zero means overlaps exist)
+
+2. **Plot Geometry from Multiple Views**
+   - XY, XZ, YZ planes (orthogonal views)
+   - Center plot origin on region of interest
+   - Look for dashed lines (gaps) and color overlaps
+
+3. **Fix Overlaps Immediately**
+   - Overlaps cause incorrect physics (wrong materials)
+   - Use VOID test to detect
+   - Plot overlap region to visualize problem
+
+4. **Debug Lost Particles Systematically**
+   - Extract coordinates from output
+   - Plot at exact location
+   - Identify gap or overlap causing issue
+
+5. **Test Complex Geometries Incrementally**
+   - Build geometry in stages
+   - Validate each stage (VOID test + plot)
+   - Add complexity gradually
+
+6. **Use Geometry Plotter Interactively**
+   - `mcnp6 ip` mode for interactive plotting
+   - Pan, zoom, rotate to inspect details
+   - Color coding helps identify cells
+
+7. **Understand Boolean Operator Precedence**
+   - Intersection (space) binds tighter than union (:)
+   - Use parentheses to clarify
+   - Test complex Boolean expressions with plots
+
+8. **Check Surface Sense Carefully**
+   - Negative (-) vs positive (+) matters
+   - Plot to verify cells on correct side
+   - Common error: wrong sense flips half-space
+
+9. **Validate After Every Geometry Change**
+   - Adding/deleting cells → re-run VOID test
+   - Modifying surfaces → check for gaps
+   - Prevents compound errors
+
+10. **Document Geometry Assumptions**
+    - Note coordinate system orientation
+    - Document surface numbering scheme
+    - Explain complex Boolean expressions
+
+---
+
+**END OF SKILL**

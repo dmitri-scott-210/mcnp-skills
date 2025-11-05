@@ -1,0 +1,19 @@
+VOID TEST EXAMPLE
+
+SOURCE: Created for mcnp-geometry-checker skill
+COMPLEXITY: Basic
+DEMONSTRATES: VOID card usage for overlap detection
+
+KEY FEATURES:
+- VOID card in Data Cards block
+- Simple 2-region geometry (water + steel)
+- NPS 1000 for quick test
+- Check output for "void = 0.00000E+00"
+
+INTERPRETATION:
+- VOID = 0 → No overlaps (geometry correct)
+- VOID ≠ 0 → Overlaps exist (must fix)
+
+USAGE:
+Run MCNP and search output for "void" keyword.
+Result should be 0.00000E+00 for valid geometry.
