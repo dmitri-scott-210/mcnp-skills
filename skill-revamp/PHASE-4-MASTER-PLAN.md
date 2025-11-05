@@ -26,6 +26,45 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 
 ---
 
+## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
+
+**MANDATORY for ALL Phase 4 skills - NO EXCEPTIONS:**
+
+### Correct Directory Structure
+```
+.claude/skills/[skill-name]/
+├── SKILL.md                          ← Main skill file
+├── conversion_tables.md              ← Reference files at ROOT level
+├── isotope_database.md               ← NOT in subdirectories
+├── xsdir_format.md                   ← Same level as SKILL.md
+├── [other-reference].md              ← Root skill directory
+├── scripts/                          ← Subdirectory for scripts ONLY
+│   ├── unit_converter.py
+│   ├── zaid_lookup.py
+│   └── README.md
+└── example_inputs/                   ← DIRECTLY at root (NOT in assets/)
+    ├── conversion_data.json          ← Data files
+    ├── isotope_data.json
+    └── [other data files]
+```
+
+### WRONG Structures (NEVER CREATE THESE)
+```
+❌ WRONG #1: references/ subdirectory
+.claude/skills/[skill-name]/
+└── references/                       ← WRONG - No subdirectory!
+    └── [reference files]             ← Should be at root level
+
+❌ WRONG #2: assets/ subdirectory (MOST COMMON ERROR)
+.claude/skills/[skill-name]/
+└── assets/                           ← WRONG - assets/ NEVER EXISTS!
+    └── data_files/                   ← Should be at root level in example_inputs/
+```
+
+**Reference:** CLAUDE-SESSION-REQUIREMENTS.md lines 495-540, LESSONS-LEARNED.md Lesson #16
+
+---
+
 ## 📚 DOCUMENTATION TO READ (ONCE AT PHASE START)
 
 ### Required Reading List
@@ -273,23 +312,23 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 2. **Cross-Reference with Documentation** (0k - already read)
 3. **Identify Discrepancies and Gaps** (1k tokens)
 4. **Create Skill Revamp Plan** (1k tokens)
-5. **Extract Content to references/** (2k tokens)
-6. **Add Example Files to assets/** (1k tokens)
-7. **Create/Bundle Scripts** (1k tokens)
-8. **Create/Bundle Scripts** (1k tokens) - **CRITICAL for these skills**
-9. **Streamline SKILL.md** (3k tokens)
-10. **Validate Quality - 25-Item Checklist** (1k tokens)
-11. **Test Skill** (minimal tokens)
-12. **Update REVAMP-PROJECT-STATUS.md** (minimal tokens)
+5. **Extract Content to Root Skill Directory** (2k tokens) - Reference .md files at ROOT level
+6. **Add Data Files to example_inputs/ at ROOT Level** (1k tokens) - DIRECTLY at root, NO assets/
+7. **Create/Bundle Scripts** (1k tokens) - **CRITICAL for these skills**
+8. **Streamline SKILL.md** (3k tokens)
+9. **Validate Quality - 26-Item Checklist** (1k tokens)
+10. **Test Skill** (minimal tokens)
+11. **Update PHASE-4-PROJECT-STATUS.md** (minimal tokens)
 
 **Total per skill:** ~10k tokens
 
 ### Special Considerations for Utility Skills
 
-**Step 6 - Assets:** Different from other phases
+**Step 6 - Data Files:** Different from other phases
 - Not MCNP input examples (not applicable for most utility skills)
 - Instead: Reference tables, databases, quick reference cards
 - Format: CSV, JSON, PDF reference cards
+- Store in example_inputs/ DIRECTLY at root (NO assets/)
 
 **Step 7 - Scripts:** ESSENTIAL for utility skills
 - These skills are ABOUT tools and utilities
@@ -301,7 +340,7 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 - Clear usage examples
 - Common scenarios
 - Quick reference tables inline
-- Link to detailed tables in references/
+- Link to detailed tables in root-level reference .md files
 
 ---
 
@@ -324,7 +363,7 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 
 ### Before Starting Phase 4
 - [ ] Phases 1-3 complete (26 skills revamped)
-- [ ] REVAMP-PROJECT-STATUS.md updated with Phase 4 start
+- [ ] PHASE-4-PROJECT-STATUS.md updated with Phase 4 start
 - [ ] Token budget noted (~90k)
 
 ### Documentation Reading (Do ONCE)
@@ -347,9 +386,9 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 **For each skill:**
 - [ ] Follow 11-step workflow
 - [ ] Emphasize Python script creation (core functionality)
-- [ ] Create data files in assets/ (tables, databases)
+- [ ] Create data files in example_inputs/ at ROOT (tables, databases) - NO assets/
 - [ ] Update STATUS continuously
-- [ ] Complete 25-item quality checklist
+- [ ] Complete 26-item quality checklist (includes NO assets/ check)
 - [ ] Test scripts execute properly
 
 **Skills (in order):**
@@ -363,9 +402,9 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 ### Phase Completion
 - [ ] All 6 skills completed and validated
 - [ ] All Python scripts functional
-- [ ] Reference data files created and accessible
+- [ ] Reference data files created and accessible at root level
 - [ ] Integration with other skills documented
-- [ ] REVAMP-PROJECT-STATUS.md reflects Phase 4 complete
+- [ ] PHASE-4-PROJECT-STATUS.md reflects Phase 4 complete
 - [ ] Prepare for Phase 5
 
 ---
@@ -425,12 +464,12 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 - Template customization
 - Reusable boilerplate
 **Integration critical:**
-- Should reference ALL assets/ from Phase 1 skills
+- Should reference templates/ from Phase 1 skills
 - Links to input-builder (workflow integration)
 - Can use examples from example_files/ as templates
-**Assets priority:**
+**Templates priority:**
 - Collect best templates from basic_examples/
-- Create template library organized by problem type
+- Create template library organized by problem type in templates/ at root
 
 ---
 
@@ -461,7 +500,7 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 **Issue:** Isotope databases, conversion tables may be large
 
 **Actions:**
-1. Store as separate data files in assets/
+1. Store as separate data files in example_inputs/ at root (NO assets/)
 2. Use efficient formats (JSON, CSV)
 3. Document data sources
 4. Provide subset for testing
@@ -474,21 +513,21 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 ### Phase Complete When:
 - ✅ All 12 Appendix E files read and understood
 - ✅ All 6 skills processed through 11-step workflow
-- ✅ Every skill passes 25-item quality checklist
+- ✅ Every skill passes 26-item quality checklist (includes NO assets/ check)
 - ✅ All Python scripts functional and tested
-- ✅ Reference data files created and accessible
+- ✅ Reference data files created and accessible at root level
 - ✅ Integration with Phases 1-3 skills documented
-- ✅ REVAMP-PROJECT-STATUS.md reflects accurate completion
+- ✅ PHASE-4-PROJECT-STATUS.md reflects accurate completion
 - ✅ Token budget within estimates (~90k)
 - ✅ Ready to proceed to Phase 5
 
 ### Per-Skill Success:
 - ✅ SKILL.md streamlined to <5k words (ideally <3k)
-- ✅ references/ created with detailed tables and guides
-- ✅ assets/ populated with data files and reference cards
+- ✅ Reference .md files created at ROOT level with detailed tables and guides
+- ✅ example_inputs/ at root populated with data files and reference cards (NO assets/)
 - ✅ scripts/ contains functional, documented Python tools
 - ✅ Python scripts tested and working
-- ✅ 25-item checklist passed
+- ✅ 26-item checklist passed (includes NO assets/ directory check)
 - ✅ Tested with Claude Code
 - ✅ STATUS updated with completion entry
 
@@ -496,7 +535,7 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 
 ## 📈 PROGRESS TRACKING
 
-**Monitor in REVAMP-PROJECT-STATUS.md:**
+**Monitor in PHASE-4-PROJECT-STATUS.md:**
 
 ```markdown
 ## PHASE 4 PROGRESS
