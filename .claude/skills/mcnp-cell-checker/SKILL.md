@@ -357,7 +357,7 @@ return cell_valid and geom_valid
  
 ### Example Files
  
-* **assets/example_inputs/** - 4 validated example files with descriptions
+* **example_inputs/** - Validated example files with descriptions
   + 01_simple_universe_valid.i (2-level hierarchy)
   + 02_cubic_lattice_lat1.i (LAT=1 example)
   + 03_hex_lattice_lat2.i (LAT=2 example)

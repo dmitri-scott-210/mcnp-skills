@@ -297,8 +297,8 @@ input_file = os.path.abspath('input.inp')
 
 ```bash
 # Test with example file
-cd /home/user/mcnp-skills/.claude/skills/mcnp-cell-checker/assets/example_inputs
-python ../../scripts/mcnp_cell_checker.py 01_simple_universe_valid.i
+cd /home/user/mcnp-skills/.claude/skills/mcnp-cell-checker/example_inputs
+python ../scripts/mcnp_cell_checker.py 01_simple_universe_valid.i
 ```
 
 ---

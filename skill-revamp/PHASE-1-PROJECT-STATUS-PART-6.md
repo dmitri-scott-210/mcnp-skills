@@ -2,9 +2,18 @@
 
 **Phase:** 1 of 5 (Category A & B Skills)
 **Part:** 6 (Created when Part 5 exceeded 900 lines)
-**Session:** 18 (continuing into Session 19)
+**Session:** 18-19
 **Date:** 2025-11-05
 **Skills Complete:** 13/16 (81.25%)
+
+**🚨 CRITICAL STRUCTURE ISSUE IDENTIFIED (Session 19 - Lesson #16):**
+- User clarified: NO `assets/` subdirectory should EVER exist in any skill
+- User clarified: NO `references/` subdirectory - reference .md files go at ROOT level
+- Correct structure: templates/, example_inputs/, scripts/ DIRECTLY at root alongside SKILL.md
+- **Issue:** Multiple completed skills (Sessions 8-18) have assets/ and/or references/ subdirectories
+- **Action taken:** mcnp-cell-checker corrected (Session 19)
+- **Remaining:** Determine if other completed skills need structure corrections
+- **Documentation updated:** All project docs now explicitly prohibit assets/
 
 ---
 

@@ -66,9 +66,9 @@ Revamp all 36 MCNP Claude skills to meet Anthropic's official skill-creator stan
 
 1. **Progressive Disclosure Structure**
    - Lean SKILL.md files (<3k words preferred, <5k max)
-   - references/ subdirectories for detailed specifications
-   - scripts/ subdirectories for Python automation tools
-   - assets/ subdirectories for templates and example inputs
+   - Reference .md files at ROOT level (NOT in subdirectories) for detailed specifications
+   - scripts/ subdirectory for Python automation tools
+   - templates/ and example_inputs/ subdirectories DIRECTLY at root (NO assets/ parent)
 
 2. **Comprehensive Knowledge Base Integration**
    - Full utilization of 72 markdown documentation files (4.2 MB)
@@ -76,7 +76,7 @@ Revamp all 36 MCNP Claude skills to meet Anthropic's official skill-creator stan
 
 3. **Example Files Integration** (CRITICAL - NOT DONE ORIGINALLY)
    - Incorporation of 1,107 example MCNP files from example_files/
-   - 5-10 relevant examples per skill in assets/example_inputs/
+   - 5-10 relevant examples per skill in example_inputs/ (DIRECTLY at root level)
    - Emphasis on reactor-model_examples/ (most comprehensive)
 
 4. **Zero Context Loss Between Sessions**
@@ -86,10 +86,11 @@ Revamp all 36 MCNP Claude skills to meet Anthropic's official skill-creator stan
 
 ### Success Criteria
 - ✅ All 36 skills comply with Anthropic standards
-- ✅ Every skill has proper references/, scripts/, assets/ structure
+- ✅ Every skill has proper structure: reference .md files at root, scripts/, templates/, example_inputs/ subdirectories
+- ✅ NO assets/ subdirectory in any skill (ZERO TOLERANCE)
 - ✅ SKILL.md files streamlined to <5k words
 - ✅ All skills include relevant examples from example_files/
-- ✅ 25-item quality checklist passed for each skill
+- ✅ 26-item quality checklist passed for each skill
 - ✅ Zero context loss between sessions
 - ✅ 85% token savings achieved via batched processing
 
@@ -221,14 +222,18 @@ Document in active PHASE-N-PROJECT-STATUS-PART-N.md:
 
 **4. Create Skill Revamp Plan**
 Detailed checklist of changes:
-- What to extract to references/
-- Which examples to add from example_files/
-- What scripts to create/bundle
-- Templates for assets/
+- What to extract to root-level .md files
+- Which examples to add from example_files/ to example_inputs/ (at root)
+- What scripts to create/bundle in scripts/
+- What templates to add to templates/ (DIRECTLY at root)
 - Target word count for streamlined SKILL.md
+- Verify NO assets/ subdirectory will be created
 
-**5. Extract Content to references/**
-Create: `.claude/skills/[skill-name]/references/`
+**5. Extract Content to Root Skill Directory**
+
+**🚨 CRITICAL: Reference .md files go DIRECTLY at root level - NOT in subdirectories! 🚨**
+
+Create these files at `.claude/skills/[skill-name]/` (root level, alongside SKILL.md):
 - card_specifications.md (if applicable)
 - theory_background.md
 - detailed_examples.md
@@ -236,20 +241,27 @@ Create: `.claude/skills/[skill-name]/references/`
 - [topic-specific files as needed]
 
 **Extraction guidelines:**
-- Content >500 words on single topic → references/
-- All card format specifications → references/
-- Theory/mathematical derivations → references/
-- Comprehensive examples (keep 3-5 in SKILL.md, rest in references/)
+- Content >500 words on single topic → extract to root level .md file
+- All card format specifications → separate .md file at root
+- Theory/mathematical derivations → separate .md file at root
+- Comprehensive examples (keep 3-5 in SKILL.md, rest in detailed_examples.md at root)
 
-**6. Add Example Files to assets/**
-Create: `.claude/skills/[skill-name]/assets/`
+**6. Add Example Files and Templates**
+
+**🚨 CRITICAL: Create subdirectories DIRECTLY at root - NO assets/ parent! 🚨**
+
+Create at `.claude/skills/[skill-name]/` (root level):
 ```
-assets/
-├── templates/
+.claude/skills/[skill-name]/
+├── SKILL.md
+├── [reference].md files         ← At root level
+├── scripts/
+│   └── [script files]
+├── templates/                    ← DIRECTLY at root (NOT in assets/)
 │   ├── basic_template.i
 │   ├── intermediate_template.i
 │   └── advanced_template.i
-└── example_inputs/
+└── example_inputs/              ← DIRECTLY at root (NOT in assets/)
     ├── example_01.i
     ├── example_01_description.txt
     ├── example_02.i
@@ -311,9 +323,9 @@ dependencies: "[if applicable]"
 [Workflow connections]
 
 ## References
-- See references/[file].md for details
-- See assets/templates/ for templates
-- See assets/example_inputs/ for examples
+- See [reference].md files (at root level) for details
+- See templates/ (at root level) for templates
+- See example_inputs/ (at root level) for examples
 - See scripts/README.md for automation
 
 ## Best Practices
@@ -328,18 +340,19 @@ dependencies: "[if applicable]"
 - Add `version: "2.0.0"` for revamped skills
 - Add `dependencies` if applicable
 
-**10. Validate Quality (25-Item Checklist)**
+**10. Validate Quality (26-Item Checklist)**
 See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 - YAML frontmatter (5 items)
 - SKILL.md structure (10 items)
-- Bundled resources (7 items)
+- Bundled resources (8 items - includes NO assets/ check)
 - Content quality (3 items)
 
 **11. Test and Update Status**
 - Invoke skill with Claude Code to verify
-- Test that references/ load correctly
+- Test that reference .md files load correctly
 - Validate scripts/ execute properly
-- Check examples in assets/
+- Check examples in example_inputs/ or example_geometries/
+- Verify NO assets/ directory exists
 - Update active PHASE-N-PROJECT-STATUS-PART-N.md with completion
 
 ---
@@ -441,10 +454,11 @@ See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 2. ✅ Check CURRENT PROJECT STATE section for active phase and documents
 3. ✅ Update active PHASE-N-PROJECT-STATUS-PART-N.md after major milestones and at session end
 4. ✅ Reserve 15-20k tokens for session handoff documentation
-5. ✅ Use 25-item quality checklist for every skill (see CLAUDE-SESSION-REQUIREMENTS.md)
+5. ✅ Use 26-item quality checklist for every skill (see CLAUDE-SESSION-REQUIREMENTS.md)
 6. ✅ Batch documentation reading by category
 7. ✅ Test skills after revamp
 8. ✅ Preserve context for next session
+9. ✅ NEVER create assets/ subdirectory in any skill
 
 ### Documentation Practices:
 - **Read primary sources** - Don't rely only on summaries
@@ -455,11 +469,12 @@ See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 - **Phase transitions** - Summarize completed phase in new phase status doc
 
 ### Content Practices:
-- **Extract aggressively** - When in doubt, move to references/
-- **Use examples liberally** - 5-10 per skill from example_files/
-- **Bundle scripts** - Don't just mention Python modules, include them
+- **Extract aggressively** - When in doubt, extract to root-level .md file
+- **Use examples liberally** - 5-10 per skill from example_files/ in example_inputs/ at root
+- **Bundle scripts** - Don't just mention Python modules, include them in scripts/
 - **Preserve quality** - Keep good decision trees, integration sections
 - **Test incrementally** - Don't wait until all 36 done
+- **Structure correctly** - NO assets/ directory, all subdirectories at root level
 
 ---
 
@@ -521,7 +536,8 @@ See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 
 ### Project Level
 - ✅ All 36 skills revamped to Anthropic standards
-- ✅ Every skill has proper structure (references/, scripts/, assets/)
+- ✅ Every skill has proper structure: reference .md files at root, scripts/, templates/, example_inputs/
+- ✅ NO skills have assets/ subdirectory (ZERO TOLERANCE)
 - ✅ All SKILL.md files <5k words
 - ✅ Example files from example_files/ incorporated
 - ✅ Token savings achieved (430k vs 2,400k)
@@ -529,12 +545,13 @@ See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 - ✅ All testing complete
 
 ### Skill Level
-- ✅ 25-item quality checklist passed
+- ✅ 26-item quality checklist passed (includes NO assets/ check)
 - ✅ YAML frontmatter standardized
 - ✅ SKILL.md streamlined and structured
-- ✅ references/ created with extracted content
-- ✅ assets/ populated with relevant examples
+- ✅ Reference .md files created at root level with extracted content
+- ✅ templates/ and example_inputs/ populated DIRECTLY at root level
 - ✅ scripts/ created if applicable
+- ✅ NO assets/ directory exists
 - ✅ No duplication between components
 - ✅ Integration documented
 - ✅ Tested and validated
