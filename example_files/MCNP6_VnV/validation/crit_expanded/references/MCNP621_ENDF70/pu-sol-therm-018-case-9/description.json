@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-sol-therm-018-case-9",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "018",
+      "case": "9"
+    },
+    "description": "PNL-11  PU-SOL-THERM-018 case 9  42.9 wt.% Pu-240  Water-Reflected "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-sol-therm-018-case-9.i",
+      "n": "pu-sol-therm-018-case-9"
+    },
+    "inputs": {
+      "inp": "pu-sol-therm-018-case-9.i"
+    },
+    "outputs": {
+      "outp": "pu-sol-therm-018-case-9o",
+      "mctal": "pu-sol-therm-018-case-9m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0034
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00307,
+      "std": 0.000316489
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

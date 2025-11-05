@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-026-case-c-11",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "026",
+      "case": "C-11"
+    },
+    "description": "Tinkertoy 2  HEU-MET-FAST-026  3x3x3 Array C-11  Paraffin Rfl "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-026-case-c-11.i",
+      "n": "heu-met-fast-026-case-c-11"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-026-case-c-11.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-026-case-c-11o",
+      "mctal": "heu-met-fast-026-case-c-11m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0038
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00357,
+      "std": 0.000335894
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-19",
+    "data": "ENDF/B-VII.1"
+  }
+}

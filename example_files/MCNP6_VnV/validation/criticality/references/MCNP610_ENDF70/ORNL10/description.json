@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ORNL10",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "032",
+      "case": ""
+    },
+    "description": "Large sphere of HEU nitrate solution"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ORNL10",
+      "n": "ORNL10"
+    },
+    "outputs": {
+      "outp": "ORNL10o",
+      "mctal": "ORNL10m"
+    },
+    "inputs": {
+      "inp": "ORNL10"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0015,
+      "std": 0.0026
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999255,
+      "std": 0.000366997
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VII.0"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "mix-met-fast-003",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003"
+    },
+    "description": "HEU Reflected Pu Sphere, VNIITF: MIX-MET-FAST-003 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mix-met-fast-003.i",
+      "n": "mix-met-fast-003"
+    },
+    "inputs": {
+      "inp": "mix-met-fast-003.i"
+    },
+    "outputs": {
+      "outp": "mix-met-fast-003o",
+      "mctal": "mix-met-fast-003m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9993,
+      "std": 0.0016
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00076,
+      "std": 0.000281037
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.0"
+  }
+}

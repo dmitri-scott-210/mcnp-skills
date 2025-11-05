@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__node__edit_file"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

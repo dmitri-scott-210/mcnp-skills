@@ -1,0 +1,42 @@
+Photon Spectrum for a NaI(TI) Scintillator LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --Co-60 emits 2 photons of energies 1.173 and 1.332 Mev at a rate of 
+c    1 photon/decay each.
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    2    -3.67     -1                       imp:p=1        $ NaI Detector
+2    1    -2.7      -2 1                     imp:p=1        $ Casing
+3    0               2                       imp:p=0        $ Boundary         
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RCC  0 0 -5.18 0 0 5.08 1.27                 $ Detector inner wall
+2    RCC  0 0 -5.28 0 0 5.28 1.37                 $ Detector outer wall
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Aluminum D=2.7 g/cc
+      13000 -1.000000
+m2   $ NaI D=3.67 g/cc
+      11000 -0.153373
+      53000 -0.846627
+mode p
+sdef pos=0 0 0                                   $ Position (0,0,0)
+     par=2                                       $ Photons only
+     rad=d1                                      $ Radius in dataset 1
+     ext=0                                       $ Disc source
+     sur=2.2                                     $ On surface 2.2
+     erg=d2                                      $ Energy in dataset 2
+     dir=1                                       $ Monodirectional
+     vec= 0 0 -1                                 $ Along -z-axis
+si1  0   1.37                                    $ Rad=1.27 cm
+sp1  -21 1                                       $ Distribution
+si2  L 1.173 1.332                               $ Energies
+sp2  d 1.0   1.0                                 $ Distribution
+f8:p 1                                           $ Pulse height tally cell 1
+E8   0 1e-3 1498i 1.5                            $ Energy bins 1 keV wide
+ft8  GEB -0.0137 0.0752 -0.121                   $ Gaussian constants for nominal detector
+nps  1e4                                         $ Terminate after 1e4 particles
+mplot   freq=500000
+c    ************<<<<< End Data Cards >>>>>**************************************

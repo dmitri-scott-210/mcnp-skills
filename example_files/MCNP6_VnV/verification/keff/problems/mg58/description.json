@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg58",
+    "problem_type": "Multigroup",
+    "description": "URRb-H2Oa(1)-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg58.inp",
+      "n": "mg58"
+    },
+    "outputs": {
+      "outp": "mg58o",
+      "mctal": "mg58m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,31 @@
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import sys, getopt
+
+font = {'size'   : 14}
+matplotlib.rc('font', **font)
+
+
+inputfile = 'pulses.txt'
+
+data = np.loadtxt(inputfile,skiprows=1)
+
+fig = plt.figure()
+axs = fig.add_subplot(1,1,1)
+plt.xlabel("Time (ns)")
+plt.ylabel("Voltage (V)")
+print(data[0][2:].size)
+ts = np.zeros(data[0][2:].size)
+xs = range(0,data[0][2:].size)
+for i in range(0,data[0][2:].size-1):
+  ts[i] = (xs[i]/500e6)*10**9;
+for i in range(0,19):
+  for j in range(0,data[0][2:].size-1):
+    data[i][j] = (data[i][j]/16384.)*2.
+
+for i in range(0,19):
+  plt.plot(ts,data[i][2:])
+
+plt.xlim([0,100])
+fig.savefig("pulses.pdf")

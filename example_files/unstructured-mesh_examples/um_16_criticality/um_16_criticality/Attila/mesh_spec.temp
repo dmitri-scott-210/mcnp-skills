@@ -1,0 +1,15 @@
+<meshing-spec>
+    <solid-length-units>m</solid-length-units>
+    <global-mesh-size>5</global-mesh-size>
+    <scale-factors/>
+    <size-transition-factor>1</size-transition-factor>
+    <surface-optimization>true</surface-optimization>
+    <surface-smoothing>3</surface-smoothing>
+    <volume-optimization>true</volume-optimization>
+    <volume-smoothing>1</volume-smoothing>
+    <lock-surface-mesh>true</lock-surface-mesh>
+    <attributes/>
+    <rename/>
+    <advanced-controls/>
+    <curvature-refinement/>
+</meshing-spec>

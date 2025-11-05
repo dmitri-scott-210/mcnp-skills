@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg51",
+    "problem_type": "Multigroup",
+    "description": "UAL-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg51.inp",
+      "n": "mg51"
+    },
+    "outputs": {
+      "outp": "mg51o",
+      "mctal": "mg51m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

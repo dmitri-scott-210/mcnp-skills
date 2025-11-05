@@ -1,0 +1,12 @@
+radion_spectra
+title "GammaSpectra"
+info " "
+version "1.0.0"
+created "2019-11-08T15:39:25"
+last_modified "2019-11-08T15:39:25"
+discrete gamma "Co60" conserve_particles
+info " "
+1.33 1
+1.17 1
+end_discrete
+end_radion_spectra

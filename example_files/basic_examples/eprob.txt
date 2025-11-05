@@ -1,0 +1,12 @@
+Electron Test Problem
+1 10 -19.25 -100      imp:e=1
+999 0        100      imp:e=0
+
+100 so 0.01
+
+mode e
+nps 10000
+sdef par=e erg=15
+m10 74000 -1
+*f8:e   1 T
+print

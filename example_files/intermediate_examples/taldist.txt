@@ -1,0 +1,28 @@
+DT neutron beam, poly slab, spherical detector cell
+c GEOMETRY - CELLS
+100    0              -10          imp:n=0    $ void to left, kill neutrons
+200    0              +10 -20      imp:n=1    $ void to left  of slab
+300    1000   -0.93   +20 -30      imp:n=1    $ poly slab, rho=.93 g/cc
+400    0              +30 -40 +50  imp:n=1    $ void to right of slab
+450    1000   -0.93           -50  imp:n=1    $ poly detector cell
+500    0              +40          imp:n=0    $ void to right, kill neutrons
+
+c GEOMETRY - SURFACES
+10     px     -5.0                        $ x-plane, problem left  boundary
+20     px      5.0                        $ x-plane, left  side of poly slab
+30     px     10.0                        $ x-plane, right side of poly slab
+40     px     25.0                        $ x-plane, problem right boundary
+50     sx     20 1.0                      $ sphere at x=20cm, 1cm radius
+
+c OTHER STUFF
+c
+nps     1e5                               $ number of neutrons to run
+c
+c MATERIALS - poly
+m1000    1001  2       6000  1
+c
+c SOURCE
+sdef    pos= 0. 0. 0.     erg=14.         $ DT isotropic source
+c
+c ENERGY DEPOSITION "DETECTOR"
+f6:n  450

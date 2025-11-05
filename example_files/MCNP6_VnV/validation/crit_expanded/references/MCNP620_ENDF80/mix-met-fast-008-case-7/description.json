@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "mix-met-fast-008-case-7",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "008",
+      "case": "7"
+    },
+    "description": "ZEBRA Core 8  MIX-MET-FAST-008  Case 7 (ZEBRA 8H) "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mix-met-fast-008-case-7.i",
+      "n": "mix-met-fast-008-case-7"
+    },
+    "inputs": {
+      "inp": "mix-met-fast-008-case-7.i"
+    },
+    "outputs": {
+      "outp": "mix-met-fast-008-case-7o",
+      "mctal": "mix-met-fast-008-case-7m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.03,
+      "std": 0.0025
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.02325,
+      "std": 0.000174533
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VIII.0"
+  }
+}

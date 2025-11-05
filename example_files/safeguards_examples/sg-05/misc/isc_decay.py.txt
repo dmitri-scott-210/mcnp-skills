@@ -1,0 +1,24 @@
+import os
+import isc # import the isc module
+
+# load the data
+iscdata = os.getenv("ISCDATA")
+abund_lib = isc.AbundanceLib()
+decay_lib = isc.DecayLib()
+emission_lib = isc.EmissionLib()
+isc.loadLibs(abund_lib, decay_lib, emission_lib, os.path.join(iscdata,"endf7.isc.bin"))
+
+# get all the daughters of Cs-137
+cs137_daughters = decay_lib.GetAllDaughters(55137)
+print(cs137_daughters)
+
+# get the decay data for Cs-137
+cs137_decay_data = decay_lib.GetDecayData(55137)
+print("Cs-137 half life = {:12.5e} s".format(cs137_decay_data.GetHalfLife()))
+
+# loop over the number of decay pathways
+for i in range(cs137_decay_data.GetNumber()):
+  # get daughter SZA is branching ratio
+  daughter = cs137_decay_data.GetDaughter(i)
+  branching_ratio = cs137_decay_data.GetBranchingRatio(i)
+  print("{:7d}  {:12.5e}".format( daughter, branching_ratio ) )

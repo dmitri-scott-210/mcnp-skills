@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce41",
+    "problem_type": "Continuous Energy",
+    "description": "UD2Ob-1-1-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce41.inp",
+      "n": "ce41"
+    },
+    "outputs": {
+      "outp": "ce41o",
+      "mctal": "ce41m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

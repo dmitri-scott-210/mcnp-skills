@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-008",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "008"
+    },
+    "description": "Bare HEU Sphere, VNIITF: HEU-MET-FAST-008 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-008.i",
+      "n": "heu-met-fast-008"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-008.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-008o",
+      "mctal": "heu-met-fast-008m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9989,
+      "std": 0.0016
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995704,
+      "std": 0.000260906
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

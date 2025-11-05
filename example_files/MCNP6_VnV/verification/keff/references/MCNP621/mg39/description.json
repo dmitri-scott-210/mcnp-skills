@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg39",
+    "problem_type": "Multigroup",
+    "description": "UD2Oa-1-1-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg39.inp",
+      "n": "mg39"
+    },
+    "outputs": {
+      "outp": "mg39o",
+      "mctal": "mg39m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999947,
+      "std": 7.10339e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

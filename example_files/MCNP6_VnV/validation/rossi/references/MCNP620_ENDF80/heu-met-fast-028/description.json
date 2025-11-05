@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-028",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "028",
+      "case": "001"
+    },
+    "description": "FLATTOP-25, HEU Sphere Reflected by Normal U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-028i",
+      "n": "heu-met-fast-028"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-028o"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-028i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -382000.0,
+      "std": 2000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -402428.0,
+      "std": 1849.95
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VIII.0"
+  }
+}

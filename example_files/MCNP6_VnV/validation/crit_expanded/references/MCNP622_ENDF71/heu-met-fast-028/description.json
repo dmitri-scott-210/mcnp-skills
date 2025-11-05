@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-028",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "028"
+    },
+    "description": "HEU-MET-FAST-028  FLATTOP-25  HEU Sphere Reflected by Normal U  CSEWG: F-22 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-028.i",
+      "n": "heu-met-fast-028"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-028.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-028o",
+      "mctal": "heu-met-fast-028m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00271,
+      "std": 0.000305439
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.1"
+  }
+}

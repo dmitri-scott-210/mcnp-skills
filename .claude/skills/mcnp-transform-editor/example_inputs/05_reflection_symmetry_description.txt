@@ -1,0 +1,42 @@
+EXAMPLE: Reflection for Symmetric Geometry
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Intermediate
+
+DEMONSTRATES:
+- Reflection transformation (improper rotation)
+- Creating symmetric components via mirroring
+- Determinant = -1 for reflections
+
+KEY FEATURES:
+- Original component in +X half-space
+- Reflected component in -X half-space (mirror across YZ plane)
+- Reflection matrix has determinant = -1
+
+TR CARD:
+*TR1  0 0 0  -1 0 0  0 1 0  0 0 1    $ Reflect across YZ plane (x → -x)
+
+REFLECTION MATRIX:
+Row 1: (-1, 0, 0)  → x-coordinate flipped
+Row 2: ( 0, 1, 0)  → y-coordinate unchanged
+Row 3: ( 0, 0, 1)  → z-coordinate unchanged
+Determinant = -1 (improper rotation/reflection)
+
+EXPECTED RESULT:
+- Original box: center at (5, 0, 0)
+- Reflected box: center at (-5, 0, 0)
+- Perfect mirror symmetry across YZ plane
+
+OTHER COMMON REFLECTIONS:
+- Reflect across XZ (y → -y): R = [1 0 0; 0 -1 0; 0 0 1]
+- Reflect across XY (z → -z): R = [1 0 0; 0 1 0; 0 0 -1]
+
+RELATED SKILLS:
+- transformation_theory.md: Proper vs improper rotations
+- advanced_transformations.md: Reflection matrices
+
+USAGE NOTES:
+- MCNP accepts reflections (determinant = -1)
+- Verify particle transport behaves correctly with reflections
+- Reflections reverse chirality (left-hand ↔ right-hand)
+- Useful for creating symmetric geometry efficiently

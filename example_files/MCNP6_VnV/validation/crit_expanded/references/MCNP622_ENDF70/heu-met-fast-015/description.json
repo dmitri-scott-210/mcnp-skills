@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-015",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "015"
+    },
+    "description": "Bare HEU Cylinder, VNIITF: HEU-MET-FAST-015 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-015.i",
+      "n": "heu-met-fast-015"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-015.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-015o",
+      "mctal": "heu-met-fast-015m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9996,
+      "std": 0.0017
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.994271,
+      "std": 0.00027318
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.0"
+  }
+}

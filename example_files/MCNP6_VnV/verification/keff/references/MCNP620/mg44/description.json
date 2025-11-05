@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg44",
+    "problem_type": "Multigroup",
+    "description": "PU-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg44.inp",
+      "n": "mg44"
+    },
+    "outputs": {
+      "outp": "mg44o",
+      "mctal": "mg44m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.683767
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.6837,
+      "std": 2.87092e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

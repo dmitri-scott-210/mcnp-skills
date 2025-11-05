@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-010",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "010"
+    },
+    "description": "PU-MET-FAST-010:  Pu sphere reflected by normal uranium "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-010.i",
+      "n": "pu-met-fast-010"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-010.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-010o",
+      "mctal": "pu-met-fast-010m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0018
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999585,
+      "std": 0.000282212
+    }
+  }
+}

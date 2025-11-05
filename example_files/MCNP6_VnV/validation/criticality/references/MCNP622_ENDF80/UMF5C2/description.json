@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "UMF5C2",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "005",
+      "case": "002"
+    },
+    "description": "Sphere of 233U reflected by beryllium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "UMF5C2",
+      "n": "UMF5C2"
+    },
+    "outputs": {
+      "outp": "UMF5C2o",
+      "mctal": "UMF5C2m"
+    },
+    "inputs": {
+      "inp": "UMF5C2"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.996887,
+      "std": 0.000761294
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VIII.0"
+  }
+}

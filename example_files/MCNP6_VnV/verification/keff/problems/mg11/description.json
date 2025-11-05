@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg11",
+    "problem_type": "Multigroup",
+    "description": "Ua-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg11.inp",
+      "n": "mg11"
+    },
+    "outputs": {
+      "outp": "mg11o",
+      "mctal": "mg11m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.25
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

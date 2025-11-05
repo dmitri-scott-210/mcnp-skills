@@ -1,0 +1,39 @@
+# lines beginning with '#' are comments
+#
+# specify output file
+output=test001.out
+#
+# specify source distribution file
+srcout=test001.src
+#
+# specify the natural abundance file
+abundfile=nist.na.xml
+#
+# specify the decay data file
+decayfile=endf7.dk.xml
+#
+# specify the default particle emission library
+pelib=endf7
+#
+# specify the material isotopic description with
+# SZAs (+/-  = atom/mass fracs)
+matspec= 92000 -1
+#
+# specify the material density
+density=-18.0
+#
+# specify the aging of the material in seconds
+age = 3.14e7
+#
+# specify the particle type for the source
+particle=p
+#
+# specify vertical (v) or horizontal (h) formatted
+# SDEF distributions
+format=v
+#
+# specify that electron sources should be converted
+# to photon sources via a thick-target bremsstrahlung
+# approximation
+estobrems=y
+

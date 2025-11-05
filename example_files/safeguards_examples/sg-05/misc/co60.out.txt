@@ -1,0 +1,38 @@
+USER INPUT MATERIAL SPECIFICATION:
+
+      SZA   Isotope    Atom Frac
+    27060     Co-60  1.00000e+00
+
+Material density: 1.00000e+00 a/b*cm
+
+The material was aged for 1.66336e+08 s  using data from endf7.dk.xml
+
+RESULTING MATERIAL SPECIFICATION:
+
+      SZA   Isotope    Atom Frac    Mass Frac
+    27060     Co-60  5.00018e-01  5.00031e-01
+    28060     Ni-60  4.99982e-01  4.99969e-01
+
+Atom density: 1.00000e+00 a/b*cm
+Mass density: 9.95199e+01 g/cm^3
+
+TOTAL PARTICLE EMISSION RATES
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate
+          p  4.16418e+15  4.18426e+13  6.66177e-01
+          e  2.08668e+15  2.09675e+13  3.33823e-01
+      Total  6.25086e+15  6.28101e+13  1.00000e+00
+
+ISOMER PARTICLE EMISSION RATES
+
+27060, Co-60:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+          p  4.16418e+15  4.18426e+13  6.66177e-01  6.66177e-01
+          e  2.08668e+15  2.09675e+13  3.33823e-01  3.33823e-01
+      Total  6.25086e+15  6.28101e+13  1.00000e+00  1.00000e+00
+
+28060, Ni-60:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+      Total  0.00000e+00  0.00000e+00  0.00000e+00  0.00000e+00

@@ -1,0 +1,49 @@
+Example 3: Reaction Rates (F4 + FM)
+
+PURPOSE:
+Calculate neutron-induced reaction rates in U-235 fuel using FM card multipliers.
+
+GEOMETRY:
+- Small U-235 metal sphere (2 cm radius, 19.1 g/cm³)
+- Surrounded by void (no moderation)
+- 2 MeV point source at center
+
+TALLY DETAILS:
+- F4:N = Cell flux tally
+- FM4 = Reaction rate multiplier card creating 4 separate bins
+- FM format: (c m R) where:
+  - c = normalization constant (-1 = multiply by atom density for macroscopic rate)
+  - m = material number
+  - R = reaction number (MT or special R number)
+- Bins:
+  1. R = -6: Total fission cross section
+  2. R = -2: Absorption cross section
+  3. R = 16: (n,2n) reaction (MT=16)
+  4. R = 102: (n,γ) radiative capture (MT=102)
+
+KEY LEARNING POINTS:
+1. FM card converts flux to reaction rate (reactions/cm³)
+2. c = -1 multiplies by atom density → macroscopic rates
+3. Special R numbers (negative): -6 (fission), -2 (absorption), etc.
+4. MT numbers (positive): 16 (n,2n), 102 (n,γ), 103 (n,p), etc.
+5. Multiple bins in one FM card create separate tally outputs
+
+REACTION NUMBERS:
+- R = -1: Total cross section
+- R = -2: Absorption
+- R = -6: Total fission
+- R = 16: (n,2n)
+- R = 102: (n,γ)
+- See references/fm_reaction_numbers_complete.md for full table
+
+EXPECTED OUTPUT:
+- Four separate tally bins showing reaction rates (reactions/cm³) vs energy
+- Fission rate highest at thermal energies
+- (n,2n) threshold around 6 MeV for U-235
+- Can compare relative importance of different reactions
+
+VARIATIONS TO TRY:
+- Add fission neutron production: FM4 (-1 1 -6 -7) for ν*σ_f
+- Try different materials (Pu-239, Th-232, natural uranium)
+- Add more reactions: MT=18 (fission), MT=103 (n,p), MT=107 (n,α)
+- Calculate criticality importance: FM4 (1 1 -2) (1 -2) for neutron lifetime

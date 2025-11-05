@@ -1,0 +1,33 @@
+{
+  "general_info": {
+    "name": "u233-sol-inter-001-case-1",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "SOL",
+      "spectrum": "INTER",
+      "number": "001",
+      "case": "1"
+    },
+    "description": "Falstaff Case 1  U233-SOL-INTER-001  IEU Fluoride Solution reflected by Be "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-sol-inter-001-case-1.i",
+      "n": "u233-sol-inter-001-case-1"
+    },
+    "inputs": {
+      "inp": "u233-sol-inter-001-case-1.i"
+    },
+    "outputs": {
+      "outp": "u233-sol-inter-001-case-1o",
+      "mctal": "u233-sol-inter-001-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0083
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

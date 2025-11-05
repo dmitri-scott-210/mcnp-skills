@@ -1,0 +1,34 @@
+# specify output file
+output=mo99.out
+#
+# specify source distribution file
+srcout=mo99.src
+#
+# specify the natural abundance file
+abundfile=nist.na.xml
+#
+# specify the decay data file
+decayfile=endf7.dk.xml
+#
+# specify the default particle emission library
+pelib=endf7
+#
+# specify the material isotopic description with
+# SZAs (+/-  = atom/mass fracs)
+matspec= 42099 1.0
+#
+# specify the material density
+# normalize to 1 a/b-cm
+density=1.0
+#
+# specify the aging of the material in seconds
+# 1 hl = 65.94 h = 237384 s
+age=237384
+#
+# specify the particle type for the source
+particle=p
+# specify vertical (v) or horizontal (h) formatted
+# SDEF distributions
+#
+format=v
+

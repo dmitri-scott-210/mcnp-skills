@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "leu-sol-therm-007-case-36",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "007",
+      "case": "36"
+    },
+    "description": "STACY-36  Uranyl Nitrate  9.97 wt.% Enr  253.9 g/l U  83.55 cm "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "leu-sol-therm-007-case-36.i",
+      "n": "leu-sol-therm-007-case-36"
+    },
+    "inputs": {
+      "inp": "leu-sol-therm-007-case-36.i"
+    },
+    "outputs": {
+      "outp": "leu-sol-therm-007-case-36o",
+      "mctal": "leu-sol-therm-007-case-36m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9988,
+      "std": 0.0011
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.9986,
+      "std": 0.000268076
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.0"
+  }
+}

@@ -1,0 +1,1073 @@
+<!DOCTYPE ATTILA-PROJECT>
+<ATTILA-PROJECT VERSION="3.0.1">
+ <PROJECT NAME="caas" VIEW-MODE="All">
+  <METADATA>
+   <INFO>UM-17</INFO>
+  </METADATA>
+  <SOLID-FILES>
+   <SOLID-FILE ID="13" NAME="caas" FILE="caas.x_t">
+    <SIMMETRIX-ATTRIBUTES VERSION="1.0">
+     <LENGTH-UNIT>m</LENGTH-UNIT>
+     <SCALE-FACTORS X="1" Y="1" Z="1"/>
+     <APPLY-SCALES X="0" Y="0" Z="0"/>
+     <GLOBAL-MESH-SIZE VALUE="2.5"/>
+     <SURFACE-MESH-LOCK VALUE="1"/>
+     <ENABLE-MESH-EMPTY-REGION VALUE="1"/>
+     <SURFACE-OPTIMIZATION VALUE="1"/>
+     <SURFACE-SMOOTHING VALUE="1"/>
+     <VOLUME-OPTIMIZATION VALUE="1"/>
+     <VOLUME-SMOOTHING VALUE="1"/>
+     <WRITE-LOG-FILE VALUE="0"/>
+     <PART-NAMES>
+      <PART-NAME NAME="EmptyRegion2898" VALUE="air"/>
+     </PART-NAMES>
+     <PART-SIZES>
+      <PART-SIZE NAME="detector" VALUE="0.05"/>
+      <PART-SIZE NAME="solution" VALUE="0.1"/>
+      <PART-SIZE NAME="tank" VALUE="0.1"/>
+      <PART-SIZE NAME="wall2" VALUE="0.5"/>
+     </PART-SIZES>
+     <SIZE-TRANSITION-FACTOR VALUE="0.8999999999999999"/>
+     <SOLID-MODEL-LOADING VALUE="non-manifold"/>
+     <SOLID-MODEL-NAME-SOURCE VALUE="assembly"/>
+     <DISPLAY-TOLERANCE VALUE="0.5"/>
+     <CURVATURE-REFINEMENT MAX-D-OVER-H="0.02" ANISO="1" ENABLED="1" MIN-MESH-SIZE="0.05"/>
+    </SIMMETRIX-ATTRIBUTES>
+   </SOLID-FILE>
+   <SOLID-FILE ID="16" NAME="caas_hybrid" FILE="caas_hybrid.x_t">
+    <SIMMETRIX-ATTRIBUTES VERSION="1.0">
+     <LENGTH-UNIT>m</LENGTH-UNIT>
+     <SCALE-FACTORS X="1" Y="1" Z="1"/>
+     <APPLY-SCALES X="0" Y="0" Z="0"/>
+     <GLOBAL-MESH-SIZE VALUE="5"/>
+     <SURFACE-MESH-LOCK VALUE="1"/>
+     <ENABLE-MESH-EMPTY-REGION VALUE="0"/>
+     <SURFACE-OPTIMIZATION VALUE="1"/>
+     <SURFACE-SMOOTHING VALUE="1"/>
+     <VOLUME-OPTIMIZATION VALUE="1"/>
+     <VOLUME-SMOOTHING VALUE="1"/>
+     <WRITE-LOG-FILE VALUE="0"/>
+     <PART-ANISO-SIZES/>
+     <ADVANCED-CONTROLS/>
+     <SIZE-TRANSITION-FACTOR VALUE="1"/>
+     <SOLID-MODEL-LOADING VALUE="mcnp"/>
+     <SOLID-MODEL-NAME-SOURCE VALUE="assembly"/>
+     <DISPLAY-TOLERANCE VALUE="0.5"/>
+     <CURVATURE-REFINEMENT MAX-D-OVER-H="0.02" ANISO="0" ENABLED="0" MIN-MESH-SIZE="0.05"/>
+    </SIMMETRIX-ATTRIBUTES>
+   </SOLID-FILE>
+  </SOLID-FILES>
+  <INPUT-DECKS>
+   <INPUT-DECK IS_MCNP="1" OPEN="0" ID="6">
+    <CREATION-TIME>2020-10-16T12:57:59</CREATION-TIME>
+    <LAST-MODIFICATION-TIME>2021-09-21T13:57:08</LAST-MODIFICATION-TIME>
+    <OUTPUT-FILES/>
+    <HEADER VERSION="1.0.0">
+     <TITLE>caas_hybrid</TITLE>
+     <INFO>Calculation for CAAS MCNP Hybrid CSG-UM
+      </INFO>
+    </HEADER>
+    <INPUT-FILES>
+     <MESH-FILE TYPE="rtt">caas_hybrid.mesh.inp</MESH-FILE>
+     <XS-AUX-FILE>MCNP_Isotopes_Lib.xs_aux.inp</XS-AUX-FILE>
+     <DMP-PARTITIONER-TYPE>metis</DMP-PARTITIONER-TYPE>
+    </INPUT-FILES>
+    <OUTPUT-CONTROLS>
+     <OUTPUT-PREFIX>caas_hybrid</OUTPUT-PREFIX>
+     <SCRATCH-DIRECTORY>./</SCRATCH-DIRECTORY>
+    </OUTPUT-CONTROLS>
+    <TRANSPORT-CONTROLS>
+     <SN-QUADRATURE-SET>tri_cheby_legdr</SN-QUADRATURE-SET>
+     <SN-ORDER>4</SN-ORDER>
+     <SECTOR-SYMMETRIC ACTIVE="0">0.5</SECTOR-SYMMETRIC>
+     <SCATTERING-DEGREE>0</SCATTERING-DEGREE>
+     <SCATTERING-TREATMENT>galerkin</SCATTERING-TREATMENT>
+     <QUAD-VERBOSITY>header</QUAD-VERBOSITY>
+     <STARTING-MOMENTS>zero</STARTING-MOMENTS>
+     <VOLUME-SOURCE-CONST-REGIONS/>
+     <VOLUME-SOURCES-TOTAL-STRENGTH>0</VOLUME-SOURCES-TOTAL-STRENGTH>
+    </TRANSPORT-CONTROLS>
+    <ENERGY-GROUP>
+     <COLLAPSE-STRATEGY>noclps</COLLAPSE-STRATEGY>
+     <N-GROUPS>1</N-GROUPS>
+     <ENERGY-CUTOFF>1</ENERGY-CUTOFF>
+     <COLLAPSE-VECTOR>1 2</COLLAPSE-VECTOR>
+     <ANGULAR-QUADRATURES GROUPS="1">
+      <QUADRATURE OPTION="previous"/>
+     </ANGULAR-QUADRATURES>
+    </ENERGY-GROUP>
+    <ITERATION-CONTROLS>
+     <TRANSMUTATION-PARAMETERS ACTIVE="0">
+      <TIME-STEPS/>
+     </TRANSMUTATION-PARAMETERS>
+    </ITERATION-CONTROLS>
+    <MESH-REGION>
+     <REGION-INDEX>1</REGION-INDEX>
+     <SIDE-INDEX>2</SIDE-INDEX>
+     <REGIONS>
+      <REGION CELL-FLAG-TEXT="walls" MATNUM="4" ID="1" NAME="walls" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="labwall" MATNUM="4" ID="2" NAME="labwall" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall1" MATNUM="4" ID="3" NAME="wall1" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall2" MATNUM="4" ID="4" NAME="wall2" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall3" MATNUM="4" ID="5" NAME="wall3" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall4" MATNUM="4" ID="6" NAME="wall4" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall5" MATNUM="4" ID="7" NAME="wall5" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall6" MATNUM="4" ID="8" NAME="wall6" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="ceiling" MATNUM="4" ID="9" NAME="ceiling" DENSITY-SCALE="1" BURN="0"/>
+     </REGIONS>
+     <SIDES>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@1" ID="5" NAME="(+)walls@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@2" ID="15" NAME="(+)walls@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@3" ID="25" NAME="(+)walls@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@4" ID="32" NAME="(+)walls@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@5" ID="37" NAME="(+)walls@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@6" ID="42" NAME="(+)walls@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@7" ID="45" NAME="(+)walls@7"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@8" ID="52" NAME="(+)walls@8"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@9" ID="57" NAME="(+)walls@9"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@10" ID="62" NAME="(+)walls@10"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@11" ID="65" NAME="(+)walls@11"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@1" ID="71" NAME="(+)labwall@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@2" ID="81" NAME="(+)labwall@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@3" ID="88" NAME="(+)labwall@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@4" ID="95" NAME="(+)labwall@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@5" ID="99" NAME="(+)labwall@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall@6" ID="101" NAME="(+)labwall@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@1" ID="107" NAME="(+)wall1@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@2" ID="117" NAME="(+)wall1@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@3" ID="124" NAME="(+)wall1@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@4" ID="131" NAME="(+)wall1@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@5" ID="135" NAME="(+)wall1@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1@6" ID="137" NAME="(+)wall1@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@1" ID="143" NAME="(+)wall2@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@2" ID="153" NAME="(+)wall2@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@3" ID="160" NAME="(+)wall2@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@4" ID="167" NAME="(+)wall2@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@5" ID="171" NAME="(+)wall2@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2@6" ID="173" NAME="(+)wall2@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@1" ID="179" NAME="(+)wall3@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@2" ID="189" NAME="(+)wall3@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@3" ID="196" NAME="(+)wall3@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@4" ID="203" NAME="(+)wall3@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@5" ID="207" NAME="(+)wall3@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3@6" ID="209" NAME="(+)wall3@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@1" ID="215" NAME="(+)wall4@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@2" ID="225" NAME="(+)wall4@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@3" ID="232" NAME="(+)wall4@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@4" ID="239" NAME="(+)wall4@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@5" ID="243" NAME="(+)wall4@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4@6" ID="245" NAME="(+)wall4@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@1" ID="251" NAME="(+)wall5@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@2" ID="261" NAME="(+)wall5@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@3" ID="268" NAME="(+)wall5@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@4" ID="275" NAME="(+)wall5@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@5" ID="279" NAME="(+)wall5@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5@6" ID="281" NAME="(+)wall5@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@1" ID="287" NAME="(+)wall6@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@2" ID="297" NAME="(+)wall6@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@3" ID="304" NAME="(+)wall6@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@4" ID="311" NAME="(+)wall6@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@5" ID="315" NAME="(+)wall6@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6@6" ID="317" NAME="(+)wall6@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@1" ID="323" NAME="(+)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@2" ID="333" NAME="(+)ceiling@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@3" ID="340" NAME="(+)ceiling@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@4" ID="347" NAME="(+)ceiling@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@5" ID="351" NAME="(+)ceiling@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@6" ID="353" NAME="(+)ceiling@6"/>
+     </SIDES>
+    </MESH-REGION>
+    <MATERIAL-DEFINITION>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="1" NAME="PuSoln" FRACTION-UNIT="atom" DENSITY="0.09927">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.06007" ISOTOPE="1"/>
+       <COMPONENT FRACTION="0.03654" ISOTOPE="8"/>
+       <COMPONENT FRACTION="0.0023699" ISOTOPE="6"/>
+       <COMPONENT FRACTION="0.00027682" ISOTOPE="47"/>
+       <COMPONENT FRACTION="1.2214e-05" ISOTOPE="48"/>
+       <COMPONENT FRACTION="8.339e-07" ISOTOPE="49"/>
+       <COMPONENT FRACTION="4.58e-08" ISOTOPE="50"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="2" NAME="steel" FRACTION-UNIT="atom" DENSITY="0.08636000000000001">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.00071866" ISOTOPE="27"/>
+       <COMPONENT FRACTION="0.013859" ISOTOPE="28"/>
+       <COMPONENT FRACTION="0.0015715" ISOTOPE="29"/>
+       <COMPONENT FRACTION="0.00039117" ISOTOPE="30"/>
+       <COMPONENT FRACTION="0.0037005" ISOTOPE="31"/>
+       <COMPONENT FRACTION="0.05809" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.0013415" ISOTOPE="33"/>
+       <COMPONENT FRACTION="0.00017853" ISOTOPE="34"/>
+       <COMPONENT FRACTION="0.0044318" ISOTOPE="35"/>
+       <COMPONENT FRACTION="0.0017071" ISOTOPE="36"/>
+       <COMPONENT FRACTION="7.4207e-05" ISOTOPE="37"/>
+       <COMPONENT FRACTION="0.00023661" ISOTOPE="38"/>
+       <COMPONENT FRACTION="6.0256e-05" ISOTOPE="39"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="3" NAME="air" FRACTION-UNIT="atom" DENSITY="4.8333e-005">
+      <COMPONENTS>
+       <COMPONENT FRACTION="1.7404e-10" ISOTOPE="1"/>
+       <COMPONENT FRACTION="1.3065e-14" ISOTOPE="2"/>
+       <COMPONENT FRACTION="8.354e-16" ISOTOPE="3"/>
+       <COMPONENT FRACTION="4.5549e-10" ISOTOPE="4"/>
+       <COMPONENT FRACTION="1.11008e-08" ISOTOPE="5"/>
+       <COMPONENT FRACTION="3.8981e-05" ISOTOPE="6"/>
+       <COMPONENT FRACTION="1.3515e-07" ISOTOPE="7"/>
+       <COMPONENT FRACTION="9.1205e-06" ISOTOPE="8"/>
+       <COMPONENT FRACTION="3.4348e-09" ISOTOPE="9"/>
+       <COMPONENT FRACTION="3.0439e-10" ISOTOPE="15"/>
+       <COMPONENT FRACTION="5.3915e-11" ISOTOPE="16"/>
+       <COMPONENT FRACTION="8.0974e-08" ISOTOPE="17"/>
+       <COMPONENT FRACTION="1.7811e-14" ISOTOPE="40"/>
+       <COMPONENT FRACTION="1.1164e-13" ISOTOPE="41"/>
+       <COMPONENT FRACTION="5.6154e-13" ISOTOPE="42"/>
+       <COMPONENT FRACTION="5.49985e-13" ISOTOPE="43"/>
+       <COMPONENT FRACTION="2.69359e-12" ISOTOPE="44"/>
+       <COMPONENT FRACTION="7.98498e-13" ISOTOPE="45"/>
+       <COMPONENT FRACTION="2.30549e-13" ISOTOPE="46"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="4" NAME="concrete" FRACTION-UNIT="atom" DENSITY="0.0764">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.00842" ISOTOPE="1"/>
+       <COMPONENT FRACTION="0.04423" ISOTOPE="8"/>
+       <COMPONENT FRACTION="0.00252" ISOTOPE="11"/>
+       <COMPONENT FRACTION="0.01469096" ISOTOPE="12"/>
+       <COMPONENT FRACTION="0.000718176" ISOTOPE="13"/>
+       <COMPONENT FRACTION="0.000460866" ISOTOPE="14"/>
+       <COMPONENT FRACTION="0.00105" ISOTOPE="10"/>
+       <COMPONENT FRACTION="0.00284037" ISOTOPE="21"/>
+       <COMPONENT FRACTION="1.89571e-05" ISOTOPE="22"/>
+       <COMPONENT FRACTION="3.9555e-06" ISOTOPE="23"/>
+       <COMPONENT FRACTION="6.11198e-05" ISOTOPE="24"/>
+       <COMPONENT FRACTION="1.172e-07" ISOTOPE="25"/>
+       <COMPONENT FRACTION="5.4791e-06" ISOTOPE="26"/>
+       <COMPONENT FRACTION="4.1788e-05" ISOTOPE="31"/>
+       <COMPONENT FRACTION="0.000632003" ISOTOPE="32"/>
+       <COMPONENT FRACTION="1.4347e-05" ISOTOPE="33"/>
+       <COMPONENT FRACTION="1.862e-06" ISOTOPE="34"/>
+       <COMPONENT FRACTION="0.000643481" ISOTOPE="18"/>
+       <COMPONENT FRACTION="8.073e-08" ISOTOPE="19"/>
+       <COMPONENT FRACTION="4.64384e-05" ISOTOPE="20"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="mass" CHI-TYPE="no_chi" ID="5" NAME="HDPE" FRACTION-UNIT="atom" DENSITY="0.92">
+      <COMPONENTS>
+       <COMPONENT FRACTION="2" ISOTOPE="1"/>
+       <COMPONENT FRACTION="1" ISOTOPE="5"/>
+      </COMPONENTS>
+     </MATERIAL>
+    </MATERIAL-DEFINITION>
+    <CROSS-SECTION>
+     <N-PARTICLE>1</N-PARTICLE>
+     <N-FINE-GROUPS>1</N-FINE-GROUPS>
+     <XS-FILE-FORMAT>dtf</XS-FILE-FORMAT>
+     <TRANSPORT-CORRECTION>none</TRANSPORT-CORRECTION>
+     <ISOTOPES>
+      <ISOTOPE CHI="0" ZAID="0" ID="1" NAME="H-1001"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="2" NAME="H-1002"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="3" NAME="He-2003"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="4" NAME="He-2004"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="5" NAME="C-6000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="6" NAME="N-7014"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="7" NAME="N-7015"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="8" NAME="O-8016"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="9" NAME="O-8017"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="10" NAME="Na-11023"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="11" NAME="Al-13027"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="12" NAME="Si-14028"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="13" NAME="Si-14029"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="14" NAME="Si-14030"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="15" NAME="Ar-18036"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="16" NAME="Ar-18038"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="17" NAME="Ar-18040"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="18" NAME="K-19039"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="19" NAME="K-19040"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="20" NAME="K-19041"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="21" NAME="Ca-20040"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="22" NAME="Ca-20042"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="23" NAME="Ca-20043"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="24" NAME="Ca-20044"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="25" NAME="Ca-20046"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="26" NAME="Ca-20048"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="27" NAME="Cr-24050"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="28" NAME="Cr-24052"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="29" NAME="Cr-24053"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="30" NAME="Cr-24054"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="31" NAME="Fe-26054"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="32" NAME="Fe-26056"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="33" NAME="Fe-26057"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="34" NAME="Fe-26058"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="35" NAME="Ni-28058"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="36" NAME="Ni-28060"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="37" NAME="Ni-28061"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="38" NAME="Ni-28062"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="39" NAME="Ni-28064"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="40" NAME="Kr-36078"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="41" NAME="Kr-36080"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="42" NAME="Kr-36082"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="43" NAME="Kr-36083"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="44" NAME="Kr-36084"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="45" NAME="Kr-36086"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="46" NAME="Xe-54124"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="47" NAME="Pu-94239"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="48" NAME="Pu-94240"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="49" NAME="Pu-94241"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="50" NAME="Pu-94242"/>
+     </ISOTOPES>
+     <EDIT-CROSS-SECTIONS/>
+    </CROSS-SECTION>
+    <MCNP-CONTROLS>
+     <BACKGROUND-CELL-MATERIAL MAT-NUM="3" DENSITY-SCALE="1"/>
+     <BOUNDING-BOX-BUFFER-SIZE VALUE="0.5"/>
+    </MCNP-CONTROLS>
+    <MCNP-TALLIES/>
+    <MCNP-FIXED-SOURCES/>
+    <MCNP-IMPORTANCE-LEVELS AUTOGEN-ITERATIONS="3" ENABLED="0" AUTO-GEN="0" DISPLAY-PARTICLE="neutron">
+     <BACKGROUND-CELLS>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="neutron" SAME-AS-LEVEL="0"/>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="photon" SAME-AS-LEVEL="0"/>
+     </BACKGROUND-CELLS>
+    </MCNP-IMPORTANCE-LEVELS>
+    <WEIGHT-WINDOWS>
+     <FWCADIS-STARTING-FLUX-TYPE>Forward</FWCADIS-STARTING-FLUX-TYPE>
+     <GRID-DEFINITION-TYPE>Target-Total</GRID-DEFINITION-TYPE>
+     <TOTAL-GRID-COUNT VALUE="0"/>
+     <XYZ-GRID-COUNTS X="0" Y="0" Z="0"/>
+     <DEFAULT-GRID-ELEMENT-SIZES X="0" Y="0" Z="0"/>
+     <VARIABLE-GRID-INTERVALS/>
+     <CADIS-MOTIVATING-TALLY VALUE=""/>
+     <FWCADIS-MOTIVATING-TALLY VALUE=""/>
+     <USE-EXISTING-VRS-FILE ENABLED="0"/>
+     <VRS-FILE/>
+     <MAX-INT-SPLIT PARTICLE="neutron" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <MAX-INT-SPLIT PARTICLE="gamma" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <NUM-INT-POINTS X="2" Y="2" Z="2"/>
+    </WEIGHT-WINDOWS>
+    <FIXED-SOURCE-TYPE>None</FIXED-SOURCE-TYPE>
+   </INPUT-DECK>
+   <INPUT-DECK IS_MCNP="1" OPEN="0" ID="10">
+    <CREATION-TIME>2020-10-16T14:49:52</CREATION-TIME>
+    <LAST-MODIFICATION-TIME>2021-09-21T11:37:31</LAST-MODIFICATION-TIME>
+    <OUTPUT-FILES/>
+    <HEADER VERSION="1.0.0">
+     <TITLE>caas</TITLE>
+     <INFO>FW-CADIS to get wwinp for MCNP</INFO>
+    </HEADER>
+    <INPUT-FILES>
+     <MESH-FILE TYPE="rtt">caas.mesh.inp</MESH-FILE>
+     <VOLUME-SOURCE-ORIGIN>internally_generated</VOLUME-SOURCE-ORIGIN>
+     <EDIT-FILE-ORIGIN>internally_generated</EDIT-FILE-ORIGIN>
+     <XS-AUX-FILE>radion15.xs_aux.inp</XS-AUX-FILE>
+     <XS-DATA-FILE>radion15.xs.inp</XS-DATA-FILE>
+     <DMP-PARTITIONER-TYPE>metis</DMP-PARTITIONER-TYPE>
+    </INPUT-FILES>
+    <OUTPUT-CONTROLS>
+     <OUTPUT-PREFIX>caas</OUTPUT-PREFIX>
+     <WRITE-TECPLOT-FILE>0</WRITE-TECPLOT-FILE>
+     <DEFAULT-VIZ-DATA>0</DEFAULT-VIZ-DATA>
+     <SCRATCH-DIRECTORY>./</SCRATCH-DIRECTORY>
+     <EDITS>
+      <REPORT-GROUPS>
+       <REGION-REPORT>
+        <NAME>Detector</NAME>
+        <INFO></INFO>
+        <REGIONS>10</REGIONS>
+        <REGION-TEXTS>detector</REGION-TEXTS>
+       </REGION-REPORT>
+      </REPORT-GROUPS>
+     </EDITS>
+    </OUTPUT-CONTROLS>
+    <TRANSPORT-CONTROLS>
+     <SN-QUADRATURE-SET>tri_cheby_legdr</SN-QUADRATURE-SET>
+     <SN-ORDER>10</SN-ORDER>
+     <SECTOR-SYMMETRIC ACTIVE="0">0.5</SECTOR-SYMMETRIC>
+     <SCATTERING-DEGREE>0</SCATTERING-DEGREE>
+     <SCATTERING-TREATMENT>galerkin</SCATTERING-TREATMENT>
+     <QUAD-VERBOSITY>header</QUAD-VERBOSITY>
+     <PROBLEM-TYPE>FW-CADIS</PROBLEM-TYPE>
+     <ADJOINT>0</ADJOINT>
+     <STARTING-MOMENTS>zero</STARTING-MOMENTS>
+     <VOLUME-SOURCE-CONST-REGIONS>
+      <VOLUME-SOURCE-CONST-REGION MESHED-VOLUME="98680.42452531798" REGION="11" SPECTRA-ID="12" SOURCE-STRENGTH="1" SPECTRUM-ID="1" MULTIPLIER="1" REGION-TEXT="solution"/>
+     </VOLUME-SOURCE-CONST-REGIONS>
+     <VOLUME-SOURCE-NORM>1</VOLUME-SOURCE-NORM>
+     <VOLUME-SOURCES-TOTAL-STRENGTH>1</VOLUME-SOURCES-TOTAL-STRENGTH>
+    </TRANSPORT-CONTROLS>
+    <ENERGY-GROUP>
+     <COLLAPSE-STRATEGY>userspec</COLLAPSE-STRATEGY>
+     <N-GROUPS>20</N-GROUPS>
+     <ENERGY-CUTOFF>20 23</ENERGY-CUTOFF>
+     <COLLAPSE-VECTOR>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21</COLLAPSE-VECTOR>
+     <ANGULAR-QUADRATURES GROUPS="47">
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+     </ANGULAR-QUADRATURES>
+    </ENERGY-GROUP>
+    <ITERATION-CONTROLS>
+     <MAX-OUTERS>1</MAX-OUTERS>
+     <SI-CONV-CRITERIA>0.0001</SI-CONV-CRITERIA>
+     <SI-CONV-FLOOR>0.0001</SI-CONV-FLOOR>
+     <DSA>none</DSA>
+     <PRECOMPUTE-ANGULAR-SOURCE>high_speed</PRECOMPUTE-ANGULAR-SOURCE>
+     <ACCEPT-INITIAL-SOLUTION>0</ACCEPT-INITIAL-SOLUTION>
+     <TRANSMUTATION-PARAMETERS ACTIVE="0">
+      <TIME-STEPS/>
+     </TRANSMUTATION-PARAMETERS>
+    </ITERATION-CONTROLS>
+    <MESH-REGION>
+     <REGION-INDEX>1</REGION-INDEX>
+     <SIDE-INDEX>2</SIDE-INDEX>
+     <REGIONS>
+      <REGION CELL-FLAG-TEXT="walls" MATNUM="2" ID="1" NAME="walls" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="labwall" MATNUM="2" ID="2" NAME="labwall" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall1" MATNUM="2" ID="3" NAME="wall1" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall2" MATNUM="2" ID="4" NAME="wall2" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall3" MATNUM="2" ID="5" NAME="wall3" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall4" MATNUM="2" ID="6" NAME="wall4" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall5" MATNUM="2" ID="7" NAME="wall5" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall6" MATNUM="2" ID="8" NAME="wall6" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="ceiling" MATNUM="2" ID="9" NAME="ceiling" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="detector" MATNUM="4" ID="10" NAME="detector" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="solution" MATNUM="3" ID="11" NAME="solution" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="tank" MATNUM="5" ID="12" NAME="tank" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="air" MATNUM="1" ID="13" NAME="air" DENSITY-SCALE="1" BURN="0"/>
+     </REGIONS>
+     <SIDES>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall1@1" ID="5" NAME="(+)walls/(-)wall1@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@1" ID="15" NAME="(+)walls@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@4" ID="25" NAME="(+)walls/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@1" ID="32" NAME="(+)walls/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@2" ID="37" NAME="(+)walls/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@3" ID="42" NAME="(+)walls/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@5" ID="45" NAME="(+)walls@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@4" ID="52" NAME="(+)walls@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@2" ID="57" NAME="(+)walls@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@3" ID="62" NAME="(+)walls@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)ceiling@1" ID="65" NAME="(+)walls/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@8" ID="272" NAME="(+)walls/(-)air@8"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)labwall@2" ID="278" NAME="(+)walls/(-)labwall@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)labwall@1" ID="292" NAME="(+)walls/(-)labwall@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@3" ID="324" NAME="(+)labwall/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@1" ID="330" NAME="(+)labwall/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@2" ID="339" NAME="(+)labwall/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)ceiling@1" ID="345" NAME="(+)labwall/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall1@2" ID="506" NAME="(+)walls/(-)wall1@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@6" ID="511" NAME="(+)walls/(-)air@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall2@1" ID="522" NAME="(+)walls/(-)wall2@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)wall3@1" ID="563" NAME="(+)wall1/(-)wall3@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@2" ID="572" NAME="(+)wall1/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@3" ID="578" NAME="(+)wall1/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)ceiling@1" ID="584" NAME="(+)wall1/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall2@2" ID="747" NAME="(+)walls/(-)wall2@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@7" ID="752" NAME="(+)walls/(-)air@7"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall4@1" ID="763" NAME="(+)walls/(-)wall4@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@3" ID="813" NAME="(+)wall2/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@1" ID="819" NAME="(+)wall2/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@2" ID="828" NAME="(+)wall2/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)ceiling@1" ID="834" NAME="(+)wall2/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall3@1" ID="988" NAME="(+)walls/(-)wall3@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@1" ID="998" NAME="(+)wall1/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@2" ID="1056" NAME="(+)wall3/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@3" ID="1062" NAME="(+)wall3/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@1" ID="1071" NAME="(+)wall3/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)ceiling@1" ID="1077" NAME="(+)wall3/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall6@1" ID="1233" NAME="(+)walls/(-)wall6@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)wall4@1" ID="1244" NAME="(+)wall1/(-)wall4@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@2" ID="1310" NAME="(+)wall4/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@3" ID="1316" NAME="(+)wall4/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@1" ID="1325" NAME="(+)wall4/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)ceiling@1" ID="1331" NAME="(+)wall4/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall5@1" ID="1492" NAME="(+)walls/(-)wall5@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@2" ID="1563" NAME="(+)wall5/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@3" ID="1569" NAME="(+)wall5/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@5" ID="1575" NAME="(+)wall5/(-)air@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@4" ID="1581" NAME="(+)wall5/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)ceiling@1" ID="1587" NAME="(+)wall5/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@5" ID="1739" NAME="(+)walls/(-)air@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)wall6@1" ID="1755" NAME="(+)wall5/(-)wall6@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@1" ID="1760" NAME="(+)wall5/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@2" ID="1843" NAME="(+)wall6/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@3" ID="1849" NAME="(+)wall6/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@1" ID="1858" NAME="(+)wall6/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)ceiling@1" ID="1864" NAME="(+)wall6/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@3" ID="2138" NAME="(+)ceiling@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@1" ID="2145" NAME="(+)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@2" ID="2152" NAME="(+)ceiling@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@5" ID="2159" NAME="(+)ceiling@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@4" ID="2166" NAME="(+)ceiling@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling/(-)air@1" ID="2173" NAME="(+)ceiling/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)detector/(-)air@1" ID="2558" NAME="(+)detector/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)tank@2" ID="2694" NAME="(+)solution/(-)tank@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)tank@1" ID="2701" NAME="(+)solution/(-)tank@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)air@1" ID="2709" NAME="(+)solution/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@3" ID="2860" NAME="(+)tank/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@4" ID="2871" NAME="(+)tank/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@2" ID="2879" NAME="(+)tank/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@1" ID="2887" NAME="(+)tank/(-)air@1"/>
+     </SIDES>
+    </MESH-REGION>
+    <MATERIAL-DEFINITION>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="1" NAME="Air" FRACTION-UNIT="mass" DENSITY="4.8333e-005">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.22" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.78" ISOTOPE="28"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="2" NAME="Concrete" FRACTION-UNIT="atom" DENSITY="0.0764">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.04423" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.00252" ISOTOPE="1"/>
+       <COMPONENT FRACTION="0.014" ISOTOPE="35"/>
+       <COMPONENT FRACTION="0.00105" ISOTOPE="29"/>
+       <COMPONENT FRACTION="0.0028" ISOTOPE="8"/>
+       <COMPONENT FRACTION="0.0063" ISOTOPE="14"/>
+       <COMPONENT FRACTION="0.00064" ISOTOPE="21"/>
+       <COMPONENT FRACTION="0.00842" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL CHI-ISOTOPE="34" DENSITY-UNIT="atom" CHI-TYPE="isotope" ID="3" NAME="PuSoln" FRACTION-UNIT="atom" DENSITY="0.09927">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.03654" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.0023699" ISOTOPE="28"/>
+       <COMPONENT FRACTION="0.00027682" ISOTOPE="34"/>
+       <COMPONENT FRACTION="0.06007" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="mass" CHI-TYPE="no_chi" ID="4" NAME="HDPE" FRACTION-UNIT="atom" DENSITY="0.92">
+      <COMPONENTS>
+       <COMPONENT FRACTION="1" ISOTOPE="7"/>
+       <COMPONENT FRACTION="2" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="5" NAME="Steel" FRACTION-UNIT="atom" DENSITY="0.08636000000000001">
+      <COMPONENTS>
+       <COMPONENT FRACTION="1" ISOTOPE="14"/>
+      </COMPONENTS>
+     </MATERIAL>
+    </MATERIAL-DEFINITION>
+    <CROSS-SECTION>
+     <N-PARTICLE>2</N-PARTICLE>
+     <N-FINE-GROUPS>47</N-FINE-GROUPS>
+     <XS-FILE-FORMAT>dtf</XS-FILE-FORMAT>
+     <ISOTOPES>
+      <ISOTOPE CHI="0" ZAID="0" ID="1" NAME="Al-13000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="7" NAME="C-6000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="8" NAME="Ca-20000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="14" NAME="Fe-26000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="17" NAME="H-1000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="21" NAME="K-19000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="28" NAME="N-7000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="29" NAME="Na-11000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="32" NAME="O-8000"/>
+      <ISOTOPE CHI="1" ZAID="0" ID="34" NAME="Pu239-94239"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="35" NAME="Si-14000"/>
+     </ISOTOPES>
+     <EDIT-CROSS-SECTIONS>
+      <EDIT AUX-NAME="(n,2n)" ID="1" NAME="(n,2n)"/>
+      <EDIT AUX-NAME="(n,3n)" ID="2" NAME="(n,3n)"/>
+      <EDIT AUX-NAME="(n,a)" ID="3" NAME="(n,a)"/>
+      <EDIT AUX-NAME="(n,d)" ID="4" NAME="(n,d)"/>
+      <EDIT AUX-NAME="(n,f)" ID="5" NAME="(n,f)"/>
+      <EDIT AUX-NAME="(n,g)" ID="6" NAME="(n,g)"/>
+      <EDIT AUX-NAME="(n,p)" ID="7" NAME="(n,p)"/>
+      <EDIT AUX-NAME="(n,t)" ID="8" NAME="(n,t)"/>
+      <EDIT AUX-NAME="KERMA" ID="9" NAME="KERMA"/>
+      <EDIT AUX-NAME="chi" ID="10" NAME="chi"/>
+      <EDIT AUX-NAME="absorption" ID="11" NAME="absorption"/>
+      <EDIT AUX-NAME="nu-fission" ID="12" NAME="nu-fission"/>
+     </EDIT-CROSS-SECTIONS>
+    </CROSS-SECTION>
+    <MCNP-CONTROLS>
+     <BOUNDING-BOX-BUFFER-SIZE VALUE="0.5"/>
+    </MCNP-CONTROLS>
+    <MCNP-TALLIES>
+     <CELL-REGION-TALLY ACTIVE="1">
+      <NAME>Detector</NAME>
+      <COMMENT></COMMENT>
+      <TYPE>F4</TYPE>
+      <PARTICLE>neutron</PARTICLE>
+      <ENERGY-BIN TALLY-BINS-SET-ID="0" TALLY-BIN-ID="0"/>
+      <TIME-BIN TALLY-BINS-SET-ID="0" TALLY-BIN-ID="0"/>
+      <REGION-SET UNION-CELLS="0" GROUP-CELLS="0" ID="1"/>
+      <TALLY-MULTIPLIER VALUE="1"/>
+      <ENERGY-BIN-OPTIONS CUMULATIVE="0" NO-TOTAL="0"/>
+      <TIME-BIN-OPTIONS CUMULATIVE="0" NO-TOTAL="0"/>
+      <ADDITIONAL-OPTIONS ENABLED="0"/>
+      <RESPONSE-USER-DEFINED RESPONSES-SET-ID="0" ENABLED="0" RESPONSE-ID="0" INTERPOLATION="log-log"/>
+      <RESPONSE-STANDARD ENABLED="0" NORMALIZATION="User Defined" TYPE="&lt;none>" UNITS="Sv/hr" USER-DEFINED-FACTOR="1" INTERPOLATION="log-lin"/>
+     </CELL-REGION-TALLY>
+    </MCNP-TALLIES>
+    <MCNP-FIXED-SOURCES/>
+    <MCNP-IMPORTANCE-LEVELS AUTOGEN-ITERATIONS="3" ENABLED="0" AUTO-GEN="0" DISPLAY-PARTICLE="neutron">
+     <BACKGROUND-CELLS>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="neutron" SAME-AS-LEVEL="0"/>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="photon" SAME-AS-LEVEL="0"/>
+     </BACKGROUND-CELLS>
+    </MCNP-IMPORTANCE-LEVELS>
+    <WEIGHT-WINDOWS>
+     <FWCADIS-STARTING-FLUX-TYPE>Forward</FWCADIS-STARTING-FLUX-TYPE>
+     <GRID-DEFINITION-TYPE>Variable</GRID-DEFINITION-TYPE>
+     <TOTAL-GRID-COUNT VALUE="0"/>
+     <XYZ-GRID-COUNTS X="0" Y="0" Z="0"/>
+     <DEFAULT-GRID-ELEMENT-SIZES X="25" Y="25" Z="25"/>
+     <VARIABLE-GRID-INTERVALS>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-250" MAX="-200" AXIS="X"/>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-50" MAX="300" AXIS="Z"/>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-300" MAX="200" AXIS="Y"/>
+     </VARIABLE-GRID-INTERVALS>
+     <CADIS-MOTIVATING-TALLY VALUE=""/>
+     <FWCADIS-MOTIVATING-TALLY VALUE="Detector"/>
+     <USE-EXISTING-VRS-FILE ENABLED="0"/>
+     <VRS-FILE/>
+     <MAX-INT-SPLIT PARTICLE="neutron" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <MAX-INT-SPLIT PARTICLE="gamma" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <NUM-INT-POINTS X="2" Y="2" Z="2"/>
+    </WEIGHT-WINDOWS>
+    <FIXED-SOURCE-TYPE>Volume</FIXED-SOURCE-TYPE>
+   </INPUT-DECK>
+   <INPUT-DECK IS_MCNP="1" OPEN="0" ID="15">
+    <CREATION-TIME>2021-09-20T08:14:01</CREATION-TIME>
+    <LAST-MODIFICATION-TIME>2021-09-20T08:33:31</LAST-MODIFICATION-TIME>
+    <OUTPUT-FILES>
+     <TECPLOT-FILE>C:/work/attila/caas1_fwcadis/caas1.mc_support.plt</TECPLOT-FILE>
+     <VRS-FILE>C:/work/attila/caas1_fwcadis/caas1.vrs</VRS-FILE>
+    </OUTPUT-FILES>
+    <HEADER VERSION="1.0.0">
+     <TITLE>caas1</TITLE>
+     <INFO>FW-CADIS to get wwinp for MCNP</INFO>
+    </HEADER>
+    <INPUT-FILES>
+     <MESH-FILE TYPE="rtt">caas.mesh.inp</MESH-FILE>
+     <VOLUME-SOURCE-ORIGIN>internally_generated</VOLUME-SOURCE-ORIGIN>
+     <EDIT-FILE-ORIGIN>internally_generated</EDIT-FILE-ORIGIN>
+     <XS-AUX-FILE>radion15.xs_aux.inp</XS-AUX-FILE>
+     <XS-DATA-FILE>radion15.xs.inp</XS-DATA-FILE>
+     <DMP-PARTITIONER-TYPE>metis</DMP-PARTITIONER-TYPE>
+    </INPUT-FILES>
+    <OUTPUT-CONTROLS>
+     <OUTPUT-PREFIX>caas1</OUTPUT-PREFIX>
+     <WRITE-TECPLOT-FILE>0</WRITE-TECPLOT-FILE>
+     <DEFAULT-VIZ-DATA>0</DEFAULT-VIZ-DATA>
+     <SCRATCH-DIRECTORY>./</SCRATCH-DIRECTORY>
+     <EDITS>
+      <REPORT-GROUPS>
+       <REGION-REPORT>
+        <NAME>Detector</NAME>
+        <INFO></INFO>
+        <REGIONS>10</REGIONS>
+        <REGION-TEXTS>detector</REGION-TEXTS>
+       </REGION-REPORT>
+      </REPORT-GROUPS>
+     </EDITS>
+    </OUTPUT-CONTROLS>
+    <TRANSPORT-CONTROLS>
+     <SN-QUADRATURE-SET>tri_cheby_legdr</SN-QUADRATURE-SET>
+     <SN-ORDER>10</SN-ORDER>
+     <SECTOR-SYMMETRIC ACTIVE="0">0.5</SECTOR-SYMMETRIC>
+     <SCATTERING-DEGREE>0</SCATTERING-DEGREE>
+     <SCATTERING-TREATMENT>galerkin</SCATTERING-TREATMENT>
+     <QUAD-VERBOSITY>header</QUAD-VERBOSITY>
+     <PROBLEM-TYPE>FW-CADIS</PROBLEM-TYPE>
+     <ADJOINT>0</ADJOINT>
+     <STARTING-MOMENTS>zero</STARTING-MOMENTS>
+     <VOLUME-SOURCE-CONST-REGIONS>
+      <VOLUME-SOURCE-CONST-REGION MESHED-VOLUME="98680.42452531798" REGION="11" SPECTRA-ID="12" SOURCE-STRENGTH="1" SPECTRUM-ID="1" MULTIPLIER="1" REGION-TEXT="solution"/>
+     </VOLUME-SOURCE-CONST-REGIONS>
+     <VOLUME-SOURCE-NORM>1</VOLUME-SOURCE-NORM>
+     <VOLUME-SOURCES-TOTAL-STRENGTH>1</VOLUME-SOURCES-TOTAL-STRENGTH>
+    </TRANSPORT-CONTROLS>
+    <ENERGY-GROUP>
+     <COLLAPSE-STRATEGY>userspec</COLLAPSE-STRATEGY>
+     <N-GROUPS>20</N-GROUPS>
+     <ENERGY-CUTOFF>20 23</ENERGY-CUTOFF>
+     <COLLAPSE-VECTOR>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21</COLLAPSE-VECTOR>
+     <ANGULAR-QUADRATURES GROUPS="47">
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+      <QUADRATURE OPTION="default"/>
+     </ANGULAR-QUADRATURES>
+    </ENERGY-GROUP>
+    <ITERATION-CONTROLS>
+     <MAX-OUTERS>1</MAX-OUTERS>
+     <SI-CONV-CRITERIA>0.0001</SI-CONV-CRITERIA>
+     <SI-CONV-FLOOR>0.0001</SI-CONV-FLOOR>
+     <DSA>none</DSA>
+     <PRECOMPUTE-ANGULAR-SOURCE>high_speed</PRECOMPUTE-ANGULAR-SOURCE>
+     <ACCEPT-INITIAL-SOLUTION>0</ACCEPT-INITIAL-SOLUTION>
+     <TRANSMUTATION-PARAMETERS ACTIVE="0">
+      <TIME-STEPS/>
+     </TRANSMUTATION-PARAMETERS>
+    </ITERATION-CONTROLS>
+    <MESH-REGION>
+     <REGION-INDEX>1</REGION-INDEX>
+     <SIDE-INDEX>2</SIDE-INDEX>
+     <REGIONS>
+      <REGION CELL-FLAG-TEXT="walls" MATNUM="2" ID="1" NAME="walls" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="labwall" MATNUM="2" ID="2" NAME="labwall" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall1" MATNUM="2" ID="3" NAME="wall1" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall2" MATNUM="2" ID="4" NAME="wall2" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall3" MATNUM="2" ID="5" NAME="wall3" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall4" MATNUM="2" ID="6" NAME="wall4" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall5" MATNUM="2" ID="7" NAME="wall5" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="wall6" MATNUM="2" ID="8" NAME="wall6" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="ceiling" MATNUM="2" ID="9" NAME="ceiling" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="detector" MATNUM="4" ID="10" NAME="detector" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="solution" MATNUM="3" ID="11" NAME="solution" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="tank" MATNUM="5" ID="12" NAME="tank" DENSITY-SCALE="1" BURN="0"/>
+      <REGION CELL-FLAG-TEXT="air" MATNUM="1" ID="13" NAME="air" DENSITY-SCALE="1" BURN="0"/>
+     </REGIONS>
+     <SIDES>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall1@1" ID="5" NAME="(+)walls/(-)wall1@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@1" ID="15" NAME="(+)walls@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@4" ID="25" NAME="(+)walls/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@1" ID="32" NAME="(+)walls/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@2" ID="37" NAME="(+)walls/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@3" ID="42" NAME="(+)walls/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@5" ID="45" NAME="(+)walls@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@4" ID="52" NAME="(+)walls@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@2" ID="57" NAME="(+)walls@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls@3" ID="62" NAME="(+)walls@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)ceiling@1" ID="65" NAME="(+)walls/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@8" ID="272" NAME="(+)walls/(-)air@8"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)labwall@2" ID="278" NAME="(+)walls/(-)labwall@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)labwall@1" ID="292" NAME="(+)walls/(-)labwall@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@3" ID="324" NAME="(+)labwall/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@1" ID="330" NAME="(+)labwall/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)air@2" ID="339" NAME="(+)labwall/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)labwall/(-)ceiling@1" ID="345" NAME="(+)labwall/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall1@2" ID="506" NAME="(+)walls/(-)wall1@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@6" ID="511" NAME="(+)walls/(-)air@6"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall2@1" ID="522" NAME="(+)walls/(-)wall2@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)wall3@1" ID="563" NAME="(+)wall1/(-)wall3@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@2" ID="572" NAME="(+)wall1/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@3" ID="578" NAME="(+)wall1/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)ceiling@1" ID="584" NAME="(+)wall1/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall2@2" ID="747" NAME="(+)walls/(-)wall2@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@7" ID="752" NAME="(+)walls/(-)air@7"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall4@1" ID="763" NAME="(+)walls/(-)wall4@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@3" ID="813" NAME="(+)wall2/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@1" ID="819" NAME="(+)wall2/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)air@2" ID="828" NAME="(+)wall2/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall2/(-)ceiling@1" ID="834" NAME="(+)wall2/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall3@1" ID="988" NAME="(+)walls/(-)wall3@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)air@1" ID="998" NAME="(+)wall1/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@2" ID="1056" NAME="(+)wall3/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@3" ID="1062" NAME="(+)wall3/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)air@1" ID="1071" NAME="(+)wall3/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall3/(-)ceiling@1" ID="1077" NAME="(+)wall3/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall6@1" ID="1233" NAME="(+)walls/(-)wall6@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall1/(-)wall4@1" ID="1244" NAME="(+)wall1/(-)wall4@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@2" ID="1310" NAME="(+)wall4/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@3" ID="1316" NAME="(+)wall4/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)air@1" ID="1325" NAME="(+)wall4/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall4/(-)ceiling@1" ID="1331" NAME="(+)wall4/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)wall5@1" ID="1492" NAME="(+)walls/(-)wall5@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@2" ID="1563" NAME="(+)wall5/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@3" ID="1569" NAME="(+)wall5/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@5" ID="1575" NAME="(+)wall5/(-)air@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@4" ID="1581" NAME="(+)wall5/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)ceiling@1" ID="1587" NAME="(+)wall5/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)walls/(-)air@5" ID="1739" NAME="(+)walls/(-)air@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)wall6@1" ID="1755" NAME="(+)wall5/(-)wall6@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall5/(-)air@1" ID="1760" NAME="(+)wall5/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@2" ID="1843" NAME="(+)wall6/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@3" ID="1849" NAME="(+)wall6/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)air@1" ID="1858" NAME="(+)wall6/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)wall6/(-)ceiling@1" ID="1864" NAME="(+)wall6/(-)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@3" ID="2138" NAME="(+)ceiling@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@1" ID="2145" NAME="(+)ceiling@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@2" ID="2152" NAME="(+)ceiling@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@5" ID="2159" NAME="(+)ceiling@5"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling@4" ID="2166" NAME="(+)ceiling@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)ceiling/(-)air@1" ID="2173" NAME="(+)ceiling/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)detector/(-)air@1" ID="2558" NAME="(+)detector/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)tank@2" ID="2694" NAME="(+)solution/(-)tank@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)tank@1" ID="2701" NAME="(+)solution/(-)tank@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)solution/(-)air@1" ID="2709" NAME="(+)solution/(-)air@1"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@3" ID="2860" NAME="(+)tank/(-)air@3"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@4" ID="2871" NAME="(+)tank/(-)air@4"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@2" ID="2879" NAME="(+)tank/(-)air@2"/>
+      <SIDE SIDE-FLAG-TEXT="(+)tank/(-)air@1" ID="2887" NAME="(+)tank/(-)air@1"/>
+     </SIDES>
+    </MESH-REGION>
+    <MATERIAL-DEFINITION>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="1" NAME="Air" FRACTION-UNIT="mass" DENSITY="4.8333e-005">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.22" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.78" ISOTOPE="28"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="2" NAME="Concrete" FRACTION-UNIT="atom" DENSITY="0.0764">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.04423" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.00252" ISOTOPE="1"/>
+       <COMPONENT FRACTION="0.014" ISOTOPE="35"/>
+       <COMPONENT FRACTION="0.00105" ISOTOPE="29"/>
+       <COMPONENT FRACTION="0.0028" ISOTOPE="8"/>
+       <COMPONENT FRACTION="0.0063" ISOTOPE="14"/>
+       <COMPONENT FRACTION="0.00064" ISOTOPE="21"/>
+       <COMPONENT FRACTION="0.00842" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL CHI-ISOTOPE="34" DENSITY-UNIT="atom" CHI-TYPE="isotope" ID="3" NAME="PuSoln" FRACTION-UNIT="atom" DENSITY="0.09927">
+      <COMPONENTS>
+       <COMPONENT FRACTION="0.03654" ISOTOPE="32"/>
+       <COMPONENT FRACTION="0.0023699" ISOTOPE="28"/>
+       <COMPONENT FRACTION="0.00027682" ISOTOPE="34"/>
+       <COMPONENT FRACTION="0.06007" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="mass" CHI-TYPE="no_chi" ID="4" NAME="HDPE" FRACTION-UNIT="atom" DENSITY="0.92">
+      <COMPONENTS>
+       <COMPONENT FRACTION="1" ISOTOPE="7"/>
+       <COMPONENT FRACTION="2" ISOTOPE="17"/>
+      </COMPONENTS>
+     </MATERIAL>
+     <MATERIAL DENSITY-UNIT="atom" CHI-TYPE="no_chi" ID="5" NAME="Steel" FRACTION-UNIT="atom" DENSITY="0.08636000000000001">
+      <COMPONENTS>
+       <COMPONENT FRACTION="1" ISOTOPE="14"/>
+      </COMPONENTS>
+     </MATERIAL>
+    </MATERIAL-DEFINITION>
+    <CROSS-SECTION>
+     <N-PARTICLE>2</N-PARTICLE>
+     <N-FINE-GROUPS>47</N-FINE-GROUPS>
+     <XS-FILE-FORMAT>dtf</XS-FILE-FORMAT>
+     <ISOTOPES>
+      <ISOTOPE CHI="0" ZAID="0" ID="1" NAME="Al-13000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="7" NAME="C-6000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="8" NAME="Ca-20000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="14" NAME="Fe-26000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="17" NAME="H-1000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="21" NAME="K-19000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="28" NAME="N-7000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="29" NAME="Na-11000"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="32" NAME="O-8000"/>
+      <ISOTOPE CHI="1" ZAID="0" ID="34" NAME="Pu239-94239"/>
+      <ISOTOPE CHI="0" ZAID="0" ID="35" NAME="Si-14000"/>
+     </ISOTOPES>
+     <EDIT-CROSS-SECTIONS>
+      <EDIT AUX-NAME="(n,2n)" ID="1" NAME="(n,2n)"/>
+      <EDIT AUX-NAME="(n,3n)" ID="2" NAME="(n,3n)"/>
+      <EDIT AUX-NAME="(n,a)" ID="3" NAME="(n,a)"/>
+      <EDIT AUX-NAME="(n,d)" ID="4" NAME="(n,d)"/>
+      <EDIT AUX-NAME="(n,f)" ID="5" NAME="(n,f)"/>
+      <EDIT AUX-NAME="(n,g)" ID="6" NAME="(n,g)"/>
+      <EDIT AUX-NAME="(n,p)" ID="7" NAME="(n,p)"/>
+      <EDIT AUX-NAME="(n,t)" ID="8" NAME="(n,t)"/>
+      <EDIT AUX-NAME="KERMA" ID="9" NAME="KERMA"/>
+      <EDIT AUX-NAME="chi" ID="10" NAME="chi"/>
+      <EDIT AUX-NAME="absorption" ID="11" NAME="absorption"/>
+      <EDIT AUX-NAME="nu-fission" ID="12" NAME="nu-fission"/>
+     </EDIT-CROSS-SECTIONS>
+    </CROSS-SECTION>
+    <MCNP-CONTROLS>
+     <BOUNDING-BOX-BUFFER-SIZE VALUE="0.5"/>
+    </MCNP-CONTROLS>
+    <MCNP-TALLIES>
+     <CELL-REGION-TALLY ACTIVE="1">
+      <NAME>Detector</NAME>
+      <COMMENT></COMMENT>
+      <TYPE>F4</TYPE>
+      <PARTICLE>neutron</PARTICLE>
+      <ENERGY-BIN TALLY-BINS-SET-ID="0" TALLY-BIN-ID="0"/>
+      <TIME-BIN TALLY-BINS-SET-ID="0" TALLY-BIN-ID="0"/>
+      <REGION-SET UNION-CELLS="0" GROUP-CELLS="0" ID="1"/>
+      <TALLY-MULTIPLIER VALUE="1"/>
+      <ENERGY-BIN-OPTIONS CUMULATIVE="0" NO-TOTAL="0"/>
+      <TIME-BIN-OPTIONS CUMULATIVE="0" NO-TOTAL="0"/>
+      <ADDITIONAL-OPTIONS ENABLED="0"/>
+      <RESPONSE-USER-DEFINED RESPONSES-SET-ID="0" ENABLED="0" RESPONSE-ID="0" INTERPOLATION="log-log"/>
+      <RESPONSE-STANDARD ENABLED="0" NORMALIZATION="User Defined" TYPE="&lt;none>" UNITS="Sv/hr" USER-DEFINED-FACTOR="1" INTERPOLATION="log-lin"/>
+     </CELL-REGION-TALLY>
+    </MCNP-TALLIES>
+    <MCNP-FIXED-SOURCES/>
+    <MCNP-IMPORTANCE-LEVELS AUTOGEN-ITERATIONS="3" ENABLED="0" AUTO-GEN="0" DISPLAY-PARTICLE="neutron">
+     <BACKGROUND-CELLS>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="neutron" SAME-AS-LEVEL="0"/>
+      <PARTICLE IMPORTANCE="1" OPTION="user" TYPE="photon" SAME-AS-LEVEL="0"/>
+     </BACKGROUND-CELLS>
+    </MCNP-IMPORTANCE-LEVELS>
+    <WEIGHT-WINDOWS>
+     <FWCADIS-STARTING-FLUX-TYPE>Forward</FWCADIS-STARTING-FLUX-TYPE>
+     <GRID-DEFINITION-TYPE>Variable</GRID-DEFINITION-TYPE>
+     <TOTAL-GRID-COUNT VALUE="0"/>
+     <XYZ-GRID-COUNTS X="0" Y="0" Z="0"/>
+     <DEFAULT-GRID-ELEMENT-SIZES X="25" Y="25" Z="25"/>
+     <VARIABLE-GRID-INTERVALS>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-250" MAX="-200" AXIS="X"/>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-50" MAX="300" AXIS="Z"/>
+      <VARIABLE-GRID-INTERVAL GRID-ELEMENT-SIZE="10" MIN="-300" MAX="200" AXIS="Y"/>
+     </VARIABLE-GRID-INTERVALS>
+     <CADIS-MOTIVATING-TALLY VALUE=""/>
+     <FWCADIS-MOTIVATING-TALLY VALUE="Detector"/>
+     <USE-EXISTING-VRS-FILE ENABLED="0"/>
+     <VRS-FILE/>
+     <MAX-INT-SPLIT PARTICLE="neutron" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <MAX-INT-SPLIT PARTICLE="gamma" SPEC-OPTION="RECOMMENDED">5</MAX-INT-SPLIT>
+     <NUM-INT-POINTS X="2" Y="2" Z="2"/>
+    </WEIGHT-WINDOWS>
+    <FIXED-SOURCE-TYPE>Volume</FIXED-SOURCE-TYPE>
+   </INPUT-DECK>
+  </INPUT-DECKS>
+  <CROSS-SECTION-LIBRARIES>
+   <CROSS-SECTION-LIBRARY AUX="radion15.xs_aux.inp" DATA="radion15.xs.inp" ID="1" NAME="radion15"/>
+   <CROSS-SECTION-LIBRARY AUX="MCNP_Isotopes_Lib.xs_aux.inp" DATA="MCNP_Isotopes_Lib.xs.inp" ID="5" NAME="MCNP_Isotopes_Lib"/>
+  </CROSS-SECTION-LIBRARIES>
+  <MESH-FILES>
+   <MESH-FILE ID="7" NAME="caas_hybrid" FILE="caas_hybrid.mesh.inp"/>
+   <MESH-FILE ID="8" NAME="caas" FILE="caas.mesh.inp"/>
+  </MESH-FILES>
+  <SPECTRA>
+   <SPECTRA ID="12">
+    <TITLE>Pu239_soln</TITLE>
+    <INFO></INFO>
+    <VERSION>1.0.0</VERSION>
+    <CREATION-TIME>2020-10-16T19:55:13</CREATION-TIME>
+    <LAST-MODIFICATION-TIME>2020-10-16T19:55:13</LAST-MODIFICATION-TIME>
+    <SPECTRA>
+     <DISCRETE TREATMENT="conserve_particles" PARTICLE="neutron" ID="1">
+      <TITLE>Pu239_solution</TITLE>
+      <INFO>spectrum collected from f4 tally in tank with pu nitrate</INFO>
+      <SPECTRUM>
+       <FRACTION CHI="0.00021" E="20"/>
+       <FRACTION CHI="0.00649" E="11.862"/>
+       <FRACTION CHI="0.03976" E="7.0359"/>
+       <FRACTION CHI="0.08853999999999999" E="4.1732"/>
+       <FRACTION CHI="0.10427" E="2.4752"/>
+       <FRACTION CHI="0.08563" E="1.4681"/>
+       <FRACTION CHI="0.07718" E="0.87077"/>
+       <FRACTION CHI="0.05038" E="0.51647"/>
+       <FRACTION CHI="0.04122" E="0.30633"/>
+       <FRACTION CHI="0.03181" E="0.18169"/>
+       <FRACTION CHI="0.02591" E="0.10777"/>
+       <FRACTION CHI="0.02226" E="0.063919"/>
+       <FRACTION CHI="0.01997" E="0.037912"/>
+       <FRACTION CHI="0.0186" E="0.022487"/>
+       <FRACTION CHI="0.01766" E="0.013337"/>
+       <FRACTION CHI="0.01714" E="0.0079107"/>
+       <FRACTION CHI="0.0167" E="0.004692"/>
+       <FRACTION CHI="0.01646" E="0.0027829"/>
+       <FRACTION CHI="0.0162" E="0.0016506"/>
+       <FRACTION CHI="0.01604" E="0.0009790300000000001"/>
+       <FRACTION CHI="0.01588" E="0.00058069"/>
+       <FRACTION CHI="0.01564" E="0.00034442"/>
+       <FRACTION CHI="0.01547" E="0.00020428"/>
+       <FRACTION CHI="0.01515" E="0.00012117"/>
+       <FRACTION CHI="0.01485" E="7.186600000000001e-005"/>
+       <FRACTION CHI="0.01482" E="4.2626e-005"/>
+       <FRACTION CHI="0.01456" E="2.5282e-005"/>
+       <FRACTION CHI="0.01393" E="1.4996e-005"/>
+       <FRACTION CHI="0.01407" E="8.8942e-006"/>
+       <FRACTION CHI="0.01428" E="5.2754e-006"/>
+       <FRACTION CHI="0.01437" E="3.1289e-006"/>
+       <FRACTION CHI="0.01442" E="1.8559e-006"/>
+       <FRACTION CHI="0.01305" E="1.1008e-006"/>
+       <FRACTION CHI="0.01379" E="6.5288e-007"/>
+       <FRACTION CHI="0.007849999999999999" E="3.8724e-007"/>
+       <FRACTION CHI="0.01075" E="2.2968e-007"/>
+       <FRACTION CHI="0.01632" E="1.3623e-007"/>
+       <FRACTION CHI="0.01896" E="8.0801e-008"/>
+       <FRACTION CHI="0.01477" E="4.7925e-008"/>
+       <FRACTION CHI="0.00831" E="2.8426e-008"/>
+       <FRACTION CHI="0.00382" E="1.686e-008"/>
+       <FRACTION CHI="0.0025" E="1e-008"/>
+      </SPECTRUM>
+     </DISCRETE>
+    </SPECTRA>
+   </SPECTRA>
+  </SPECTRA>
+ </PROJECT>
+</ATTILA-PROJECT>

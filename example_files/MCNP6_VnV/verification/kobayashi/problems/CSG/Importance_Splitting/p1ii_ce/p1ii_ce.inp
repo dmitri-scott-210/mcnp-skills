@@ -1,0 +1,338 @@
+Kobayashi Problem 1 (Nested Cuboids) with 50/50 Absorber:Scatterer
+c
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c CSG Cell Definitions
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+    1   1 .1                -1                                                 $ Source
+    2   1 .0001              1     -2                                          $ Void
+    3   1 .1                 2     -3                                          $ Shield
+    4   0                    3                                                 $ Graveyard
+
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Surface Definitions
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+    1   rpp   -10.  10.  -10.  10.  -10.  10.                                  $ Source
+    2   rpp   -50.  50.  -50.  50.  -50.  50.                                  $ Void
+    3   rpp  -100. 100. -100. 100. -100. 100.                                  $ Shield
+
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Physics
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+mode n
+c
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Material Definitions
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+m1 99002.00c 1.
+c
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Source Definition
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+sdef wgt=8000. x=d1 y=d2 z=d3
+si1 -10. 10.
+sp1   0   1
+si2 -10. 10.
+sp2   0   1
+si3 -10. 10.
+sp3   0   1
+c
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Neutron Tallies
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+c First Octant (+, +, +)
+c
+f1005:n    5.   5.   5.  1
+f1015:n    5.  15.   5.   .01
+f1025:n    5.  25.   5.   .01
+f1035:n    5.  35.   5.   .01
+f1045:n    5.  45.   5.   .01
+f1055:n    5.  55.   5.   .01
+f1065:n    5.  65.   5.   .01
+f1075:n    5.  75.   5.   .01
+f1085:n    5.  85.   5.   .01
+f1095:n    5.  95.   5.   .01
+c
+f1105:n    5.   5.   5.   .01
+f1115:n   15.  15.  15.   .01
+f1125:n   25.  25.  25.   .01
+f1135:n   35.  35.  35.   .01
+f1145:n   45.  45.  45.   .01
+f1155:n   55.  55.  55.   .01
+f1165:n   65.  65.  65.   .01
+f1175:n   75.  75.  75.   .01
+f1185:n   85.  85.  85.   .01
+f1195:n   95.  95.  95.   .01
+c
+f1205:n    5.  55.   5.   .01
+f1215:n   15.  55.   5.   .01
+f1225:n   25.  55.   5.   .01
+f1235:n   35.  55.   5.   .01
+f1245:n   45.  55.   5.   .01
+f1255:n   55.  55.   5.   .01
+f1265:n   65.  55.   5.   .01
+f1275:n   75.  55.   5.   .01
+f1285:n   85.  55.   5.   .01
+f1295:n   95.  55.   5.   .01
+c c
+c c Second Octant (-, +, +)
+c c
+c f2005:n   -5.   5.   5.  1
+c f2015:n   -5.  15.   5.   .01
+c f2025:n   -5.  25.   5.   .01
+c f2035:n   -5.  35.   5.   .01
+c f2045:n   -5.  45.   5.   .01
+c f2055:n   -5.  55.   5.   .01
+c f2065:n   -5.  65.   5.   .01
+c f2075:n   -5.  75.   5.   .01
+c f2085:n   -5.  85.   5.   .01
+c f2095:n   -5.  95.   5.   .01
+c c
+c f2105:n   -5.   5.   5.   .01
+c f2115:n  -15.  15.  15.   .01
+c f2125:n  -25.  25.  25.   .01
+c f2135:n  -35.  35.  35.   .01
+c f2145:n  -45.  45.  45.   .01
+c f2155:n  -55.  55.  55.   .01
+c f2165:n  -65.  65.  65.   .01
+c f2175:n  -75.  75.  75.   .01
+c f2185:n  -85.  85.  85.   .01
+c f2195:n  -95.  95.  95.   .01
+c c
+c f2205:n   -5.  55.   5.   .01
+c f2215:n  -15.  55.   5.   .01
+c f2225:n  -25.  55.   5.   .01
+c f2235:n  -35.  55.   5.   .01
+c f2245:n  -45.  55.   5.   .01
+c f2255:n  -55.  55.   5.   .01
+c f2265:n  -65.  55.   5.   .01
+c f2275:n  -75.  55.   5.   .01
+c f2285:n  -85.  55.   5.   .01
+c f2295:n  -95.  55.   5.   .01
+c c
+c c Third Octant (-, -, +)
+c c
+c f3005:n   -5.  -5.   5.  1
+c f3015:n   -5. -15.   5.   .01
+c f3025:n   -5. -25.   5.   .01
+c f3035:n   -5. -35.   5.   .01
+c f3045:n   -5. -45.   5.   .01
+c f3055:n   -5. -55.   5.   .01
+c f3065:n   -5. -65.   5.   .01
+c f3075:n   -5. -75.   5.   .01
+c f3085:n   -5. -85.   5.   .01
+c f3095:n   -5. -95.   5.   .01
+c c
+c f3105:n   -5.  -5.   5.   .01
+c f3115:n  -15. -15.  15.   .01
+c f3125:n  -25. -25.  25.   .01
+c f3135:n  -35. -35.  35.   .01
+c f3145:n  -45. -45.  45.   .01
+c f3155:n  -55. -55.  55.   .01
+c f3165:n  -65. -65.  65.   .01
+c f3175:n  -75. -75.  75.   .01
+c f3185:n  -85. -85.  85.   .01
+c f3195:n  -95. -95.  95.   .01
+c c
+c f3205:n   -5. -55.   5.   .01
+c f3215:n  -15. -55.   5.   .01
+c f3225:n  -25. -55.   5.   .01
+c f3235:n  -35. -55.   5.   .01
+c f3245:n  -45. -55.   5.   .01
+c f3255:n  -55. -55.   5.   .01
+c f3265:n  -65. -55.   5.   .01
+c f3275:n  -75. -55.   5.   .01
+c f3285:n  -85. -55.   5.   .01
+c f3295:n  -95. -55.   5.   .01
+c c
+c c Fourth Octant (+, -, +)
+c c
+c f4005:n    5.  -5.   5.  1
+c f4015:n    5. -15.   5.   .01
+c f4025:n    5. -25.   5.   .01
+c f4035:n    5. -35.   5.   .01
+c f4045:n    5. -45.   5.   .01
+c f4055:n    5. -55.   5.   .01
+c f4065:n    5. -65.   5.   .01
+c f4075:n    5. -75.   5.   .01
+c f4085:n    5. -85.   5.   .01
+c f4095:n    5. -95.   5.   .01
+c c
+c f4105:n    5.  -5.   5.   .01
+c f4115:n   15. -15.  15.   .01
+c f4125:n   25. -25.  25.   .01
+c f4135:n   35. -35.  35.   .01
+c f4145:n   45. -45.  45.   .01
+c f4155:n   55. -55.  55.   .01
+c f4165:n   65. -65.  65.   .01
+c f4175:n   75. -75.  75.   .01
+c f4185:n   85. -85.  85.   .01
+c f4195:n   95. -95.  95.   .01
+c c
+c f4205:n    5. -55.   5.   .01
+c f4215:n   15. -55.   5.   .01
+c f4225:n   25. -55.   5.   .01
+c f4235:n   35. -55.   5.   .01
+c f4245:n   45. -55.   5.   .01
+c f4255:n   55. -55.   5.   .01
+c f4265:n   65. -55.   5.   .01
+c f4275:n   75. -55.   5.   .01
+c f4285:n   85. -55.   5.   .01
+c f4295:n   95. -55.   5.   .01
+c c
+c c Fifth Octant (+, +, -)
+c c
+c f5005:n    5.   5.  -5.  1
+c f5015:n    5.  15.  -5.   .01
+c f5025:n    5.  25.  -5.   .01
+c f5035:n    5.  35.  -5.   .01
+c f5045:n    5.  45.  -5.   .01
+c f5055:n    5.  55.  -5.   .01
+c f5065:n    5.  65.  -5.   .01
+c f5075:n    5.  75.  -5.   .01
+c f5085:n    5.  85.  -5.   .01
+c f5095:n    5.  95.  -5.   .01
+c c
+c f5105:n    5.   5.  -5.   .01
+c f5115:n   15.  15. -15.   .01
+c f5125:n   25.  25. -25.   .01
+c f5135:n   35.  35. -35.   .01
+c f5145:n   45.  45. -45.   .01
+c f5155:n   55.  55. -55.   .01
+c f5165:n   65.  65. -65.   .01
+c f5175:n   75.  75. -75.   .01
+c f5185:n   85.  85. -85.   .01
+c f5195:n   95.  95. -95.   .01
+c c
+c f5205:n    5.  55.  -5.   .01
+c f5215:n   15.  55.  -5.   .01
+c f5225:n   25.  55.  -5.   .01
+c f5235:n   35.  55.  -5.   .01
+c f5245:n   45.  55.  -5.   .01
+c f5255:n   55.  55.  -5.   .01
+c f5265:n   65.  55.  -5.   .01
+c f5275:n   75.  55.  -5.   .01
+c f5285:n   85.  55.  -5.   .01
+c f5295:n   95.  55.  -5.   .01
+c c
+c c Sixth Octant (-, +, -)
+c c
+c f6005:n   -5.   5.  -5.  1
+c f6015:n   -5.  15.  -5.   .01
+c f6025:n   -5.  25.  -5.   .01
+c f6035:n   -5.  35.  -5.   .01
+c f6045:n   -5.  45.  -5.   .01
+c f6055:n   -5.  55.  -5.   .01
+c f6065:n   -5.  65.  -5.   .01
+c f6075:n   -5.  75.  -5.   .01
+c f6085:n   -5.  85.  -5.   .01
+c f6095:n   -5.  95.  -5.   .01
+c c
+c f6105:n   -5.   5.  -5.   .01
+c f6115:n  -15.  15. -15.   .01
+c f6125:n  -25.  25. -25.   .01
+c f6135:n  -35.  35. -35.   .01
+c f6145:n  -45.  45. -45.   .01
+c f6155:n  -55.  55. -55.   .01
+c f6165:n  -65.  65. -65.   .01
+c f6175:n  -75.  75. -75.   .01
+c f6185:n  -85.  85. -85.   .01
+c f6195:n  -95.  95. -95.   .01
+c c
+c f6205:n   -5.  55.  -5.   .01
+c f6215:n  -15.  55.  -5.   .01
+c f6225:n  -25.  55.  -5.   .01
+c f6235:n  -35.  55.  -5.   .01
+c f6245:n  -45.  55.  -5.   .01
+c f6255:n  -55.  55.  -5.   .01
+c f6265:n  -65.  55.  -5.   .01
+c f6275:n  -75.  55.  -5.   .01
+c f6285:n  -85.  55.  -5.   .01
+c f6295:n  -95.  55.  -5.   .01
+c c
+c c Seventh Octant (-, -, -)
+c c
+c f7005:n   -5.  -5.  -5.  1
+c f7015:n   -5. -15.  -5.   .01
+c f7025:n   -5. -25.  -5.   .01
+c f7035:n   -5. -35.  -5.   .01
+c f7045:n   -5. -45.  -5.   .01
+c f7055:n   -5. -55.  -5.   .01
+c f7065:n   -5. -65.  -5.   .01
+c f7075:n   -5. -75.  -5.   .01
+c f7085:n   -5. -85.  -5.   .01
+c f7095:n   -5. -95.  -5.   .01
+c c
+c f7105:n   -5.  -5.  -5.   .01
+c f7115:n  -15. -15. -15.   .01
+c f7125:n  -25. -25. -25.   .01
+c f7135:n  -35. -35. -35.   .01
+c f7145:n  -45. -45. -45.   .01
+c f7155:n  -55. -55. -55.   .01
+c f7165:n  -65. -65. -65.   .01
+c f7175:n  -75. -75. -75.   .01
+c f7185:n  -85. -85. -85.   .01
+c f7195:n  -95. -95. -95.   .01
+c c
+c f7205:n   -5. -55.  -5.   .01
+c f7215:n  -15. -55.  -5.   .01
+c f7225:n  -25. -55.  -5.   .01
+c f7235:n  -35. -55.  -5.   .01
+c f7245:n  -45. -55.  -5.   .01
+c f7255:n  -55. -55.  -5.   .01
+c f7265:n  -65. -55.  -5.   .01
+c f7275:n  -75. -55.  -5.   .01
+c f7285:n  -85. -55.  -5.   .01
+c f7295:n  -95. -55.  -5.   .01
+c c
+c c Eighth Octant (+, -, -)
+c c
+c f8005:n    5.  -5.  -5.  1
+c f8015:n    5. -15.  -5.   .01
+c f8025:n    5. -25.  -5.   .01
+c f8035:n    5. -35.  -5.   .01
+c f8045:n    5. -45.  -5.   .01
+c f8055:n    5. -55.  -5.   .01
+c f8065:n    5. -65.  -5.   .01
+c f8075:n    5. -75.  -5.   .01
+c f8085:n    5. -85.  -5.   .01
+c f8095:n    5. -95.  -5.   .01
+c c
+c f8105:n    5.  -5.  -5.   .01
+c f8115:n   15. -15. -15.   .01
+c f8125:n   25. -25. -25.   .01
+c f8135:n   35. -35. -35.   .01
+c f8145:n   45. -45. -45.   .01
+c f8155:n   55. -55. -55.   .01
+c f8165:n   65. -65. -65.   .01
+c f8175:n   75. -75. -75.   .01
+c f8185:n   85. -85. -85.   .01
+c f8195:n   95. -95. -95.   .01
+c c
+c f8205:n    5. -55.  -5.   .01
+c f8215:n   15. -55.  -5.   .01
+c f8225:n   25. -55.  -5.   .01
+c f8235:n   35. -55.  -5.   .01
+c f8245:n   45. -55.  -5.   .01
+c f8255:n   55. -55.  -5.   .01
+c f8265:n   65. -55.  -5.   .01
+c f8275:n   75. -55.  -5.   .01
+c f8285:n   85. -55.  -5.   .01
+c f8295:n   95. -55.  -5.   .01
+c
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c Print & Go
+c cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c
+imp:n 1 2 16 0
+c
+rand gen=2 seed=13
+print
+prdmp 2j 1
+dbcn 49j 1
+nps 1e8

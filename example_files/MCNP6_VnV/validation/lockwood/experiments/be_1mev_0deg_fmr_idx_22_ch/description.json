@@ -1,0 +1,38 @@
+{
+  "general_info": {
+    "name": "be_1mev_0deg_fmr_idx_22_ch",
+    "description": "",
+    "details": {
+      "material": "Beryllium",
+      "energy": 1.0,
+      "type": "Condensed History",
+      "angle": 0,
+      "fmr": 0.822,
+      "fmr_index": 22
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "be_1mev_0deg_fmr_idx_22_ch_",
+      "n": "be_1mev_0deg_fmr_idx_22_ch_"
+    },
+    "outputs": {
+      "outp": "be_1mev_0deg_fmr_idx_22_ch_o",
+      "mctal": "be_1mev_0deg_fmr_idx_22_ch_m"
+    },
+    "inputs": {
+      "inp": "be_1mev_0deg_fmr_idx_22_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.00569907,
+      "err": 0.016
+    },
+    "reference": "SAND79-0414, p. 35",
+    "foil_thickness": 0.004871,
+    "energy_deposited": 1.17,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  }
+}

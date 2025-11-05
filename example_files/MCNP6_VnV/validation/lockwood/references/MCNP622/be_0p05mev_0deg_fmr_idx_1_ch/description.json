@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "be_0p05mev_0deg_fmr_idx_1_ch",
+    "description": "",
+    "details": {
+      "material": "Beryllium",
+      "energy": 0.05,
+      "type": "Condensed History",
+      "angle": 0,
+      "fmr": 0.396,
+      "fmr_index": 1
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "be_0p05mev_0deg_fmr_idx_1_ch_",
+      "n": "be_0p05mev_0deg_fmr_idx_1_ch_"
+    },
+    "outputs": {
+      "outp": "be_0p05mev_0deg_fmr_idx_1_ch_o",
+      "mctal": "be_0p05mev_0deg_fmr_idx_1_ch_m"
+    },
+    "inputs": {
+      "inp": "be_0p05mev_0deg_fmr_idx_1_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.048822033,
+      "err": 0.016
+    },
+    "reference": "SAND79-0414, p. 43",
+    "foil_thickness": 0.004871,
+    "energy_deposited": 10.023,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0483382,
+      "err": 0.0001
+    }
+  }
+}

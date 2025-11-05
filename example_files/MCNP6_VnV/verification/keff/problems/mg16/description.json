@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg16",
+    "problem_type": "Multigroup",
+    "description": "Ub-H2O(1)-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg16.inp",
+      "n": "mg16"
+    },
+    "outputs": {
+      "outp": "mg16o",
+      "mctal": "mg16m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

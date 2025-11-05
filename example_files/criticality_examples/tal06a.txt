@@ -1,0 +1,46 @@
+Sphere of HEU in water box
+c cell cards
+10   100   -19.1   -1      imp:n=1
+20   200    -1.0   -2  1   imp:n=1
+30     0           -3  2   imp:n=1
+40     0            3      imp:n=0
+
+c surface cards
+1   so    2.5
+2   rpp   -5  5   -5  5   -5  5
+3   so    25
+
+c data cards
+mode n p
+nps    100000
+totnu
+m100     92235  -90     92238  -10
+m200      1001    2      8016    1
+c
+m101     92235    1
+m102     92238    1
+c
+sdef   pos=-15 0 0   axs=1 0 0   rad=d1  vec=1 0 0    dir=1   
+       erg=14.1      tme=d2
+si1    0   1
+sp1  -21   1
+si2    0   2.5
+sp2    0   1  
+c
+e0  1.e-8  7ilog 1  13i  15
+c
+c fc4  u-235 and u-238 fission rate spectra in HEU sphere
+c f4:n   10
+c fm4   (4.39868e-02  101  -6)  (4.88742E-03  102  -6)
+c
+c fc2   neutron flux spectrum at +x facet of box
+c f2:n  2.1
+c sd2   100 
+c
+fc12  gamma flux spectrum at +x facet of box
+f12:p 2.1
+sd12  100
+tf12  6j   13
+c
+print
+

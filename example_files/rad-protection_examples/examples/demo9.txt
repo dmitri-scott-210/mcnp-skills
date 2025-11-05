@@ -1,0 +1,36 @@
+Demo 9: Bremsstrahlung Production Electron LINAC LA-UR-23-25214
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Tungsten Shield D=19.3 g/cc
+      74000 -1.000000
+m2   $ Lead Shield D=11.35 g/cc
+      82000 -1.000000
+mode    p e
+PHYS:E  7J 0               $ TURN OFF KNOCK-ON (DELTA RAY) PRODUCTION
+ELPT:E  0.2  5  0  5  5    $  cell-specific energy cutoff for electrons
+BBREM   1.0 1.0 46i 20.0 1 $ for tungsten - material #1
+DBCN    17j  0  $ Default MCNP-style energy algorithm
+c
+c
+c       ICRU 57, Table A.1: Fluence to Air Dose Conversion                       
+c       Function, rad cm^2                                                       
+de5     0.01 0.015 0.02 0.03 0.04 0.05 0.06 0.08 0.1 0.15 0.2                   
+        0.3 0.4 0.5 0.6 0.8 1 1.5 2 3 4 5 6 8 10                                
+df5     7.43e-10 3.12e-10 1.68e-10 0.721e-10 0.429e-10                          
+        0.323e-10 0.289e-10 0.307e-10 0.371e-10 0.599e-10                       
+        0.856e-10 1.38e-10 1.89e-10 2.38e-10 2.84e-10                           
+        3.69e-10 4.47e-10 6.14e-10 7.55e-10 9.96e-10                             
+        12.1e-10 14.1e-10 16.1e-10 20.1e-10 24e-10                                                                            
+prdmp   1j -30 0 2
+RAND    GEN=2
+print   110 85
+nps  1e4                                          $ Terminate after 1e4 particles
+c    ************<<<<< End Data Cards >>>>>**************************************

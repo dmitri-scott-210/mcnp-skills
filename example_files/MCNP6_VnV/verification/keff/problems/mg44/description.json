@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg44",
+    "problem_type": "Multigroup",
+    "description": "PU-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg44.inp",
+      "n": "mg44"
+    },
+    "outputs": {
+      "outp": "mg44o",
+      "mctal": "mg44m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.683767
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

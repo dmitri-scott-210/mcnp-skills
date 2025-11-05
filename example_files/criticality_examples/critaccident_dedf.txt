@@ -1,0 +1,10 @@
+c ### fluence to dose (n/cm^2 to Gy) kerma response factors
+c J. Shultis, R. Faw, "Radiation Shielding" p. 477
+c selected values from Table D.8 (use larger set for actual calculations)
+de0     log   2.00e-06  2.00e-05  2.00e-04  2.00e-03  2.00e-02  2.00e-01
+              1.00e+00  2.00e+00  3.03e+00  3.99e+00  5.02e+00  7.60e+00
+              1.00e+01  1.21e+01  1.45e+01  2.00e+01
+df0     log   2.33e-14  9.32e-15  2.26e-14  2.01e-13  1.81e-12  9.88e-12
+              2.53e-11  3.03e-11  3.58e-11  4.10e-11  4.56e-11  5.25e-11
+              5.72e-11  6.14e-11  6.60e-11  7.35e-11
+

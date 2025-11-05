@@ -1,0 +1,91 @@
+critaccident09 - model of an accidental criticality excursion
+c >>>>> cell cards
+c ### structure
+100   2000    -0.0013  -20  60  80  81      imp:n=1  $ experiment room
+200   2000    -0.0013  -30  82              imp:n=4  $ hallway
+300   2000    -0.0013  -40                  imp:n=1  $ control room
+400   2000    -0.0013  -50                  imp:n=1  $ entryway
+500   3000    -2.42    -10  20  30  40  50  imp:n=0.1 $ bounding walls
+c ### critical assembly
+600   1000    -18.6    -60                  imp:n=1  $ jezebel
+c ### detectors
+700   4000    -0.92    -70        u=1       imp:n=1  $ bonner sphere
+710   2000    -0.0013   70        u=1       imp:n=1  $ air outside sphere
+800      0             -80     fill=1 (1)   imp:n=1  $ detector A
+810      0             -81     fill=1 (2)   imp:n=1  $ detector B
+820      0             -82     fill=1 (3)   imp:n=1  $ detector C
+999      0              10                  imp:n=0  $ rest of world
+
+c >>>>> surface cards
+c ### structure
+10    rpp     -750   750   -350  350  -200  200   $ structure
+20    rpp     -700   -25   -300  300  -150  150   $ experiment room
+30    rpp      -25   125   -300 -200  -150  150   $ hallway
+40    rpp       25   700   -200  300  -150  150   $ control room
+50    rpp      700   750   -200 -100  -150  150   $ exit hall
+c ### critical assembly
+60    sph     -600   200     0    6.5             $ jezebel sphere
+c ### neutron detectors
+70    sph        0     0      0   6.0             $ detector sphere
+80    rpp     -700  -688   -300 -288   138  150   $ container cell A
+81    rpp      -37   -25    288  300   138  150   $ container cell B
+82    rpp      113   125   -300 -288   138  150   $ container cell C
+
+c >>>>> data cards
+nps       1e4
+c ### translations
+tr1   -694  -294   144
+tr2    -31   294   144
+tr3    119  -294   144
+c ### materials
+m1000     94239     1.0                       $ plutonium
+m2000      7014     0.8      8016    0.2  $ air
+m3000      1001   0.1029749                   $ concrete 
+           1002   0.0000154
+           6000   0.2443202
+           8016   0.4295896
+           8017   0.0001633
+           11023  0.0001980
+           12024  0.0178143
+           12025  0.0022553
+           12026  0.0024830
+           13027  0.0067407
+           14028  0.0189514
+           14029  0.0009623
+           14030  0.0006343
+           19039  0.0004615
+           19040  0.0000001
+           19041  0.0000333
+           20040  0.1311751
+           20042  0.0008755
+           20043  0.0001827
+           20044  0.0028281
+           20046  0.0000054
+           20048  0.0002530
+           26054  0.0021677
+           26056  0.0340284
+           26057  0.0007859
+           26058  0.0001046
+mt3000     lwtr
+m4000      1001     2.0      6000   1.0   $ polyethylene
+mt4000     poly
+m5000      3006     0.9      3007   0.1   $ enriched LiI
+          53127     1.0
+c ### source (approximate as uniform sphere)
+sdef     pos=-600 200   0    rad=d1   erg=d2
+si1      0.0   6.5
+sp1      -21   2                                $ power law r^2
+sp2      -3    0.966   2.842                    $ pu-239 fast watt spectrum
+nonu     0   11r                                $ turn off fission production
+c ### tally specification
+fc6    energy deposited (Gy) in polyethylene bonner spheres
+f6:n   ( 700 < 800 )  ( 700 < 810 )  ( 700 < 820 )
+fm6    8.01e8           $ 5.e18 * 1.602e-13 J/MeV * 1.e3 g/kg
+c ### forced collisions
+fcl:n  1  1  0  9r
+c ### dxtran spheres
+dxt:n  -694  -294   144     6.0   6.0
+        -31   294   144     6.0   6.0
+        119  -294   144     6.0   6.0
+        5.e-6   1.e-6
+

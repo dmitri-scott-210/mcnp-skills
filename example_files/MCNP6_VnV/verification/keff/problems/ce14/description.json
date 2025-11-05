@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce14",
+    "problem_type": "Continuous Energy",
+    "description": "Ua-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce14.inp",
+      "n": "ce14"
+    },
+    "outputs": {
+      "outp": "ce14o",
+      "mctal": "ce14m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

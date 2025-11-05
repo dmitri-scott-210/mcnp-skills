@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce09",
+    "problem_type": "Continuous Energy",
+    "description": "PUb-H2O(1)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce09.inp",
+      "n": "ce09"
+    },
+    "outputs": {
+      "outp": "ce09o",
+      "mctal": "ce09m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

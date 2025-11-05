@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg25",
+    "problem_type": "Multigroup",
+    "description": "UD2O-H2O(1)-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg25.inp",
+      "n": "mg25"
+    },
+    "outputs": {
+      "outp": "mg25o",
+      "mctal": "mg25m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

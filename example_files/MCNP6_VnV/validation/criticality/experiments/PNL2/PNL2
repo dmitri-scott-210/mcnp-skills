@@ -1,0 +1,24 @@
+ PNL-2  PU-SOL-THERM-021 Case 3  15.2-inch Sphere
+1    1  0.099270         -1            $ Plutonium Nitrate Solution
+2    2  0.086240         -2   1        $ Stainless Steel Container
+3    0                    2
+
+1   so  19.3163
+2   so  19.4382
+
+kcode   5000    1.0    50   250
+rand   hist=3147300
+imp:n   1.0  1.0  0.0
+sdef   cel=1  erg=d1
+sp1    -3
+vol    30189.81    575.17       0.0
+area    4688.76   4748.12
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+totnu
+prdmp    j     999999    1
+print
+
+ end of input

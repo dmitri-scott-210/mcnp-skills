@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce01",
+    "problem_type": "Continuous Energy",
+    "description": "PUa-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce01.inp",
+      "n": "ce01"
+    },
+    "outputs": {
+      "outp": "ce01o",
+      "mctal": "ce01m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.612903
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

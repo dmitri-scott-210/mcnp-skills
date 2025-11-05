@@ -1,0 +1,15 @@
+g1p - Godiva - using KSRC & surfaces
+c
+c CELL CARDS
+10   100  -18.74  -1  imp:n=1
+20   0             1  imp:n=0
+ 
+c SURFACE CARDS
+1    so   8.741
+ 
+c DATA CARDS
+kcode 5000  1.0  10  150
+ksrc  0. 0. 0.
+m100  92235 -94.73
+      92238 -5.27
+mplot kcode 3 freq 5

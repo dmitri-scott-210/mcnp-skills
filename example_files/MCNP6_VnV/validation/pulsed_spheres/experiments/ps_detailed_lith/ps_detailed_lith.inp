@@ -1,0 +1,659 @@
+Lithium 6, 1.6 mfp, fwhm=4.0 ns, Pilot-B bias=1.6, FP=765.20 cm,  30-deg
+c
+c    Li-6 Sphere, 1.6 mfp
+c
+c    *********************************************************************************
+c    *********************************************************************************
+c    **
+c    **  Geom/Matl model:  6Li1.6
+c    **
+c    **  Orig Ref/Figure:  See page 57 of "Livermore Pulsed Sphere Program:  Program
+c    **                    Summary Through July 1971", UCRL-51144, Rev I (Feb 10 1972)
+c    **
+c    **  Some Orig Specs:  Mass(Li) = 30351.0 grams (dist over 6 zones)
+c    **                    Mass(Stl)= 19014.0 grams (dist over 5 zones)
+c    **                    Matl densities: (not given)
+c    **
+c    **  Size:  1.6 mfp (appx);  Rmax=25.52 cm
+c    **
+c    **  E-Image:  6Li1.6.gif
+c    **
+c    *********************************************************************************
+c    *********************************************************************************
+c    **
+c    **  Depending on the pulse width (fwhm), detectors of interest would include:
+c    **
+c    **  If pulse=4.0 ns, 6li1.6a=  Pilot-B  (Bias=1.6)  Path=765.2  cm,  30-deg line
+c    **  If pulse=2.0 ns, 6li1.6b=  NE213-B  (Bias=1.6)  Path=746.34 cm,  26-deg line
+c    **
+c    *********************************************************************************
+c    *********************************************************************************
+c    **
+c    **  SPECIAL NOTE for the 6Li1.6 case:
+c    **
+c    **  This model preserves ALL the key dimensions of the configuration that are explicitly shown
+c    **  on pp 57 of UCRL-51144.  This includes the outer radius of all three (steel-cladded-lithium)
+c    **  spherical regions comprising the experimental configuration, as well as explicit dimensions
+c    **  that are given for the target cup nose cone.  The unmarked dimensions (such as the many
+c    **  lithium-steel interfaces), however, must be based on those dimensions +/- the thickness of
+c    **  the steel clad.  The figure on pp 57 of UCRL-51144 indicates that the thickness of the steel
+c    **  clad is typically 0.058 cm.  When that thickness is used everywhere, however, the total mass
+c    **  of the steel in each radial region, and for the model as a whole, is seriously underestimated.
+c    **  Assuming 7.90 g/cc, this uniform thickness of 0.058 cm would yield:
+c    **   510.351 gm  for the steel in the innermost radial region,  compared to   578.0 gm shown on pp 57;
+c    **  2617.417 gm  for the steel in the second    radial region,  compared to  5801.0 gm shown on pp 57;
+c    **  6449.596 gm  for the steel in the outermost radial region,  compared to 12635.0 gm shown on pp 57;
+c    **  and 9577.364 gm  of steel for the entire configuration, compared to the 19014.0 gm shown on pp 57.
+c    **  To rectify this deficiency [ie, to preserve the total known mass of steel in each region (at
+c    **  7.90 g/cc), as well as all of the key "marked" dimensions] we chose to adjust the thickness
+c    **  of the thin steel cladding in each radial region.  (Note that small adjustments in the thickness
+c    **  of the thin steel cladding allowed us to make the large changes needed to correct the mass of
+c    **  the steel, while having an insignificant effect on the mass of the much thicker lithium regions.)
+c    **  Based on computations, and trial and error, it was found that the cladding thicknesses should be:
+c    **  t1=0.0658922 cm for clad on the innermost radial reg, thus giving   578.001 gm as shown on pp 57;
+c    **  t2=0.1292324 cm for clad on the second    radial reg, thus giving  5800.999 gm as shown on pp 57;
+c    **  t3=0.1139210 cm for clad on the outermost radial reg, thus giving 12635.017 gm as shown on pp 57;
+c    **  for a total of 19014.017 gm of steel in the entire configuration.  The usage of these thicknesses
+c    **  (t1,t2,t3) on the surface specification cards is indicated below.
+c    **
+c    **  Even before this modification, a nominal (Li-6 enriched) lithium density of 0.447 g/cc, when
+c    **  used everywhere, did not "exactly" reproduce the known lithum masses in each of the three
+c    **  radial regions, although it was pretty close in most cases.  [Note that minor variations in
+c    **  the density might be expected anyway because of the way in which the hemispherical shells were
+c    **  manufactured (probably by heating, pouring, and cooling).]  After the above adjustments were
+c    **  made to the cladding thickness (all of which very slightly reduced the volume of the lithium
+c    **  inside the canisters), the density of the (Li-6 enriched) lithium in each of the three radial
+c    **  regions was adjusted slightly in order to preserve the known lithium masses given on pp 57 of
+c    **  UCRL-51144, Rev I.  The final lithium densities actually used in these three regions were:
+c    **  d1=0.453025 g/cc for the Li in the innermost radial reg, thus giving  1297.00 gm as shown on pp 57;
+c    **  d2=0.454564 g/cc for the Li in the second    radial reg, thus giving  6787.01 gm as shown on pp 57;
+c    **  d3=0.456402 g/cc for the Li in the outermost radial reg, thus giving 22267.00 gm as shown on pp 57.
+c    **
+c    **  In summary, this "slightly modified" model is regarded as the best possible model.  Except
+c    **  for minor adjustments to the thickness of the thin steel cladding on each lithium canister,
+c    **  it preserves all of the key "marked" dimensions shown on pp 57 of UCLR-51144, as well as all
+c    **  the reported steel and lithium masses in each of the three radial regions (also on pp 57).
+c    **
+c    *********************************************************************************
+c    *********************************************************************************
+c
+c    BEGIN CELLS:
+c    ------
+c    m502 = 7.9 g/cc      =  Stainless Steel, nominally at 7.9 g/cc
+c    m501 = 0.001288 g/cc =  Air, nominally at 0.001288 g/cc
+c    m516 = 0.447 g/cc    =  Lithium-6, nominally at 0.447 g/cc, but used at
+c           0.453025, 0.454564, and 0.456402 g/cc in the 1st, 2nd, and 3rd radial regions in
+c           this model so as to duplicate the correct lithium masses in each radial region.
+c    ------
+c
+c    1-st (innermost) radial region:
+1    502  -7.90        1  -2  -3
+2    501  -0.001288    2  -3  -9           #(-101 -111 103) $ exclude target assembly
+3    502  -7.90        1   3  -4 -8
+4    516  -0.453025   (-1:4)  (-5:-6:7) -8
+5    502  -7.90        5   6  -7 -8
+6    502  -7.90        8  -9  (-1:3)
+c
+c    2-nd (intermediate) radial region:
+7    502  -7.90        9 -10  (-1:11)
+8    516  -0.454564   10 -13  -15
+9    502  -7.90       10  13  -14 -15
+10   516  -0.454564   10  12  14 -15
+11   502  -7.90       10  11 -12 -15  1
+12   501  -0.001288    9 -11 -16   1       #(-101 -111 103) $ exclude target assembly
+13   502  -7.90       15 -16  (-1:11)
+c
+c    3-rd (outermost) radial region:
+14   502  -7.90       16 -17  (-1:18)
+15   516  -0.456402  -23  17 -20
+16   502  -7.90       23 -24  17 -20
+17   516  -0.456402   24  17  19 -20
+18   502  -7.90       17  18 -19 -20  1
+19   501  -0.001288   16 -18 -21 1         #(-101 -111 103) $ exclude target assembly
+20   502  -7.90       20 -21 (-1:18)
+21   501  -0.001288   21 -99               #(-101 -111 103) $ exclude target assembly
+          #(145 -146 147 -100)  $ exclude  26-deg beamline (modeled separately)
+          #(155 -156 157 -100)  $ exclude  30-deg beamline (modeled separately)
+          #(165 -166 167  100)  $ exclude 120-deg beamline (modeled separately)
+22   0                99
+c    ------------------------------------------------------------
+c
+c
+c    New cells for target assembly (see Fig 6 in UCRL-51144, Rev I):
+c    ---------------------------------------------------------------
+c    m581 =  1.879497 g/cc = Target Material  (50 at% Tritium, 50 at% Titanium), nominally at 1.879497 g/cc
+c    m582 = 30.073815 g/cc = Target Component (all Tungsten), artificially at 30.073815 g/cc in model
+c    m583 = 20.096000 g/cc = Target Component (mostly Iron and Copper), artificially at 20.096000 g/cc in model
+c    m584 = 23.180464 g/cc = Target Component (AL, H, and C) artificially at 23.180464 g/cc in model
+c    m585 =  2.701353 g/cc = Target Component (all Aluminum), nominally at 2.701353 g/cc in model
+c    m586 =  2.705809 g/cc = Target Component (all Aluminum), nominally at 2.705809 g/cc in model
+c    m587 = 20.008000 g/cc = Target Component (Aluminum and Copper) artificially at 20.008000 g/cc in model
+c    ------
+c    Note:  The recommended densities given here have been artificially adjusted so that, when used in
+c    combination with the stated geometry (see Fig 6 in the following reference), MCNP will faithfully
+c    reproduce the actual masses in each target assembly zone, as also given on Fig 6 of that reference.
+c    ------
+c    Taken from Fig. 6 (on page 10) of "Livermore Pulsed Sphere Program:
+c    Program Summary Through July 1971", UCRL-51144, Rev I (Feb 10, 1972);
+c    also shown as Fig. 2 of Ham Hunter's SINBAD Experiment SBE 17.001 file.
+c    ------
+101  583 -20.096000   -101  -104   103  $ tip of target assembly; zone 3 (Alloy, mass=1.100 grams) in Fig 6
+102  582 -30.073815   -101  -105   104  $ zone 2 (Tungsten, mass=3.25 grams) in Fig 6
+c    cel  mat   den   -112  -107   106  $ pure tritium region "if" it were modeled explicitly (but it's not)
+103  581  -1.879497   -101  -108   105  $ homog targ, zone 1 (50 at% T, 50 at% Ti, mass=0.004 grams) in Fig 6
+104  584 -23.180464   -101   102  -115   108   $ zone 4 (AL,H,C alloy ring, mass=1.5 grams) in Fig 6
+105  585  -2.701353   -101   102  -110   115   $ zone 5 (outer AL body of assy, mass=35.6 grams) in Fig 6
+106  587 -20.008000   -101  -111   110         $ zone 7 (AL+Cu assy backplate, mass=417.0 grams) in Fig 6
+107  586  -2.705809   -114   113  -110   109   $ zone 6 (part-length AL cyl in assy, 18.3 grams) in Fig 6
+108  0               (-102  -110   108) #107   $ sealed vacuum inside the target assembly
+c    excl zone  #(-101 -111 103)   $ exclusion zone for target assembly, to be used in base model
+c    ---------------------------------------------------------------
+c
+c
+c    New cells for beamline :
+c    -----------------------------------
+c    For the 26-deg beamline:   (sph 99 = ext boundary;  plane 100 is at x=0)
+140  501 -0.001288  141  -142  147  -148  -100  $ air thru beamline hole;      use imp:n=3
+141  501 -0.001288  143  -144  148  -99   -100  $ air downstream of beamline;  use imp:n=3
+142  521 -2.35      143  -141  147  -148  -100  $ concrete beamline (inner);   use imp:n=3  (or imp:n=0)
+143  521 -2.35      142  -144  147  -148  -100  $ concrete beamline (outer);   use imp:n=3  (or imp:n=0)
+144  521 -2.35      145  -143  147  -99   -100  $ isolation zone (inner);        use imp:n=0
+145  521 -2.35      144  -146  147  -99   -100  $ isolation zone (outer);        use imp:n=0
+c    excl zone  #(145 -146 147 -100)  $ exclusion zone for 26-deg beamline, to be used in base model
+c
+c    For the 30-deg beamline:   (sph 99 = ext boundary;  plane 100 is at x=0)
+150  501 -0.001288  151  -152  157  -158  -100  $ air thru beamline hole;      use imp:n=3
+151  501 -0.001288  153  -154  158  -99   -100  $ air downstream of beamline;  use imp:n=3
+152  521 -2.35      153  -151  157  -158  -100  $ concrete beamline (inner);   use imp:n=3  (or imp:n=0)
+153  521 -2.35      152  -154  157  -158  -100  $ concrete beamline (outer);   use imp:n=3  (or imp:n=0)
+154  521 -2.35      155  -153  157  -99   -100  $ isolation zone (inner);        use imp:n=0
+155  521 -2.35      154  -156  157  -99   -100  $ isolation zone (outer);        use imp:n=0
+c    excl zone  #(155 -156 157 -100)  $ exclusion zone for 30-deg beamline, to be used in base model
+c
+c    For the 120-deg beamline:  (sph 99 = ext boundary;  plane 100 is at x=0)
+160  501 -0.001288  161  -162  167  -168   100  $ air thru beamline hole;      use imp:n=3
+161  501 -0.001288  163  -164  168  -99    100  $ air downstream of beamline;  use imp:n=3
+162  521 -2.35      163  -161  167  -168   100  $ concrete beamline (inner);   use imp:n=3  (or imp:n=0)
+163  521 -2.35      162  -164  167  -168   100  $ concrete beamline (outer);   use imp:n=3  (or imp:n=0)
+164  521 -2.35      165  -163  167  -99    100  $ isolation zone (inner);        use imp:n=0
+165  521 -2.35      164  -166  167  -99    100  $ isolation zone (outer);        use imp:n=0
+c    excl zone  #(165 -166 167 100)   $ exclusion zone for 120-deg beamline, to be used in base model
+c    -----------------------------------
+c
+c    END OF CELLS (next line must be blank)
+ 
+c    BEGIN SURFACES:
+c    ------
+c    use t1=0.0658922 cm (not 0.058 cm) for steel clad in 1st (innermost) radial region
+c    use t2=0.1292324 cm (not 0.058 cm) for steel clad in 2nd (middle)    radial region
+c    use t3=0.1139210 cm (not 0.058 cm) for steel clad in 3rd (outermost) radial region
+c    ------
+1    px  -0.64       $ lithium/nosecone interface (see pp 57)
+2    px  -0.5741078  $ = t1-0.64
+c
+3    x   -0.5741078  1.42       8.748  1.985      $ x-cone;  -0.5741078 = t1-0.64
+4    x   -0.64       1.4858922  8.691  2.0508922  $ x-cone;   1.4858922 = t1+1.42  &  2.0508922 = t1+1.985
+c
+5    cx   8.87       $ inner radius of steel band (see pp 57)
+6    px  -0.1        $ to set width of steel band (see pp 57)
+7    px   0.1        $ to set width of steel band (see pp 57)
+8    so   8.9041078  $ = 8.97-t1
+9    so   8.97       $ outer radius of steel on 1-st, innermost, sphere (see pp 57)
+10   so   9.0992324  $ = 8.97+t2
+11   cx   2.86       $ inner radius of hole thru 2-nd, middle, sphere (see pp 57)
+12   cx   2.9892324  $ = 2.86+t2
+13   px  -0.1292324  $ = -t2
+14   px   0.1292324  $ =  t2
+15   so  16.3907676  $ 16.52-t2
+16   so  16.52       $ outer radius of steel on 2-nd, middle, sphere (see pp 57)
+17   so  16.6339210  $ = 16.52+t3
+18   cx  3.49        $ inner radius of hole thru 3-rd, outermost, sphere (see pp 57)
+19   cx  3.6039210   $ = 3.49+t3
+20   so  25.4060790  $ = 25.52-t3
+21   so  25.52       $ outer radius of steel on 3-rd, outermost, sphere (see pp 57)
+23   px  -0.1139210  $ = -t3
+24   px   0.1139210  $ =  t3
+99   so   1100       $ ext boundary
+100  px   0.0        $ source surface
+c
+c
+c      New surfaces for target assembly
+c      --------------------------------
+c      Taken from Fig. 6 (on page 10) of "Livermore Pulsed Sphere Program:
+c      Program Summary Through July 1971", UCRL-51144, Rev I (Feb 10, 1972);
+c      also shown as Fig. 2 of Ham Hunter's SINBAD Experiment SBE 17.001 file.
+c
+c      Note: The vacuum-filled "target assembly" is defined
+c      as everything inside the region:  (-101 -111 103)
+c      -- ie, everything inside x-cone 101, from x= -0.0775 cm to x=25.9 cm
+c
+c      In reality, the tritium target (a very thin 1.20-cm-diam cylindrical disk,
+c      with R=0.60 cm, from x= -0.0002 cm to x= +0.0002 cm) would lie in the region
+c      defined by (-112 -107 106).  In this model, however, we have chosen to NOT
+c      explicitly represent this region, but to homogenize the thin tritium disk
+c      with the (still pretty thin) 0.001-cm-thick titanium disk containing the
+c      tritium disk, and to distribute the neutron source over a 1.20-cm-diam disk
+c      on Surf 100 (x=0.0) which specified in the general pulsed sphere model but
+c      not explicitly used in this target assembly model.  (That way, this source
+c      spec remains valid whether we use this target assembly model or not.)
+c
+101    x   0.0005 0.8231  24.9 2.5411  $ x-cone of R=0.8231 @ X=0.0005 and R=2.5411 @ X=24.9
+102    x   0.0005 0.772   24.9 2.49    $ x-cone of R=0.772  @ X=0.0005 and R=2.49   @ X=24.9
+103    px -0.0775                      $ xmin for whole "target assembly"
+104    px -0.0515          $ plane dividing zones (2=Tungsten) and (3=Alloy) in Fig. 6
+105    px -0.0005          $ plane dividing zones (1=Titanium, with trituim) and (2=Tungsten) in Fig. 6
+c      106   px -0.0002    $ xmin for the actual tritium source disk
+c      107   px 0.0002     $ xmax for the actual tritium source disk
+108    px  0.0005          $ plane dividing internal void and zone (1=Titanium) in Fig. 6
+109    px  11.9            $ xmin for part-length internal aluminum cylinder
+110    px  24.9            $ xmin for back plate of target assembly
+111    px  25.9            $ xmax for back plate of target assembly = xmax for whole "target assembly"
+c      112    cx 0.60      $ radius of the actual tritium source disk
+113    cx  0.63            $ inner radius of part-length internal AL cylinder
+114    cx  0.75            $ outer radius of part-length internal AL cylinder
+115    px  0.2505          $ plane dividing zones (5=conical AL body) and (4=AL,H,C alloy) in Fig. 6
+c      --------------------------------
+c
+c
+c      New surfaces for the beamline 
+c      -----------------------------------------
+c      For the 26-deg beamline: (really at 26.0-deg wrt forward axis of beam thru sphere, known as -x)
+c      140  x     0.0      0.0  -898.7940   438.3711 $ xcone actually corresponding to the 26-deg beamline
+141    x        -22.81172  0.0  -921.60572  438.3711 $ inner cone def (20-cm-wide) hole 
+142    x         22.81172  0.0  -875.98228  438.3711 $ outer cone def (20-cm-wide) hole 
+143    x        -45.62344  0.0  -944.41744  438.3711 $ inner cone def extent of conc modeled (10-cm-thk)
+144    x         45.62344  0.0  -853.17056  438.3711 $ outer cone def extent of conc modeled (10-cm-thk)
+145    x        -68.43516  0.0  -967.22916  438.3711 $ inner cone def extent of black isolation zone (10-cm-thk)
+146    x         68.43516  0.0  -830.35884  438.3711 $ outer cone def extent of black isolation zone (10-cm-thk)
+147    so        524.0     $ dist from center of sphere to start of wall & concrete beamline
+148    so        724.0     $ dist from center of sphere to end   of wall & concrete beamline
+c
+c      For the 30-deg beamline: (really at 38.8877-deg wrt forward axis of beam thru sphere, known as -x)
+c      150  x     0.0      0.0  -778.3785   627.7953 $ xcone actually corresponding to the 30-deg beamline
+151    x        -24.68955  0.0  -803.06805  627.7953 $ inner cone def (31-cm-wide) hole 
+152    x         24.68955  0.0  -753.68895  627.7953 $ outer cone def (31-cm-wide) hole 
+153    x        -40.61829  0.0  -818.99679  627.7953 $ inner cone def extent of conc modeled (10-cm-thk)
+154    x         40.61829  0.0  -737.76021  627.7953 $ outer cone def extent of conc modeled (10-cm-thk)
+155    x        -56.54703  0.0  -834.92553  627.7953 $ inner cone def extent of black isolation zone (10-cm-thk)
+156    x         56.54703  0.0  -721.83147  627.7953 $ outer cone def extent of black isolation zone (10-cm-thk)
+157    so        605.0631  $ dist from center of sphere to start of wall & concrete beamline
+158    so        836.0032  $ dist from center of sphere to end   of wall & concrete beamline
+c
+c      For the 120-deg beamline: (really at 116.7053-deg wrt forward axis of beam thru sphere, known as -x)
+c      160  x     0.0      0.0   449.3970   893.3321 $ xcone actually corresponding to the 120-deg beamline
+161    x         17.35077  0.0   466.74777  893.3321 $ inner cone def (31-cm-wide) hole 
+162    x        -17.35077  0.0   432.04623  893.3321 $ outer cone def (31-cm-wide) hole 
+163    x         28.54481  0.0   477.94181  893.3321 $ inner cone def extent of conc modeled (10-cm-thk)
+164    x        -28.54481  0.0   420.85219  893.3321 $ outer cone def extent of conc modeled (10-cm-thk)
+165    x         39.73886  0.0   489.13586  893.3321 $ inner cone def extent of black isolation zone (10-cm-thk)
+166    x        -39.73886  0.0   409.65814  893.3321 $ outer cone def extent of black isolation zone (10-cm-thk)
+167    so        704.3673  $ dist from center of sphere to start of wall & concrete beamline
+168    so        935.3074  $ dist from center of sphere to end   of wall & concrete beamline
+c      -----------------------------------------
+c
+c    END OF SURFACES (next line must be blank)
+ 
+c    BEGIN PARAMETERS:  (here to end)
+mode   n
+nps     10000000           $ for final  production runs
+print  -10 -30 -110
+prdmp  j 10000000 1 2
+cut:n  180.0  0.125  $ ok, gives full coverage(+); measured Tmax < 90 shakes, measured Emin > 0.5 MeV
+c
+imp:n  1 20r 0  $ for basic sphere geometry cells
+       1 7r     $ added for target assembly cells
+       3  3  0  0  0  0   $ added for the  26-deg beamline cells; beamline = black (imp=0)
+       3  3  0  0  0  0   $ added for the  30-deg beamline cells; beamline = black (imp=0)
+       3  3  0  0  0  0   $ added for the 120-deg beamline cells; beamline = black (imp=0)
+c
+c
+c
+c     Marchetti's new source specifications:
+c
+c     d400 for pulse width is supplied separately
+c     since it changes from problem to problem,
+c     while everything else stays the same.
+c
+sdef  pos=0 0 0 dir=d100 erg=fdir=d200 rad=d300 vec=-1 0 0
+      sur=100 tme=d400
+si100 a  -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0.0
+          0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.0
+sp100     452  454  457  459  461  464  466  469  471  473  476
+          478  481  483  485  488  490  493  495  497  500
+ds200 q  -1.0  21  -0.9  20  -0.8  19  -0.7  18  -0.6  17
+         -0.5  16  -0.4  15  -0.3  14  -0.2  13  -0.1  12
+          0.0  11   0.1  10   0.2   9   0.3   8   0.4   7
+          0.5   6   0.6   5   0.7   4   0.8   3   0.9   2
+          1.0   1
+c **** spatial distribution of source ****
+si300 h     0 0.6
+sp300 d   -21 1
+c **** energy distribution ****
+si1   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+        15.20 15.30 15.40 15.50
+        15.60 15.70 15.80 15.90
+sp1     0.0000   0.0000   0.0067   0.2389
+        2.2621   8.5730  15.3913  32.3405
+       28.8480  27.8023  21.1403  18.0844
+       15.4055  12.0301  10.9308   9.2068
+        2.4887   0.0000   0.0000   0.0000
+si2   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+        15.20 15.30 15.40 15.50
+sp2     0.0000   0.0000   0.0394   0.5737
+        5.0394  13.6361  29.4833  34.1046
+       28.6987  24.5471  19.8926  14.8446
+       13.9361  11.1899   7.7501   0.0000
+si3   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+        15.20 15.30 15.40 15.50
+sp3     0.0000   0.0000   0.0785   1.7539
+        9.2111  23.6081  38.5865  34.3417
+       28.0617  21.6143  17.0287  12.9269
+       12.2382   3.2725   0.0000   0.0000
+si4   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+        15.20 15.30 15.40 15.50
+sp4     0.0000   0.0000   0.3960   3.9776
+       18.2301  40.7022  40.1637  31.6909
+       23.2557  17.6923  15.2267  10.3729
+        0.0000   0.0000   0.0000   0.0000
+si5   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+sp5     0.0000   0.0067   1.3001  12.0979
+       35.0174  50.8234  35.4343  26.4734
+       17.7935  16.0088   5.7390   0.0000
+si6   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+sp6     0.0000   0.0783   4.2829  30.0627
+       56.3041  43.4709  27.8980  21.5204
+       16.0633   0.0000   0.0000   0.0000
+si7   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+        14.80 14.90 15.00 15.10
+sp7     0.0000   0.3948  15.6730  61.0622
+       54.0018  33.3282  23.2337  10.9731
+        0.0000   0.0000   0.0000   0.0000
+si8   a 14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+sp8     0.0000   3.3188  54.4578  70.2145
+       39.9746  25.7899   3.8975   0.0000
+si9   a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+sp9     0.0000   0.0000   0.0000   0.0000
+        0.0067  26.0337  95.8453  51.5943
+       23.1595   0.0000   0.0000   0.0000
+si10  a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+        14.40 14.50 14.60 14.70
+sp10     0.0000   0.0000   0.0000   0.0000
+         0.9035 111.2102  68.1255  15.3864
+         0.0000   0.0000   0.0000   0.0000
+si11  a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp11     0.0000   0.0000   0.0000   0.0000
+        85.1427 106.4852   2.9840   0.0000
+si12  a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp12     0.0000   0.0000   0.0000   0.0000
+         193.5982   0.0000   0.0000   0.0000
+si13  a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp13     0.0000   0.0000   0.0000 192.5454
+         0.0391   0.0000   0.0000   0.0000
+si14  a 13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp14     0.0000   0.0000 165.8002  25.7705
+         0.0000   0.0000   0.0000   0.0000
+si15  a 13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp15     0.0000   0.0000   0.0000   0.0000
+         16.4808  98.6775  73.5932   1.8055
+         0.0000   0.0000   0.0000   0.0000
+si16  a 13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp16     0.0000   0.0000   0.0000  23.7296
+        66.2040  83.8084  15.6593   0.1418
+         0.0000   0.0000   0.0000   0.0000
+si17  a 13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp17     0.0000   0.0000  27.0418  48.8467
+        70.2340  39.1286   3.2608   0.0175
+         0.0000   0.0000   0.0000   0.0000
+si18  a 12.80 12.90 13.00 13.10
+        13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+        14.00 14.10 14.20 14.30
+sp18     0.0000   0.0000   0.0000   0.0000
+         2.0303  27.2502  37.3878  59.8453
+        47.9052  12.2015   0.8937   0.0018
+         0.0000   0.0000   0.0000   0.0000
+si19  a 12.80 12.90 13.00 13.10
+        13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+sp19     0.0000   0.0000   0.0000   6.3499
+        22.6144  31.9989  46.6420  49.5506
+        25.0656   4.0393   0.2414   0.0000
+si20  a 12.80 12.90 13.00 13.10
+        13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+sp20     0.0000   0.0000  10.2318  19.7166
+        25.7756  38.8741  44.2171  33.6233
+        11.2554   1.7554   0.0389   0.0000
+si21  a 12.80 12.90 13.00 13.10
+        13.20 13.30 13.40 13.50
+        13.60 13.70 13.80 13.90
+sp21     0.0000  12.6426  16.9782  23.3949
+        29.9762  40.9741  38.6652  16.3497
+         4.8927   0.5835   0.0174   0.0000
+sp400  -41    .400  0    $  FWHM =   .400 shakes =   4.00 ns
+c
+c
+c       BEGIN MATERIAL SPECS
+read   file=m-cards-endf71
+c
+c    *********************************************************************************
+c
+c    BEGIN DETECTOR TALLY SPECIFICATIONS
+c
+c
+c    If fwhm = 0.4 shakes = 4 ns, then ....
+c    ---------------------------------
+fc205 Lithium 6, Pilot-B (Bias=1.6) Det Resp vs T, Path=765.2 cm, 30 deg line
+f205x:n       -595.6152  480.3890  0.0    $ 6li1.6a coords for Ring  Det in sph-axis coord system
+fm205  3.712951E+06                       $ normalization to counts / source / ns
+tm205  0 1 138R                           $ first bin zero because detector off
+c
+c     Pilot B (Bias=1.6 MeV) Detector Response Function used
+c     in the 30-deg and 120-deg Beamlines, from UCID-16372
+c
+de205 lin  1.6      1.7      1.8      1.9      2.0      2.1      2.2      2.3
+           2.4      2.5      2.6      2.7      2.8      2.9      3.0      3.1
+           3.2      3.3      3.4      3.5      3.6      3.7      3.8      3.9
+           4.0      4.1      4.2      4.3      4.4      4.5      4.6      4.7
+           4.8      4.9      5.0      5.1      5.2      5.3      5.4      5.5
+           5.6      5.7      5.8      5.9      6.0      6.1      6.2      6.3
+           6.4      6.5      6.6      6.7      6.8      6.9      7.0      7.1
+           7.2      7.3      7.4      7.5      7.6      7.7      7.8      7.9
+           8.0      8.1      8.2      8.3      8.4      8.5      8.6      8.7
+           8.8      8.9      9.0      9.1      9.2      9.3      9.4      9.5
+           9.6      9.7      9.8      9.9     10.0     10.1     10.2     10.3
+          10.4     10.5     10.6     10.7     10.8     10.9     11.0     11.1
+          11.2     11.3     11.4     11.5     11.6     11.7     11.8     11.9
+          12.0     12.1     12.2     12.3     12.4     12.5     12.6     12.7
+          12.8     12.9     13.0     13.1     13.2     13.3     13.4     13.5
+          13.6     13.7     13.8     13.9     14.0     14.1     14.2     14.3
+          14.4     14.5     14.6     14.7     14.8     14.9     15.0     15.1
+          15.2     15.3     15.4     15.5     15.6     15.7     15.8     15.9
+          16.0
+c
+df205 $ Pilot B (Bias=1.6 MeV) data, renormalized to 1.0 at 15.0 MeV:
+        0.0003   0.1788   0.3312   0.4616   0.5750   0.6723   0.7573   0.8308
+        0.8952   0.9511   0.9960   1.0390   1.0719   1.0928   1.1339   1.1671
+        1.1783   1.1885   1.1983   1.2101   1.2221   1.2336   1.2457   1.2582
+        1.2761   1.2737   1.2740   1.2727   1.2793   1.2850   1.2895   1.2916
+        1.2924   1.2935   1.2951   1.2954   1.2956   1.2951   1.2938   1.2927
+        1.2919   1.2919   1.2927   1.2938   1.2943   1.2948   1.2938   1.2916
+        1.2884   1.2844   1.2807   1.2689   1.2617   1.2521   1.2406   1.2336
+        1.2211   1.1973   1.1839   1.1762   1.1660   1.1601   1.1561   1.1548
+        1.1518   1.1529   1.1540   1.1537   1.1532   1.1505   1.1484   1.1460
+        1.1435   1.1387   1.1342   1.1270   1.1198   1.1149   1.1101   1.1056
+        1.1013   1.0968   1.0922   1.0869   1.0813   1.0773   1.0708   1.0652
+        1.0585   1.0540   1.0478   1.0425   1.0372   1.0318   1.0265   1.0211
+        1.0158   1.0112   1.0067   1.0024   0.9979   0.9933   0.9890   0.9850
+        0.9810   0.9775   0.9738   0.9703   0.9671   0.9644   0.9618   0.9591
+        0.9570   0.9551   0.9530   0.9516   0.9508   0.9505   0.9505   0.9508
+        0.9516   0.9546   0.9578   0.9623   0.9658   0.9690   0.9725   0.9759
+        0.9794   0.9829   0.9864   0.9898   0.9933   0.9968   1.0000   1.0032
+        1.0064   1.0096   1.0128   1.0160   1.0192   1.0225   1.0257   1.0289
+        1.0321
+c       end of Pilot B (Bias=1.6 MeV) data
+c
+c    Note:  the "time points" given in the experimental data were actually the
+c    times at the midpoints of the experimental time bins, with the reported
+c    count rates being the integral over the experiental time bins.  Here we
+c    have used the reported "time points" to recreate the original "time bins".
+c
+t205  $ time bins in shakes (not nanoseconds)
+        1.32000E+01  1.34000E+01  1.36000E+01  1.38000E+01  1.40000E+01
+        1.42000E+01  1.44000E+01  1.46000E+01  1.48000E+01  1.50000E+01
+        1.52000E+01  1.54000E+01  1.56000E+01  1.58000E+01  1.60000E+01
+        1.62000E+01  1.64000E+01  1.66000E+01  1.68000E+01  1.70000E+01
+        1.72000E+01  1.74000E+01  1.76000E+01  1.78000E+01  1.80000E+01
+        1.82000E+01  1.84000E+01  1.86000E+01  1.88000E+01  1.90000E+01
+        1.92000E+01  1.94000E+01  1.96000E+01  1.98000E+01  2.00000E+01
+        2.02000E+01  2.04000E+01  2.06000E+01  2.08000E+01  2.10000E+01
+        2.12000E+01  2.14000E+01  2.16000E+01  2.18000E+01  2.20000E+01
+        2.22000E+01  2.24000E+01  2.26000E+01  2.28000E+01  2.30000E+01
+        2.32000E+01  2.34000E+01  2.36000E+01  2.38000E+01  2.40000E+01
+        2.42000E+01  2.44000E+01  2.46000E+01  2.48000E+01  2.50000E+01
+        2.52000E+01  2.54000E+01  2.56000E+01  2.58000E+01  2.60000E+01
+        2.62000E+01  2.64000E+01  2.66000E+01  2.68000E+01  2.70000E+01
+        2.72000E+01  2.74000E+01  2.76000E+01  2.78000E+01  2.80000E+01
+        2.82000E+01  2.84000E+01  2.86000E+01  2.88000E+01  2.90000E+01
+        2.92000E+01  2.94000E+01  2.96000E+01  2.98000E+01  3.00000E+01
+        3.02000E+01  3.04000E+01  3.06000E+01  3.08000E+01  3.10000E+01
+        3.12000E+01  3.14000E+01  3.16000E+01  3.18000E+01  3.20000E+01
+        3.22000E+01  3.24000E+01  3.26000E+01  3.28000E+01  3.30000E+01
+        3.32000E+01  3.34000E+01  3.36000E+01  3.38000E+01  3.40000E+01
+        3.42000E+01  3.44000E+01  3.46000E+01  3.48000E+01  3.50000E+01
+        3.52000E+01  3.54000E+01  3.56000E+01  3.58000E+01  3.60000E+01
+        3.62000E+01  3.64000E+01  3.66000E+01  3.68000E+01  3.70000E+01
+        3.72000E+01  3.74000E+01  3.76000E+01  3.78000E+01  3.80000E+01
+        3.82000E+01  3.84000E+01  3.86000E+01  3.88000E+01  3.90000E+01
+        3.92000E+01  3.94000E+01  3.96000E+01  3.98000E+01  4.00000E+01
+        4.02000E+01  4.04000E+01  4.06000E+01  4.08000E+01  4.10000E+01
+fq205  f  d  u  s  m  c  t  e   $ new hierarchy puts time in vertical column
+c
+c
+fc215 6li1.6a(E):  Pilot-B (Bias=1.6) Det Resp vs E, Path=765.2 cm, 30 deg line
+f215x:n       -595.6152  480.3890  0.0    $ 6li1.6a coords for Ring  Det in sph-axis coord system
+c
+c     Pilot B (Bias=1.6 MeV) Detector Response Function used
+c     in the 30-deg and 120-deg Beamlines, from UCID-16372
+c
+de215 lin  1.6      1.7      1.8      1.9      2.0      2.1      2.2      2.3
+           2.4      2.5      2.6      2.7      2.8      2.9      3.0      3.1
+           3.2      3.3      3.4      3.5      3.6      3.7      3.8      3.9
+           4.0      4.1      4.2      4.3      4.4      4.5      4.6      4.7
+           4.8      4.9      5.0      5.1      5.2      5.3      5.4      5.5
+           5.6      5.7      5.8      5.9      6.0      6.1      6.2      6.3
+           6.4      6.5      6.6      6.7      6.8      6.9      7.0      7.1
+           7.2      7.3      7.4      7.5      7.6      7.7      7.8      7.9
+           8.0      8.1      8.2      8.3      8.4      8.5      8.6      8.7
+           8.8      8.9      9.0      9.1      9.2      9.3      9.4      9.5
+           9.6      9.7      9.8      9.9     10.0     10.1     10.2     10.3
+          10.4     10.5     10.6     10.7     10.8     10.9     11.0     11.1
+          11.2     11.3     11.4     11.5     11.6     11.7     11.8     11.9
+          12.0     12.1     12.2     12.3     12.4     12.5     12.6     12.7
+          12.8     12.9     13.0     13.1     13.2     13.3     13.4     13.5
+          13.6     13.7     13.8     13.9     14.0     14.1     14.2     14.3
+          14.4     14.5     14.6     14.7     14.8     14.9     15.0     15.1
+          15.2     15.3     15.4     15.5     15.6     15.7     15.8     15.9
+          16.0
+c
+df215 $ Pilot B (Bias=1.6 MeV) data, renormalized to 1.0 at 15.0 MeV:
+        0.0003   0.1788   0.3312   0.4616   0.5750   0.6723   0.7573   0.8308
+        0.8952   0.9511   0.9960   1.0390   1.0719   1.0928   1.1339   1.1671
+        1.1783   1.1885   1.1983   1.2101   1.2221   1.2336   1.2457   1.2582
+        1.2761   1.2737   1.2740   1.2727   1.2793   1.2850   1.2895   1.2916
+        1.2924   1.2935   1.2951   1.2954   1.2956   1.2951   1.2938   1.2927
+        1.2919   1.2919   1.2927   1.2938   1.2943   1.2948   1.2938   1.2916
+        1.2884   1.2844   1.2807   1.2689   1.2617   1.2521   1.2406   1.2336
+        1.2211   1.1973   1.1839   1.1762   1.1660   1.1601   1.1561   1.1548
+        1.1518   1.1529   1.1540   1.1537   1.1532   1.1505   1.1484   1.1460
+        1.1435   1.1387   1.1342   1.1270   1.1198   1.1149   1.1101   1.1056
+        1.1013   1.0968   1.0922   1.0869   1.0813   1.0773   1.0708   1.0652
+        1.0585   1.0540   1.0478   1.0425   1.0372   1.0318   1.0265   1.0211
+        1.0158   1.0112   1.0067   1.0024   0.9979   0.9933   0.9890   0.9850
+        0.9810   0.9775   0.9738   0.9703   0.9671   0.9644   0.9618   0.9591
+        0.9570   0.9551   0.9530   0.9516   0.9508   0.9505   0.9505   0.9508
+        0.9516   0.9546   0.9578   0.9623   0.9658   0.9690   0.9725   0.9759
+        0.9794   0.9829   0.9864   0.9898   0.9933   0.9968   1.0000   1.0032
+        1.0064   1.0096   1.0128   1.0160   1.0192   1.0225   1.0257   1.0289
+        1.0321
+c       end of Pilot B (Bias=1.6 MeV) data
+c
+c    Note:  The original experimental count rates were gathered in time bins, not
+c    energy bins (and certainly not at energy points).  [Thus, the most meaningful
+c    comparisons of calculations to experiments should be made based on the time bins,
+c    not the energy bins.]  Still, there is some limited interest in the energy bins.
+c    The "energy points" given in the experimental data listings were actually based
+c    on a relativistic "first-flight" energy vs flight time relationship in which
+c       E= rme*((1.0/dsqrt(1.0-(fp*fp/(t*t*c*c))))-1.0)
+c    where
+c       c= velocity of light = 29.97925 cm/nanosecond
+c       t= the time (in nanoseconds), at the midpoint of the time bin
+c       fp= the length of the flightpath (in cm)
+c       rme= the rest mass energy of a neutron (939.550 MeV)
+c       E= the energy of the neutron
+c    For the "energy bins" used in MCNP, the "energy bin boundaries" (based on this
+c    same relationship) are determined by the more well-known "time bin boundaries".
+c
+e215  $ energy bins in MeV
+        1.82574E+00  1.84372E+00  1.86197E+00  1.88052E+00  1.89931E+00
+        1.91841E+00  1.93781E+00  1.95751E+00  1.97751E+00  1.99776E+00
+        2.01836E+00  2.03931E+00  2.06056E+00  2.08216E+00  2.10411E+00
+        2.12641E+00  2.14905E+00  2.17205E+00  2.19540E+00  2.21915E+00
+        2.24330E+00  2.26785E+00  2.29280E+00  2.31815E+00  2.34395E+00
+        2.37014E+00  2.39679E+00  2.42389E+00  2.45144E+00  2.47949E+00
+        2.50804E+00  2.53709E+00  2.56664E+00  2.59668E+00  2.62728E+00
+        2.65843E+00  2.69008E+00  2.72233E+00  2.75518E+00  2.78862E+00
+        2.82267E+00  2.85737E+00  2.89272E+00  2.92867E+00  2.96536E+00
+        3.00276E+00  3.04081E+00  3.07961E+00  3.11915E+00  3.15945E+00
+        3.20055E+00  3.24250E+00  3.28524E+00  3.32884E+00  3.37334E+00
+        3.41868E+00  3.46498E+00  3.51223E+00  3.56042E+00  3.60967E+00
+        3.65992E+00  3.71121E+00  3.76366E+00  3.81716E+00  3.87180E+00
+        3.92770E+00  3.98479E+00  4.04314E+00  4.10273E+00  4.16368E+00
+        4.22602E+00  4.28977E+00  4.35496E+00  4.42166E+00  4.48990E+00
+        4.55974E+00  4.63124E+00  4.70443E+00  4.77937E+00  4.85612E+00
+        4.93476E+00  5.01535E+00  5.09789E+00  5.18248E+00  5.26922E+00
+        5.35817E+00  5.44941E+00  5.54300E+00  5.63898E+00  5.73752E+00
+        5.83871E+00  5.94255E+00  6.04919E+00  6.15877E+00  6.27136E+00
+        6.38704E+00  6.50603E+00  6.62836E+00  6.75415E+00  6.88363E+00
+        7.01686E+00  7.15399E+00  7.29522E+00  7.44065E+00  7.59053E+00
+        7.74500E+00  7.90423E+00  8.06845E+00  8.23787E+00  8.41274E+00
+        8.59326E+00  8.77963E+00  8.97215E+00  9.17116E+00  9.37692E+00
+        9.58963E+00  9.80974E+00  1.00373E+01  1.02734E+01  1.05179E+01
+        1.07708E+01  1.10338E+01  1.13062E+01  1.15887E+01  1.18821E+01
+        1.21865E+01  1.25029E+01  1.28323E+01  1.31752E+01  1.35322E+01
+        1.39035E+01  1.42904E+01  1.46938E+01  1.51147E+01  1.55540E+01
+        1.60129E+01  1.64927E+01  1.69951E+01  1.75204E+01  1.80705E+01
+fq215  f  d  u  s  m  c  e  t   $ std hierarchy puts energy in vertical column
+c    ---------------------------------
+c
+c
+c    END OF ALL DATA (next 2 lines must be blank)
+
+

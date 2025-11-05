@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg57",
+    "problem_type": "Multigroup",
+    "description": "URRc-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg57.inp",
+      "n": "mg57"
+    },
+    "outputs": {
+      "outp": "mg57o",
+      "mctal": "mg57m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.63338
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.63339,
+      "std": 1.18943e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  }
+}

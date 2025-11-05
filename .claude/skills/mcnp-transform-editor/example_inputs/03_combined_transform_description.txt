@@ -1,0 +1,38 @@
+EXAMPLE: Combined Translation and Rotation
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Intermediate
+
+DEMONSTRATES:
+- Translation + rotation in single TR card
+- Order of operations: rotation first, then translation
+- Placing a fuel pin at specific position with specific orientation
+
+KEY FEATURES:
+- Fuel pin originally vertical (axis along +z)
+- Rotated 90° about y-axis → horizontal (axis along +x)
+- Then translated to (20, 15, 0)
+- Final result: horizontal pin at offset position
+
+TR CARD:
+*TR1  20 15 0  0 0 1  0 1 0  -1 0 0    $ Rotate 90° about y, then translate
+
+TRANSFORMATION BREAKDOWN:
+1. Rotation: 90° about y-axis
+   - Vertical pin (0,0,0)→(0,0,10) becomes horizontal (0,0,0)→(10,0,0)
+2. Translation: Move to (20, 15, 0)
+   - Horizontal pin now at (20,15,0)→(30,15,0)
+
+EXPECTED RESULT:
+- Original pin: vertical at origin, (0,0,0) to (0,0,10)
+- Transformed pin: horizontal at (20,15,0) to (30,15,0)
+- Both pins R=0.5 cm, H=10 cm
+
+RELATED SKILLS:
+- transformation_theory.md: Order of operations in TR cards
+- mcnp-geometry-builder: RCC surface definitions
+
+USAGE NOTES:
+- MCNP applies rotation BEFORE translation (mathematical convention)
+- To rotate about a point other than origin, compose transformations
+- Use scripts/tr_composition.py for complex transformation sequences

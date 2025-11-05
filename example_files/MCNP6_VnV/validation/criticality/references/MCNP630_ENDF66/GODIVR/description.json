@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "GODIVR",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "004",
+      "case": ""
+    },
+    "description": "HEU sphere reflected by water"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "GODIVR",
+      "n": "GODIVR"
+    },
+    "outputs": {
+      "outp": "GODIVRo",
+      "mctal": "GODIVRm"
+    },
+    "inputs": {
+      "inp": "GODIVR"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9985,
+      "std": 0.0011
+    }
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VI",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.994741,
+      "std": 0.000842756
+    }
+  }
+}

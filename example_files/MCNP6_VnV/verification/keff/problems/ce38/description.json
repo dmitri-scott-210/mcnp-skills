@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce38",
+    "problem_type": "Continuous Energy",
+    "description": "UD2Oa-1-1-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce38.inp",
+      "n": "ce38"
+    },
+    "outputs": {
+      "outp": "ce38o",
+      "mctal": "ce38m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.205587
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

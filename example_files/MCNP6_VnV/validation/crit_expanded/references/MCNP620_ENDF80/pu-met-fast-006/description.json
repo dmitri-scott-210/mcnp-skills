@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-006",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "006"
+    },
+    "description": "PU-MET-FAST-006  FLATTOP-Pu  Pu Sphere Refl by Normal U "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-006.i",
+      "n": "pu-met-fast-006"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-006.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-006o",
+      "mctal": "pu-met-fast-006m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.998806,
+      "std": 0.000315262
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VIII.0"
+  }
+}

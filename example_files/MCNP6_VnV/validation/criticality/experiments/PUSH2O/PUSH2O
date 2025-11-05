@@ -1,0 +1,26 @@
+ Pu sphere in sphere of H2O  PU-MET-FAST-011 
+1        1   0.049726       -1                   $ Plutonium sphere
+2        2   0.100149        1    -2             $ Water sphere
+3        0                   2
+ 
+1        so      4.1217                          $ radius of plutonium sphere
+2        so     29.5217                          $ radius of water sphere
+ 
+mode     n
+kcode    5000   1.0   50   250
+imp:n    1.0    1.0   0.0
+sdef     cel=1    erg=d1   rad=d2   pos=0.0 0.0 0.0
+sp1      -3
+si2      0.0    4.1217
+sp2      -21    2
+vol       293.30  107480.37   0.0 
+area      213.48   10951.98
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+totnu
+prdmp    j    999999    1
+print
+
+ end of input

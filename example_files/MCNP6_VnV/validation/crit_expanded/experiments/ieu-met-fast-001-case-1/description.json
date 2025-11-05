@@ -1,0 +1,33 @@
+{
+  "general_info": {
+    "name": "ieu-met-fast-001-case-1",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001",
+      "case": "1"
+    },
+    "description": "Jemima #1, Idealized Model; IEU-MET-FAST-001 Case 1 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ieu-met-fast-001-case-1.i",
+      "n": "ieu-met-fast-001-case-1"
+    },
+    "inputs": {
+      "inp": "ieu-met-fast-001-case-1.i"
+    },
+    "outputs": {
+      "outp": "ieu-met-fast-001-case-1o",
+      "mctal": "ieu-met-fast-001-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9989,
+      "std": 0.001
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

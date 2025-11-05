@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ORNL11",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "008",
+      "case": ""
+    },
+    "description": "Large sphere of uranyl nitrate solution enriched in 233U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ORNL11",
+      "n": "ORNL11"
+    },
+    "outputs": {
+      "outp": "ORNL11o",
+      "mctal": "ORNL11m"
+    },
+    "inputs": {
+      "inp": "ORNL11"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0006,
+      "std": 0.0029
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997769,
+      "std": 0.00037543
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VI"
+  }
+}

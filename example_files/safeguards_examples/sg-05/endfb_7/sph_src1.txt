@@ -1,0 +1,32 @@
+psrc1 - 14 MeV neutrons spherical source
+c
+c ----------------------------------------------------------------
+c                    FOR TRAINING PURPOSES ONLY
+c ----------------------------------------------------------------
+c                                                                               
+c   CELL CARDS
+10  0      -1  imp:n=1
+99  0      +1  imp:n=0
+
+c   SURFACE CARDS
+1  so   2.0
+
+c   DATA CARDS
+c
+c ===> single source energy
+c
+mode n
+sdef  pos=0 0 0  erg=14.0  rad=d1
+si1 H 0 0.75
+sp1 -21 2
+nps 1e6
+c
+c ===> fmesh tally surrounding the source
+c
+fmesh4:n  GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+          type=source
+c
+print

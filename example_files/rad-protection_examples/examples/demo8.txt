@@ -1,0 +1,28 @@
+Demo 8: Photon Spectrum for a NaI(TI) Scintillator LA-UR-23-25214
+c       1"DIA x 2"Long crystal w/1mm thick steel can
+c       Incident photon spectrum: Co-60 line spectrum
+c       Parallel beam of photons starts from the top of surface no. 6
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Aluminum D=2.7 g/cc
+      13000 -1.000000
+m2   $ NaI D=3.67 g/cc
+      11000 -0.153373
+      53000 -0.846627
+mode    p
+f8:p    1
+E8   0 1e-3 1498i 1.5                            $ Energy bins 1 keV wide
+c       FT8 is Gaussian Energy Broadening treatment for tally 8
+c       a,b,c parameters apply to a nominal NaI(Tl) detector
+ft8  GEB -0.0137 0.0752 -0.121                   $ Gaussian constants for nominal detector
+nps  1e4                                         $ Terminate after 1e4 particles
+mplot   freq=500000
+c    ************<<<<< End Data Cards >>>>>**************************************

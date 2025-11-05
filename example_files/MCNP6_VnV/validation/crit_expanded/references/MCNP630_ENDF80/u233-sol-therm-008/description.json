@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "u233-sol-therm-008",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "008"
+    },
+    "description": " U233-SOL-THERM-008  (CSEWG ORNL-11)  Unreflected sphere of U233 nitrate "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-sol-therm-008.i",
+      "n": "u233-sol-therm-008"
+    },
+    "inputs": {
+      "inp": "u233-sol-therm-008.i"
+    },
+    "outputs": {
+      "outp": "u233-sol-therm-008o",
+      "mctal": "u233-sol-therm-008m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0006,
+      "std": 0.0029
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999786,
+      "std": 0.000177095
+    }
+  }
+}

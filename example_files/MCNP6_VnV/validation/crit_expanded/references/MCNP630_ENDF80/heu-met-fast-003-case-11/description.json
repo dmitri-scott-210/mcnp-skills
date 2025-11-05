@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-003-case-11",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003",
+      "case": "11"
+    },
+    "description": "6.5\" WC tamper Sphere from LA-1114: HEU-MET-FAST-003 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-003-case-11.i",
+      "n": "heu-met-fast-003-case-11"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-003-case-11.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-003-case-11o",
+      "mctal": "heu-met-fast-003-case-11m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.005
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0085,
+      "std": 0.000297335
+    }
+  }
+}

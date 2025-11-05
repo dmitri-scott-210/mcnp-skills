@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg29",
+    "problem_type": "Multigroup",
+    "description": "Ue-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg29.inp",
+      "n": "mg29"
+    },
+    "outputs": {
+      "outp": "mg29o",
+      "mctal": "mg29m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.180667
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

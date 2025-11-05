@@ -1,0 +1,26 @@
+import os
+import isc # import the isc module
+
+# load the data
+iscdata = os.getenv("ISCDATA")
+abund_lib = isc.AbundanceLib()
+decay_lib = isc.DecayLib()
+emission_lib = isc.EmissionLib()
+isc.loadLibs(abund_lib, decay_lib, emission_lib, os.path.join(iscdata,"endf7.isc.bin"))
+
+# get all U isotopes with data
+u_isos = abund_lib.GetIsosForZ(92)
+print(u_isos)
+
+# get mass and abundance for each naturally occuring isotope
+nat_u_isos = list()
+for iso in u_isos:
+  # get mass and abundance for iso
+  mass = abund_lib.GetMass(iso)
+  abundance = abund_lib.GetAbundance(iso)
+  print("{:7d}  {:7.3f}  {:12.5e}".format(iso, mass, abundance))
+
+  # if abundances is non-zero add it to the list of naturally occurring isos
+  if( abundance > 0.0 ):
+    nat_u_isos.append(iso)
+print(nat_u_isos)

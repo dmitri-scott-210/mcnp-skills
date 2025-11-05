@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg66",
+    "problem_type": "Multigroup",
+    "description": "URRd-H2Oc(10)-2-0-ISLC"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg66.inp",
+      "n": "mg66"
+    },
+    "outputs": {
+      "outp": "mg66o",
+      "mctal": "mg66m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00004,
+      "std": 3.82613e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-23"
+  }
+}

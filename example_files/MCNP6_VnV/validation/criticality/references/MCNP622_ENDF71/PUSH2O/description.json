@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "PUSH2O",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "011",
+      "case": ""
+    },
+    "description": "Plutonium sphere reflected by water"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "PUSH2O",
+      "n": "PUSH2O"
+    },
+    "outputs": {
+      "outp": "PUSH2Oo",
+      "mctal": "PUSH2Om"
+    },
+    "inputs": {
+      "inp": "PUSH2O"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.001
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00126,
+      "std": 0.00080621
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.1"
+  }
+}

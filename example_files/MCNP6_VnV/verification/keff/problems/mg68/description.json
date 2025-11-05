@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg68",
+    "problem_type": "Multigroup",
+    "description": "UD2O-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg68.inp",
+      "n": "mg68"
+    },
+    "outputs": {
+      "outp": "mg68o",
+      "mctal": "mg68m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

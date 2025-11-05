@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "FLAT25",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "028",
+      "case": ""
+    },
+    "description": "HEU sphere reflected by normal U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "FLAT25",
+      "n": "FLAT25"
+    },
+    "outputs": {
+      "outp": "FLAT25o",
+      "mctal": "FLAT25m"
+    },
+    "inputs": {
+      "inp": "FLAT25"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    }
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00341,
+      "std": 0.000610012
+    }
+  }
+}

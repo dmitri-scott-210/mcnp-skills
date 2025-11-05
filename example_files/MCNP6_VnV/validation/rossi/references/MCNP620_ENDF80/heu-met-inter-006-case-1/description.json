@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-inter-006-case-1",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "inter",
+      "number": "006",
+      "case": "001"
+    },
+    "description": "ZEUS  10 Uniform Units HEU-MET-INTER-006, Case 1"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-inter-006-case-1i",
+      "n": "heu-met-inter-006-case-1"
+    },
+    "outputs": {
+      "outp": "heu-met-inter-006-case-1o"
+    },
+    "inputs": {
+      "inp": "heu-met-inter-006-case-1i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -3381.0,
+      "std": 74.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -3681.01,
+      "std": 16.099
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VIII.0"
+  }
+}

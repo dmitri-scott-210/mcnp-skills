@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg67",
+    "problem_type": "Multigroup",
+    "description": "UD2O-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg67.inp",
+      "n": "mg67"
+    },
+    "outputs": {
+      "outp": "mg67o",
+      "mctal": "mg67m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.000196
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00019,
+      "std": 8.74493e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

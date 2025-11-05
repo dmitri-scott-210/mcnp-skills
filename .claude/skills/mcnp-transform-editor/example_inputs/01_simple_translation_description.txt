@@ -1,0 +1,32 @@
+EXAMPLE: Simple Translation of Detector
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Translation-only TR card (3 parameters)
+- Moving a component from origin to specific position
+- Using surface transformation (TR number in surface card)
+
+KEY FEATURES:
+- Detector sphere at origin (surface 1)
+- Same detector translated to (15, 0, 0) using TR1 (surface 2)
+- Demonstrates that translation vector points to new location
+- No rotation applied (translation only)
+
+TR CARD:
+*TR1  15 0 0    $ Move +15 cm in x-direction
+
+EXPECTED RESULT:
+- Two identical spheres (R=5 cm)
+- One at origin (0, 0, 0)
+- One at (15, 0, 0)
+
+RELATED SKILLS:
+- mcnp-geometry-builder: Understanding surface definitions
+- mcnp-input-validator: Validating TR card syntax
+
+USAGE NOTES:
+- Translation-only transformations use just 3 parameters
+- Positive values move in positive axis direction
+- Multiple surfaces can use the same TR number

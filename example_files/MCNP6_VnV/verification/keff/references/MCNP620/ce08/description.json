@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce08",
+    "problem_type": "Continuous Energy",
+    "description": "PUb-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce08.inp",
+      "n": "ce08"
+    },
+    "outputs": {
+      "outp": "ce08o",
+      "mctal": "ce08m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00005,
+      "std": 9.07114e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

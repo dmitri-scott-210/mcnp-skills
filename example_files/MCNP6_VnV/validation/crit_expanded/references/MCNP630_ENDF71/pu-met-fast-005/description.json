@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-005",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "005"
+    },
+    "description": "TUNGSTEN REFLECTED PU(4.9) SPHERE [PLANET]: PU-MET-FAST-005 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-005.i",
+      "n": "pu-met-fast-005"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-005.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-005o",
+      "mctal": "pu-met-fast-005m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0013
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0019,
+      "std": 0.000266413
+    }
+  }
+}

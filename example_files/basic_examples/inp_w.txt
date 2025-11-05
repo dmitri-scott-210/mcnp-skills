@@ -1,0 +1,19 @@
+inp_w - Simple electron/positron problem in tungsten.
+1    1 -19.66 -1  imp:e,p=1
+2    0         1  imp:p,e 0
+
+1    so  0.008    $ Radius is about 1/5 of an electron range.
+
+mode    p e
+sdef    erg 1.  par f
+m1      74000  1
+f21:p   1
+e21     .1 .3 .51 .52 1.
+f1:e    1
+ft1     elc 3
+fq1     e u
+*f8:p,e 1
++f18:e  1
+print
+nps     1000
+dbcn  17j   2

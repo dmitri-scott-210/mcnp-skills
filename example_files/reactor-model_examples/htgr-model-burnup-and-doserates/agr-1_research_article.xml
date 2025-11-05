@@ -1,0 +1,2096 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.2 20190208//EN" "http://jats.nlm.nih.gov/publishing/1.2/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         article-type="research-article"
+         dtd-version="1.2"
+         xml:lang="en">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="pmc">Nucl Sci Technol Open Res</journal-id>
+            <journal-title-group>
+                <journal-title>Nuclear Science and Technology Open Research</journal-title>
+            </journal-title-group>
+            <issn pub-type="epub">2755-967X</issn>
+            <publisher>
+                <publisher-name>F1000 Research Limited</publisher-name>
+                <publisher-loc>London, UK</publisher-loc>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="doi">10.12688/nuclscitechnolopenres.17447.2</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading">
+                    <subject>Research Article</subject>
+                </subj-group>
+                <subj-group>
+                    <subject>Articles</subject>
+                </subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>Shutdown dose rate calculations in high-temperature gas-cooled reactors using the MCNP-ORIGEN activation automation tool</article-title>
+                <fn-group content-type="pub-status">
+                    <fn>
+                        <p>[version 2; peer review: 2 approved]</p>
+                    </fn>
+                </fn-group>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author" corresp="yes">
+                    <name>
+                        <surname>Fairhurst-Agosta</surname>
+                        <given-names>Roberto</given-names>
+                    </name>
+                    <role content-type="http://credit.niso.org/">Conceptualization</role>
+                    <role content-type="http://credit.niso.org/">Investigation</role>
+                    <role content-type="http://credit.niso.org/">Methodology</role>
+                    <role content-type="http://credit.niso.org/">Software</role>
+                    <role content-type="http://credit.niso.org/">Visualization</role>
+                    <role content-type="http://credit.niso.org/">Writing &#x2013; Original Draft Preparation</role>
+                    <role content-type="http://credit.niso.org/">Writing &#x2013; Review &amp; Editing</role>
+                    <uri content-type="orcid">https://orcid.org/0000-0002-3173-8273</uri>
+                    <xref ref-type="corresp" rid="c1">a</xref>
+                    <xref ref-type="aff" rid="a1">1</xref>
+                </contrib>
+                <contrib contrib-type="author" corresp="no">
+                    <name>
+                        <surname>Kozlowski</surname>
+                        <given-names>Tomasz</given-names>
+                    </name>
+                    <role content-type="http://credit.niso.org/">Resources</role>
+                    <role content-type="http://credit.niso.org/">Supervision</role>
+                    <role content-type="http://credit.niso.org/">Writing &#x2013; Review &amp; Editing</role>
+                    <xref ref-type="aff" rid="a1">1</xref>
+                </contrib>
+                <aff id="a1">
+                    <label>1</label>Dept. of Nuclear, Plasma, and Radiological Engineering, University of Illinois at Urbana-Champaign, Urbana, Illinois, 61801, USA</aff>
+            </contrib-group>
+            <author-notes>
+                <corresp id="c1">
+                    <label>a</label>
+                    <email xlink:href="mailto:ref3@illinois.edu">ref3@illinois.edu</email>
+                </corresp>
+                <fn fn-type="conflict">
+                    <p>No competing interests were disclosed.</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="epub">
+                <day>21</day>
+                <month>6</month>
+            <year>2024</year>
+            </pub-date>
+            <pub-date pub-type="collection">
+            <year>2023</year>
+            </pub-date>
+         <volume>1</volume>
+            <elocation-id>20</elocation-id>
+            <history>
+                <date date-type="accepted">
+                    <day>19</day>
+                    <month>6</month>
+               <year>2024</year>
+                </date>
+            </history>
+            <permissions>
+                <copyright-statement>Copyright: &#x00a9; 2024 Fairhurst-Agosta R and Kozlowski T</copyright-statement>
+                <copyright-year>2024</copyright-year>
+                <license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+                    <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution Licence, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+                </license>
+            </permissions>
+            <self-uri content-type="pdf" xlink:href="https://nstopenresearch.org/articles/1-20/pdf"/>
+            <abstract>
+                <sec>
+                    <title>Background</title>
+                    <p>High-temperature gas-cooled reactors (HTGRs) have many distinct features from the current light water reactor (LWR) fleet, and potential decommissioning strategies should take them into consideration. The proper characterization of the shutdown dose rates can establish a suitable strategy.</p>
+                </sec>
+                <sec>
+                    <title>Methods</title>
+                    <p>This article introduces a new shutdown dose rate calculation capability that relies on the MCNP-ORIGEN activation automation tool and the MCNP repeated structures to explicitly model the TRistructural ISOtropic (TRISO) particles as decay radiation sources.</p>
+                </sec>
+                <sec>
+                    <title>Results</title>
+                    <p>Three exercises are conducted with this capability, and their results discussed. The first two exercises verify and demonstrate the workflow. The third exercise proposes a decommissioning strategy for a high-temperature gas-cooled microreactor and studies its feasibility from the shutdown dose rate standpoint. The calculations yield a dose rate map above at the reactor citadel after a three month cool-down, showing values above 40 mSv/h.</p>
+                </sec>
+                <sec>
+                    <title>Conclusions</title>
+                    <p>The findings imply that the decommissioning strategy based on placing the reactor in a safe shutdown state and allowing it to cool down for three months before removing various components and extracting the fuel assemblies, may not be sufficient to minimize unnecessary exposure of personnel.</p>
+                </sec>
+            </abstract>
+            <kwd-group kwd-group-type="author">
+                <kwd>Shutdown dose rate</kwd>
+                <kwd>HTGR</kwd>
+                <kwd>MCNP</kwd>
+                <kwd>ORIGEN</kwd>
+            </kwd-group>
+            <funding-group>
+                <funding-statement>The author(s) declared that no grants were involved in supporting this work.</funding-statement>
+            </funding-group>
+        </article-meta>
+        <notes>
+            <sec sec-type="version-changes">
+                <label>Revised</label>
+                <title>Amendments from Version 1</title>
+                <p>The article has undergone a revision which clarifies several points of the original article, as well as grammatical corrections. There are no substantial changes in the results and conclusions to be reported.</p>
+            </sec>
+        </notes>
+    </front>
+    <body>
+        <sec id="sec1" sec-type="intro">
+            <title>Introduction</title>
+            <p>HTGRs have gained much attention in the past few decades. In 2002, the Very high-temperature gas-cooled reactor (VHTR) was proposed as one of the Generation-IV nuclear energy systems for the co-generation of electricity and hydrogen.
+                <sup>
+                    <xref ref-type="bibr" rid="ref1">1</xref>
+                </sup> In 2006, the U.S. Department of Energy (DOE) and the Idaho National Laboratory (INL) established the Next Generation Nuclear Power (NGNP) project to develop, license, build, and operate a prototype modular HTGR to produce hydrogen while generating electric power.
+                <sup>
+                    <xref ref-type="bibr" rid="ref2">2</xref>
+                </sup>
+            </p>
+            <p>More recent examples of HTGRs are new microreactor designs. StarCore Nuclear has partnered with the local government of Pinawa, Canada to demonstrate the powering of off-grid communities and mining companies with an HTGR.
+                <sup>
+                    <xref ref-type="bibr" rid="ref3">3</xref>
+                </sup> The U.S. Department of Defense (DOD) has recently awarded a contract to BWXT to deliver a transportable 1-5 MWe HTGR to be completed and delivered by 2024.
+                <sup>
+                    <xref ref-type="bibr" rid="ref4">4</xref>
+                </sup> The University of Illinois at Urbana-Champaign (UIUC) has partnered with the Ultra Safe Nuclear Corporation (USNC) to build a microreactor on its campus, a 10 MWth HTGR.
+                <sup>
+                    <xref ref-type="bibr" rid="ref5">5</xref>
+                </sup> The new reactor facility will offer UIUC a diverse set of opportunities for research, including instrumentation and control, multi-physics validation, reactor prototype testing, and micro-grid operations.</p>
+            <p>HTGR technology presents many distinct features from the current LWR fleet, and potential decommissioning strategies should take them into consideration. After reactor shutdown, the ongoing decay may inflict dose on workers and equipment in the reactor surroundings. In LWRs, the common strategy entails flooding the entire reactor cavity to remove the spent fuel, as the water column between the assemblies and the operators provides enough shielding. HTGRs cannot, however, implement such a strategy because of the presence of large volumes of high-temperature graphite in the core, and this could lead to graphite oxidation,
+                <sup>
+                    <xref ref-type="bibr" rid="ref6">6</xref>
+                </sup> degrading its structural and functional properties. Nevertheless, the proper characterization of the shutdown dose rates can guide the establishment of a suitable decommissioning strategy.</p>
+            <p>Several publications have studied the shutdown dose rate in LWRs. For example, Abrefah 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref7">7</xref>
+                </sup> estimated the dose rate of the spent fuel of the Ghana Research Reactor-1 (GHARR-1) to establish a proper unloading strategy for the highly-enriched uranium (HEU) to low-enriched uranium (LEU) conversion of the reactor. In another work, Ambrozic and Snoj
+                <sup>
+                    <xref ref-type="bibr" rid="ref8">8</xref>
+                </sup> studied the dose rate in the Jozef Stefan Institute (JSI) Testing, Research, Isotopes, General Atomics (TRIGA) reactor and validated their results against experimental measurements during normal operation and after shutdown. Bagheri 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref9">9</xref>
+                </sup> determined the dose rate from the spent fuel of the Tehran Research Reactor (TRR), validated their calculations against experimental measurements, and studied the photon emission rate of several isotopes for different fuel burnup values.</p>
+            <p>Although the shutdown dose rate associated with LWRs has been extensively studied, there are not many publicly available studies that focus on HTGRs. For example, Suwoto 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref10">10</xref>
+                </sup> calculated the neutron dose rate in the working areas outside the Reactor Pressure Vessel (RPV) of the HTGR-10 reactor, concluding that the dose rates were compliant with the stipulated limits. Ueta 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref11">11</xref>
+                </sup> studied the shielding performance for the upper structure of the High-Temperature engineering Test Reactor (HTTR) during normal operation. Their study considered the active core, spent fuel, and equipment installed in the primary circuit as neutron and gamma radiation sources, and concluded that the neutron contribution to the dose was over 90%. Another study by Hamzah 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref12">12</xref>
+                </sup> analyzed the dose rate distribution in the Reaktor Daya Eksperimental (RDE), a 10 MWth experimental pebble-bed reactor, during normal operation and after shutdown. Their study estimated the dose rates in the working area and outside the RDE reactor building, concluding that the calculated values were below the stipulated limits. Ho 
+                <italic toggle="yes">et al.</italic>
+                <sup>
+                    <xref ref-type="bibr" rid="ref13">13</xref>
+                </sup> calculated the shutdown gamma distribution in the HTTR, relying on MCNP6
+                <sup>
+                    <xref ref-type="bibr" rid="ref14">14</xref>
+                </sup> and ORIGEN2
+                <sup>
+                    <xref ref-type="bibr" rid="ref15">15</xref>
+                </sup> to obtain the gamma source distribution and MCNP6 to conduct the gamma transport at multiple cooling times. Their work utilized the repeated structures from MCNP6 to model the decay sources from all the fuel rods explicitly with the gamma radiation emitted from each rod with a uniform spatial distribution. Up to this point, most of the studies described above focus on the dose rates during normal operation or perform some level of homogenization to avoid the explicit modeling of the TRISO particles as decay radiation source.</p>
+            <p>The objective of this article is to introduce a new shutdown dose rate calculation capability for HTGRs that explicitly models the TRISO particles as radiation source. The calculation workflow is based on the MCNP-ORIGEN Activation Automation (MOAA) tool,
+                <sup>
+                    <xref ref-type="bibr" rid="ref16">16</xref>
+                </sup> described in the next section. The modeling of HTGRs is challenged by the fuel double heterogeneity, a distinctive characteristic in this type of reactor due to its fuel nature - 
+                <italic toggle="yes">i.e.,</italic> the TRISO particles. Previous work
+                <sup>
+                    <xref ref-type="bibr" rid="ref17">17</xref>
+                </sup>
+                <sup>&#x2013;</sup>
+                <sup>
+                    <xref ref-type="bibr" rid="ref19">19</xref>
+                </sup> utilized MOAA to calculate delayed heating by treating each depleted cell as an independent source of radiation. However, one single HTGR core comprises millions of TRISO particles, meaning that modeling each cell independently is not realistically possible. This article investigates the modeling of the HTGR core using the repeated structures from MCNP to explicitly model the TRISO particles as decay radiation source.</p>
+            <p>The rest of this article is organized as follows. The section &#x201c;Methods&#x201d; details the main aspects of the calculation workflow. The section &#x201c;Verification&#x201d; introduces a verification exercise consisting of the delayed heating calculation of a simple geometry. The section &#x201c;AGR-1&#x201d; discusses an exercise studying the shutdown-dose rates of the TRISO-fueled Advanced Gas Reactor 1 (AGR-1) experiment. The section &#x201c;
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR&#x201d; investigates a decommissioning strategy for a high-temperature gas-cooled microreactor from a shutdown-dose rate standpoint. Finally, the section &#x201c;Conclusions&#x201d; summarizes the contributions of this work. All the input files and some of the generated datasets necessary to reproduce this work are included in this repository.
+                <sup>
+                    <xref ref-type="bibr" rid="ref20">20</xref>
+                </sup> Refer to sections &#x201c;Data availability&#x201d; and &#x201c;Software availability&#x201d; for more information.</p>
+        </sec>
+        <sec id="sec2" sec-type="methods">
+            <title>Methods</title>
+            <p>The calculations use the formal 3-step process (often called the rigorous 2-step process
+                <sup>
+                    <xref ref-type="bibr" rid="ref21">21</xref>
+                </sup>) to obtain the shutdown dose rates. This method consists of the following three steps:
+                <list list-type="bullet">
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>First, a neutron-transport simulation determines the neutron flux spatial and energy distribution during reactor operation.</p>
+                    </list-item>
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>Second, an activation calculation estimates the energy distribution and emission probability of the decay photon sources after reactor shutdown.</p>
+                    </list-item>
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>Third, a photon-transport simulation evaluates the dose rate.</p>
+                    </list-item>
+                </list>
+            </p>
+            <p>The first two steps in the process are accomplished by coupling a transport and a depletion solver. While there are several software packages available with these capabilities,
+                <sup>
+                    <xref ref-type="bibr" rid="ref22">22</xref>
+                </sup>
+                <sup>&#x2013;</sup>
+                <sup>
+                    <xref ref-type="bibr" rid="ref25">25</xref>
+                </sup> the calculation workflow presented here relies on MOAA for these steps. Depletion solvers ignore the geometry of the system which signals the need for a transport solver. The transport solver generates geometry- and material-dependent parameters that the depletion solver relies on. The depletion solver then calculates the material compositions and returns this information to the transport solver, and a cyclical transfer of information occurs.</p>
+            <sec id="sec3">
+                <title>MOAA</title>
+                <p>The Irradiation Experiment Neutronics Analysis group at the INL developed MOAA to streamline the calculation of the experiment source terms for the Advanced Test Reactor (ATR) and the Transient Reactor Test Facility (TREAT). Although MOAA was originally developed to analyze the irradiation of experiments at ATR, it has grown to become a more general tool through further development. MOAA is a python package that couples MCNP6
+                    <sup>
+                        <xref ref-type="bibr" rid="ref14">14</xref>
+                    </sup> and ORIGEN-S
+                    <sup>
+                        <xref ref-type="bibr" rid="ref26">26</xref>
+                    </sup> by writing MCNP tally cards, reading MCNP tallies, creating SCALE input files, executing SCALE, and standardizing the results post-processing. Streamlining this procedure helps to reduce processing times and avoid potential human errors. Further details on MOAA&#x2019;s development can be found in Ref. 
+                    <xref ref-type="bibr" rid="ref34">27</xref>.</p>
+                <p>MOAA performs material irradiation and decay calculations, which can be configured to include a single or multiple irradiation steps. While a single reference-step calculation uses a constant power irradiation, multi-step calculations handle several core configurations and piecewise constant power irradiation (
+                    <italic toggle="yes">i.e.,</italic> different power levels at each time step). Such a capability allows for the modeling of evolution in material density, temperature, and geometry, as well as the control rod movement during the irradiation cycle. Additionally, the calculations can be configured to utilize the conventional predictor-corrector scheme, which is a two-step process that combines explicit and implicit calculations to achieve better convergence.</p>
+                <p>
+                    <xref ref-type="fig" rid="f1">Figure 1</xref> shows MOAA&#x2019;s main calculation workflow. The user input file (UIF) defines a list of irradiation cases, a list of decay times, and a list of MCNP cells defining the regions of interest. The regions of interest comprise all the cells in the MCNP input file that will contribute to the shutdown dose rate. The irradiation case geometry and material definition are specified by the MCNP input file(s).</p>
+                <fig fig-type="figure" id="f1" orientation="portrait" position="float">
+                    <label>Figure 1. </label>
+                    <caption>
+                        <title>Graphical representation of the MCNP-ORIGEN activation automation tool&#x2019;s workflow.</title>
+                    </caption>
+                    <graphic id="gr1" orientation="portrait" position="float"
+                        xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure1.gif"/>
+                </fig>
+                <p>MCNP is a general-purpose, continuous-energy, generalized-geometry, Monte Carlo radiation-transport tool that can track neutrons, photons, electrons, and other particles. The main advantage of the Monte Carlo method is its capability to model geometry and interaction physics without significant approximations. MOAA relies on MCNP 6.2 for obtaining the geometry- and material-dependent parameters of the user-defined system - 
+                    <italic toggle="yes">i.e.,</italic> fluxes and one-group cross-sections - during the irradiation steps.</p>
+                <p>To accommodate the MOAA calculations, the MCNP input files must undergo a minimal modification: the volume of the depleted cells has to be calculated and specified within the MCNP input file. This is because MCNP can only calculate the volume of simple geometries, and the user must specify the cell volumes to avoid errors. For cells defined as repeated structures, the user must specify the volume of the whole material in those cells that is present in the geometry. Otherwise, MCNP will calculate the volume of only one cell.</p>
+                <p>ORIGEN is a general-purpose point depletion and decay tool to calculate isotopic concentrations, radiation source terms, and decay heat. ORIGEN is integrated into the SCALE code system, which is a modeling and simulation suite for nuclear safety analysis and design. MOAA uses the calculated parameters from the MCNP output files to define the SCALE input files. MOAA relies on version 6.2.4 of SCALE, and besides ORIGEN, it also uses the COUPLE and OPUS modules. ORIGEN requires a single volume- and spectrum-weighted cross-section library that MOAA generates using COUPLE. Meanwhile, OPUS provides the ability to extract specific data from the ORIGEN output libraries, perform unit conversions, and generate data for post-calculation analysis.</p>
+            </sec>
+            <sec id="sec4">
+                <title>Shutdown dose rate</title>
+                <p>Overall the calculation scheme, shown in 
+                    <xref ref-type="fig" rid="f2">Figure 2</xref>, follows the formal 3-step process, in which MOAA conducts the first two steps, and an MCNP photon transport simulation carries out the third step, estimating the dose rate with the following formula
+                    <sup>
+                        <xref ref-type="bibr" rid="ref27">28</xref>
+                    </sup>
+                    <disp-formula id="e1">
+                        <mml:math display="block">
+                            <mml:mover accent="true">
+                                <mml:mi>D</mml:mi>
+                                <mml:mo>&#x0307;</mml:mo>
+                            </mml:mover>
+                            <mml:mo>[</mml:mo>
+                            <mml:mrow>
+                                <mml:mi mathvariant="italic">Sv</mml:mi>
+                                <mml:mo>/</mml:mo>
+                                <mml:mi>h</mml:mi>
+                            </mml:mrow>
+                            <mml:mo>]</mml:mo>
+                            <mml:mo>=</mml:mo>
+                            <mml:mi>F</mml:mi>
+                            <mml:mn>4</mml:mn>
+                            <mml:mo>:</mml:mo>
+                            <mml:mi>p</mml:mi>
+                            <mml:mo>[</mml:mo>
+                            <mml:mrow>
+                                <mml:mi mathvariant="italic">pSv</mml:mi>
+                                <mml:mo>/</mml:mo>
+                                <mml:mi mathvariant="italic">src</mml:mi>
+                            </mml:mrow>
+                            <mml:mo>]</mml:mo>
+                            <mml:mo>&#x00d7;</mml:mo>
+                            <mml:msub>
+                                <mml:mo>&#x2211;</mml:mo>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                            <mml:msub>
+                                <mml:mi>S</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                            <mml:mo>&#x00d7;</mml:mo>
+                            <mml:mn>3.6</mml:mn>
+                            <mml:mo>&#x00d7;</mml:mo>
+                            <mml:msup>
+                                <mml:mn>10</mml:mn>
+                                <mml:mrow>
+                                    <mml:mo>&#x2212;</mml:mo>
+                                    <mml:mn>9</mml:mn>
+                                </mml:mrow>
+                            </mml:msup>
+                        </mml:math>
+                        <label>(1)</label>
+                    </disp-formula>
+                    <disp-formula id="e2">
+                        <mml:math display="block">
+                            <mml:msub>
+                                <mml:mi>S</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                            <mml:mo>[</mml:mo>
+                            <mml:mrow>
+                                <mml:mi>&#x03b3;</mml:mi>
+                                <mml:mo>/</mml:mo>
+                                <mml:mi>s</mml:mi>
+                            </mml:mrow>
+                            <mml:mo>]</mml:mo>
+                            <mml:mo>=</mml:mo>
+                            <mml:msub>
+                                <mml:mo>&#x222b;</mml:mo>
+                                <mml:mi>E</mml:mi>
+                            </mml:msub>
+                            <mml:msubsup>
+                                <mml:mi>&#x03c6;</mml:mi>
+                                <mml:mi>i</mml:mi>
+                                <mml:mi>&#x03b3;</mml:mi>
+                            </mml:msubsup>
+                            <mml:mo>(</mml:mo>
+                            <mml:mi>E</mml:mi>
+                            <mml:mo>)</mml:mo>
+                            <mml:mi mathvariant="italic">dE</mml:mi>
+                        </mml:math>
+                        <label>(2)</label>
+                    </disp-formula>
+                    <disp-formula id="e3">
+                        <mml:math display="block">
+                            <mml:msub>
+                                <mml:mi>s</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                            <mml:mo>[</mml:mo>
+                            <mml:mo>&#x2212;</mml:mo>
+                            <mml:mo>]</mml:mo>
+                            <mml:mo>=</mml:mo>
+                            <mml:msub>
+                                <mml:mi>S</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                            <mml:mo>/</mml:mo>
+                            <mml:munder>
+                                <mml:mo>&#x2211;</mml:mo>
+                                <mml:mi>j</mml:mi>
+                            </mml:munder>
+                            <mml:msub>
+                                <mml:mi>S</mml:mi>
+                                <mml:mi>j</mml:mi>
+                            </mml:msub>
+                        </mml:math>
+                        <label>(3)</label>
+                    </disp-formula>where 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mover accent="true">
+                                <mml:mi>D</mml:mi>
+                                <mml:mo>&#x0307;</mml:mo>
+                            </mml:mover>
+                        </mml:math>
+                    </inline-formula> is the dose rate, 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mi>F</mml:mi>
+                            <mml:mn>4</mml:mn>
+                            <mml:mo>:</mml:mo>
+                            <mml:mi>p</mml:mi>
+                        </mml:math>
+                    </inline-formula> is the F4 tally for photons, 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:msub>
+                                <mml:mi>S</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                        </mml:math>
+                    </inline-formula> is the total photon emission rate from region 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mi>i</mml:mi>
+                        </mml:math>
+                    </inline-formula>, 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:msubsup>
+                                <mml:mi>&#x03c6;</mml:mi>
+                                <mml:mi>i</mml:mi>
+                                <mml:mi>&#x03b3;</mml:mi>
+                            </mml:msubsup>
+                            <mml:mo>(</mml:mo>
+                            <mml:mi>E</mml:mi>
+                            <mml:mo>)</mml:mo>
+                        </mml:math>
+                    </inline-formula> is the photon source energy distribution from region 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mi>i</mml:mi>
+                        </mml:math>
+                    </inline-formula>, and 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:msub>
+                                <mml:mi>s</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                        </mml:math>
+                    </inline-formula> is the source cell emission probability. 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mi>F</mml:mi>
+                            <mml:mn>4</mml:mn>
+                            <mml:mo>:</mml:mo>
+                            <mml:mi>p</mml:mi>
+                        </mml:math>
+                    </inline-formula> result is expressed in 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:mi mathvariant="italic">pSV</mml:mi>
+                        </mml:math>
+                    </inline-formula> per source particle by adding fluence-to-dose conversion factors
+                    <sup>
+                        <xref ref-type="bibr" rid="ref28">29</xref>
+                    </sup> to the MCNP input file. The conversion factors consider an antero-posterior exposure to photons.</p>
+                <fig fig-type="figure" id="f2" orientation="portrait" position="float">
+                    <label>Figure 2. </label>
+                    <caption>
+                        <title>Shutdown dose rate calculation scheme.</title>
+                    </caption>
+                    <graphic id="gr2" orientation="portrait" position="float"
+                        xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure2.gif"/>
+                </fig>
+                <p>The MCNP photon-transport simulations require the definition of a fixed source for all the cells contributing to the dose rate. During reactor operation, MOAA is responsible for calculating the isotopic evolution in the reactor regions of interest. After the reactor shuts down, MOAA provides the photon source energy distribution of the regions of interest 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:msubsup>
+                                <mml:mi>&#x03c6;</mml:mi>
+                                <mml:mi>i</mml:mi>
+                                <mml:mi>&#x03b3;</mml:mi>
+                            </mml:msubsup>
+                            <mml:mo>(</mml:mo>
+                            <mml:mi>E</mml:mi>
+                            <mml:mo>)</mml:mo>
+                        </mml:math>
+                    </inline-formula>, which define the energy distribution of the fixed photon source in MCNP.</p>
+                <p>The photon-transport calculation can be performed with multiple simulations, where each simulation obtains the contribution of each cell. This enables the determination of the individual contribution from the different cells. The alternative is to conduct the photon-transport calculation in one simulation including the contribution of all source cells simultaneously. The latter option is computationally less expensive and requires the definition of the cell emission probabilities 
+                    <inline-formula>
+                        <mml:math display="inline">
+                            <mml:msub>
+                                <mml:mi>s</mml:mi>
+                                <mml:mi>i</mml:mi>
+                            </mml:msub>
+                        </mml:math>
+                    </inline-formula> using 
+                    <xref ref-type="disp-formula" rid="e3">equation 3</xref>.</p>
+                <p>The source spatial distribution is assumed uniform in each source cell. For uniformly sampling the birth of a particle in a cell, MCNP uses the enclosing volume rejection method, which requires the user definition of a volume enveloping the source cell. The randomly sampled points in the volume are only accepted as source points if they fall inside the source cell. In the calculation workflow described here, the user can either define a parallelepiped or a cylinder as the enclosing volume. For the cells defined as repeated structures, the user must specify the enclosing volume in the local coordinate system of the inner most cell.</p>
+            </sec>
+        </sec>
+        <sec id="sec5">
+            <title>Verification</title>
+            <p>This exercise consists of the delayed gamma heating calculation in a simple geometry. The calculation workflow for the shutdown dose rate and delayed gamma heating is identical, and they only change in how the deposition of energy manifests, either dose or heat. Three calculations were performed for this exercise. The first calculation employs the explicit independent definition of each cell and is the reference case. The second calculation utilizes the repeated structures&#x2019; approach.</p>
+            <p>The following equation calculates the delayed gamma heating
+                <disp-formula id="e4">
+                    <mml:math display="block">
+                        <mml:msub>
+                            <mml:mi>H</mml:mi>
+                            <mml:mrow>
+                                <mml:mi>&#x03b3;</mml:mi>
+                                <mml:mo>,</mml:mo>
+                                <mml:mi mathvariant="italic">Tr</mml:mi>
+                            </mml:mrow>
+                        </mml:msub>
+                        <mml:mo>[</mml:mo>
+                        <mml:mi>W</mml:mi>
+                        <mml:mo>]</mml:mo>
+                        <mml:mo>=</mml:mo>
+                        <mml:mn>1.6022</mml:mn>
+                        <mml:mo>&#x00d7;</mml:mo>
+                        <mml:msup>
+                            <mml:mn>10</mml:mn>
+                            <mml:mrow>
+                                <mml:mo>&#x2212;</mml:mo>
+                                <mml:mn>13</mml:mn>
+                            </mml:mrow>
+                        </mml:msup>
+                        <mml:mo>&#x00d7;</mml:mo>
+                        <mml:msup>
+                            <mml:mspace width="0.12em"/>
+                            <mml:mo>&#x2217;</mml:mo>
+                        </mml:msup>
+                        <mml:mspace width="0em"/>
+                        <mml:mi>F</mml:mi>
+                        <mml:mn>8</mml:mn>
+                        <mml:mo>[</mml:mo>
+                        <mml:mi>MeV</mml:mi>
+                        <mml:mo>]</mml:mo>
+                        <mml:mo>&#x00d7;</mml:mo>
+                        <mml:munder>
+                            <mml:mo>&#x2211;</mml:mo>
+                            <mml:mi>i</mml:mi>
+                        </mml:munder>
+                        <mml:msub>
+                            <mml:mi>S</mml:mi>
+                            <mml:mi>i</mml:mi>
+                        </mml:msub>
+                    </mml:math>
+                    <label>(4)</label>
+                </disp-formula>where 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msub>
+                            <mml:mi>H</mml:mi>
+                            <mml:mrow>
+                                <mml:mi>&#x03b3;</mml:mi>
+                                <mml:mo>,</mml:mo>
+                                <mml:mi mathvariant="italic">Tr</mml:mi>
+                            </mml:mrow>
+                        </mml:msub>
+                    </mml:math>
+                </inline-formula> is the energy deposited in the region of interest resulting from the photon transport, 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mo>&#x2217;</mml:mo>
+                        </mml:msup>
+                        <mml:mi>F</mml:mi>
+                        <mml:mn>8</mml:mn>
+                    </mml:math>
+                </inline-formula> is the energy deposition calculated by an 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mo>&#x2217;</mml:mo>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula>F8 tally, and 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msub>
+                            <mml:mi>S</mml:mi>
+                            <mml:mi>i</mml:mi>
+                        </mml:msub>
+                    </mml:math>
+                </inline-formula> is the total photon emission rate from the region 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>i</mml:mi>
+                    </mml:math>
+                </inline-formula> (see 
+                <xref ref-type="disp-formula" rid="e2">equation 2</xref>).</p>
+            <p>As this is a verification exercise, the problem geometry (shown in 
+                <xref ref-type="fig" rid="f3">Figure 3</xref>) is arbitrary and represents a very simple LWR. The core consists of an 8&#x00d7;8 array of fuel pins of 1.25 cm radius with a 4 cm pitch, and it is separated from the reflector tank by an inner shell of aluminum. The shell dimensions are an inner side length of 32 cm and a 2 cm thickness. The reflector tank is filled with light water, and its radius is 40 cm. The whole geometry is 80 cm high. The fuel is 7.8%-enriched uranium with a density of 10.5 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula>, the inner shell is made of pure aluminum with a density of 2.7 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula>, and the light water has a density of 1.0 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula>.</p>
+            <fig fig-type="figure" id="f3" orientation="portrait" position="float">
+                <label>Figure 3. </label>
+                <caption>
+                    <title>Verification problem geometry.</title>
+                    <p>The delayed gamma heating is calculated in the core inner shell.</p>
+                </caption>
+                <graphic id="gr3" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure3.gif"/>
+            </fig>
+            <p>The main objective of the calculation is the estimation of the delayed gamma heating in the core inner shell, considering all the fuel pins as the radiation source. The delayed heating is calculated after a reactor operation at a 1 MW constant power for a 12-month cycle.</p>
+            <p>
+                <xref ref-type="table" rid="T1">Table 1</xref> summarizes the main results at the end of irradiation. While the heating equals 675.0 W in the reference case, the repeated structures&#x2019; case predicts a heating of 780.4 W, which is 15.6% larger than the reference case. To understand this result, we need to investigate other quantities in the results. The average neutron flux and total photon intensity show a relative difference smaller than 0.1%. 
+                <xref ref-type="fig" rid="f4">Figure 4</xref> displays the uranium composition evolution during irradiation. The uranium evolution displays a relative difference smaller than 0.1%.</p>
+            <table-wrap id="T1" orientation="portrait" position="float">
+                <label>Table 1. </label>
+                <caption>
+                    <title>Comparison of end of irradiation integral results for the reference and repeated structure approaches.</title>
+                </caption>
+                <table content-type="article-table" frame="hsides">
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="1" rowspan="1" valign="top"/>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Reference</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Repeated structure</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Relative difference [%]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Delayed gamma heating [W]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">675.0</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">780.4</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">15.6</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Average neutron flux [10
+                                <sup>13</sup> n/cm
+                                <sup>2</sup>/s]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.868</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.867</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.07</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Total photon intensity [10
+                                <sup>17</sup> 
+                                <italic toggle="yes">&#x03b3;</italic>/s]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.666</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.668</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.04</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+            <fig fig-type="figure" id="f4" orientation="portrait" position="float">
+                <label>Figure 4. </label>
+                <caption>
+                    <title>Comparison of the uranium mass during reactor operation.</title>
+                </caption>
+                <graphic id="gr4" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure4.gif"/>
+            </fig>
+            <p>
+                <xref ref-type="fig" rid="f5">Figure 5</xref> displays a comparison between the repeated structures and the reference cases of the gamma source intensities in the fuel pins. The sources in the repeated structures&#x2019; case have a uniform value across the geometry. The definition of the repeated structures requires the utilization of universes, and all the cells defined by the same universe are subject to the same flux level, an average value, and hence their depletion is uniform. The sources in the reference case are strongest in the center of the core and decrease towards the periphery, due to the flux shape, which is strongest in the center. Finally, given that in the repeated structures&#x2019; case, the gamma source intensities are stronger in the periphery than in the reference case, and these pins contribute the most to the heating due to their proximity, the delayed heating in the core inner shell is higher.</p>
+            <fig fig-type="figure" id="f5" orientation="portrait" position="float">
+                <label>Figure 5. </label>
+                <caption>
+                    <title>Comparison of the intensity of the gamma sources in the fuel pins.</title>
+                    <p>The top value corresponds to the repeated structure approach. The intermediate value corresponds to the reference case. Intensities expressed in decays per second. The lower value corresponds to the relative difference in %.</p>
+                </caption>
+                <graphic id="gr5" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure5.gif"/>
+            </fig>
+            <p>As shown in 
+                <xref ref-type="fig" rid="f5">Figure 5</xref>, the accuracy of the repeated structure approach is affected when the problem shows a strong spatial effect. This suggests that using a repeated structure that comprises the whole core is not the right approach. Instead, a better approach would consider the flux shape variation to choose the repeated structures. This exercise was also conducted using repeated structures but arranging the fuel pins in groups of 4. 
+                <xref ref-type="table" rid="T2">Table 2</xref> displays the results for that case. The relative difference for the delayed gamma heating is 4.3%, while the rest of the results do not change considerably. The results show that grouping the structures based on the location, and hence similar flux levels, yields better results.</p>
+            <table-wrap id="T2" orientation="portrait" position="float">
+                <label>Table 2. </label>
+                <caption>
+                    <title>Comparison of end of irradiation integral results for the reference and repeated structure approaches.</title>
+                </caption>
+                <table content-type="article-table" frame="hsides">
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="1" rowspan="1" valign="top"/>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Reference</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Repeated structure</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Relative difference [%]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Delayed gamma heating [W]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">675.0</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">704.3</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">4.3</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Average neutron flux [10
+                                <sup>13</sup> n/cm
+                                <sup>2</sup>/s]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.868</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.867</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">-0.03</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Total photon intensity [10
+                                <sup>17</sup> 
+                                <italic toggle="yes">&#x03b3;</italic>/s]</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.666</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.667</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.03</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+            <p>This exercise studied the delayed heating calculation in repeated structures, such as the ones that are necessary to define HTGR models. Taking advantage of the MCNP input definition using repeated structures allows for simplifying the definition of cells contributing to the delayed heating/shutdown dose rates. Even though the results for the repeated structures&#x2019; case show an overestimation of the delayed heating, the approach yields a reasonable approximation when taking into account the flux spatial variation. The results and conclusions drawn from this exercise set the path forward for the next exercises, which use the same approach for calculating the shutdown dose rate in HTGRs.</p>
+        </sec>
+        <sec id="sec6">
+            <title>AGR-1</title>
+            <p>The AGR-1 was a TRISO-particle irradiation test in the ATR, a 250-MWth high flux test reactor located at the Reactor Technology Complex of the INL. This experiment was part of the DOE Advanced Gas Reactor Fuel Development and Qualification Program to support the NGNP program.
+                <sup>
+                    <xref ref-type="bibr" rid="ref29">30</xref>
+                </sup>
+            </p>
+            <p>The ATR core contains 40 fuel elements arranged in a serpentine annulus between and around nine flux traps.
+                <sup>
+                    <xref ref-type="bibr" rid="ref30">31</xref>
+                </sup> Each fuel element consists of 19 parallel, curved, aluminum-clad fuel plates forming a 45-degree sector of a right circular cylinder. The fuel arrangement gives the reactor core a clover-leaf configuration, which allows the ATR to be operated at different power levels in the corner lobes, allowing for independent testing conditions within the same operating cycle. 
+                <xref ref-type="fig" rid="f6">Figure 6</xref> shows the MCNP quarter model of ATR, which represents the core east quadrant, that is used for the simulations. This model simplifies the reactor geometry by grouping the fuel plates into three radial zones.</p>
+            <fig fig-type="figure" id="f6" orientation="portrait" position="float">
+                <label>Figure 6. </label>
+                <caption>
+                    <title>MCNP quarter model of the Advanced Test Reactor (ATR).</title>
+                </caption>
+                <graphic id="gr6" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure6.gif"/>
+            </fig>
+            <p>The reactor has nine flux trap positions and 68 additional irradiation positions inside the reactor core reflector tank. The neck shim housing is the structural guide for the 24 neck shim and regulating rods, as well as eight inner and eight outer holes (labelled as A-holes). The beryllium reflector fills the space between the fuel annulus and the core reflector tank, and it hosts the outer shim control cylinders (OSCC), irradiation holes (labelled as B-holes and I-holes), and water holes. The AGR-1 experiment was placed in the B-10 hole and irradiated over 13 power cycles for a period corresponding to three years.</p>
+            <p>The AGR-1 Depletion Benchmark
+                <sup>
+                    <xref ref-type="bibr" rid="ref29">30</xref>
+                </sup> describes the experiment test train, shown in 
+                <xref ref-type="fig" rid="f7">Figure 7</xref>. The experiment consists of six cylindrical capsules vertically stacked, wherein the compacts are separated into three columns, with each column containing four compacts, adding up to a total of 72 compacts. The experiment includes four different types of compact. Capsule 3 and 6 contain the baseline compact, capsule 5 contains variant 1, capsule 2 contains variant 2, and capsule 1 and 4 contain variant 3. The difference between compact types is that the particle layers change slightly in thickness and density, while the fuel kernel remains the same. Additionally, each type of compact has a different number of embedded particles. Some of this work model simplifications are listed below:
+                <list list-type="bullet">
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>the hafnium (Hf) shroud surrounds the whole circumference of the capsule,</p>
+                    </list-item>
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>the gas lines, thermocouples, and thru-tubes are neglected,</p>
+                    </list-item>
+                    <list-item>
+                        <label>&#x2022;</label>
+                        <p>the TRISO particles are arranged in a regular lattice.</p>
+                    </list-item>
+                </list>
+            </p>
+            <fig fig-type="figure" id="f7" orientation="portrait" position="float">
+                <label>Figure 7. </label>
+                <caption>
+                    <title>Advanced Gas Reactor 1 (AGR-1) experiment geometry.</title>
+                </caption>
+                <graphic id="gr7" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure7.gif"/>
+            </fig>
+            <p>The benchmark data includes for each time step: the lobe power, the OSCC positions, and the neck shim insertion condition. Because the data comprises 662 time steps, and to reduce the complexity of the model, this work considers the power, OSCC position, and neck shim insertion condition to take the cycle average value. For tally normalization, the B-10 position tally data is typically normalized to an east lobe power defined as the average of the northeast, center, and southeast lobe powers. For the fuel composition, the MCNP model defines the driver fuel for the beginning of cycle (BOC) 145A and assumes it to be appropriate for the BOC of all the cycles. This work takes that assumption one step further and considers the driver fuel composition to remain constant during all the simulations.</p>
+            <p>
+                <xref ref-type="table" rid="T3">Table 3</xref> shows the contribution from all the photon sources at different decay times. The graphite spacers and holders have the smallest contribution. The holders contain boron and hence have a higher contribution than the spacers. After one day, the largest contribution comes from the fuel at 53.19% followed by the Hf shroud with a contribution of 41.64%. After 30 days, the contribution from the fuel decreases slightly to 30.03% while the Hf shroud contribution of 62.11% becomes predominant. After 365 days, the Hf shroud contribution drops considerably, and the largest contributor becomes the fuel at 56.95%, followed by the structures of stainless steel which add up to 42.54%. The total source intensities decrease two orders of magnitude after a 365-day decay.</p>
+            <table-wrap id="T3" orientation="portrait" position="float">
+                <label>Table 3. </label>
+                <caption>
+                    <title>Photon source contribution by decay time.</title>
+                </caption>
+                <table content-type="article-table" frame="hsides">
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Contribution</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Units</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">1 days</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">30 days</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">365 days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Fuel in TRISO</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">53.19</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">30.03</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">56.95</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Bottom support SS316L</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.76</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.17</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">6.47</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Inner wall SS316L</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.43</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.63</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.07</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Top support SS316L</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.85</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.3</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">7.10</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Outer wall SS316L</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.13</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">4.77</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">25.9</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Low graphite spacer</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">6.93&#x00d7;10
+                                <sup>&#x2013;10</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">2.56&#x00d7;10
+                                <sup>&#x2013;9</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">6.37&#x00d7;10
+                                <sup>&#x2013;8</sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Upper graphite spacer</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">8.04&#x00d7;10
+                                <sup>&#x2013;10</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">2.96&#x00d7;10
+                                <sup>&#x2013;9</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">7.38&#x00d7;10
+                                <sup>&#x2013;8</sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Borated graphite holder</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">7.59&#x00d7;10
+                                <sup>&#x2013;7</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">2.77&#x00d7;10
+                                <sup>&#x2013;6</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">6.14&#x00d7;10
+                                <sup>&#x2013;5</sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Hafnium shroud</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">%</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">41.64</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">62.11</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.50</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Total</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">
+                                <italic toggle="yes">&#x03b3;</italic>/s</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.199&#x00d7;10
+                                <sup>15</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.2529&#x00d7;10
+                                <sup>14</sup>
+                            </td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.305&#x00d7;10
+                                <sup>13</sup>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+            <p>
+                <xref ref-type="table" rid="T4">Table 4</xref> shows the dose rate at different distances from the center of the AGR test train by decay time. The results show that even after one year decay, and at approximately 1 m distance from the experiment, the exposure from the experiment decay is high. For that reason, the experiment post-irradiation examination (PIE) would need to await more than 1 year to be conducted or utilize a hot cell with the appropriate shielding to prevent unnecessary exposure of the personnel.</p>
+            <table-wrap id="T4" orientation="portrait" position="float">
+                <label>Table 4. </label>
+                <caption>
+                    <title>Dose rate at different distances from the center of the experiment by decay time.</title>
+                    <p>Values expressed in Sv/h.</p>
+                </caption>
+                <table content-type="article-table" frame="hsides">
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Distance</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">1 days</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">30 days</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">365 days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">6 cm</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">666.2</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">190.3</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.7</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">46 cm</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">72.7</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">20.4</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.4</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">98 cm</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">25.4</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">7.3</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+        </sec>
+        <sec id="sec7">
+            <title>The 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR</title>
+            <p>This exercise studies a decommissioning strategy for a model based on early USNC Micro Modular Reactor (MMR) design,
+                <sup>
+                    <xref ref-type="bibr" rid="ref5">5</xref>
+                </sup> hereby referred to as 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR.
+                <sup>
+                    <xref ref-type="bibr" rid="ref27">28</xref>
+                </sup> Because most of the technical details of the MMR are not public, the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR model is based on the publicly available information of the reactor.
+                <sup>
+                    <xref ref-type="bibr" rid="ref5">5</xref>
+                </sup>
+                <sup>,</sup>
+                <sup>
+                    <xref ref-type="bibr" rid="ref31">32</xref>
+                </sup>
+                <sup>&#x2013;</sup>
+                <sup>
+                    <xref ref-type="bibr" rid="ref33">34</xref>
+                </sup>
+            </p>
+            <p>The decommissioning strategy places the reactor in a safe shutdown state and allows it to cool down for three months.
+                <sup>
+                    <xref ref-type="bibr" rid="ref31">32</xref>
+                </sup> The plan continues with the removal of the reactor lid at the citadel floor, control rod driving mechanisms, RPV lid, and upper core restraint structures to allow for the fuel assembly unloading before removing the vessel itself. This exercise intends to quantify the dose rate that a worker would experience if standing at ground level on the citadel floor above the reactor top while the reactor core is exposed.</p>
+            <p>
+                <xref ref-type="fig" rid="f8">Figure 8a</xref> displays the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR core layout. The core region consists of 24 fuel assemblies, 12 control assemblies, and one reserved shutdown assembly in the center.
+                <sup>
+                    <xref ref-type="bibr" rid="ref27">28</xref>
+                </sup> The assembly pitch is 30 cm. Four layers of assemblies stacked on top of each other comprise the core in the axial direction. Additionally, the reactor has a radial, bottom, and top reflectors of graphite. The assemblies and the bottom and top reflectors have a 68 cm height and the radial reflector has a 134 cm radius. The model considers a graphite density of 1.75 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula> for the assemblies and reflector regions. Within the assemblies, the fuel and coolant channels have 1.15 cm and 0.775 cm radius, respectively, with a channel pitch of 3.2 cm. While each control assembly has a 4 cm-radius control rod hole, the reserved shutdown assembly has a 6 cm-radius control rod hole.</p>
+            <fig fig-type="figure" id="f8" orientation="portrait" position="float">
+                <label>Figure 8. </label>
+                <caption>
+                    <title>MCNP model geometry.</title>
+                </caption>
+                <graphic id="gr8" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure8.gif"/>
+            </fig>
+            <p>A column of fuel compacts of SiC fills out each fuel channel. The compacts have a density of 3.2 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula> and hold TRISO particles with a 40% packing fraction. The model considers the particles to be uniformly distributed with a particle pitch of 0.1 cm. 
+                <xref ref-type="table" rid="T5">Table 5</xref> summarizes the characteristics of the TRISO particles.</p>
+            <table-wrap id="T5" orientation="portrait" position="float">
+                <label>Table 5. </label>
+                <caption>
+                    <title>TRistructural ISOtropic (TRISO) particle definition.</title>
+                </caption>
+                <table content-type="article-table" frame="hsides">
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Layer</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Thickness [cm]</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Material</th>
+                            <th align="left" colspan="1" rowspan="1" valign="top">Density [g/cm
+                                <sup>3</sup>]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Kernel</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.0250</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">UO2 (
+                                <italic toggle="yes">&#x025b;</italic>=19.75%)</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">10.8</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">Buffer</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.0100</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">C</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.98</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">IPyC</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.0040</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">C</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.85</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">SiC</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.0035</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">SiC</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">3.20</td>
+                        </tr>
+                        <tr>
+                            <td align="left" colspan="1" rowspan="1" valign="top">OPyC</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">0.0040</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">C</td>
+                            <td align="left" colspan="1" rowspan="1" valign="top">1.86</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+            <p>
+                <xref ref-type="fig" rid="f8">Figure 8b</xref> displays the side view of the MCNP model. In the radial direction, the model neglects the presence of the RPV side wall and considers the reactor to be in a cavity of Portland concrete (2.3 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula> density). The concrete wall is located 191 cm away from the radial reflector and has a 100 cm-thickness. In the axial direction, the cavity is limited by the citadel floor of Portland concrete with a 70 cm-thickness. The distance from the top of the reactor to the citadel floor (ground level) is 700 cm. The remaining volumes are filled with air (80 vol% nitrogen, 20 vol% oxygen).</p>
+            <p>The dose rate is calculated in a worker standing at ground level on the citadel floor. The calculations use a standard person (often called &#x201c;reference man&#x201d;
+                <sup>
+                    <xref ref-type="bibr" rid="ref35">35</xref>
+                </sup>) of 70 kg weight and 170 cm height, which is represented by an equivalent cylinder. Considering an average human density of 0.985 g/cm
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msup>
+                            <mml:mrow/>
+                            <mml:mn>3</mml:mn>
+                        </mml:msup>
+                    </mml:math>
+                </inline-formula> yields an equivalent cylinder of 11.53 cm radius.</p>
+            <p>The calculations consider as radiation sources the fuel in the TRISO particles in all the assemblies and the bottom, top, and radial reflectors. A sensitivity study determined that the radiation contribution from the fuel particles is approximately 8 orders of magnitude larger than the contribution from the graphite in the assemblies. The results from the section &#x201c;Verification&#x201d; suggest that the grouping of the TRISO particles should take into account the flux spatial variations in the core. For that reason, the TRISO particle contribution is separated by assembly, wherein the flux is assumed uniform, and each assembly has an independent depletion. Finally, the isotope definitions in the MCNP model used the ENDF/B-VIII.0 cross-sections at room temperature.</p>
+            <p>
+                <xref ref-type="fig" rid="f9">Figure 9</xref> displays the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msub>
+                            <mml:mi>K</mml:mi>
+                            <mml:mi>eff</mml:mi>
+                        </mml:msub>
+                    </mml:math>
+                </inline-formula> time evolution. The core has an initial 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:msub>
+                            <mml:mi>K</mml:mi>
+                            <mml:mi>eff</mml:mi>
+                        </mml:msub>
+                    </mml:math>
+                </inline-formula> of 1.26797 and reaches the end of life of 16.07 years. Although the original reactor is expected to run for 20 years, the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR is a simplified version and several of its defining parameters are assumed, as the original parameters are not publicly available. However, for the purposes of this discussion, the assumptions considered yield an adequate model.</p>
+            <fig fig-type="figure" id="f9" orientation="portrait" position="float">
+                <label>Figure 9. </label>
+                <caption>
+                    <title>
+                        <inline-formula>
+                            <mml:math display="inline">
+                                <mml:mi>&#x03bc;</mml:mi>
+                            </mml:math>
+                        </inline-formula>HTGR 
+                        <italic toggle="yes">K</italic>
+                        <sub>eff</sub> time evolution.</title>
+                </caption>
+                <graphic id="gr9" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure9.gif"/>
+            </fig>
+            <p>
+                <xref ref-type="fig" rid="f10">Figure 10</xref> shows the dose rate map at the citadel after a 3-month cool-down. The region directly above the reactor core shows the largest values, some of them being above 40 mSv/h. The dose rate in the standard person is 6.48 &#x00b1; 1.04 mSv/h.</p>
+            <fig fig-type="figure" id="f10" orientation="portrait" position="float">
+                <label>Figure 10. </label>
+                <caption>
+                    <title>Dose rate map at the citadel after 3 month cool-down.</title>
+                </caption>
+                <graphic id="gr10" orientation="portrait" position="float"
+                     xlink:href="https://nstopenresearch-files.f1000.com/manuscripts/18864/0af634b6-17fd-4f52-a896-ad733db65b93_figure10.gif"/>
+            </fig>
+            <p>The annual total effective dose equivalent for the whole body is 50 mSv for radiation workers. Although the calculated dose rate is below this limit, other considerations need to be taken into account, such as exposure time and worker&#x2019;s distance. These working conditions would allow a radiation worker to perform their tasks for about 7 hours per year. Additionally, the calculations consider a vertical distance of 7 m between the top of the core and the worker. However, while the assemblies are being removed, such a distance will be considerably smaller, and the dose rate will increase accordingly. For this reason, other decommissioning strategies adding shielding to the reactor core/assemblies or allowing a longer cool-down time should be considered to minimize unnecessary exposure.</p>
+        </sec>
+        <sec id="sec8" sec-type="conclusions">
+            <title>Conclusions</title>
+            <p>The HTGR technology has gained popularity in the past few decades. The decommissioning requires new strategies that take into account the technology&#x2019;s distinct features from LWRs. The proper characterization of the shutdown dose rates can establish a suitable decommissioning strategy.</p>
+            <p>The current available literature on dose rate calculations of HTGRs is scarce, and it focuses on the normal operation regime. Additionally, previous work on shutdown dose rates of HTGRs lacks the definition of a formal methodology that considers the double heterogeneity of the TRISO fuel. This article introduces a new shutdown dose rate calculation capability for HTGRs that relies on MOAA and the MCNP repeated structures to explicitly model the decay radiation emitted from the TRISO particles.</p>
+            <p>This article discusses briefly the MOAA workflow, but it focuses on the shutdown dose rate calculation workflow. MOAA is a Python package that couples MCNP and ORIGEN to streamline the calculation of the experiment source terms. Although it was originally developed to assist the experiment irradiation at ATR and the TREAT, it has become a more general tool through further development. The shutdown dose rate calculation relies on MOAA for carrying out the first two steps of the process, while the third step is conducted by an MCNP photon transport simulation.</p>
+            <p>This article introduces a simple exercise to verify the workflow. For this exercise, one calculation employs the explicit independent definition of each source cell and provides the reference values, while a second calculation utilizes the repeated structures&#x2019; approach. The results for the repeated structures&#x2019; case show that the approach yields a reasonable approximation when the flux spatial variations are considered.</p>
+            <p>Finally, this article showcases the shutdown dose rate calculation capabilities by presenting two exercises. These exercises calculate the shutdown dose rate of a TRISO-fueled experiment, the AGR-1, and a high-temperature gas-cooled microreactor, the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR. For the AGR-1 experiment, the results showed that the largest contributor to the dose is the fuel for most decay times. However, for different decay times, some of the structures produce comparable intensities to the fuel, such as the Hf shroud and the stainless steel structures. Additionally, the results lead to the recommendation of waiting more than one year and the addition of appropriate shielding for conducting the PIE. For the 
+                <inline-formula>
+                    <mml:math display="inline">
+                        <mml:mi>&#x03bc;</mml:mi>
+                    </mml:math>
+                </inline-formula>HTGR, the results showed that the proposed decommissioning strategy is feasible but not ideal, as it would lead to very high exposures. Hence, other strategies should be studied in the future, which consider the addition of shielding to the reactor core/assemblies and allowing for a longer cool-down time.</p>
+        </sec>
+    </body>
+    <back>
+        <sec id="sec12" sec-type="data-availability">
+            <title>Data availability</title>
+            <sec id="sec13">
+                <title>Underlying data</title>
+                <p>Zenodo: robfairh/2023_nstor_sdr: Published version of the dataset: 
+                    <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5281/zenodo.8388146">https://doi.org/10.5281/zenodo.8388146</ext-link>
+
+                    <list list-type="bullet">
+                        <list-item>
+                            <label>&#x2022;</label>
+                            <p>agr-1: folder containing code and data for &#x201c;AGR-1&#x201d; example.</p>
+                        </list-item>
+                        <list-item>
+                            <label>&#x2022;</label>
+                            <p>micro: folder containing code for &#x201c;
+                                <inline-formula>
+
+                                    <mml:math display="inline">
+                                        <mml:mi>&#x03bc;</mml:mi>
+                                    </mml:math>
+                        </inline-formula>HTGR&#x201d; example.</p>
+                        </list-item>
+                        <list-item>
+                            <label>&#x2022;</label>
+                            <p>verification: folder containing input files, post-processing code, and data for &#x201c;Verification&#x201d; example.</p>
+                        </list-item>
+                    </list>
+                </p>
+                <p>
+
+                    <ext-link ext-link-type="uri"
+                         xlink:href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero &#x201c;No rights reserved&#x201d; data waiver</ext-link> (CC0 1.0 Public domain dedication).</p>
+                <p>The data not included in the repository were generated with export control software, and they should also be treated as export control. However, the repository includes all the input files necessary to reproduce this work. The export control data may be released to people holding the right licenses, and any release will be determined on a case-by-case basis.</p>
+            </sec>
+        </sec>
+        <sec id="sec9">
+            <title>Software availability</title>
+            <p>Although the software is not publicly available due to export control regulations, this manuscript includes enough detail as to recreate the software necessary to reproduce this work. The software may be released to people holding the right licenses, and any release will be determined on a case-by-case basis.</p>
+        </sec>
+        <ack>
+            <title>Acknowledgments</title>
+            <p>This research made use of the resources of the High Performance Computing Center at the INL, which is supported by the Office of Nuclear Energy of the U.S. Department of Energy and the Nuclear Science User Facilities under Contract No. DE-AC07-05ID14517.</p>
+        </ack>
+        <ref-list>
+            <title>References</title>
+            <ref id="ref1">
+                <label>1</label>
+                <mixed-citation publication-type="other">
+                    <collab>DOE-NE and GIF</collab>:
+                    <article-title>A Technology Roadmap for Generation IV Nuclear Energy Systems. Technical Report GIF-002-00, 859029.</article-title>
+               <year>December 2002</year>.</mixed-citation>
+            </ref>
+            <ref id="ref2">
+                <label>2</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Gougar</surname>
+                            <given-names>H</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>NGNP Program 2013 Status and Path Forward. Technical Report INL/EXT-14-31035, Idaho National Laboratory, Idaho Falls, ID, USA, 3.</article-title>
+               <year>2014</year>.</mixed-citation>
+            </ref>
+            <ref id="ref3">
+                <label>3</label>
+                <mixed-citation publication-type="other">
+                    <collab>Pinawa Demonstration Reactor</collab>:
+Accessed: 2023-04-01.
+                    <ext-link ext-link-type="uri" xlink:href="https://starcorenuclearpower.com/technology/">Reference Source</ext-link>
+            </mixed-citation>
+            </ref>
+            <ref id="ref4">
+                <label>4</label>
+                <mixed-citation publication-type="other">
+                    <collab>BWX Technologies selected to build Project Pele microreactor</collab>:
+Accessed: 2023-04-01.
+                    <ext-link ext-link-type="uri"
+                         xlink:href="https://www.world-nuclear-news.org/Articles/BWX-Technologies-selected-to-build-Project-Pele-mi">Reference Source</ext-link>
+            </mixed-citation>
+            </ref>
+            <ref id="ref5">
+                <label>5</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Brooks</surname>
+                            <given-names>C</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Townsend</surname>
+                            <given-names>C</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>New reactor on campus?</article-title>
+                    <source>
+
+                        <italic toggle="yes">American Nuclear Society Nuclear News.</italic>
+               </source>
+               <year>April 2022</year>;<fpage>24</fpage>&#x2013;<lpage>31</lpage>.</mixed-citation>
+            </ref>
+            <ref id="ref6">
+                <label>6</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Brigham</surname>
+                            <given-names>BA</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Montoya</surname>
+                            <given-names>KI</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Gerczak</surname>
+                            <given-names>TJ</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>Determination of oxidation rates and volatile oxidation products for HTGR graphite matrix material exposed to steam atmospheres.</article-title>
+                    <source>
+
+                        <italic toggle="yes">J. Nucl. Mater.</italic>
+               </source>
+               <year>2021</year>;<volume>557</volume>:<fpage>153256</fpage>.
+                    <pub-id pub-id-type="doi">10.1016/j.jnucmat.2021.153256</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref7">
+                <label>7</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Abrefah</surname>
+                            <given-names>RG</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Essel</surname>
+                            <given-names>PAA</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Odoi</surname>
+                            <given-names>HC</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Estimation of the dose rate of nuclear fuel of Ghana Research Reactor-1 (GHARR-1) using ORIGEN-S and MCNP 6.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Prog. Nucl. Energy.</italic>
+               </source>
+               <year>2018</year>;<volume>105</volume>:<fpage>309</fpage>&#x2013;<lpage>317</lpage>.
+                    <issn>0149-1970</issn>.
+                    <pub-id pub-id-type="doi">10.1016/j.pnucene.2018.02.002</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref8">
+                <label>8</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Ambro&#x017e;i&#x010d;</surname>
+                            <given-names>K</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Snoj</surname>
+                            <given-names>L</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Jsir2s code for delayed radiation simulations: Validation against measurements at the JSI TRIGA reactor.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Prog. Nucl. Energy.</italic>
+               </source>
+               <year>2020</year>;<volume>129</volume>:<fpage>103498</fpage>.
+                    <pub-id pub-id-type="doi">10.1016/j.pnucene.2020.103498</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref9">
+                <label>9</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Bagheri</surname>
+                            <given-names>S</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Khalafi</surname>
+                            <given-names>H</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Faghihi</surname>
+                            <given-names>F</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>Gamma dose rate determination of TRR irradiated fuel assemblies.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Prog. Nucl. Energy.</italic>
+               </source>
+               <year>2021</year>;<volume>142</volume>:<fpage>103950</fpage>.
+                    <pub-id pub-id-type="doi">10.1016/j.pnucene.2021.103950</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref10">
+                <label>10</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Suwoto</surname>
+                            <given-names>H</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Adrial</surname>
+                            <given-names>AH</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Zuhair</surname>
+                            <given-names>SB</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>Neutron dose rate analysis on HTGR-10 reactor using Monte Carlo code.</article-title>
+                    <source>
+
+                        <italic toggle="yes">J. Phys. Conf. Ser.</italic>
+               </source>
+               <year>Feb 2018</year>;<volume>962</volume>(<issue>1</issue>):<fpage>012029</fpage>.
+                    <pub-id pub-id-type="doi">10.1088/1742-6596/962/1/012029</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref11">
+                <label>11</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Ueta</surname>
+                            <given-names>S</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Sakaba</surname>
+                            <given-names>N</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Sawa</surname>
+                            <given-names>K</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Shielding technology for upper structure of HTTR.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Ann. Nucl. Energy.</italic>
+               </source>
+               <year>2016</year>;<volume>94</volume>:<fpage>72</fpage>&#x2013;<lpage>79</lpage>.
+                    <issn>0306-4549</issn>.
+                    <pub-id pub-id-type="doi">10.1016/j.anucene.2016.02.021</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref12">
+                <label>12</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Hamzah</surname>
+                            <given-names>A</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Suwoto</surname>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Adrial</surname>
+                            <given-names>H</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Preliminary analysis of dose rates distribution of experimental power reactor 10 MW using MCNP.</article-title>
+                    <source>
+
+                        <italic toggle="yes">J. Phys. Conf. Ser.</italic>
+               </source>
+               <year>2019 Apr</year>;<volume>1198</volume>(<issue>2</issue>):<fpage>022038</fpage>.
+                    <pub-id pub-id-type="doi">10.1088/1742-6596/1198/2/022038</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref13">
+                <label>13</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Ho</surname>
+                            <given-names>HQ</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Ishii</surname>
+                            <given-names>T</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Nagasumi</surname>
+                            <given-names>S</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>Calculation of shutdown gamma distribution in the high temperature engineering test reactor.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Nucl. Eng. Des.</italic>
+               </source>
+               <year>2022</year>;<volume>396</volume>:<fpage>111913</fpage>.
+                    <pub-id pub-id-type="doi">10.1016/j.nucengdes.2022.111913</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref14">
+                <label>14</label>
+                <mixed-citation publication-type="other">
+                    <collab>MCNP Users Manual - Code Version 6.2</collab>:
+                    <article-title>Technical Report LA-UR-17-29981, Los Alamos National Laboratory, Los Alamos, New Mexico, USA.</article-title>
+               <year>2017</year>.</mixed-citation>
+            </ref>
+            <ref id="ref15">
+                <label>15</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Croff</surname>
+                            <given-names>AG</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>ORIGEN2: a revised and updated version of the Oak Ridge isotope generation and depletion code. Technical Report ORNL-5621, TRN: 80-012377, Oak Ridge National Laboratory, United States.</article-title>
+               <year>July 1980</year>.</mixed-citation>
+            </ref>
+            <ref id="ref16">
+                <label>16</label>
+                <mixed-citation publication-type="book">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Carter</surname>
+                            <given-names>AL</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Peterson-Droogh</surname>
+                            <given-names>JL</given-names>
+                        </name>
+               </person-group>:
+                    <chapter-title>Development of the MCNP-ORIGEN Activation Automation tool.</chapter-title>
+                    <source>
+
+                        <italic toggle="yes">PHYSOR 2022.</italic>
+               </source>
+                    <publisher-loc>Pittsburgh, PA, USA</publisher-loc>:
+                    <publisher-name>ANS</publisher-name>;<year>May 2022</year>.</mixed-citation>
+            </ref>
+            <ref id="ref17">
+                <label>17</label>
+                <mixed-citation publication-type="book">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+               </person-group>:
+                    <chapter-title>Decay heat calculations using MCNP and ORIGEN.</chapter-title>
+                    <source>
+
+                        <italic toggle="yes">ANS Student Conference 2022.</italic>
+               </source>
+                    <publisher-loc>Urbana-Champaign, IL</publisher-loc>:
+                    <publisher-name>ANS</publisher-name>;<year>April 2022</year>.</mixed-citation>
+            </ref>
+            <ref id="ref18">
+                <label>18</label>
+                <mixed-citation publication-type="book">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+               </person-group>:
+                    <chapter-title>Demonstration of Decay Heat Calculations using the MCNP-ORIGEN Activation Automation Tool.</chapter-title>
+                    <source>
+
+                        <italic toggle="yes">International Conference on Engineering Computational Technology.</italic>
+               </source>
+                    <publisher-loc>Montpellier, France</publisher-loc>;
+                    <publisher-name>Elsevier</publisher-name>;<year>August 2022</year>.</mixed-citation>
+            </ref>
+            <ref id="ref19">
+                <label>19</label>
+                <mixed-citation publication-type="book">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+               </person-group>:
+                    <chapter-title>Database Construction for Nuclear Heating Calculations.</chapter-title>
+                    <source>
+
+                        <italic toggle="yes">ANS Winter Meeting 2022.</italic>
+               </source>
+                    <publisher-loc>Phoenix, AZ</publisher-loc>;
+                    <publisher-name>ANS</publisher-name>;<year>November 2022</year>.</mixed-citation>
+            </ref>
+            <ref id="ref20">
+                <label>20</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst</surname>
+                            <given-names>R</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>robfairh/2023_nstor_sdr: Published version of the dataset.</article-title>
+               <year>October 2023</year>.
+                    <pub-id pub-id-type="doi">10.5281/zenodo.8434762</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref21">
+                <label>21</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Chen</surname>
+                            <given-names>Y</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Fischer</surname>
+                            <given-names>U</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Rigorous mcnp based shutdown dose rate calculations: computational scheme, verification calculations and application to ITER.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Fusion Engineering and Design.</italic>
+               </source>
+               <year>December 2002</year>;<volume>63-64</volume>:<fpage>107</fpage>&#x2013;<lpage>114</lpage>.
+                    <pub-id pub-id-type="doi">10.1016/S0920-3796(02)00144-8</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref22">
+                <label>22</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Moore</surname>
+                            <given-names>R</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Schnitzler</surname>
+                            <given-names>B</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Wemple</surname>
+                            <given-names>C</given-names>
+                        </name>
+
+                        <etal/>
+               </person-group>:
+                    <article-title>MOCUP: MCNP-ORIGEN2 Coupled Utility Program. Technical Report, Lockheed Martin Idaho Technologies/Idaho National Engineering Laboratory</article-title>
+               <year>1995</year>.</mixed-citation>
+            </ref>
+            <ref id="ref23">
+                <label>23</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Trellue</surname>
+                            <given-names>H</given-names>
+                        </name>
+               </person-group>:
+                    <source>
+
+                        <italic toggle="yes">Development of Monteburns: A Code that Links MCNP and ORGEN2 in an Automated Fashion for Burnup Calculations.</italic>
+               </source>
+                    <publisher-loc>Albuquerque, New Mexico, USA</publisher-loc>:
+                    <publisher-name>University of New Mexico</publisher-name>;<year>December 1998</year>. Master&#x2019;s thesis.</mixed-citation>
+            </ref>
+            <ref id="ref24">
+                <label>24</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Xu</surname>
+                            <given-names>Z</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Hejzlar</surname>
+                            <given-names>P</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>MCODE, Version 2.2: An MCNP-ORIGEN DEpletion Program. Technical Report MIT-NFC; TR-104, Massachusetts Institute of Technology/Center for Advanced Nuclear Energy Systems</article-title>
+               <year>December 2008</year>.</mixed-citation>
+            </ref>
+            <ref id="ref25">
+                <label>25</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Haeck</surname>
+                            <given-names>V</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Monte Carlo Depletion Calculation using VESTA.</article-title>
+               <year>2012</year>;<volume>2</volume>:<fpage>1</fpage>.</mixed-citation>
+            </ref>
+            <ref id="ref26">
+                <label>26</label>
+                <mixed-citation publication-type="other">
+                    <collab>SCALE Code System, ORNL/TM-2005/39, Version 6.2.3</collab>:
+                    <article-title>Technical Report ORNL/TM-2005/39, Oak Ridge National Laboratory, Oak Ridge, Tennessee, USA.</article-title>
+               <year>2018</year>.</mixed-citation>
+            </ref>
+            <ref id="ref34">
+                <label>27</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Delayed Heating Calculations Using the MCNP-ORIGEN Activation Automation Tool.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Nucl. Technol.</italic>
+               </source>
+               <year>2024</year>:<fpage>1</fpage>&#x2013;<lpage>13</lpage>.
+                    <pub-id pub-id-type="doi">10.1080/00295450.2024.2319922</pub-id>
+            </mixed-citation>
+            </ref>
+            <ref id="ref27">
+                <label>28</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Fairhurst-Agosta</surname>
+                            <given-names>RE</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Kozlowski</surname>
+                            <given-names>T</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Fairhurst-Agosta and Tomasz Kozlowski. Shutdown Dose Rate Calculations of a Gas-Cooled Microreactor.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Proceedings of the International Conference on Mathematics and Computational Methods Applied to Nuclear Science and Engineering - MC2023, Niagara Falls, Canada.</italic>
+               </source>
+                    <publisher-name>ANS</publisher-name>;<year>August 2023</year>.</mixed-citation>
+            </ref>
+            <ref id="ref28">
+                <label>29</label>
+                <mixed-citation publication-type="other">
+                    <collab>ICRP</collab>:
+                    <article-title>Conversion Coefficients for Radiological Protection Quantities for External Radiation Exposures. Technical Report ICRP 40(2-5), ICRP.</article-title>
+               <year>2010</year>.</mixed-citation>
+            </ref>
+            <ref id="ref29">
+                <label>30</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Sterbentz</surname>
+                            <given-names>JW</given-names>
+                        </name>
+
+                        <name name-style="western">
+                            <surname>Cogliati</surname>
+                            <given-names>JJ</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>AGR-1 Depletion Benchmark. Technical report, United States.</article-title>
+               <year>July 2018</year>.</mixed-citation>
+            </ref>
+            <ref id="ref30">
+                <label>31</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Tomberlin</surname>
+                            <given-names>TA</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Advanced Test Reactor (ATR) Facility 10CFR830 Safety Basis Related to Facility Experiments. Research Org.: Idaho National Lab. (INL), Idaho Falls, ID (United States)</article-title>
+               <year>June 2002</year>.
+                    <ext-link ext-link-type="uri" xlink:href="https://www.osti.gov/biblio/911330">Reference Source</ext-link>
+            </mixed-citation>
+            </ref>
+            <ref id="ref31">
+                <label>32</label>
+                <mixed-citation publication-type="other">
+                    <article-title>USNC Micro Modular Reactor (MMR TM Block 1) Technical Information. Technical Report, Ultra Safe Nuclear Corporation.</article-title>
+               <year>2021</year>.
+                    <ext-link ext-link-type="uri" xlink:href="https://www.usnc.com/mmr/">Reference Source</ext-link>
+            </mixed-citation>
+            </ref>
+            <ref id="ref32">
+                <label>33</label>
+                <mixed-citation publication-type="other">
+                    <article-title>Project Description for the Micro Modular Reactor TM Project at Chalk River. Technical Report, Ultra Safe Nuclear Corporation.</article-title>
+               <year>2019</year>.
+                    <ext-link ext-link-type="uri" xlink:href="https://www.usnc.com/mmr/">Reference Source</ext-link>
+            </mixed-citation>
+            </ref>
+            <ref id="ref33">
+                <label>34</label>
+                <mixed-citation publication-type="other">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Hawari</surname>
+                            <given-names>A</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>Development and Deployment Assessment of a Melt-Down Proof Modular Micro Reactor (MDP-MMR). Technical Report 14-6782, 1431209, North Carolina State University, Raleigh, North Carlina, USA.</article-title>
+               <year>April 2018</year>.</mixed-citation>
+            </ref>
+            <ref id="ref35">
+                <label>35</label>
+                <mixed-citation publication-type="journal">
+                    <person-group person-group-type="author">
+
+                        <name name-style="western">
+                            <surname>Richmond</surname>
+                            <given-names>CR</given-names>
+                        </name>
+               </person-group>:
+                    <article-title>ICRP Publication 23.</article-title>
+                    <source>
+
+                        <italic toggle="yes">Int. J. Radiat. Biol. Relat. Stud. Phys. Chem. Med.</italic>
+               </source>
+               <year>2009</year>;<volume>48</volume>(<issue>2</issue>):<fpage>285</fpage>.
+                    <pub-id pub-id-type="doi">10.1080/09553008514551281</pub-id>
+            </mixed-citation>
+            </ref>
+        </ref-list>
+    </back>
+    <sub-article article-type="reviewer-report" id="report27450">
+        <front-stub>
+            <article-id pub-id-type="doi">10.21956/nuclscitechnolopenres.18864.r27450</article-id>
+            <title-group>
+                <article-title>Reviewer response for version 2</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Bays</surname>
+                        <given-names>Samuel</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="r27450a1">1</xref>
+                    <role>Referee</role>
+                    <uri content-type="orcid">https://orcid.org/0000-0003-4086-4594</uri>
+                </contrib>
+                <aff id="r27450a1">
+                    <label>1</label>Idaho National Laboratory, Idaho Falls, USA</aff>
+            </contrib-group>
+            <author-notes>
+                <fn fn-type="conflict">
+                    <p>
+                        <bold>Competing interests: </bold>No competing interests were disclosed.</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="epub">
+                <day>18</day>
+                <month>7</month>
+            <year>2024</year>
+            </pub-date>
+            <permissions>
+                <copyright-statement>Copyright: &#x00a9; 2024 Bays S</copyright-statement>
+                <copyright-year>2024</copyright-year>
+                <license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+                    <license-p>This is an open access peer review report distributed under the terms of the Creative Commons Attribution Licence, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+                </license>
+            </permissions>
+            <related-article ext-link-type="doi" id="relatedArticleReport27450"
+                          related-article-type="peer-reviewed-article"
+                          xlink:href="10.12688/nuclscitechnolopenres.17447.2"/>
+            <custom-meta-group>
+                <custom-meta>
+                    <meta-name>recommendation</meta-name>
+                    <meta-value>approve</meta-value>
+                </custom-meta>
+            </custom-meta-group>
+        </front-stub>
+        <body>
+            <p>The report is acceptable for indexing.</p>
+            <p>Is the study design appropriate and does the work have academic merit?</p>
+            <p>Yes</p>
+            <p>Is the work clearly and accurately presented and does it cite the current literature?</p>
+            <p>Yes</p>
+            <p>If applicable, is the statistical analysis and its interpretation appropriate?</p>
+            <p>Yes</p>
+            <p>Are all the source data underlying the results available to ensure full reproducibility?</p>
+            <p>Yes</p>
+            <p>Are the conclusions drawn adequately supported by the results?</p>
+            <p>Yes</p>
+            <p>Are sufficient details of methods and analysis provided to allow replication by others?</p>
+            <p>Partly</p>
+            <p>Reviewer Expertise:</p>
+            <p>Advanced reactor design, reactor shielding design</p>
+            <p>I confirm that I have read this submission and believe that I have an appropriate level of expertise to confirm that it is of an acceptable scientific standard.</p>
+        </body>
+    </sub-article>
+    <sub-article article-type="reviewer-report" id="report27217">
+        <front-stub>
+            <article-id pub-id-type="doi">10.21956/nuclscitechnolopenres.18722.r27217</article-id>
+            <title-group>
+                <article-title>Reviewer response for version 1</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Kabach</surname>
+                        <given-names>Ouadie</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="r27217a1">1</xref>
+                    <role>Referee</role>
+                    <uri content-type="orcid">https://orcid.org/0000-0002-3978-7555</uri>
+                </contrib>
+                <aff id="r27217a1">
+                    <label>1</label>Ibn Tofail University, Kenitra, Gharb-Chrarda-Beni Hssen, Morocco</aff>
+            </contrib-group>
+            <author-notes>
+                <fn fn-type="conflict">
+                    <p>
+                        <bold>Competing interests: </bold>No competing interests were disclosed.</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="epub">
+                <day>9</day>
+                <month>4</month>
+            <year>2024</year>
+            </pub-date>
+            <permissions>
+                <copyright-statement>Copyright: &#x00a9; 2024 Kabach O</copyright-statement>
+                <copyright-year>2024</copyright-year>
+                <license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+                    <license-p>This is an open access peer review report distributed under the terms of the Creative Commons Attribution Licence, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+                </license>
+            </permissions>
+            <related-article ext-link-type="doi" id="relatedArticleReport27217"
+                          related-article-type="peer-reviewed-article"
+                          xlink:href="10.12688/nuclscitechnolopenres.17447.1"/>
+            <custom-meta-group>
+                <custom-meta>
+                    <meta-name>recommendation</meta-name>
+                    <meta-value>approve</meta-value>
+                </custom-meta>
+            </custom-meta-group>
+        </front-stub>
+        <body>
+            <p>The work presented here describes a method for computing shutdown dosage rates in HTGRs, which are notably different from ordinary LWRs. The approach introduces a new capability for calculating the shutdown dose rate that explicitly models TRISO particles as decay radiation sources, utilizing the MCNP-ORIGEN activation automation tool and MCNP's repeated structures.</p>
+            <p> </p>
+            <p> Work strengths:</p>
+            <p> The article presents an original methodology for calculating shutdown dose rates in HTGRs, which fills a critical gap in existing decommissioning strategies. Using TRISO particles as decay radiation sources offers a unique perspective and enhances the accuracy of dose rate predictions.</p>
+            <p> Using three exercises to investigate and show the effectiveness of the suggested methodology adds more comprehensive details to the used methodology.</p>
+            <p> The third exercise which focuses on a decommissioning strategy for a micro-HTR exercise, offers valuable insights into the feasibility of such strategies.</p>
+            <p> The authors identify that shutdown dose rates above 40 mSv/h after a three-month cooldown period raise concerns about personnel exposure and necessitate further examination.</p>
+            <p> </p>
+            <p> Minor Points:</p>
+            <p> Addressing the limitations and potential sources of uncertainty related to the proposed technique and its implementation adds more value to the work and strengthens the article.</p>
+            <p>Is the study design appropriate and does the work have academic merit?</p>
+            <p>Yes</p>
+            <p>Is the work clearly and accurately presented and does it cite the current literature?</p>
+            <p>Yes</p>
+            <p>If applicable, is the statistical analysis and its interpretation appropriate?</p>
+            <p>Yes</p>
+            <p>Are all the source data underlying the results available to ensure full reproducibility?</p>
+            <p>Yes</p>
+            <p>Are the conclusions drawn adequately supported by the results?</p>
+            <p>Yes</p>
+            <p>Are sufficient details of methods and analysis provided to allow replication by others?</p>
+            <p>Yes</p>
+            <p>Reviewer Expertise:</p>
+            <p>Monte Carlo simulation; Radiation protection and detection; Reactor Physics; fuel cycle analysis</p>
+            <p>I confirm that I have read this submission and believe that I have an appropriate level of expertise to confirm that it is of an acceptable scientific standard.</p>
+        </body>
+    </sub-article>
+    <sub-article article-type="reviewer-report" id="report26912">
+        <front-stub>
+            <article-id pub-id-type="doi">10.21956/nuclscitechnolopenres.18722.r26912</article-id>
+            <title-group>
+                <article-title>Reviewer response for version 1</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Bays</surname>
+                        <given-names>Samuel</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="r26912a1">1</xref>
+                    <role>Referee</role>
+                    <uri content-type="orcid">https://orcid.org/0000-0003-4086-4594</uri>
+                </contrib>
+                <aff id="r26912a1">
+                    <label>1</label>Idaho National Laboratory, Idaho Falls, USA</aff>
+            </contrib-group>
+            <author-notes>
+                <fn fn-type="conflict">
+                    <p>
+                        <bold>Competing interests: </bold>No competing interests were disclosed.</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="epub">
+                <day>28</day>
+                <month>12</month>
+            <year>2023</year>
+            </pub-date>
+            <permissions>
+                <copyright-statement>Copyright: &#x00a9; 2023 Bays S</copyright-statement>
+                <copyright-year>2023</copyright-year>
+                <license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+                    <license-p>This is an open access peer review report distributed under the terms of the Creative Commons Attribution Licence, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+                </license>
+            </permissions>
+            <related-article ext-link-type="doi" id="relatedArticleReport26912"
+                          related-article-type="peer-reviewed-article"
+                          xlink:href="10.12688/nuclscitechnolopenres.17447.1"/>
+            <custom-meta-group>
+                <custom-meta>
+                    <meta-name>recommendation</meta-name>
+                    <meta-value>approve-with-reservations</meta-value>
+                </custom-meta>
+            </custom-meta-group>
+        </front-stub>
+        <body>
+            <p>- Introduction, 2nd paragraph. Have you thought about considering Radiant or eVinci in this introductory list? These are the other two reactors slated to be tested at INL's NRIC facility.</p>
+            <p> - MOAA, 2nd paragraph. How are multiple power levels accomplished in one time-step? Maybe it would be more illustrative to describe the predictor-corrector method used.&#x00a0;</p>
+            <p> - MOAA, 4th paragraph. The need to input volume for unclosed cells, e.g., lattice cells, is well known to most MCNP users. Does this paragraph add much value to the article?</p>
+            <p> - Shutdown Dose Rate, Equation 1. Fluence-to-dose multipliers are dependent on the incident particle energy. It seems that the F4:p multiplier should have its own integrand.&#x00a0;</p>
+            <p> - Shutdown Dose Rate, Equation 3. Could you provide more definition to the source cell emission probability, please? What is the j index? How is S_i used in Eqn 1 and 2?</p>
+            <p> - Shutdown Dose Rate, 4th paragraph. 1s sentence. "The photon-transport calculation can be performed with multiple simulations &#x2026;" This sentence is hard to follow and likely a run-on. Please parse this sentence into individual intendent clauses.</p>
+            <p> - Verification, *F8 Tally. Is there and advantage to use F8 over F6 in this context?</p>
+            <p> - Figure 4, U-238 plot. The "universe" blue curve does not follow the orange "reference" curve. I suspect this is a plotting error.</p>
+            <p> - AGR-1, 4th paragraph. "Capsule 3 and 6 contain the baseline..." This sentence should be broken into smaller sentences.</p>
+            <p> - AGR-1, 4th paragraph. "Some of this work model simplifications are that the &#x2026;" This sentence should be broken into smaller sentences.</p>
+            <p> - AGR-1, 5th paragraph. What is meant by equilibrium cycle (BOC) 145A? ATR does not establish an equilibrium fuel loading, i.e., repeated shuffle-pattern until BOC k-eff, peak flux, etc. converge on a single value.</p>
+            <p> - Table 3. I assume the word "Fuel" in the first row indicates the TRISO fuel of the test, not the ATR fuel. Correct? Please clarify in the table.&#x00a0;</p>
+            <p> - Table 3. It is an interesting result that the contribution of the Hf shroud increases at 30 days then decreases by two orders after one year. Is there a particular Hf isotope that is growing between 1 and 30 days? Please indicate when discussing Table 3. Thank you.</p>
+            <p> - micro-HTGR. 4th paragraph. "In the radial direction, the model neglects the presence of the RPV" Is this a valid assumption? Some discussion is needed to support this. The RPV should experience significant activation.</p>
+            <p> - Figure 8. Please indicate the location of the "citadel floor"? The sentence says "ground level" which take to mean the reference person is standing outside on the zero plane at the bottom of the figure.</p>
+            <p> - Figure 8. Where is the reference person located in relation to the concrete opening above the reactor?</p>
+            <p> - micro-HTGR. 5th paragraph. Please cite your "reference man definition". There is probably an ICRP or ICRU report or similar needed here.</p>
+            <p> - micro-HTGR. 7th paragraph. "ENDF/B-VIII.0 cross-sections at room temperature". Why pick room temperature? There are temperatures more representative of HTGR operation in the ENDF/B-VIII release.</p>
+            <p> - micro-HTGR. 10th paragraph. "8 hours per year". Dividing 50 mSv/year / 6.48 mSv/hr = 7.7 hrs. In this case, the conservative engineering estimate would be to truncate the value to 7 hours, not round up which is normal scientific practice.</p>
+            <p> -Conclusions. Very interesting and timely analysis. Future work should include activation analysis of ex-core structures, e.g., RPV, concrete, and soil.</p>
+            <p>Is the study design appropriate and does the work have academic merit?</p>
+            <p>Yes</p>
+            <p>Is the work clearly and accurately presented and does it cite the current literature?</p>
+            <p>Yes</p>
+            <p>If applicable, is the statistical analysis and its interpretation appropriate?</p>
+            <p>Yes</p>
+            <p>Are all the source data underlying the results available to ensure full reproducibility?</p>
+            <p>Yes</p>
+            <p>Are the conclusions drawn adequately supported by the results?</p>
+            <p>Yes</p>
+            <p>Are sufficient details of methods and analysis provided to allow replication by others?</p>
+            <p>Partly</p>
+            <p>Reviewer Expertise:</p>
+            <p>Advanced reactor design, reactor shielding design</p>
+            <p>I confirm that I have read this submission and believe that I have an appropriate level of expertise to confirm that it is of an acceptable scientific standard, however I have significant reservations, as outlined above.</p>
+        </body>
+    </sub-article>
+</article>

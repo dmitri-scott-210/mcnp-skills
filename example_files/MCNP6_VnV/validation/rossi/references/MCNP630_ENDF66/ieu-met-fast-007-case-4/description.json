@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ieu-met-fast-007-case-4",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "007",
+      "case": "004"
+    },
+    "description": "Big Ten  IEU-MET-FAST-007  Improved Benchmark  Case 4"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ieu-met-fast-007-case-4i",
+      "n": "ieu-met-fast-007-case-4"
+    },
+    "outputs": {
+      "outp": "ieu-met-fast-007-case-4o"
+    },
+    "inputs": {
+      "inp": "ieu-met-fast-007-case-4i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -117000.0,
+      "std": 1000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VI",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-15"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -125133.00000000001,
+      "std": 747.483
+    }
+  }
+}

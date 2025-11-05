@@ -1,0 +1,38 @@
+2 Cylinder Sources, ergdcel
+c
+10  0      -1 +2 +3  IMP:P=1      $ Inside parallelpiped
+20  0         -2     IMP:P=1      $ 667 keV cylinder source
+30  0            -3  IMP:P=1      $ 1.25 MeV cylinder source
+99  0      +1        IMP:P=0      $ Outside parallelpiped
+
+1  RPP   -60 60   -60 60  -60 60
+2  RCC   -30 0 -10  0 0 20  20
+3  RCC    30 0 -30  0 0 60  10
+
+MODE P
+NPS 1e6
+c
+c Source erg depends on cel;  x, y, z independent
+c
+SDEF  CEL=D1  ERG=FCEL D2  X=D3  Y=D4  Z=D5
+c
+SI1  L   20     30
+SP1  V
+c
+DS2  L  0.667  1.25         $ Discrete energies 
+c
+SI3    -60  60              $ x-range for RPP  
+SP3      0   1              $ uniform
+c
+SI4    -60  60              $ y-range for RPP  
+SP4      0   1              $ uniform
+c
+SI5    -60  60              $ z-range for RPP  
+SP5      0   1              $ uniform
+c
+FMESH4:P GEOM= xyz   ORIGIN= -50.0 -50.0 -50.0 
+         IMESH= 50.0 IINTS= 100 
+         JMESH= 50.0 JINTS= 100 
+         KMESH= 50.0 KINTS= 100 
+         EMESH= 1 2  TYPE=SOURCE
+PRINT 10 110 170

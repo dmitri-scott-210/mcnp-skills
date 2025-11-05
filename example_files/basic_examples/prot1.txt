@@ -1,0 +1,54 @@
+ prot1 - MCNP6 - Sample Problem - Depth Dose 
+c     >>Cell Cards<<
+ 1     2   -1.00       -1    $ cell 1, inside surface 1 (cylinder),
+c                             filled with material 2 (water),
+c                             density of water is equal to 1 g/cm^3  
+ 2     0            1 -9999  $ cell 2, outside the cylinder but inside the sphere, void
+ 3     0            9999     $ cell 3, outside the sphere is void
+c     >>End of Cell Cards<<
+
+c     >>Surface Cards<<
+  1  rcc 0 0 0 0 0 100 50    $ cylinder on Z-axis; R=50 cm, h=100 cm, at [0,0,0] 
+ 10  pz  10                  $ plane normal to Z-axis, at Z=10 cm
+ 15  pz  15                  $ -//-, Z=15 cm
+ 20  pz  20                  $ -//-, Z=20 cm
+ 25  pz  25                  $ -//-, Z=25 cm
+ 30  pz  30                  $ -//-, Z=30 cm
+ 35  pz  35                  $ -//-, Z=35 cm
+ 40  pz  40                  $ -//-, Z=40 cm
+ 45  pz  45                  $ -//-, Z=45 cm
+ 50  pz  50                  $ -//-, Z=50 cm
+ 55  pz  55                  $ -//-, Z=55 cm
+ 60  pz  60                  $ -//-, Z=60 cm
+ 65  pz  65                  $ -//-, Z=65 cm
+ 70  pz  70                  $ -//-, Z=70 cm
+ 75  pz  75                  $ -//-, Z=75 cm
+ 80  pz  80                  $ -//-, Z=80 cm
+ 85  pz  85                  $ -//-, Z=85 cm
+ 90  pz  90                  $ -//-, Z=90 cm
+ 95  pz  95                  $ -//-, Z=95 cm
+ 9999  sph   0 0 0  200      $ surface 9999: sphere at [0,0,0], R=200 cm
+c
+c     >>End of Surface Cards<<
+
+c     Data Cards
+ m1    6012 0.333 1001.24c 0.533 8016.24c 0.134                       $PMMA
+ m2    1001.66c  .667  8016.24c 0.333                                 $Water
+ m3    74182.24c .263 74183.24c  .1428 74184.24c .307  74186.24c .286 $Tungsten
+ imp:n 1 1 0                 $ importance of n in cells 1 and 2 is equal to 1; in 3, is 0
+ imp:h 1 1 0                 $ importance of h in cells 1 and 2 is equal to 1; in 3, is 0
+ mode  h n                   $ transport neutrons and protons
+ sdef  par=9 erg=400 dir=1 vec=0 0 1 pos=0 0 -30 
+c     source is a proton beam of 400 MeV on Z-axis at Z=-30 cm
+ nps 5000                    $ simulate 5000 histories
+ phys:n 500 j j j j          $ transport neutrons up to 500 MeV 
+ phys:h 500 j j              $ transport protons up to 500 MeV
+ lca 8j 0                    $ use Bertini INC, default evaporation/fission
+c
+ print 85                    $ print Table 85
+c
+ f6:h   1                    $ tally energy deposition of protons in cell 1
+ fs6   -10 -15 -20 -25 -30 -35 -40 -45 -50 -55 -60
+       -65 -70 -75 -80 -85 -90 -95 T
+c    tally energy deposition in segments defined by sourfaces 10 to 95, 
+c    i.e., from Z=0 to 10 cm, 10 to 15 cm, ..., 90 to 95 cm, and the total  

@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce24",
+    "problem_type": "Continuous Energy",
+    "description": "UD2O-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce24.inp",
+      "n": "ce24"
+    },
+    "outputs": {
+      "outp": "ce24o",
+      "mctal": "ce24m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

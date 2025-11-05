@@ -1,0 +1,77 @@
+ bulkhead model with 1st order hexs for MCNP6 Class
+c
+c  Created from file    : um_bulkhead_hex.abaq.inp
+c  Using data cards file: bulkhead_data_cards.txt
+c  Created on           :  5-11-2018 @  9:41:36
+c
+c
+c PSEUDO CELLS
+01      26     -7.87400      0  u=1
+02      82     -11.3500      0  u=1
+03       1     -0.92000      0  u=1
+04      26     -7.87400      0  u=1
+05       2    -1.205000E-03  0  u=1
+06      26     -7.87400      0  u=1
+07      82     -11.3500      0  u=1
+08       1     -1.00000      0  u=1
+09       2    -1.205000E-03  0  u=1
+10       0                   0  u=1
+c
+c LEGACY CELLS
+11       0                 -99  fill=1     
+12       0                  99     
+
+c
+c SURFACES
+99  sph   0.00000E+00   8.50000E+00   7.00000E+00   1.56576E+01
+
+c
+c  DATA CARDS
+embed1 meshgeo=abaqus
+       mgeoin=um_bulkhead_hex.abaq.inp
+       meeout=um_bulkhead_hex.abaq.eeout
+       length= 1.00000E+00
+       background=      10
+       matcell=  1  1  2  2  3  3  4  4  5  5  6  6  7  7  8  8  9  9
+c
+embee4:p embed=1 errors=yes
+c
+sdef  pos=fcel=d1 cel=d2 erg=d3
+ds1 L volumer volumer
+si2 L 01  04
+sp2   0.1 0.9
+si3 L 1.3325 1.1732
+sp3   0.5    0.5
+c
+c
+c  --------------
+c  material cards
+c
+m1    1000 2     6000 1
+m2    8000 0.23  7000 0.76
+m26  26000 1.0
+m82  82000 1.0
+c
+imp:p 1 10r 0
+c
+mode p
+c
+nps   1e6
+prdmp 1e5 1e5 0 1 1e5
+c
+print -85 -86
+c
+c tallies
+f4:p 6
+c
+c mesh tally to visualize source distribution
+fmesh14:p origin=-7 0 0 type=source
+         imesh=7  iints=15
+         jmesh=17 jints=17
+         kmesh=14 kints=14
+c
+c Mesh Tally to Visualize Gamma Flux Distribution
+fmesh24:p ORIGIN=-7 0 0 
+         IMESH=7  IINTS=15
+         JMESH=17 JINTS=17
+         KMESH=14 KINTS=14         

@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "leu-comp-therm-008-case-11",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "008",
+      "case": "11"
+    },
+    "description": "B&W Criticals  Core XI Load 11  1384 PPM  LEU-COMP-THERM-008 case 11 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "leu-comp-therm-008-case-11.i",
+      "n": "leu-comp-therm-008-case-11"
+    },
+    "inputs": {
+      "inp": "leu-comp-therm-008-case-11.i"
+    },
+    "outputs": {
+      "outp": "leu-comp-therm-008-case-11o",
+      "mctal": "leu-comp-therm-008-case-11m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0007,
+      "std": 0.0012
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0007,
+      "std": 0.000298939
+    }
+  }
+}

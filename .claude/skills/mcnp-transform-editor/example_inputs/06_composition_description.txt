@@ -1,0 +1,43 @@
+EXAMPLE: Transformation Composition
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Advanced
+
+DEMONSTRATES:
+- Composing two transformations into one
+- Mathematical: TR3 = TR2 ∘ TR1 (TR1 first, then TR2)
+- Verification that composition works correctly
+
+KEY FEATURES:
+- TR1: Rotate cylinder 90° about z (vertical → horizontal along +y)
+- TR2: Translate by (10, 0, 0)
+- TR3: Composition (rotate, then translate)
+- Three cylinders shown for comparison
+
+TR CARDS:
+*TR1  0 0 0  0 -1 0  1 0 0  0 0 1     $ Rotate 90° CCW about z
+*TR2  10 0 0                          $ Translate +10 in x
+*TR3  10 0 0  0 -1 0  1 0 0  0 0 1    $ Composition of TR1 and TR2
+
+COMPOSITION CALCULATION:
+R3 = R2 · R1 = I · R1 = R1
+d3 = d2 + R2·d1 = (10,0,0) + I·(0,0,0) = (10,0,0)
+
+EXPECTED RESULT:
+- Cylinder 1: Original (vertical, at origin)
+- Cylinder 2: TR3 applied → horizontal along +y, center at (10,0,0)
+- All three should produce same final geometry for cylinder 2
+
+VERIFICATION:
+- Apply TR1 then TR2 manually = apply TR3 directly
+- Use scripts/tr_composition.py to calculate TR3
+
+RELATED SKILLS:
+- transformation_theory.md: Matrix composition mathematics
+- scripts/tr_composition.py: Automated composition calculator
+
+USAGE NOTES:
+- Composition order matters: TR2∘TR1 ≠ TR1∘TR2 (generally)
+- Matrix multiplication: R3 = R2·R1 (right-to-left reading)
+- Translation: d3 = d2 + R2·d1 (rotation affects translation)
+- Use composition for complex multi-step transformations

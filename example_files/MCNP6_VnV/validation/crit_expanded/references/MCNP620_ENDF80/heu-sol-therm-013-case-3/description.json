@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-sol-therm-013-case-3",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "013",
+      "case": "3"
+    },
+    "description": "c  ORNL-3 Uranyl nitrate in H2O Sphere;  HEU-SOL-THERM-013  case #3 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-sol-therm-013-case-3.i",
+      "n": "heu-sol-therm-013-case-3"
+    },
+    "inputs": {
+      "inp": "heu-sol-therm-013-case-3.i"
+    },
+    "outputs": {
+      "outp": "heu-sol-therm-013-case-3o",
+      "mctal": "heu-sol-therm-013-case-3m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0009,
+      "std": 0.0036
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.994892,
+      "std": 0.000277365
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VIII.0"
+  }
+}

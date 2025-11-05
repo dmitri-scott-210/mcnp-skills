@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg50",
+    "problem_type": "Multigroup",
+    "description": "UAL-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg50.inp",
+      "n": "mg50"
+    },
+    "outputs": {
+      "outp": "mg50o",
+      "mctal": "mg50m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.662437
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

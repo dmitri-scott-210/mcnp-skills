@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg72",
+    "problem_type": "Multigroup",
+    "description": "UD2O-2-1-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg72.inp",
+      "n": "mg72"
+    },
+    "outputs": {
+      "outp": "mg72o",
+      "mctal": "mg72m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.000196
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

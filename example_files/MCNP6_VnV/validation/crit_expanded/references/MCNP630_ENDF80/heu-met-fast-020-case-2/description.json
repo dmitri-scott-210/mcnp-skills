@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-020-case-2",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "020",
+      "case": "2"
+    },
+    "description": "Polyethylene reflected HEU Sphere, VNIIEF;  HEU-MET-FAST-020 case 2 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-020-case-2.i",
+      "n": "heu-met-fast-020-case-2"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-020-case-2.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-020-case-2o",
+      "mctal": "heu-met-fast-020-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0028
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.000287653
+    }
+  }
+}

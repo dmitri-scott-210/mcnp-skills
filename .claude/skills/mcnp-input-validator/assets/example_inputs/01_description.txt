@@ -1,0 +1,43 @@
+EXAMPLE 01: Missing Blank Line Between Blocks
+
+ERROR TYPE: F-001 (FATAL - Block Structure)
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Most common MCNP format error
+- Missing blank line separators between blocks
+- How MCNP requires EXACTLY 2 blank lines total
+
+INVALID FILE (01_missing_blank_line_INVALID.i):
+- Missing blank line after Cell Cards block
+- Missing blank line after Surface Cards block
+- MCNP will fail to parse correctly
+- Fatal error on execution
+
+FIXED FILE (01_missing_blank_line_FIXED.i):
+- Blank line added after line "2    0          1"
+- Blank line added after line "1    SO    10"
+- Exactly 2 blank lines total in file
+- File will parse correctly
+
+KEY LESSON:
+MCNP requires EXACTLY 2 blank lines:
+  1. After Cell Cards block
+  2. After Surface Cards block
+
+NO blank lines within any block.
+
+Use comment headers (c ===) for visual separation, NOT blank lines.
+
+REFERENCE:
+- MCNP6 Manual §4.2
+- error_catalog.md: F-001
+- validation_procedures.md: Block Structure Validation
+- Lesson #11 in LESSONS-LEARNED.md
+
+RELATED SKILLS:
+- mcnp-input-builder: Three-block structure standards
+
+VALIDATION CHECK:
+Count blank lines: grep -c "^$" filename
+Should return: 2

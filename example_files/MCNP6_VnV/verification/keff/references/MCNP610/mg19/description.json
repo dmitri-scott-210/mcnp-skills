@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg19",
+    "problem_type": "Multigroup",
+    "description": "Ud-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg19.inp",
+      "n": "mg19"
+    },
+    "outputs": {
+      "outp": "mg19o",
+      "mctal": "mg19m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.232667
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.23266,
+      "std": 3.59322e-09
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-23"
+  }
+}

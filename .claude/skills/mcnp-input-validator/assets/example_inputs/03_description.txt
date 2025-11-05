@@ -1,0 +1,61 @@
+EXAMPLE 03: Importance Card Entry Count Mismatch
+
+ERROR TYPE: F-006 (FATAL - Importance)
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- IMP card must have EXACTLY one entry per cell
+- Count mismatch causes fatal error
+- How to identify and fix mismatch
+
+INVALID FILE (03_imp_count_mismatch_INVALID.i):
+- 3 cells defined (cells 1, 2, 3)
+- IMP:N has only 2 entries: "1 1"
+- Missing importance for cell 3
+- MCNP fatal error: "importance card entry count wrong"
+
+FIXED FILE (03_imp_count_mismatch_FIXED.i):
+- IMP:N has 3 entries: "1 1 0"
+- Matches 3 cells defined
+- Cell 3 (outside world) has IMP=0 (particle escape)
+- Cells 1-2 have IMP=1 (particles transported)
+
+KEY LESSON:
+IMP card entries must match cell count EXACTLY.
+
+Count cells in input:
+  Cell 1: IMP entry 1
+  Cell 2: IMP entry 2
+  Cell 3: IMP entry 3
+
+IMP:N  [entry1] [entry2] [entry3]
+
+For graveyard/outside cells: Use IMP=0
+For active regions: Use IMP=1 (or higher for variance reduction)
+
+SHORTCUT:
+Use R (repeat) for many cells with same importance:
+  IMP:N  1 10R 0
+  Means: 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 (12 entries)
+
+HOW TO FIX:
+1. Count cells in Cell Cards block
+2. Count IMP card entries
+3. If mismatch:
+   - Add missing entries, OR
+   - Remove extra entries
+4. Graveyard cell should have IMP=0
+
+REFERENCE:
+- MCNP6 Manual §3.2.5.2: Cell Parameters
+- error_catalog.md: F-006
+- validation_procedures.md: Physics Consistency
+
+RELATED SKILLS:
+- mcnp-variance-reducer: Importance optimization
+
+VALIDATION CHECK:
+Validator detects:
+  "FATAL: IMP:N card has 2 entries but 3 cells exist"
+  "Missing importance for cell 3"
+  "Fix: Add 3rd entry to IMP:N card (suggest value 0 if outside world)"

@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce25",
+    "problem_type": "Continuous Energy",
+    "description": "UD2O-H2O(1)-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce25.inp",
+      "n": "ce25"
+    },
+    "outputs": {
+      "outp": "ce25o",
+      "mctal": "ce25m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00006,
+      "std": 5.35541e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

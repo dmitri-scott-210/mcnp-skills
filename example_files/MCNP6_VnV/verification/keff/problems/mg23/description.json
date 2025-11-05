@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg23",
+    "problem_type": "Multigroup",
+    "description": "UD2O-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg23.inp",
+      "n": "mg23"
+    },
+    "outputs": {
+      "outp": "mg23o",
+      "mctal": "mg23m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

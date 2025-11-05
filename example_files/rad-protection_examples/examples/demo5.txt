@@ -1,0 +1,23 @@
+Demo5: Contact Gamma Dose Rate (rad/h) from vial LA-UR-23-25214
+c       vial contains 3 mCi of Cs-137 and 2 mCi of Co-60
+c       add 1-cm thick ICRU tissue layer around vial
+c       calculate contact dose rate (rad/h)in a 0.01-cm thick tissue layer
+c       use heating tally: F6:p with appropriate FM6 card
+c       normalize tally to total source photon emission rate
+c    ------------<<<<< Cell Card >>>>>------------------------------------------
+
+c    ************<<<<< End Cell Card >>>>>**************************************
+
+c    ------------<<<<< Surface Card >>>>>---------------------------------------
+
+c    ************<<<<< End Surface Card >>>>>***********************************
+
+c    ------------<<<<< Data Card >>>>>------------------------------------------
+f6:p	3
+c  ICRU Soft Tissue den = 1.0 g cm-3
+m1  1000   -0.101172
+    6000   -0.111000
+    7000   -0.026000
+    8000   -0.761828
+nps     1e4
+c    ************<<<<< End Data Card >>>>>**************************************

@@ -1,0 +1,33 @@
+Exposure Room with Shield Wall Modification, Class Exercise #4 LA-UR-23-25214
+c cylindical hole through center of wall with radius of 15cm. Angle of 25
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    1 -0.0009 -1 2      imp:p=1 $ Room
+2    2 -2.25   -2 3      imp:p=1 $ Shield
+3    0         1         imp:p=0 $ void outside room
+4    1 -0.0009 -3 -2     imp:p=1 $ Cylinder
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1   RPP              $ Macrobody: Rectangular Parallelepiped (Room)
+        -152.4 152.4 $ Termini of box sides normal to the x axis
+        -381   381   $ Termini of box sides normal to the y axis
+           0   304.8 $ Termini of box sides normal to the z axis $ Room
+2   RPP -152.4 152.4 -30.48 30.48 0 213.36 $ Shield
+3    1 C/Y 0 106.68 15             $ Translated Cylinder
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+mode    p
+m1   6000 -0.000124 
+     7014 -0.755268 
+     8016 -0.231781 
+     18000 -0.012827 $ Dry Air - 0.0009 g/cm^3
+m2   1001 -0.004530
+     8016 -0.512600
+     11023 -0.015270
+     13027 -0.035550
+     14000 -0.360360
+     20000 -0.057910
+     26000 -0.013450 $ Concrete Composition - 2.3 g/cm^
+*tr1 0 0 0 0 90 90 90 25 115 90 65 25 1
+c    ************<<<<< End Data Cards >>>>>**************************************

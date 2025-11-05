@@ -1,0 +1,69 @@
+ptrac3b
+c -------------
+c Source Cells
+c -------------
+1 10 -15.1 -10                imp:n=1  $ Cf-252 Source
+c
+c --------------
+c Detector Cells
+c --------------
+20 20 -0.96 -20 21 22 23 24   imp:n=1  $ Polyethylene Slab
+21 21 -4.991e-4 -21           imp:n=1  $ 3He Tube
+22 21 -4.991e-4 -22           imp:n=1  $ 3He Tube
+23 21 -4.991e-4 -23           imp:n=1  $ 3He Tube
+24 21 -4.991e-4 -24           imp:n=1  $ 3He Tube
+c
+c ----------------
+c Void
+c ----------------
+998 0 -999 10 20              imp:n=1  $ Inside Void
+999 0 999                     imp:n=0  $ Outside Void
+
+c ----------------
+c Source Surfaces
+c ----------------
+10 sx -5 0.001                      $ Cf-252 Source
+c
+c -----------------
+c Detector Surfaces
+c -----------------
+20 RPP 5 15 -12.5 12.5 -12.5 12.5 $ Poly slab containing 3He tubes
+c
+21 rcc 10 -7.5 -10 0 0 20 1.27    $ 3He Tube (2.54 cm diameter, 20 cm active height)
+22 rcc 10 -2.5 -10 0 0 20 1.27    $ 3He Tube (2.54 cm diameter, 20 cm active height)
+23 rcc 10  2.5 -10 0 0 20 1.27    $ 3He Tube (2.54 cm diameter, 20 cm active height)
+24 rcc 10  7.5 -10 0 0 20 1.27    $ 3He Tube (2.54 cm diameter, 20 cm active height)
+c
+c ----------------
+c Void
+c ----------------
+999 so 50                         $ Void
+
+c ---------------
+c Material Cards
+c ---------------
+c Source Material (Cf-252)
+m10 98252 1.0
+c
+c Detector Materials
+m20 6000 2.0 1001 4.0            $ Polyethylene Slab
+mt20 poly.20t
+m21 2003 1.0                     $ 3He at 4atm
+c
+c --------------
+c Source Card
+c --------------
+sdef pos=-5 0 0 par=sf
+fmult data=3 method=3 shift=1
+nps 1e6
+c
+c --------------
+c Tally Card
+c --------------
+f4:n 21 22 23 24 T
+sd4  1  1  1  1  1
+fm4 -1 21 103
+c
+cut:n 2j 0 0
+ptrac file=bin  write=all  max=1e9
+      event=col  filter=21,24,icl

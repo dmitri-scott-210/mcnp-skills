@@ -1,0 +1,21 @@
+shield -- Photon point source in Pb shield
+10  100   -11.4     -4 3       $ Lead Shield
+20    0             -3 1 2     $ Void
+30  200   -1.12     -2         $ Poly sphere, center at y=2
+40  200   -1.12     -1         $ Poly sphere, center at origin 
+50    0              4         $ Void, Exterior
+
+1 SO                  1.0              $ Sphere at origin with 1 cm rad
+2 S   0.0  2.0  0.0   1.0              $ Sphere at 0.,2.,0. with 1. cm rad 
+3 RCC   0. -1. 0.     0.  4. 0.    3.0 $ Right circular cylinder
+4 RCC   0. -4. 0.     0. 10. 0.    8.0 $ Right circular cylinder
+
+sdef  par=p  $ start photons
+c Default values: 14 MeV, at origin, isotropic, time=0
+print
+mode p    $ mode e p to see bremsstrahlung, fluorescence, photo-electric
+imp:p   1 1 1 1 0              $ importances for cells 10,20,30,40,50
+nps 1000                         $ start 1000 particles
+m100  82207 1.0                                       $ Lead Shield
+m200  1000 -0.09677   6000 -0.38710   8000 -0.51613   $ Polyethylene
+

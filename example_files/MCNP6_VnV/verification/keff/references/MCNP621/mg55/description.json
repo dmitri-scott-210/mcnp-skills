@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg55",
+    "problem_type": "Multigroup",
+    "description": "URRa-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg55.inp",
+      "n": "mg55"
+    },
+    "outputs": {
+      "outp": "mg55o",
+      "mctal": "mg55m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999886,
+      "std": 0.000127392
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

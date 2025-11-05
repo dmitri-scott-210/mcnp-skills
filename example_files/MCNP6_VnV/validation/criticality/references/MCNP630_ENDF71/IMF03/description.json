@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "IMF03",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003",
+      "case": ""
+    },
+    "description": "Bare sphere of IEU (36 wt.%)"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "IMF03",
+      "n": "IMF03"
+    },
+    "outputs": {
+      "outp": "IMF03o",
+      "mctal": "IMF03m"
+    },
+    "inputs": {
+      "inp": "IMF03"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0017
+    }
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00186,
+      "std": 0.000637421
+    }
+  }
+}

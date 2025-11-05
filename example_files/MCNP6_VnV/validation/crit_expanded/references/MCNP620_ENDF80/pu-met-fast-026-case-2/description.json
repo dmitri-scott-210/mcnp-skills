@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-026-case-2",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "026",
+      "case": "2"
+    },
+    "description": "Simplified Plutonium Sphere, 11.9 cm Steel Reflector, VNIIEF: PU-MET-FAST-026 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-026-case-2.i",
+      "n": "pu-met-fast-026-case-2"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-026-case-2.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-026-case-2o",
+      "mctal": "pu-met-fast-026-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0024
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00164,
+      "std": 0.000276123
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VIII.0"
+  }
+}

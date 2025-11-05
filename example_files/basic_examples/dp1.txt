@@ -1,0 +1,20 @@
+Test delayed neutrons and gammas
+1  1 -19.0       -10     imp:n=1     $ HEU
+3  0              10     imp:n=0     $ Void
+ 
+10 so  1.0                           $ 1cm-radius HEU sphere
+ 
+m1    92235 0.9315  92238 0.0685     $ HEU
+mode  n p
+sdef  par=n erg=2.5e-8 sur=10 nrm=-1 $ thermal neutrons inward
+                                     $ from surface 10
+act fission=all dn=model dg=mg
+c  zcut:n 2j 0
+f4:n   1                $ neutron flux averaged over cell 1
+t4     1. 99log 1e12    $ time in shakes
+f1:p   10               $ photon current integrated over surf 10
+t1     1e4 1e20         $ time in shakes, prompt<1e4, delayed>1e4
+e1     0. 999i 10.      $ energy in MeV, 10-keV bins
+nps    100000           $ run 100000 source neutrons
+dbcn 28j 1   $ Require MCNP6 to execute like MCNPX
+             $ and emit delayed neutrons

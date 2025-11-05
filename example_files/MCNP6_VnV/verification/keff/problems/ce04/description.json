@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce04",
+    "problem_type": "Continuous Energy",
+    "description": "PUa-H2O(0.5)-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce04.inp",
+      "n": "ce04"
+    },
+    "outputs": {
+      "outp": "ce04o",
+      "mctal": "ce04m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,45 @@
+2 Cylinder Sources, posderg
+c
+10  0      -1 +2 +3  IMP:P=1      $ Inside parallelpiped
+20  0         -2     IMP:P=1      $ 667 keV cylinder source
+30  0            -3  IMP:P=1      $ 1.25 MeV cylinder source
+99  0      +1        IMP:P=0      $ Outside parallelpiped
+
+1  RPP   -60 60   -60 60  -60 60
+2  RCC   -30 0 -10  0 0 20  20
+3  RCC    30 0 -30  0 0 60  10
+
+MODE P
+NPS 1e6
+c
+c Source pos, rad, ext of cylinders depends on erg
+c
+SDEF  ERG=D1  POS=FERG D2  AXS=0 0 1  RAD=FERG D5  EXT=FERG D8
+c
+SI1  L  0.667  1.25         $ Discrete energies 
+SP1      8      6           $ Emission rate based on volume
+c
+DS2  S   3      4           $ Get position for chosen source 
+SI3  L  -30  0  0           $ Center for sampling of src1  
+SP3         1               $ Prob. distn for src 1 center
+SI4  L   30  0  0           $ Center for sampling of src2
+SP4         1               $ Prob. distn for src 2 center
+c
+DS5  S   6      7           $ Sampling distn from each src axis 
+SI6      0  20              $ Radial sampling limits for src1 
+SP6     -21  1              $ Radial sampling weight for src1 r^1
+SI7      0  10              $ Radial sampling limits for src2
+SP7     -21  1              $ Radial sampling weight for src2 r^1
+c
+DS8  S   9     10           $ Axial sampling distns for each src 
+SI9     -10  10             $ Axial sampling limits for src1   
+SP9     -21  0              $ Axial sampling weight for src1 r^0
+SI10    -30  30             $ Axial sampling limits for src2
+SP10    -21  0              $ Axial sampling weight for src2 r^0
+c
+FMESH4:P GEOM= xyz   ORIGIN= -50.0 -50.0 -50.0 
+         IMESH= 50.0 IINTS= 100 
+         JMESH= 50.0 JINTS= 100 
+         KMESH= 50.0 KINTS= 100 
+         EMESH= 1 2  TYPE=SOURCE
+PRINT 10 110 170

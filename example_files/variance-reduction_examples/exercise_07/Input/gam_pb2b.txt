@@ -1,0 +1,71 @@
+gam_pb2b: analog slab problem: lead and Co-60
+C
+11     100  -11.350   -2   1  -30
+12     100  -11.350   -3   2  -30
+13     100  -11.350   -4   3  -30
+14     100  -11.350   -5   4  -30
+15     100  -11.350   -6   5  -30
+16     100  -11.350   -7   6  -30
+17     100  -11.350   -8   7  -30
+18     100  -11.350   -9   8  -30
+91     0    -1  -30
+95     0    -20
+96     0     20  9 -10  -30
+98     0     10    -30
+99     0     30
+ 
+ 1     py  0
+ 2     py  8
+ 3     py  16
+ 4     py  24
+ 5     py  32
+ 6     py  40
+ 7     py  48
+ 8     py  56
+ 9     py  64
+10     py  68
+20     RPP -10 10 64 68 -10 10
+30     cy  100
+
+c
+c  Materials
+c 
+m100 82000  -1    $ lead
+c
+c  Source
+c
+mode   p
+sdef  x=0 y=1.E-6 z=0  cel=11  wgt=1  erg=d1  par=2
+si1 L  1.173  1.332
+sp1 D  0.5    0.5
+c
+nps  1000000
+c
+c  Tallies
+c
+f1:p   9
+f4:p  95
+c
+c  Time, Energy, Implicit Capture/Weight Cutoffs
+c
+cut:p 1.e20 0.001  0 0
+c
+c  Output
+c
+print -85 -86
+c
+c  Variance Reduction
+c
+imp:p  1 7r 0 1 1 0 0
+c
+ext:p  0.95V1 7R 0 0 0 0 0
+vect  V1  0.0  70.0 0.0
+c
+mesh geom=cyl ref = 0 .001  0  origin= 0.001 -0.001 0
+     axs= 0 1 0  vec= 1 0 0
+     imesh= 10 101      iints=  1  1
+     jmesh= 32  64  70  jints= 16 16  1
+     kmesh= 1           kints= 1
+c
+wwg 1 0
+wwp:p 4J -1

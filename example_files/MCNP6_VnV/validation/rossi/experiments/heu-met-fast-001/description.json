@@ -1,0 +1,32 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-001",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "001",
+      "case": "001"
+    },
+    "description": "Godiva, Solid Bare HEU sphere"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-001i",
+      "n": "heu-met-fast-001"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-001o"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-001i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -1110000.0,
+      "std": 20000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

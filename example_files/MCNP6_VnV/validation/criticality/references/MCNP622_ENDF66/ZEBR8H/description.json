@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ZEBR8H",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "008",
+      "case": "007"
+    },
+    "description": "IEU (37.5 wt.%) reflected by normal U and steel"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ZEBR8H",
+      "n": "ZEBR8H"
+    },
+    "outputs": {
+      "outp": "ZEBR8Ho",
+      "mctal": "ZEBR8Hm"
+    },
+    "inputs": {
+      "inp": "ZEBR8H"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.03,
+      "std": 0.0025
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.04004,
+      "std": 0.00065077
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VI"
+  }
+}

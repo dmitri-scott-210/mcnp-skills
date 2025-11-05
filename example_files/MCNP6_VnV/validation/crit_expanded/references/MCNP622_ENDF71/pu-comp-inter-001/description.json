@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-comp-inter-001",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "COMP",
+      "spectrum": "INTER",
+      "number": "001"
+    },
+    "description": " HISS HPG  k-inf Benchmark  PU-COMP-INTER-001 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-comp-inter-001.i",
+      "n": "pu-comp-inter-001"
+    },
+    "inputs": {
+      "inp": "pu-comp-inter-001.i"
+    },
+    "outputs": {
+      "outp": "pu-comp-inter-001o",
+      "mctal": "pu-comp-inter-001m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.011
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.012,
+      "std": 0.000248188
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.1"
+  }
+}

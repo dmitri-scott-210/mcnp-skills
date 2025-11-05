@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "IMF04",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "004",
+      "case": ""
+    },
+    "description": "Sphere of IEU (36 wt.%) reflected by graphite"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "IMF04",
+      "n": "IMF04"
+    },
+    "outputs": {
+      "outp": "IMF04o",
+      "mctal": "IMF04m"
+    },
+    "inputs": {
+      "inp": "IMF04"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00523,
+      "std": 0.000626832
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VIII.0"
+  }
+}

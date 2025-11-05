@@ -1,0 +1,47 @@
+import os
+import isc # import the isc module
+
+# load the data
+iscdata = os.getenv("ISCDATA")
+abund_lib = isc.AbundanceLib()
+decay_lib = isc.DecayLib()
+emission_lib = isc.EmissionLib()
+isc.loadLibs(abund_lib, decay_lib, emission_lib,\
+  os.path.join(iscdata,"endf7.isc.bin"))
+
+# get the emission spectra for Co-60
+co60_spectra = emission_lib.GetSpectra(27060)
+
+# get a list of isc particle types for which spectra exist
+co60_particle_types = co60_spectra.GetParticleTypes()
+print(co60_particle_types)
+
+# loop over the particle types
+for ptype in co60_particle_types:
+  if ptype == isc.ENDF_DECAY_GAMMA:
+    print("Co-60 emits gammas, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_BETAM:
+    print("Co-60 emits beta-, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_BETAP:
+    print("Co-60 emits beta+, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_IT:
+    print("Co-60 has internal transition, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_ALPHA:
+    print("Co-60 emits alphas, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_ELECTRON:
+    print("Co-60 emits electrons, ptype = {:d}".format(ptype))
+  elif ptype == isc.ENDF_DECAY_XRAY:
+    print("Co-60 emits xrays, ptype = {:d}".format(ptype))
+
+# get the gamma spectrum
+co60_gammas = co60_spectra.GetSpectrum(isc.ENDF_DECAY_GAMMA)
+print("The number of discrete emissions per decay is {:.3f}".format(\
+  co60_gammas.GetDNorm()))
+
+# loop over all the discrete emissions
+print("{:12s}  {:12s}".format("energy","#/decay"))
+for i in range(co60_gammas.GetDNumber()):
+  # get the emission energy and probability/decay
+  energy = co60_gammas.GetDEnergy(i)
+  intensity = co60_gammas.GetDIntensity(i)
+  print("{:12.5e}  {:12.5e}".format(energy,intensity))

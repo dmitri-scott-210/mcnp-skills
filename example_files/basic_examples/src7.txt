@@ -1,0 +1,20 @@
+src7 -  tabulated energy spectrum - discrete energies   
+c
+ 10  0      -1  imp:n=1
+ 99  0      +1  imp:n=0
+
+ 1  so   1.0
+
+ mode n
+ nps 1e6
+c
+c ===> tabulated, discrete source energies
+c
+ sdef  x=0 y=0 z=0  erg=d1
+   si1  L     1.0  2.0  3.0   10.0   15.0
+   sp1         1.   1.   5.     2.     1.5
+c
+c ===> tally leakage, 1000 equal delta-E bins
+c
+ f1:n  1
+ e1   .01  999i  30.

@@ -1,0 +1,31 @@
+psrc5 - 14 MeV neutrons rectangular volume source
+c
+ 10  0      -1  imp:n=1
+ 20  0   +1 -2  imp:n=1
+ 99  0      +2  imp:n=0
+
+ 1  so   0.5
+ 2  so   2.0
+
+ mode n
+ nps  1e6
+c
+c ===> single source energy
+c
+ sdef  x=d1  y=d2  z=d3  erg=14.0
+ si1 H   -0.5   0.50
+ sp1    0     1
+ si2 H   -0.5   0.50
+ sp2    0     1
+ si3 H   -0.5   0.50
+ sp3    0     1
+c
+c ===> fmesh tally surrounding the source
+c
+fmesh4:n  GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+          type=source
+c
+ print

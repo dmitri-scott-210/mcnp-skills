@@ -1,0 +1,31 @@
+MCNP6 GENXS test of CEM03.03: p+Fe56 at 1 GeV (nevtype=66)
+  1  1  1.0   -1 2 -3      $ cell 1, inside cylinder (sourface 1), below plane
+c                            Z=1 cm (surface 3), above plane Z=-1 cm (surface 1),
+c                            filled with material 1 (Fe56). 
+c                            Actually, the geometry and density used in GENXS MCNP6
+c                            input files are not used and do not affect the results
+  2  0        -4 (1:-2:3)  $ cell 2, inside the sphere (surf. 4) and outside the target (cell 1) 
+  3  0         4           $ cell 3, outside the sphere, void
+ 
+c ---------------------------------------------------------------
+  1  cz  4.0               $ cylinder on Z-axis, R=4 cm
+  2  pz  -1.0              $ plane normal to Z-axis, Z=-1 cm
+  3  pz  1.0               $ plane normal to Z-axis, Z=1 cm
+  4  so  50.0              $ sphere at (0,0,0), R=50 cm
+ 
+c ---------------------------------------------------------------
+  m1   25056 1.0           $ material 1, Fe56
+  sdef erg = 1000 par = h dir = 1 pos = 0 0 0 vec 0 0 1
+c      source is a beam of protons at (0,0,0) in z-direction, energy=1 GeV     
+  imp:h 1 1 0              $ importance of protons in cells 1 an 2 is 1, while in cell 3, is 0   
+  phys:h 1000              $ transport protons up to 1 GeV
+  mode   h                 $ transport protons
+  tropt genxs inxcpfe.txt nreact on  nescat off
+c  the TROPT card showes that we use the GENXS option with the auxiliary file named INXCPFE
+c  calculate inerlastic reactions (NREACT=ON) and turn off elastic scattering (NESCAT=OFF)
+c ---------------------------------------------------------------
+  print 40 110 95          $ print tables 40, 110, 95
+c  nps 5000                $ simulate 5000 histories
+  nps 100000              $ simulate 100000 histories
+c  nps 10000000            $ simulate 10000000 histories
+ 

@@ -1,0 +1,8 @@
+MCNP6 GENXS test of CEM03.03: p+Fe56 at 1 GeV (nevtype=66)
+1 1 1 / one type of double-diff. spec.; write MCTAL file; res. nuc. yields
+Cross Section Edit
+56 -11 9 / 56 energy bins, 11 angles(in degrees), 9 particles (ejectiles)
+5. 10. 15. 20. 25. 30. 35. 40. 45. 50. 55. 60. 65. 70. 75. 80.
+85. 90. 95. 100. 120. / ejectile energies [MeV]
+155. 145. 115. 105. 95. 85. 55. 45. 25. 15. 0. / ejectile angles [degrees]
+1 5 6 7 8 21 22 23 24 / ejectiles: n, p, pi+, pi-, pi0, d, t, He3, He4

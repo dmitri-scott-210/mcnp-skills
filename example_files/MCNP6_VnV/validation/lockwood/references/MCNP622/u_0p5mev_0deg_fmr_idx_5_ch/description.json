@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "u_0p5mev_0deg_fmr_idx_5_ch",
+    "description": "",
+    "details": {
+      "material": "Uranium",
+      "energy": 0.5,
+      "type": "Condensed History",
+      "angle": 0,
+      "fmr": 0.067,
+      "fmr_index": 5
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u_0p5mev_0deg_fmr_idx_5_ch_",
+      "n": "u_0p5mev_0deg_fmr_idx_5_ch_"
+    },
+    "outputs": {
+      "outp": "u_0p5mev_0deg_fmr_idx_5_ch_o",
+      "mctal": "u_0p5mev_0deg_fmr_idx_5_ch_m"
+    },
+    "inputs": {
+      "inp": "u_0p5mev_0deg_fmr_idx_5_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0608349,
+      "err": 0.014
+    },
+    "reference": "SAND79-0414, p. 115",
+    "foil_thickness": 0.01473,
+    "energy_deposited": 4.13,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0641654,
+      "err": 0.0013
+    }
+  }
+}

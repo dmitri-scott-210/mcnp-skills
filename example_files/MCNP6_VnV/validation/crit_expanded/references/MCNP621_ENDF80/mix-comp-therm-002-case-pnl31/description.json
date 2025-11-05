@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "mix-comp-therm-002-case-pnl31",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "PNL31"
+    },
+    "description": "MIX-COMP-THERM-002 PNL-31:  square lattice, pitch=1.778 cm, 680.9 PPM "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mix-comp-therm-002-case-pnl31.i",
+      "n": "mix-comp-therm-002-case-pnl31"
+    },
+    "inputs": {
+      "inp": "mix-comp-therm-002-case-pnl31.i"
+    },
+    "outputs": {
+      "outp": "mix-comp-therm-002-case-pnl31o",
+      "mctal": "mix-comp-therm-002-case-pnl31m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0009,
+      "std": 0.0045
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00116,
+      "std": 0.000344072
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VIII.0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "general_info": {
+    "name": "TT2C11",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "026",
+      "case": "021"
+    },
+    "description": "3 x 3 x 3 array of HEU cylinders in paraffin box"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "TT2C11",
+      "n": "TT2C11"
+    },
+    "outputs": {
+      "outp": "TT2C11o",
+      "mctal": "TT2C11m"
+    },
+    "inputs": {
+      "inp": "TT2C11"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0038
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-004-case-1",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "004",
+      "case": "1"
+    },
+    "description": "HEU-MET-FAST-004 case 1  Idealized Oy sphere (97.675 w/o) on Lucite ring in H2O "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-004-case-1.i",
+      "n": "heu-met-fast-004-case-1"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-004-case-1.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-004-case-1o",
+      "mctal": "heu-met-fast-004-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.002,
+      "std": 0.001
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0028,
+      "std": 0.000347438
+    }
+  }
+}

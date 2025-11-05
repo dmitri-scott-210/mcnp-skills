@@ -1,0 +1,32 @@
+{
+  "general_info": {
+    "name": "GODIVA",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001",
+      "case": ""
+    },
+    "description": "Bare HEU sphere"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "GODIVA",
+      "n": "GODIVA"
+    },
+    "outputs": {
+      "outp": "GODIVAo",
+      "mctal": "GODIVAm"
+    },
+    "inputs": {
+      "inp": "GODIVA"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.001
+    }
+  }
+}

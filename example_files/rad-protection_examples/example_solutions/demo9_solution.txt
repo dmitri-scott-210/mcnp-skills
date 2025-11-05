@@ -1,0 +1,58 @@
+Bremsstrahlung Production Electron LINAC LA-UR-23-25214
+c
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --de/df tables come from ICRP 57 table A.1
+c    --6.25e18 electrons/C
+c    --1 microamp=1e-6 C/s
+c    S(Electrons/min)=(Current microamp)(C/s/microamp)(electrons/C)(60 s/min)
+c    S=(1)(1e-6)(6.25e18)(60)=3.75e14 electrons/min
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    1    -19.3     -1                       imp:p,e=1      $ Target
+2    0              -2 #1                    imp:p,e=1      $ Inside Shield
+3    2    -11.35    -3 2                     imp:p,e=1      $ Shield
+4    0              -4 3                     imp:p,e=1      $ Boundary
+5    0               4                       imp:p,e=0      $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RCC 0 0 -0.09 0 0 0.09 5                     $ Target
+2    RCC 0 0 -13 0 0 13 5                         $ Shield Inner Wall
+3    RCC 0 0 -15 0 0 15 9                         $ Shield Outer Wall
+4    so 110                                       $ Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Tungsten Shield D=19.3 g/cc
+      74000 -1.000000
+m2   $ Lead Shield D=11.35 g/cc
+      82000 -1.000000
+mode p e                                          $ Photons and Electrons
+phys:e 7j 0                                       $ Turn off Knock-on delta ray
+elpt:e 0.2 0 5 5 5                                $ Energy cutoff per cell
+BBREM 1.0 1.0 46i 20.0 1                          $ Brem Bias 46 increments between 1-20 for mat1
+sdef pos= 0 0 -0.09                               $ Position (0,0,-0.09)
+     par=3                                        $ Electrons only
+     rad=d1                                       $ Radius in data set 1
+     ext=0                                        $ Disc Source
+     erg=5                                        $ Energy 5 MeV
+     dir=1                                        $ Monodirectional
+     vec=0 0 1                                    $ Along Positive z-axis
+si1  0   0.1                                      $ Radius
+sp1  -21 1                                        $ Sampling Distribution
+f5:p 0 0 100 0                                    $ detector @ (0,0,100) R=0
+fm5  3.75e14                                      $ convert to Rad/min (S)
+de5  0.01  0.015  0.02   0.03   0.04   0.05   0.06
+     0.08  0.1    0.15   0.2    0.3    0.4    0.5
+     0.6   0.8    1.0    1.5    2.0    3.0    4.0
+     5.0   6.0    8.0    10.0
+df5  7.430e-10 3.120e-10 1.680e-10 0.721e-10 0.429e-10 0.323e-10 0.289e-10
+     0.307e-10 0.371e-10 0.599e-10 0.856e-10 1.380e-10 1.890e-10 2.380e-10
+     2.840e-10 3.690e-10 4.470e-10 6.140e-10 7.550e-10 9.960e-10 12.10e-10
+     14.10e-10 16.10e-10 20.10e-10 24.00e-10
+prdmp   1j -30 0 2
+RAND    GEN=2
+print   110 85
+nps  1e4                                          $ Terminate after 1e4 particles
+c    ************<<<<< End Data Cards >>>>>**************************************

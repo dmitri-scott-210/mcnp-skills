@@ -1,0 +1,23 @@
+ U233-MET-FAST-005 Case 2  U-233 Sphere Refl by Be 
+1         1        0.048170        -1        $ U-233 Sphere
+2         2        0.121218         1   -2   $ Be Reflector
+3         0                         2
+ 
+1         so       4.5999
+2         so       8.7960
+ 
+kcode     5000  1.0    50   250
+imp:n     1.0    1.0   0.0
+sdef   cel=1  erg=d1
+sp1    -3
+vol        407.69   2442.96      0.0
+area       265.89    972.26
+totnu
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+prdmp    j    999999    1
+print
+
+ end of input

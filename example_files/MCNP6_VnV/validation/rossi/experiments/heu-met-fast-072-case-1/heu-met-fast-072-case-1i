@@ -1,0 +1,235 @@
+Zeus Iron 1 Bmark (6 Layers of Side Reflector 0.118" Al Shim)  Ra  ENDF/B-VII.0
+c
+c     First Configuration
+c     Fuel Plates 0.118" Thick
+c     Homogenized Fuel Plates
+c     4-1 CS Plates Average Plate/Hole Isotopics per Stack
+c     No Cu Impurities
+c     No Top Plate
+c     No Hole in Upper Reflector
+c
+c     Side Reflector
+2     2    8.2714E-02     14 -16 18 -21 2 -8       imp:n=1
+3     2    8.2714E-02     16 -15 18 -20 2 -8       imp:n=1
+4     2    8.2714E-02     17 -15 20 -19 2 -8       imp:n=1
+5     2    8.2714E-02     14 -17 21 -19 2 -8       imp:n=1
+c     Lower Corner Reflector
+26    20   8.3058E-02     16 -22 20 -23 2 -27 13   imp:n=1
+27    20   8.3058E-02     22 -17 20 -23 2 -27 13   imp:n=1
+28    20   8.3058E-02     22 -17 23 -21 2 -27 13   imp:n=1
+29    20   8.3058E-02     16 -22 23 -21 2 -27 13   imp:n=1
+c     Diaphragm
+42    3    8.5271e-2     16 -17 20 -21 27 -28      imp:n=1
+c     Upper Corner Reflector
+43    20   8.3058E-02     16 -22 20 -23 28 -33 13  imp:n=1
+44    20   8.3058E-02     22 -17 20 -23 28 -33 13  imp:n=1
+45    20   8.3058E-02     22 -17 23 -21 28 -33 13  imp:n=1
+46    20   8.3058E-02     16 -22 23 -21 28 -33 13  imp:n=1
+c     Upper Reflector
+63    20   8.3058E-02     16 -17 20 -21 33 -34     imp:n=1
+c     Upper Core From Diaphragm Up
+c       Unit U1
+64    4001  8.3337e-002    -36 28 -40              imp:n=1
+68    500   4.8306E-02     -36 40 -41              imp:n=1 $ B-2444-13,11019
+69    4005  8.4212e-002    -36 41 -45              imp:n=1
+c       Unit U2
+73    4009  8.4279e-002    -36 45 -49              imp:n=1
+77    502   4.8571E-02     -36 49 -50              imp:n=1 $ B-2444-14,11150
+78    4013  8.2479e-002    -36 50 -54              imp:n=1
+c       Unit U3
+82    4017  8.4145e-002    -36 54 -58              imp:n=1
+86    504   4.9244E-02     -36 58 -59              imp:n=1 $ B-2444-33,11147
+87    4021  8.4217e-002    -36 59 -63              imp:n=1
+c       Unit U4
+91    4025  8.2960e-002    -36 63 -67              imp:n=1
+95    506   4.8317E-02     -36 67 -68              imp:n=1 $ B-2444-27,11149
+96    4029  8.3065e-002    -36 68 -72              imp:n=1
+c       Unit U5
+100   4033  8.1682e-002   -36 72 -76               imp:n=1
+104   508   4.8915E-02    -36 76 -77               imp:n=1 $ B-2444-29,11017
+105   4037  8.4063e-002   -36 77 -81               imp:n=1
+c       Unit U6
+109   4041  8.3900e-002   -36 81 -85               imp:n=1
+113   510   4.9033E-02    -36 85 -86               imp:n=1 $ B-2444-11,10933,Q2-16
+114   4045  8.4181e-002   -36 86 -90               imp:n=1
+c       Unit U7
+118   4049  8.3833e-002   -36 90 -94               imp:n=1
+122   513   4.8770E-02    -36 94 -95               imp:n=1 $ B-2444-17,8601-8606
+123   4053  8.4075e-002   -36 95 -99               imp:n=1
+c       Unit U8
+127   4057  8.3323e-002   -36   99 -103            imp:n=1
+131   515   4.8591E-02    -36  103 -104 860        imp:n=1 $ B-2444-36,B1010932
+1311  0                   103 -104 -860            imp:n=1 $ 6" Diameter Void
+132   4061  8.4036e-002   -36  104 -108            imp:n=1
+c     Lower Core from Diaphragm Down
+c       Shim
+1350  11    6.0417e-2    -410   -27 1080 110       imp:n=1
+c       Unit L8
+136   4065  8.3138e-002   -36 -1080  113 110       imp:n=1
+140   517   4.8486E-02    -36 -113   114 860       imp:n=1 $ B-2444-19,B1011018
+1401  10    5.9856e-2    -113  114  -860 110       imp:n=1 $ 6" Diameter Al Spacer
+141   4069  8.4023e-002   -36 -114   118 110       imp:n=1
+c       Unit L7
+145   4073  8.3788e-002   -36 -118 122 110         imp:n=1
+149   519   4.8481E-02    -36 -122 123 110         imp:n=1 $ B-2444-24,10464
+150   4077  8.4002e-002   -36 -123 127 110         imp:n=1
+c       Unit L6
+154   4081  8.4142e-002   -36 -127 131 110         imp:n=1
+158   521   4.8704E-02    -36 -131 132 110         imp:n=1 $ B-2444-01,10487
+159   4085  8.4011e-002   -36 -132 136 110         imp:n=1
+c       Unit L5
+163   4089  8.4403e-002   -36 -136 140 110         imp:n=1
+167   523   4.8705E-02    -36 -140 141 110         imp:n=1 $ B-2444-09,B1010467
+168   4093  8.4085e-002   -36 -141 145 110         imp:n=1
+c       Unit L4
+172   4097  8.4185e-002   -36 -145 149 110         imp:n=1
+176   525   4.9317E-02    -36 -149 150 110         imp:n=1 $ B-2444-10,B1010491
+177   4101  8.4090e-002   -36 -150 154 110         imp:n=1
+c       Unit L3
+181   4105  8.3927e-002   -36 -154 158 110         imp:n=1
+185   527   4.8940E-02    -36 -158 159 110         imp:n=1 $ B-2444-20,B1010470
+186   4109  8.4197e-002   -36 -159 163 110         imp:n=1
+c       Unit L2
+190   4113  8.4115e-002   -36 -163 167 110         imp:n=1
+194   529   4.8937E-02    -36 -167 168 110         imp:n=1 $ B-2444-25,B1010489
+195   4117  8.4119e-002   -36 -168 172 110         imp:n=1
+c       Unit L1
+199   4121  8.4143e-002   -36 -172 176 110         imp:n=1
+203   531   4.8512E-02    -36 -176 177 110         imp:n=1 $ B-2444-03,B1010475
+204   4125  8.3388e-002   -36 -177 181 110         imp:n=1
+c     Lower Reflector
+208   20    8.3058E-02    -36 -181 182 110         imp:n=1
+c     Platen Adapter Plate
+209   1     5.8700e-2     -36 -182 183 185         imp:n=1
+c     Platen
+210   1     5.8700e-2     -36 -183 184 185         imp:n=1
+c     Alignment Tube
+211   1     5.8700e-2    -186  187 -27 188         imp:n=1
+c     Interstitials
+c       Inside Alignment Tube
+212   0              -187 -27 188                  imp:n=1
+c       Upper Core to Reflector
+213   0               -36 -33 108                  imp:n=1
+214   0                36 -13 -33  28              imp:n=1
+c       Lower Core to Reflector
+215   0                36 -13  -27 184             imp:n=1
+c       Lower Core to Alignment Tube
+2150  0               182 -27 -110 186             imp:n=1
+c       Shim to Reflector
+2151  0               410 -36  -27 1080            imp:n=1
+c       Bottom of Platen to Side Reflector/Alignment Tube
+216   0               -13  186 -184 188            imp:n=1
+c       Platen Adapter/Platen to Alignment Tube
+217   0              -185 -182  184 186            imp:n=1
+c       Upper Reflector to Side Reflector
+219   0              16 -17 20 -21  34 -8          imp:n=1
+c       Bottom to Alignment Tube
+224   0              14 -15 18 -19 188 -2 13       imp:n=1
+c     Space
+225   0              -14:15:-18:19:-188:8          imp:n=0
+
+2      pz    2.54        $ Top of Top Plate
+8      pz  126.4412      $ Top of Sixth Side Reflector Layer
+13     cz   26.797       $ Hole in Top Plate and Side Reflector
+14     px  -44.1452      $ Left Bound of Side Reflector
+15     px   44.1452      $ Right Bound of Side Reflector
+16     px  -27.94        $ Left End Side Reflectors
+17     px   27.94        $ Right End Side Relfectors
+18     py  -44.1452      $ Front Bound of Side Reflector
+19     py   44.1452      $ Back Bound of Side Reflector
+20     py  -27.94        $ Front End Side Reflectors
+21     py   27.94        $ Back End Side Reflectors
+22     px    0.00        $ Edge of Corner Reflector
+23     py    0.00        $ Edge of Corner Reflector
+27     pz   60.2488      $ Top of Lower Corner Reflector Fourth Row, Bottom Diaphragm
+28     pz   60.51296     $ Top of Diaphragm
+33     pz   82.26806     $ Top of Upper Corner Reflector Fifth Row, Bottom Upper
+c Reflector
+34     pz   96.69526     $ Top of Upper Reflector
+36     cz   26.67        $ Core Outside Radius (21" Diameter)
+40     pz   61.708453    $ Top of Iron Plate U1-4
+41     pz   62.008173    $ Top of HEU Plate  U1
+410    cz   19.05        $ IR Outer Fuel Ring (15" Diameter)
+45     pz   63.209170    $ Top of Iron Plate U1-8
+49     pz   64.400007    $ Top of Iron Plate U2-4
+50     pz   64.699727    $ Top of HEU Plate  U2
+54     pz   65.893103    $ Top of Iron Plate U2-8
+58     pz   67.083093    $ Top of Iron Plate U3-4
+59     pz   67.382813    $ Top of HEU Plate  U3
+63     pz   68.575343    $ Top of Iron Plate U3-8
+67     pz   69.766603    $ Top of Iron Plate U4-4
+68     pz   70.066323    $ Top of HEU Plate  U4
+72     pz   71.292720    $ Top of Iron Plate U4-8
+76     pz   72.494563    $ Top of Iron Plate U5-4
+77     pz   72.794283    $ Top of HEU Plate  U5
+81     pz   74.001207    $ Top of Iron Plate U5-8
+85     pz   75.189927    $ Top of Iron Plate U6-4
+86     pz   75.489647    $ Top of HEU Plate  U6
+860    cz    7.62        $ IR Inner Fuel Ring (6" Diameter)
+90     pz   76.677097    $ Top of Iron Plate U6-8
+94     pz   77.891640    $ Top of Iron Plate U7-4
+95     pz   78.191360    $ Top of HEU Plate  U7
+99     pz   79.377963    $ Top of Iron Plate U7-8
+103    pz   80.564990    $ Top of Iron Plate U8-4
+104    pz   80.864710    $ Top of HEU Plate  U8
+108    pz   82.064437    $ Top of Iron Plate U8-8
+1080   pz   59.94908     $ Bottom of Shim, Top of Iron Plate L8-8
+110    cz    3.175       $ 2.5" Diameter
+113    pz   58.754433    $ Top of HEU Plate  L8
+114    pz   58.454713    $ Top of Iron Plate L8-4
+118    pz   57.271073    $ Top of Iron Plate L7-8
+122    pz   56.084470    $ Top of HEU Plate  L7
+123    pz   55.784750    $ Top of Iron Plate L7-4
+127    pz   54.601110    $ Top of Iron Plate L6-8
+131    pz   53.420433    $ Top of HEU Plate  L6
+132    pz   53.120713    $ Top of Iron Plate L6-4
+136    pz   51.937497    $ Top of Iron Plate L5-8
+140    pz   50.758090    $ Top of HEU Plate  L5
+141    pz   50.458370    $ Top of Iron Plate L5-4
+145    pz   49.274730    $ Top of Iron Plate L4-8
+149    pz   48.092783    $ Top of HEU Plate  L4
+150    pz   47.793063    $ Top of Iron Plate L4-4
+154    pz   46.608153    $ Top of Iron Plate L3-8
+158    pz   45.423243    $ Top of HEU Plate  L3
+159    pz   45.123523    $ Top of Iron Plate L3-4
+163    pz   43.941577    $ Top of Iron Plate L2-8
+167    pz   42.758360    $ Top of HEU Plate  L2
+168    pz   42.458640    $ Top of Iron Plate L2-4
+172    pz   41.275423    $ Top of Iron Plate L1-8
+176    pz   40.092207    $ Top of HEU Plate  L1
+177    pz   39.792487    $ Top of Iron Plate L1-4
+181    pz   38.599957    $ Top of Lower Reflector
+182    pz   24.172757    $ Top of Platen Adapter Plate
+183    pz   20.362757    $ Top of Platen
+184    pz   17.822757    $ Bottom of Platen
+185    cz    4.7625      $ 3.75" Diameter Hole in Platen Adapter/Platen
+186    cz    3.1496      $ Outside of Aligment Tube (2.48" Diameter)
+187    cz    2.54        $ Inside of Alignment Tube (2" Diameter)
+188    pz   -3.2512      $ Bottom of Alignment Tube
+
+kcode  1000000  1.0  100  600
+kopts   kinetics=yes  precursor=no
+ksrc    13 0 39.92   -6.5 11.26 39.92  -6.5 -11.26 39.92
+       -13 0 42.58    6.5 11.26 42.58   6.5 -11.26 42.58
+        13 0 45.26   -6.5 11.26 45.26  -6.5 -11.26 45.26
+       -13 0 47.93    6.5 11.26 47.93   6.5 -11.26 47.93
+        13 0 50.60   -6.5 11.26 50.60  -6.5 -11.26 50.60
+       -13 0 53.27    6.5 11.26 53.27   6.5 -11.26 53.27
+        13 0 55.93   -6.5 11.26 55.93  -6.5 -11.26 55.93
+       -13 0 58.60    6.5 11.26 58.60   6.5 -11.26 58.60
+        13 0 61.85   -6.5 11.26 61.85  -6.5 -11.26 61.85
+       -13 0 64.55    6.5 11.26 64.55   6.5 -11.26 64.55
+        13 0 67.24   -6.5 11.26 67.24  -6.5 -11.26 67.24
+       -13 0 69.92    6.5 11.26 69.92   6.5 -11.26 69.92
+        13 0 72.65   -6.5 11.26 72.65  -6.5 -11.26 72.65
+       -13 0 75.35    6.5 11.26 75.35   6.5 -11.26 75.35
+        13 0 78.06   -6.5 11.26 78.06  -6.5 -11.26 78.06
+       -13 0 80.75    6.5 11.26 80.75   6.5 -11.26 80.75
+read file=m-cards-endf71
+print
+c prdmp     j      675
+
+ end of input
+
+
+

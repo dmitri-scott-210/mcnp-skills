@@ -1,0 +1,26 @@
+14 MeV neutrons spherical surface source
+c
+10  0      -1  IMP:N=1
+20  0   +1 -2  IMP:N=1
+99  0      +2  IMP:N=0
+
+1  SO   0.5
+2  RPP  -1 1  -1 1  -1 1
+
+NPS  1e6
+c
+SDEF  SUR=1  AXS=1 0 0  EXT=D1  VEC=1 0 0  DIR=-1
+SI1  -1 0.6 1.0
+SP1   0  0  1
+c
+FMESH4:N  GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+          TYPE=SOURCE
+c
+FMESH14:N GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+PRINT

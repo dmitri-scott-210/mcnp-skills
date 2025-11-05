@@ -1,0 +1,1732 @@
+          Thread Name & Version = MCNP5, 1.60
+                                  _                                      
+            ._ _    _  ._   ._   |_                                      
+            | | |  (_  | |  |_)   _)                                     
+                            |                                            
+  +---------------------------------------------------------------------+
+  | Copyright 2010. Los Alamos National Security, LLC.  All rights      |
+  | reserved.                                                           |
+  |   This material was produced under U.S. Government contract         |
+  | DE-AC52-06NA25396 for Los Alamos National Laboratory, which is      |
+  | operated by Los Alamos National Security, LLC, for the U.S.         |
+  | Department of Los Energy. The Government is granted for itself and  |
+  | others acting on its behalf a paid-up, nonexclusive, irrevocable    |
+  | worldwide license in this material to reproduce, prepare derivative |
+  | works, and perform publicly and display publicly. Beginning five    |
+  | (5) years after 2010, subject to additional five-year worldwide     |
+  | renewals, the Government is granted for itself and others acting on |
+  | its behalf a paid-up, nonexclusive, irrevocable worldwide license   |
+  | in this material to reproduce, prepare derivative works, distribute |
+  | copies to the public, perform publicly and display publicly, and to |
+  | permit others to do so. NEITHER THE UNITED STATES NOR THE UNITED    |
+  | STATES DEPARTMENT OF ENERGY, NOR LOS ALAMOS NATIONAL SECURITY, LLC, |
+  | NOR ANY OF THEIR EMPLOYEES, MAKES ANY WARRANTY, EXPRESS OR IMPLIED, |
+  | OR ASSUMES ANY LEGAL LIABILITY OR RESPONSIBILITY FOR THE ACCURACY,  |
+  | COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, APPARATUS, PRODUCT, |
+  | OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD NOT INFRINGE |
+  | PRIVATELY OWNED RIGHTS.                                             |
+  +---------------------------------------------------------------------+
+  
+1mcnp     version 5     ld=09282010                     07/15/11 13:05:16 
+ *************************************************************************                 probid =  07/15/11 13:05:16 
+ n=droom4b wwinp=droom4ae                                                        
+
+         1-       Variance Reduction: photons in a double room environment                        
+         2-       c                                                                               
+         3-       c Full thickness (~24 inch) concrete walls                                      
+         4-       c                                                                               
+         5-       c ***** CELLS *****                                                             
+         6-       c                                                                               
+         7-        1  1  -2.3  101 -102  202 -203  302 -303      $ middle door (exit near room)   
+         8-        2  0        102 -103  202 -205  302 -303      $ near room center               
+         9-        3  0        103 -104  204 -205  302 -303      $ near door (entrance)           
+        10-        4  0        106 -101  202 -205  302 -303      $ far room center                
+        11-        5  0        105 -106  204 -205  302 -303      $ far door (exit far room)       
+        12-       c                                                                               
+        13-        6  0       -501  101 -102                     $ penetration opposite doors     
+        14-        7  1  -2.3 -502  101 -102                     $ middle of wall penetration     
+        15-       c                                                                               
+        16-       11  1  -2.3  103 -104  202 -204  302 -303                                       
+        17-       12  1  -2.3  105 -104  201 -202  302 -303                                       
+        18-       13  1  -2.3  101 -102  203 -205  302 -303  501  502                             
+        19-       14  1  -2.3  105 -104  205 -206  302 -303                                       
+        20-       15  1  -2.3  105 -106  202 -204  302 -303                                       
+        21-       18  1  -2.3  105 -104  201 -206  301 -302      $ floor                          
+        22-       19  1  -2.3  105 -104  201 -206  303 -304      $ roof                           
+        23-       c                                                                               
+        24-       20  0       -400 (-105:104:-201:206:-301:304)  $ outside room                   
+        25-       21  0        400                               $ outside world                  
+        26-       c                                                                               
+        27-       c ***** END CELLS *****                                                         
+        28-                                                                                       
+        29-       c ***** SURFACES *****                                                          
+        30-       c                                                                               
+        31-       101  px -160                                                                    
+        32-       102  px -100                                                                    
+        33-       103  px  100                                                                    
+        34-       104  px  160                                                                    
+        35-       105  px -420                                                                    
+        36-       106  px -350                                                                    
+        37-       c                                                                               
+        38-       201  py -410                                                                    
+        39-       202  py -350                                                                    
+        40-       203  py -250                                                                    
+        41-       204  py  -50                                                                    
+        42-       205  py   50                                                                    
+        43-       206  py  110                                                                    
+        44-       211  py   15   $ tally segmenting surface                                       
+        45-       212  py  -15   $ tally segmenting surface                                       
+        46-       213  py -315   $ tally segmenting surface                                       
+        47-       214  py -285   $ tally segmenting surface                                       
+        48-       c                                                                               
+        49-       221  py   15   $ tally segmenting surface                                       
+        50-       222  py  -15   $ tally segmenting surface                                       
+        51-       223  py -315   $ tally segmenting surface                                       
+        52-       224  py -285   $ tally segmenting surface                                       
+        53-       c                                                                               
+        54-       301  pz  -60                                                                    
+        55-       302  pz    0                                                                    
+        56-       303  pz  250                                                                    
+        57-       304  pz  310                                                                    
+        58-       311  pz   50   $ tally segmenting surface                                       
+        59-       312  pz  100   $ tally segmenting surface                                       
+        60-       c                                                                               
+        61-       400  s  0  -175  127  600                                                       
+        62-       c                                                                               
+        63-       501 c/x    30.0 200 5                                                           
+        64-       502 c/x  -100.0 200 5                                                           
+        65-       c                                                                               
+        66-       c ***** END SURFACES *****                                                      
+        67-                                                                                       
+        68-       c ***** DATA CARDS *****                                                        
+        69-       c                                                                               
+        70-       mode p                                                                          
+        71-       phys:p  0.01    1  1          $                                                 
+        72-       cut:p   J    0.01  0          $ 10 keV cutoff; analog capture                   
+        73-       imp:p   1 14R 0                                                                 
+        74-       c                                                                               
+        75-       c Materials                                                                     
+        76-       c                                                                               
+        77-       c ANSI/ANS 6.6.1-1987 Concrete Composition                                      
+        78-       m1    1000 7.86e+21                                                             
+        79-             8000 4.38e+22                                                             
+        80-            11000 1.05e+21                                                             
+        81-            12000 1.40e+20                                                             
+        82-            13000 2.39e+21                                                             
+        83-            14000 1.58e+22                                                             
+        84-            19000 6.90e+20                                                             
+        85-            20000 2.92e+21                                                             
+        86-            26000 3.10e+20                                                             
+        87-       c                                                                               
+        88-       c Dry Air                                                                       
+        89-       m2    7000 -0.755                                                               
+  warning.  material         2 is used only for a perturbation or tally.
+        90-             8000 -0.232                                                               
+        91-            18000 -0.013                                                               
+        92-       c                                                                               
+        93-       sdef  par=2 pos=130 0 100  erg=0.6616  dir=d1  vec= -1 0 0                      
+        94-       si1   h -1 0 1                                                                  
+        95-       sp1   d  0  0.5  0.5                                                            
+        96-       sb1   d  0   1    10                                                            
+        97-       c                                                                               
+        98-       c f4:p   1                                                                      
+        99-       c fs4    -213 214 -311 312 T                                                    
+       100-       c sd4     5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6                      
+       101-       c fm4     8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie           
+       102-       c fc4     R/hr per Curie at middle door                                         
+       103-       c tf4   3J 5                                                                    
+       104-       c                                                                               
+       105-       c f14:p  3                                                                      
+       106-       c fs14   -212 211 -311 312 T                                                    
+       107-       c sd14    5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6                      
+       108-       c fm14    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie           
+       109-       c fc14    R/hr per Curie at near door                                           
+       110-       c tf14  3J 5                                                                    
+       111-       c                                                                               
+       112-       f24:p   5                                                                       
+  warning.  without bremsstrahlung, flux estimates will be low.
+       113-       fs24   -212 211 -311 312 T                                                      
+       114-       sd24    5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6                        
+       115-       fm24    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie             
+       116-       fc24    R/hr per Curie at far door                                              
+       117-       tf24  3J 5                                                                      
+       118-       c                                                                               
+       119-       f34:p   6                                                                       
+  warning.  without bremsstrahlung, flux estimates will be low.
+       120-       fm34    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie             
+       121-       fc34    R/hr per Curie in penetration opposite doors                            
+       122-       c                                                                               
+       123-       c f44:p   7                                                                     
+       124-       c fm44    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie           
+       125-       c fc44    R/hr per Curie in penetration opposite doors                          
+       126-       c                                                                               
+       127-       nps 1000000                                                                     
+       128-       prdmp 1e+9  1e+9                                                                
+       129-       c                                                                               
+       130-       print                                                                           
+       131-       dxt:p  -100 30 200  5  6   -160 30 200  5  6                                    
+  warning.  more than one photon   sphere and no weight cutoff.
+       132-       ext:p  0 8R -0.9x  0 5R                                                         
+       133-       c                                                                               
+       134-       wwg  24  0                                                                      
+       135-       mesh  geom=rec  origin= -425 -415 -65  ref= 129 0 100                           
+       136-             imesh -360  -160  -100  100  165                                          
+       137-             iints    1     1    12    1    1                                          
+       138-             jmesh -350  -250    50  115                                               
+       139-             jints    1     1    10    1                                               
+       140-             kmesh    0   150  250  320                                                
+       141-             kints    1     1   10    1                                                
+       142-       wwp:p 4J -1                                                                     
+       143-                                                                                       
+
+ surface      211   and surface      221   are the same.      221   will be deleted.
+
+ surface      212   and surface      222   are the same.      222   will be deleted.
+
+ surface      213   and surface      223   are the same.      223   will be deleted.
+
+ surface      214   and surface      224   are the same.      224   will be deleted.
+ 
+  comment.           4 surfaces were deleted for being the same as others.
+1photon   weight window                                                                                 print table 20
+
+ reading mesh-based weight windows from file droom4ae with probid =  07/15/11 13:01:11
+
+
+
+ weight-window game parameters
+         1  5.00000E+00
+         2  3.00000E+00
+         3  5.00000E+00
+         4  1.00000E+00
+         5 -1.00000E+00
+         6  0.00000E+00
+         7  0.00000E+00
+         8 -1.00000E+00
+
+ weight window applied at collisions and surfaces.
+
+       739 zero weight windows input.
+1source                                                                                                 print table 10
+
+ values of defaulted or explicitly defined source variables
+
+    cel        0.0000E+00
+    sur        0.0000E+00
+    erg        6.6160E-01
+    tme        0.0000E+00
+    pos        1.3000E+02   0.0000E+00   1.0000E+02
+    x          0.0000E+00
+    y          0.0000E+00
+    z          0.0000E+00
+    rad        0.0000E+00
+    ext        0.0000E+00
+    axs        0.0000E+00   0.0000E+00   0.0000E+00
+    vec       -1.0000E+00   0.0000E+00   0.0000E+00
+    ccc        0.0000E+00
+    nrm        1.0000E+00
+    ara        0.0000E+00
+    wgt        1.0000E+00
+    eff        1.0000E-02
+    par        2.0000E+00
+    tr         0.0000E+00
+
+
+
+ probability distribution        1 for source variable dir
+ biased histogram distribution
+
+ source        source          cumulative           biased           probability          biased             weight
+  entry         value          probability        cumulative           of bin           probability        multiplier
+
+    1      -1.00000E+00       0.000000E+00       0.000000E+00       0.000000E+00       0.000000E+00       1.000000E+00
+    2       0.00000E+00       5.000000E-01       9.090909E-02       5.000000E-01       9.090909E-02       5.500000E+00
+    3       1.00000E+00       1.000000E+00       1.000000E+00       5.000000E-01       9.090909E-01       5.500000E-01
+
+
+ order of sampling source variables.
+ pos vec dir erg tme
+
+1tally       24                                                                                         print table 30
++                                      R/hr per Curie at far door                                              
+           tally type 4    track length estimate of particle flux.                        
+           tally for  photons  
+ cells     5                                                                                                                           
+ segments                                      -212          211         -311          312         rest        whole
+   segment volumes,  cell bin     5       5.25000E+05  5.25000E+05  9.00000E+04  2.70000E+05  9.00000E+04  1.50000E+06
+
+ multiplier bins
+ att  constant    material   reactions or material-rho*x pairs
+     8.63900E+04        2         -5    -6
+
+ tally fluctuations chart bin indexes:   f   d   u   s   m   c   e   t
+                                         1   1   1   5   1   1   1   1
+
+1tally       34                                                                                         print table 30
++                                      R/hr per Curie in penetration opposite doors                            
+           tally type 4    track length estimate of particle flux.                        
+           tally for  photons  
+ cells     6                                                                                                                           
+
+ multiplier bins
+ att  constant    material   reactions or material-rho*x pairs
+     8.63900E+04        2         -5    -6
+1material composition                                                                                   print table 40
+
+ the sum of the fractions of material        1 was 7.496000E+22
+
+ material
+  number     component nuclide, atom fraction
+
+        1            1000, 1.04856E-01       8000, 5.84312E-01      11000, 1.40075E-02      12000, 1.86766E-03
+                    13000, 3.18837E-02      14000, 2.10779E-01      19000, 9.20491E-03      20000, 3.89541E-02
+                    26000, 4.13554E-03
+        2            7000, 7.84282E-01       8000, 2.10983E-01      18000, 4.73493E-03
+
+
+
+
+
+ material
+  number     component nuclide, mass fraction
+
+        1            1000, 5.63576E-03       8000, 4.98488E-01      11000, 1.71713E-02      12000, 2.42050E-03
+                    13000, 4.58717E-02      14000, 3.15660E-01      19000, 1.91905E-02      20000, 8.32471E-02
+                    26000, 1.23152E-02
+        2            7000, 7.55000E-01       8000, 2.32000E-01      18000, 1.30000E-02
+ 
+  warning.    1 materials had unnormalized fractions. print table 40.
+1cell volumes and masses                                                                                print table 50
+
+              cell     atom          gram         input       calculated                            reason volume
+                      density       density       volume        volume         mass       pieces    not calculated
+
+        1        1  7.38552E-02   2.30000E+00   0.00000E+00   1.50000E+06   3.45000E+06      0                      
+        2        2  0.00000E+00   0.00000E+00   0.00000E+00   2.00000E+07   0.00000E+00      0                      
+        3        3  0.00000E+00   0.00000E+00   0.00000E+00   1.50000E+06   0.00000E+00      0                      
+        4        4  0.00000E+00   0.00000E+00   0.00000E+00   1.90000E+07   0.00000E+00      0                      
+        5        5  0.00000E+00   0.00000E+00   0.00000E+00   1.75000E+06   0.00000E+00      0                      
+        6        6  0.00000E+00   0.00000E+00   0.00000E+00   4.71239E+03   0.00000E+00      1                      
+        7        7  7.38552E-02   2.30000E+00   0.00000E+00   4.71239E+03   1.08385E+04      1                      
+        8       11  7.38552E-02   2.30000E+00   0.00000E+00   4.50000E+06   1.03500E+07      0                      
+        9       12  7.38552E-02   2.30000E+00   0.00000E+00   8.70000E+06   2.00100E+07      0                      
+       10       13  7.38552E-02   2.30000E+00   0.00000E+00   0.00000E+00   0.00000E+00      0      asymmetric      
+       11       14  7.38552E-02   2.30000E+00   0.00000E+00   8.70000E+06   2.00100E+07      0                      
+       12       15  7.38552E-02   2.30000E+00   0.00000E+00   5.25000E+06   1.20750E+07      0                      
+       13       18  7.38552E-02   2.30000E+00   0.00000E+00   1.80960E+07   4.16208E+07      0                      
+       14       19  7.38552E-02   2.30000E+00   0.00000E+00   1.80960E+07   4.16208E+07      0                      
+       15       20  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00      0      asymmetric      
+       16       21  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00      0      infinite        
+1surface areas                                                                                          print table 50
+
+           surface    input      calculated    reason area
+                      area          area       not calculated
+
+        1      101    0.00000E+00   1.00000E+05                   
+        2      102    0.00000E+00   1.00000E+05                   
+        3      103    0.00000E+00   1.00000E+05                   
+        4      104    0.00000E+00   1.92400E+05                   
+        5      105    0.00000E+00   1.92400E+05                   
+        6      106    0.00000E+00   1.00000E+05                   
+        7      201    0.00000E+00   2.14600E+05                   
+        8      202    0.00000E+00   1.45000E+05                   
+        9      203    0.00000E+00   1.50000E+04                   
+       10      204    0.00000E+00   3.25000E+04                   
+       11      205    0.00000E+00   1.45000E+05                   
+       12      206    0.00000E+00   2.14600E+05                   
+       13      211    0.00000E+00   0.00000E+00   not a boundary  
+       14      212    0.00000E+00   0.00000E+00   not a boundary  
+       15      213    0.00000E+00   0.00000E+00   not a boundary  
+       16      214    0.00000E+00   0.00000E+00   not a boundary  
+       21      301    0.00000E+00   3.01600E+05                   
+       22      302    0.00000E+00   3.01600E+05                   
+       23      303    0.00000E+00   3.01600E+05                   
+       24      304    0.00000E+00   3.01600E+05                   
+       25      311    0.00000E+00   0.00000E+00   not a boundary  
+       26      312    0.00000E+00   0.00000E+00   not a boundary  
+       27      400    0.00000E+00   4.52389E+06                   
+       28      501    0.00000E+00   1.88496E+03                   
+       29      502    0.00000E+00   1.88496E+03                   
+1     tally segment areas, volumes, or masses                                                           print table 50
+
+ tally    tally   segment   segment     input       calculated       used        reason not calculated
+           cell             surface
+
+   24       5         1       -212      5.25000E+05   6.12500E+05   5.25000E+05                    
+                      2        211      5.25000E+05   6.12500E+05   5.25000E+05                    
+                      3       -311      9.00000E+04   1.05000E+05   9.00000E+04                    
+                      4        312      2.70000E+05   3.15000E+05   2.70000E+05                    
+                      5       rest      9.00000E+04   1.05000E+05   9.00000E+04                    
+      total of segment volumes                                  1.50000E+06
+      volume of whole  cell                                     1.75000E+06
+
+ 
+  warning.  sum of segment sizes differs from total in   1 cases.
+ 
+  warning.  dxtran weight cutoffs needed with analog capture.
+1cells                                                                                                  print table 60
+
+                               atom        gram                                            photon                                      
+              cell     mat    density     density     volume       mass            pieces importance                                   
+
+        1        1        1  7.38552E-02 2.30000E+00 1.50000E+06 3.45000E+06           0  1.0000E+00                                   
+        2        2        0  0.00000E+00 0.00000E+00 2.00000E+07 0.00000E+00           0  1.0000E+00                                   
+        3        3        0  0.00000E+00 0.00000E+00 1.50000E+06 0.00000E+00           0  1.0000E+00                                   
+        4        4        0  0.00000E+00 0.00000E+00 1.90000E+07 0.00000E+00           0  1.0000E+00                                   
+        5        5        0  0.00000E+00 0.00000E+00 1.75000E+06 0.00000E+00           0  1.0000E+00                                   
+        6        6        0  0.00000E+00 0.00000E+00 4.71239E+03 0.00000E+00           1  1.0000E+00                                   
+        7        7        1  7.38552E-02 2.30000E+00 4.71239E+03 1.08385E+04           1  1.0000E+00                                   
+        8       11        1  7.38552E-02 2.30000E+00 4.50000E+06 1.03500E+07           0  1.0000E+00                                   
+        9       12        1  7.38552E-02 2.30000E+00 8.70000E+06 2.00100E+07           0  1.0000E+00                                   
+       10       13        1  7.38552E-02 2.30000E+00 0.00000E+00 0.00000E+00           0  1.0000E+00                                   
+       11       14        1  7.38552E-02 2.30000E+00 8.70000E+06 2.00100E+07           0  1.0000E+00                                   
+       12       15        1  7.38552E-02 2.30000E+00 5.25000E+06 1.20750E+07           0  1.0000E+00                                   
+       13       18        1  7.38552E-02 2.30000E+00 1.80960E+07 4.16208E+07           0  1.0000E+00                                   
+       14       19        1  7.38552E-02 2.30000E+00 1.80960E+07 4.16208E+07           0  1.0000E+00                                   
+       15       20        0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00           0  1.0000E+00                                   
+       16       21        0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00           0  0.0000E+00                                   
+
+ total                                               1.07101E+08 1.49147E+08
+1     exponential transform and forced collision parameters                                             print table 62
+
+                              neutron exp.           photon exp.       forced collisions
+              cell      dir    transform      dir    transform       neutron        photon
+
+       10       13                           - x      0.90000                              
+1surfaces                                                                                               print table 70
+
+           surface        trans  type   surface coefficients
+
+        1      101                px   -1.6000000E+02
+        2      102                px   -1.0000000E+02
+        3      103                px    1.0000000E+02
+        4      104                px    1.6000000E+02
+        5      105                px   -4.2000000E+02
+        6      106                px   -3.5000000E+02
+        7      201                py   -4.1000000E+02
+        8      202                py   -3.5000000E+02
+        9      203                py   -2.5000000E+02
+       10      204                py   -5.0000000E+01
+       11      205                py    5.0000000E+01
+       12      206                py    1.1000000E+02
+       13      211                py    1.5000000E+01
+       14      212                py   -1.5000000E+01
+       15      213                py   -3.1500000E+02
+       16      214                py   -2.8500000E+02
+       21      301                pz   -6.0000000E+01
+       22      302                pz    0.0000000E+00
+       23      303                pz    2.5000000E+02
+       24      304                pz    3.1000000E+02
+       25      311                pz    5.0000000E+01
+       26      312                pz    1.0000000E+02
+       27      400                s     0.0000000E+00  -1.7500000E+02   1.2700000E+02   6.0000000E+02
+       28      501                c/x   3.0000000E+01   2.0000000E+02   5.0000000E+00
+       29      502                c/x  -1.0000000E+02   2.0000000E+02   5.0000000E+00
+1  identical surfaces                                                                                   print table 70
+
+   master surface     identical surfaces
+
+       211                 221                                                                                                         
+       212                 222                                                                                                         
+       213                 223                                                                                                         
+       214                 224                                                                                                         
+
+
+   surface coefficients for identical surfaces not used.
+
+             surface     trans  type   surface coefficients
+
+       17      221                py    1.5000000E+01
+       18      222                py   -1.5000000E+01
+       19      223                py   -3.1500000E+02
+       20      224                py   -2.8500000E+02
+
+    minimum source weight = 5.5000E-01    maximum source weight = 5.5000E+00
+
+
+ mesh-based weight window generator reference mesh index:      384
+     fine mesh indices,  i,j,k:   16   11    2
+
+ ***************************************************
+ * Random Number Generator  =                    1 *
+ * Random Number Seed       =       19073486328125 *
+ * Random Number Multiplier =       19073486328125 *
+ * Random Number Adder      =                    0 *
+ * Random Number Bits Used  =                   48 *
+ * Random Number Stride     =               152917 *
+ ***************************************************
+
+
+         7 warning messages so far.
+1physical constants                                                                                     print table 98
+
+
+   name                    value     description
+
+   huge      1.0000000000000E+36     infinity
+    pie      3.1415926535898E+00     pi
+  euler      5.7721566490153E-01     euler constant
+ avogad      6.0220434469282E+23     avogadro number (molecules/mole)
+  aneut      1.0086649670000E+00     neutron mass (amu)
+  avgdn      5.9703109000000E-01     avogadro number/neutron mass (1.e-24*molecules/mole/amu)
+  slite      2.9979250000000E+02     speed of light (cm/shake)
+ planck      4.1357320000000E-13     planck constant (mev shake)
+  fscon      1.3703930000000E+02     inverse fine structure constant h*c/(2*pi*e**2)
+ gpt(1)      9.3958000000000E+02     neutron mass (mev)
+ gpt(3)      5.1100800000000E-01     electron mass (mev)
+
+
+ fission q-values:     nuclide    q(mev)   nuclide    q(mev)
+                         90232    171.91     91233    175.57
+                         92233    180.84     92234    179.45
+                         92235    180.88     92236    179.50
+                         92237    180.40     92238    181.31
+                         92239    180.40     92240    180.40
+                         93237    183.67     94238    186.65
+                         94239    189.44     94240    186.36
+                         94241    188.99     94242    185.98
+                         94243    187.48     95241    190.83
+                         95242    190.54     95243    190.25
+                         96242    190.49     96244    190.49
+                         other    180.00
+
+
+ the following compilation options were used:
+
+     dec
+     plot
+     mcplot
+     xlib
+     omp
+     default datapath: /cygdrive/c/Users/195953/LANL/MCNP_DATA                                         
+                       C:\MCNP\MCNP_DATA                                                               
+1cross-section tables                                                                                   print table 100
+
+     table    length
+
+                        tables from file mcplib04                                                        
+
+   1000.04p    1898  ENDF/B-VI Release 8 Photoatomic Data for 1-H                                 mat 100      02/07/03
+   7000.04p    3194  ENDF/B-VI Release 8 Photoatomic Data for 7-N                                 mat 700      02/07/03
+   8000.04p    3272  ENDF/B-VI Release 8 Photoatomic Data for 8-O                                 mat 800      02/07/03
+  11000.04p    3995  ENDF/B-VI Release 8 Photoatomic Data for 11-NA                               mat1100      02/07/03
+  12000.04p    3781  ENDF/B-VI Release 8 Photoatomic Data for 12-MG                               mat1200      02/07/03
+  13000.04p    4846  ENDF/B-VI Release 8 Photoatomic Data for 13-AL                               mat1300      02/07/03
+  14000.04p    4792  ENDF/B-VI Release 8 Photoatomic Data for 14-SI                               mat1400      02/07/03
+  18000.04p    4696  ENDF/B-VI Release 8 Photoatomic Data for 18-AR                               mat1800      02/07/03
+  19000.04p    5047  ENDF/B-VI Release 8 Photoatomic Data for 19-K                                mat1900      02/07/03
+  20000.04p    5013  ENDF/B-VI Release 8 Photoatomic Data for 20-CA                               mat2000      02/07/03
+  26000.04p    5718  ENDF/B-VI Release 8 Photoatomic Data for 26-FE                               mat2600      02/07/03
+
+  total       46252
+
+ ***********************************************************************************************************************
+
+ dump no.    1 on file droom4br     nps =           0     coll =              0     ctm =        0.00   nrn =           
+      0
+
+         7 warning messages so far.
+1   starting mcrun.      cp0 =  0.00         print table 110
+
+      Variance Reduction: photons in a double room environment                        
+
+
+     nps    x          y          z          cell       surf     u          v          w        energy     weight     time
+ 
+      1  1.300E+02  0.000E+00  1.000E+02        3          0 -7.125E-01 -4.249E-01 -5.584E-01  6.616E-01  5.500E-01  0.000E+00
+      2  1.300E+02  0.000E+00  1.000E+02        3          0  8.423E-01 -5.360E-01  5.768E-02  6.616E-01  5.500E+00  0.000E+00
+ warning.  weight of source particle is above window.                  
+ nps =           2     nrn =                   3 erg = 6.6160E-01     wgt = 5.5000E+00
+ warning.  particle escaped wwg mesh in x direction.                   
+ nps =           2     nrn =                  11 msh =   17     cel =   20            
+ x,y,z =     1.6000E+02    -1.9090E+01     1.0205E+02
+      3  1.300E+02  0.000E+00  1.000E+02        3          0 -6.829E-01  1.833E-01  7.072E-01  6.616E-01  5.500E-01  0.000E+00
+      4  1.300E+02  0.000E+00  1.000E+02        3          0 -3.206E-01  7.892E-02  9.439E-01  6.616E-01  5.500E-01  0.000E+00
+      5  1.300E+02  0.000E+00  1.000E+02        3          0 -4.165E-02 -1.663E-01 -9.852E-01  6.616E-01  5.500E-01  0.000E+00
+      6  1.300E+02  0.000E+00  1.000E+02        3          0 -3.887E-01 -3.223E-01 -8.632E-01  6.616E-01  5.500E-01  0.000E+00
+      7  1.300E+02  0.000E+00  1.000E+02        3          0 -4.623E-01 -8.791E-01 -1.163E-01  6.616E-01  5.500E-01  0.000E+00
+      8  1.300E+02  0.000E+00  1.000E+02        3          0 -6.038E-01  4.786E-01  6.375E-01  6.616E-01  5.500E-01  0.000E+00
+      9  1.300E+02  0.000E+00  1.000E+02        3          0 -7.722E-01  3.128E-01  5.530E-01  6.616E-01  5.500E-01  0.000E+00
+     10  1.300E+02  0.000E+00  1.000E+02        3          0 -3.112E-01  3.516E-01 -8.829E-01  6.616E-01  5.500E-01  0.000E+00
+     11  1.300E+02  0.000E+00  1.000E+02        3          0 -2.340E-01 -9.624E-01  1.379E-01  6.616E-01  5.500E-01  0.000E+00
+     12  1.300E+02  0.000E+00  1.000E+02        3          0 -3.316E-01 -9.126E-01 -2.392E-01  6.616E-01  5.500E-01  0.000E+00
+     13  1.300E+02  0.000E+00  1.000E+02        3          0 -1.420E-01 -9.123E-01 -3.841E-01  6.616E-01  5.500E-01  0.000E+00
+     14  1.300E+02  0.000E+00  1.000E+02        3          0 -2.719E-01  1.487E-01  9.508E-01  6.616E-01  5.500E-01  0.000E+00
+     15  1.300E+02  0.000E+00  1.000E+02        3          0 -9.638E-01  2.152E-01 -1.573E-01  6.616E-01  5.500E-01  0.000E+00
+     16  1.300E+02  0.000E+00  1.000E+02        3          0 -9.995E-01 -1.942E-02 -2.397E-02  6.616E-01  5.500E-01  0.000E+00
+     17  1.300E+02  0.000E+00  1.000E+02        3          0  4.738E-01  7.980E-01 -3.723E-01  6.616E-01  5.500E+00  0.000E+00
+     18  1.300E+02  0.000E+00  1.000E+02        3          0 -6.107E-01 -5.670E-01  5.528E-01  6.616E-01  5.500E-01  0.000E+00
+     19  1.300E+02  0.000E+00  1.000E+02        3          0 -4.120E-01  9.111E-01 -1.415E-02  6.616E-01  5.500E-01  0.000E+00
+     20  1.300E+02  0.000E+00  1.000E+02        3          0 -8.251E-01  3.358E-01  4.544E-01  6.616E-01  5.500E-01  0.000E+00
+     21  1.300E+02  0.000E+00  1.000E+02        3          0 -7.982E-01 -6.014E-01 -3.495E-02  6.616E-01  5.500E-01  0.000E+00
+     22  1.300E+02  0.000E+00  1.000E+02        3          0 -3.474E-01 -9.328E-01  9.628E-02  6.616E-01  5.500E-01  0.000E+00
+     23  1.300E+02  0.000E+00  1.000E+02        3          0 -7.221E-01  5.846E-01  3.700E-01  6.616E-01  5.500E-01  0.000E+00
+     24  1.300E+02  0.000E+00  1.000E+02        3          0 -5.905E-01 -2.772E-01  7.579E-01  6.616E-01  5.500E-01  0.000E+00
+     25  1.300E+02  0.000E+00  1.000E+02        3          0 -6.945E-01  3.639E-03 -7.195E-01  6.616E-01  5.500E-01  0.000E+00
+     26  1.300E+02  0.000E+00  1.000E+02        3          0 -2.283E-01 -8.401E-01  4.920E-01  6.616E-01  5.500E-01  0.000E+00
+     27  1.300E+02  0.000E+00  1.000E+02        3          0 -7.267E-01 -4.802E-01 -4.912E-01  6.616E-01  5.500E-01  0.000E+00
+     28  1.300E+02  0.000E+00  1.000E+02        3          0 -5.372E-02 -9.373E-01 -3.443E-01  6.616E-01  5.500E-01  0.000E+00
+     29  1.300E+02  0.000E+00  1.000E+02        3          0 -2.159E-01  9.469E-01  2.381E-01  6.616E-01  5.500E-01  0.000E+00
+     30  1.300E+02  0.000E+00  1.000E+02        3          0  8.668E-01 -2.873E-01  4.075E-01  6.616E-01  5.500E+00  0.000E+00
+     31  1.300E+02  0.000E+00  1.000E+02        3          0 -6.121E-01 -7.177E-02  7.875E-01  6.616E-01  5.500E-01  0.000E+00
+     32  1.300E+02  0.000E+00  1.000E+02        3          0 -3.149E-01  6.949E-01  6.465E-01  6.616E-01  5.500E-01  0.000E+00
+     33  1.300E+02  0.000E+00  1.000E+02        3          0 -3.382E-01  8.733E-01 -3.506E-01  6.616E-01  5.500E-01  0.000E+00
+     34  1.300E+02  0.000E+00  1.000E+02        3          0 -8.785E-01 -3.177E-01  3.567E-01  6.616E-01  5.500E-01  0.000E+00
+     35  1.300E+02  0.000E+00  1.000E+02        3          0 -7.867E-01 -6.083E-01  1.054E-01  6.616E-01  5.500E-01  0.000E+00
+     36  1.300E+02  0.000E+00  1.000E+02        3          0 -7.270E-03  4.488E-01  8.936E-01  6.616E-01  5.500E-01  0.000E+00
+     37  1.300E+02  0.000E+00  1.000E+02        3          0  9.695E-01  9.653E-02 -2.253E-01  6.616E-01  5.500E+00  0.000E+00
+     38  1.300E+02  0.000E+00  1.000E+02        3          0 -5.309E-01  6.289E-01  5.681E-01  6.616E-01  5.500E-01  0.000E+00
+     39  1.300E+02  0.000E+00  1.000E+02        3          0 -2.494E-01  6.976E-01 -6.717E-01  6.616E-01  5.500E-01  0.000E+00
+     40  1.300E+02  0.000E+00  1.000E+02        3          0 -1.305E-01  8.088E-01 -5.735E-01  6.616E-01  5.500E-01  0.000E+00
+     41  1.300E+02  0.000E+00  1.000E+02        3          0 -1.902E-01  8.188E-01  5.417E-01  6.616E-01  5.500E-01  0.000E+00
+     42  1.300E+02  0.000E+00  1.000E+02        3          0 -2.847E-02  1.884E-01  9.817E-01  6.616E-01  5.500E-01  0.000E+00
+     43  1.300E+02  0.000E+00  1.000E+02        3          0 -7.908E-01  1.613E-01 -5.904E-01  6.616E-01  5.500E-01  0.000E+00
+     44  1.300E+02  0.000E+00  1.000E+02        3          0 -7.682E-01 -6.288E-01  1.204E-01  6.616E-01  5.500E-01  0.000E+00
+     45  1.300E+02  0.000E+00  1.000E+02        3          0 -3.357E-01  8.919E-01  3.031E-01  6.616E-01  5.500E-01  0.000E+00
+     46  1.300E+02  0.000E+00  1.000E+02        3          0 -6.879E-02  9.160E-01  3.953E-01  6.616E-01  5.500E-01  0.000E+00
+     47  1.300E+02  0.000E+00  1.000E+02        3          0 -8.735E-01 -2.810E-01 -3.976E-01  6.616E-01  5.500E-01  0.000E+00
+     48  1.300E+02  0.000E+00  1.000E+02        3          0 -9.144E-01 -4.046E-01 -1.063E-02  6.616E-01  5.500E-01  0.000E+00
+     49  1.300E+02  0.000E+00  1.000E+02        3          0 -6.957E-01  4.371E-01  5.701E-01  6.616E-01  5.500E-01  0.000E+00
+     50  1.300E+02  0.000E+00  1.000E+02        3          0 -8.728E-02 -9.799E-01 -1.795E-01  6.616E-01  5.500E-01  0.000E+00
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 5.3525E-03 7.0856E-01 1.3050E+00 1.6673E+00 4.4903E+01 2.7665E-01    13        1908    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 5.1299E-01 3.4375E+02 7.1257E-01 4.0403E-01 6.2165E+01 9.4340E-02    19       46075    8
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.7259E-03 1.3117E+01 1.5304E+00 8.5075E-01 1.5332E+02 4.3087E-01    14       53806    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.9335E-03 2.4668E-01 1.3660E+00 4.7330E-01 2.6678E+01 5.8160E-01    13       53910    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 4.1089E-01 4.7381E-01 9.9559E-01 4.1406E-01 3.0708E+00 3.2888E-01    13       69221    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.3630E-03 4.2162E-01 1.5664E+00 1.0019E-02 3.9909E+01 4.5443E-01    13       74923    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.8743E-03 6.5540E-01 1.5195E+00 6.6294E-01 4.5648E+01 5.1740E-01    13       74923    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.2085E-03 5.3114E-02 1.3778E+00 3.8884E-01 2.7599E+01 4.9349E-01    13       82639    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.2576E-02 3.4375E+02 3.5303E-01 1.5459E+00 2.7583E+02 1.4338E-01    14       86148    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.8339E-03 2.3134E+02 8.0475E-01 3.9525E+00 2.2253E+02 7.2360E-02    14       93127    5
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 1.8645E-02 2.3134E+02 8.0170E-01 9.8352E-01 2.2061E+02 7.2330E-02    14       93127    5
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 4.2417E-01 5.4789E+01 3.7560E-01 7.0827E-02 5.3506E+01 1.3902E-01    19      126137    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.1260E-03 1.2029E-02 8.2783E-01 2.2250E-01 9.3850E+00 4.8123E-01    13      147471    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.9546E-03 7.9598E-01 1.5847E+00 1.0476E+00 3.4090E+01 4.7440E-01    13      152853    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.6209E-03 9.3156E-02 9.0088E-01 8.9957E-02 1.1361E+01 3.9348E-01    13      152853    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 4.9891E-01 3.4375E+02 7.4896E-01 1.1484E+00 1.0338E+02 1.9979E-01    19      153389    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 8.7177E-03 1.0529E+00 1.7863E+00 3.8000E-02 4.9109E+01 6.4129E-01    13      169264    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 4.8597E-01 7.6781E-01 1.3766E+00 5.5591E-02 2.6861E-01 4.6165E-01    13      171111    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 5.4707E-01 1.1458E+03 6.7239E-01 3.0637E-01 1.1284E+02 1.5518E-01    19      201614    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 7.2068E-03 1.3638E-01 1.4899E+00 6.0035E-01 2.9583E+01 5.6188E-01    13      237228    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 1.9425E+00 2.7480E+00 3.3850E-01 1.0593E-01 4.3415E-01 3.0439E-01    13      237664    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.2496E-03 2.7480E+00 1.6912E+00 1.7101E+00 5.3993E+01 6.2870E-01    13      237664    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.9673E-03 1.3750E+01 1.1679E+00 8.1222E-02 2.5516E+02 2.5249E-01    14      246512    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.9330E-03 1.1761E-01 1.0339E+00 6.6769E-01 2.9470E+01 4.8178E-01    13      285710    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 7.7737E-03 2.2917E+02 5.0577E-01 2.7495E+00 2.5195E+02 8.9487E-02    14      309494    5
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.2333E-03 3.2803E-01 1.0753E+00 3.6916E-02 3.3594E+01 5.3214E-01    13      348868    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.8210E-03 1.5850E+00 1.5857E+00 1.0563E+00 5.1794E+01 6.1417E-01    13      359021    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 9.6284E-01 2.9454E+00 9.4926E-01 1.5256E-01 7.6643E-01 5.0752E-01    13      360250    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.1235E-03 1.5278E+01 6.7354E-01 1.4719E+00 1.9514E+02 1.9885E-01    14      396044    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.6093E-03 1.7892E-02 5.4287E-01 1.3807E-01 1.0141E+01 2.4833E-01    13      449526    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 3.6325E-01 3.4375E+02 6.3921E-01 1.3276E+00 1.0271E+02 8.4091E-02    19      460443    7
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 1.0245E+00 2.3366E+02 3.1910E-01 1.5978E-01 6.1689E+01 2.3467E-01    19      499928    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.0971E-03 3.9407E-03 3.0408E-01 2.1247E-02 7.3595E-02 1.9257E-01    13      512114    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.1539E-03 6.8750E+01 9.9141E-01 2.9633E+00 2.7226E+02 2.1838E-01    19      608135    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 3.5744E-01 2.1786E+00 3.2934E-01 2.9306E-02 1.1901E-01 2.9687E-01    13      614901    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.7208E-03 2.7482E-02 1.3764E+00 3.5552E-01 1.9787E+01 5.0490E-01    13      633000    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 8.1130E-03 1.9047E+00 1.7664E+00 5.5308E-01 5.2850E+01 6.3870E-01    13      665741    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 1.1934E-02 2.6109E+00 1.8559E+00 5.3887E-01 5.2601E+01 6.4313E-01    13      665741    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.1257E-03 2.1759E-01 1.0354E+00 8.7169E-01 1.5429E+01 5.1939E-01    13      665741    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.9806E-03 3.4325E-01 1.5344E+00 1.3046E+00 1.5674E+01 5.8647E-01    13      665741    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.8933E-03 1.8378E-01 1.3003E+00 1.1418E+00 1.1443E+01 5.5244E-01    13      665741    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.2674E-03 2.1548E-01 7.7788E-01 5.3682E-01 1.5549E+01 4.6510E-01    13      665741    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 8.3696E-03 3.7396E+02 3.6515E-01 9.1861E-01 2.9221E+02 9.8095E-02    14      682596    4
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 1.6636E-02 3.7396E+02 9.0741E-01 1.1442E+00 2.9378E+02 9.8713E-02    14      682596    5
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.5069E-03 3.9561E-02 9.8418E-01 5.1409E-02 6.7109E+00 3.6684E-01    13      700111    4
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 4.1429E-01 8.4315E+00 2.8456E-01 1.4811E+00 6.2013E+00 2.1517E-01    13      704638    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 4.2498E-03 6.0676E-03 1.6635E+00 7.1686E-02 3.5607E-01 4.9393E-01    13      719890    4
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 5.3930E-01 2.7500E+00 1.1790E+00 4.6493E-03 1.7617E+01 2.0878E-01    14      740136    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 8.4101E-03 1.1340E+01 9.9113E-01 3.2591E+00 5.6015E+01 5.1597E-01    13      755319    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 6.6439E-03 6.8750E+01 1.2751E+00 8.0603E-01 2.7822E+02 2.8897E-01    14      836711    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.6621E-03 2.7154E-01 1.1359E+00 1.0274E-01 2.7575E+01 5.4320E-01    13      838782    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.0101E-03 6.9605E-02 1.2146E+00 3.9707E-01 1.0442E+01 4.7443E-01    13      858431    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.7847E-03 2.2294E-02 1.1190E+00 6.1394E-01 3.0650E+00 4.3552E-01    13      858431    4
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.1770E-03 2.3554E-02 9.7321E-01 3.3292E-01 2.8844E+00 4.1543E-01    13      858431    4
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.2690E-03 9.2482E-02 1.2796E+00 1.2413E-01 1.5180E+01 4.9066E-01    13      858431    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 5.5724E-03 2.5129E-01 1.1876E+00 4.6795E-01 4.5126E+01 4.6237E-01    13      870865    2
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 2.0259E+00 4.2735E+00 1.0562E+00 9.6768E-01 3.2810E+00 1.8142E-01    13      980408    6
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 6.6328E-01 4.4892E+00 9.9817E-01 3.3420E-01 2.9691E+00 1.7929E-01    13      980408    6
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  1 6.0837E-01 3.7199E+00 6.7479E-01 3.7228E-01 1.2183E+00 1.6508E-01    13      980408    6
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 3.3603E-03 6.8750E+01 9.9409E-01 1.3378E+00 2.6592E+02 3.3632E-01    14      986709    3
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 1.1654E-02 1.7849E-01 1.1584E+00 2.9347E-01 2.7000E+01 5.4718E-01    13      997351    1
+
+ idx    dx wgt    col wgt     psc       amfp        dd         erg     cell         nps  ncp             p
+  2 2.9956E-03 9.9722E-02 9.7993E-01 7.7588E-01 2.8599E+01 5.1374E-01    13      999533    1
+1problem summary                                                                                                           
+
+      run terminated when     1000000  particle histories were done.
++                                                                                                    07/15/11 13:07:38 
+      Variance Reduction: photons in a double room environment                             probid =  07/15/11 13:05:16 
+0
+ photon creation     tracks      weight        energy            photon loss         tracks      weight        energy
+                                 (per source particle)                                           (per source particle)
+
+ source             1000000    1.0007E+00    6.6160E-01          escape              477508    3.9991E-01    2.3050E-01
+                                                                 energy cutoff            0    0.            0.        
+                                                                 time cutoff              0    0.            0.        
+ weight window      4914295    2.2198E+00    9.3259E-01          weight window      8574275    2.2444E+00    9.2881E-01
+ cell importance          0    0.            0.                  cell importance          0    0.            0.        
+ weight cutoff            0    0.            0.                  weight cutoff            0    0.            0.        
+ e or t importance        0    0.            0.                  e or t importance        0    0.            0.        
+ dxtran             6099241    3.3111E-04    1.3178E-04          dxtran               16045    2.9868E-04    1.3011E-04
+ forced collisions        0    0.            0.                  forced collisions        0    0.            0.        
+ exp. transform           0    2.0532E-01    5.8607E-02          exp. transform           0    2.0267E-01    5.8960E-02
+ from neutrons            0    0.            0.                  compton scatter          0    0.            3.8615E-01
+ bremsstrahlung           0    0.            0.                  capture            2945708    5.7889E-01    4.8373E-02
+ p-annihilation           0    0.            0.                  pair production          0    0.            0.        
+ photonuclear             0    0.            0.                  photonuclear abs         0    0.            0.        
+ electron x-rays          0    0.            0.                                                                        
+ 1st fluorescence         0    0.            0.                                                                        
+ 2nd fluorescence         0    0.            0.                                                                        
+     total         12013536    3.4262E+00    1.6529E+00              total         12013536    3.4262E+00    1.6529E+00
+
+   number of photons banked                  9412148        average time of (shakes)              cutoffs
+   photon tracks per source particle      1.2014E+01          escape            1.7182E+00          tco   1.0000E+33
+   photon collisions per source particle  1.7756E+01          capture           6.4861E-01          eco   1.0000E-02
+   total photon collisions                  17756335          capture or escape 1.0856E+00          wc1   0.0000E+00
+                                                              any termination   6.9151E-01          wc2   0.0000E+00
+
+ computer time so far in this run     2.37 minutes            maximum number ever in bank        45
+ computer time in mcrun               2.37 minutes            bank overflows to backup file       0
+ source particles per minute            4.2261E+05
+ random numbers generated                366907415            most random numbers used was     1343284 in history      919441
+ 
+  warning.   random number stride   152917 exceeded       51 times.
+
+ range of sampled source weights = 5.5000E-01 to 5.5000E+00
+
+   91050 source particles had weight above window.
+1source distribution frequency tables                                                                   print table 170
+
+ the expected values below do not include the effect of the rejection loop which samples position.
+
+
+ source distribution   1  for dir
+
+                                         number                                       weight
+             source
+   n          value         sampled      expected  sampled/expected      sampled      expected  sampled/expected
+
+   1      0.00000E+00      9.1050E-02   9.0909E-02   1.0015E+00         5.0077E-01   5.0000E-01   1.0015E+00
+   2      1.00000E+00      9.0895E-01   9.0909E-01   9.9984E-01         4.9992E-01   5.0000E-01   9.9984E-01
+ total                     1.0000E+00   1.0000E+00   1.0000E+00         1.0007E+00   1.0000E+00   1.0007E+00
+ 
+  warning.  some of the geometry is covered by a weight window mesh.
+1photon   activity in each cell                                                                         print table 126
+
+                       tracks     population   collisions   collisions     number        flux        average      average
+              cell    entering                               * weight     weighted     weighted   track weight   track mfp
+                                                          (per history)    energy       energy     (relative)      (cm)
+
+        1        1        3543         3534         5264    5.2389E-02   3.5506E-01   3.5506E-01   9.0976E+00   4.1450E+00
+        2        2      972224      2108088            0    0.0000E+00   4.4842E-01   4.4842E-01   6.1320E-01   0.0000E+00
+        3        3     1038735      1218024            0    0.0000E+00   5.9720E-01   5.9720E-01   9.4560E-01   0.0000E+00
+        4        4     3010387      2994482            0    0.0000E+00   2.4169E-01   2.4169E-01   2.0513E-05   0.0000E+00
+        5        5      377322       367703            0    0.0000E+00   2.8754E-01   2.8754E-01   1.9664E-05   0.0000E+00
+        6        6     3961226      4389613            0    0.0000E+00   3.8010E-01   3.8010E-01   1.4602E-04   0.0000E+00
+        7        7         541          943         1677    4.7584E-04   3.6047E-01   3.6047E-01   2.9389E-01   4.1594E+00
+        8       11       46929        46936        42769    1.2405E+00   3.2127E-01   3.2127E-01   2.0785E+01   3.9085E+00
+        9       12        4211         4208         4328    3.6552E-02   3.4599E-01   3.4599E-01   8.9499E+00   4.1329E+00
+       10       13      615838      9388178     16143364    6.2938E-01   3.1167E-01   3.1167E-01   3.0612E-02   3.8589E+00
+       11       14      394154       416538       556366    1.8370E+00   3.2990E-01   3.2990E-01   3.7387E+00   3.9637E+00
+       12       15       60339        75760       217518    4.1573E-05   2.0940E-01   2.0940E-01   1.8906E-04   3.2870E+00
+       13       18      257130       356245       501679    1.0109E+00   3.0081E-01   3.0081E-01   1.9308E+00   3.7829E+00
+       14       19      301109       303795       283370    6.8469E-01   2.9898E-01   2.9898E-01   2.6976E+00   3.8069E+00
+       15       20      477508       477508            0    0.0000E+00   5.6989E-01   5.6989E-01   1.3717E+00   0.0000E+00
+
+           total      11521196     22151555     17756335    5.4919E+00
+1photon   weight balance in each cell                                                                   print table 130
+
+        cell index        1           2           3           4           5           6           7           8           9
+       cell number        1           2           3           4           5           6           7          11          12
+
+ external events:
+          entering  1.4502E-02  5.0989E-01  1.4038E-01  3.6301E-05  7.3818E-06  4.1086E-04  2.3068E-04  1.9020E-01  1.4399E-02
+            source  0.0000E+00  0.0000E+00  1.0007E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+     energy cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+       time cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+           exiting -4.1679E-03 -5.0993E-01 -1.1411E+00 -3.6292E-05 -7.3818E-06 -4.0916E-04 -1.8022E-04 -8.2863E-02 -1.1442E-03
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total  1.0334E-02 -4.0762E-05  0.0000E+00  8.7068E-09  0.0000E+00  1.6970E-06  5.0456E-05  1.0733E-01  1.3255E-02
+
+ variance reduction events:
+     weight window -6.6417E-03  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 -2.6456E-05  1.5177E-02 -1.0347E-02
+   cell importance  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+     weight cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+ e or t importance  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+            dxtran  0.0000E+00  4.0762E-05  0.0000E+00 -8.7068E-09  0.0000E+00 -1.6970E-06  0.0000E+00  0.0000E+00  0.0000E+00
+ forced collisions  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+    exp. transform  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total -6.6417E-03  4.0762E-05  0.0000E+00 -8.7068E-09  0.0000E+00 -1.6970E-06 -2.6456E-05  1.5177E-02 -1.0347E-02
+
+ physical events:
+     from neutrons  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+    bremsstrahlung  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+           capture -3.6924E-03  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 -2.4000E-05 -1.2251E-01 -2.9087E-03
+    p-annihilation  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+   pair production  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+      photonuclear  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+  photonuclear abs  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+   electron x-rays  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+      fluorescence  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total -3.6924E-03  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00 -2.4000E-05 -1.2251E-01 -2.9087E-03
+
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+ 
+
+        cell index       10          11          12          13          14          15
+       cell number       13          14          15          18          19          20       total                             
+
+ external events:
+          entering  1.1891E-01  3.1037E-01  9.0104E-06  1.6854E-01  1.2141E-01  3.9991E-01  1.9892E+00
+            source  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  1.0007E+00
+     energy cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+       time cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+           exiting -3.2081E-02 -1.2353E-01 -3.0190E-06 -5.9974E-02 -3.3796E-02 -3.9991E-01 -2.3891E+00
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total  8.6832E-02  1.8684E-01  5.9914E-06  1.0857E-01  8.7615E-02  0.0000E+00  6.0079E-01
+
+ variance reduction events:
+     weight window -1.2090E-02  5.7870E-03 -2.6757E-07  4.2288E-03 -2.0662E-02  0.0000E+00 -2.4574E-02
+   cell importance  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+     weight cutoff  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+ e or t importance  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+            dxtran -6.6266E-06  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  3.2429E-05
+ forced collisions  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+    exp. transform  2.6444E-03  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  2.6444E-03
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total -9.4525E-03  5.7870E-03 -2.6757E-07  4.2288E-03 -2.0662E-02  0.0000E+00 -2.1898E-02
+
+ physical events:
+     from neutrons  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+    bremsstrahlung  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+           capture -7.7380E-02 -1.9262E-01 -5.7239E-06 -1.1279E-01 -6.6953E-02  0.0000E+00 -5.7889E-01
+    p-annihilation  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+   pair production  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+      photonuclear  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+  photonuclear abs  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+   electron x-rays  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+      fluorescence  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total -7.7380E-02 -1.9262E-01 -5.7239E-06 -1.1279E-01 -6.6953E-02  0.0000E+00 -5.7889E-01
+
+                    ----------  ----------  ----------  ----------  ----------  ----------  ----------
+             total  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
+ 
+1photoatomic activity of each nuclide in each cell, per source particle                                 print table 140
+
+      cell     cell   nuclides     atom       total  collisions   wgt. lost
+     index     name            fraction  collisions    * weight  to capture
+
+         1        1   1000.04p 1.05E-01          57  3.9116E-04  0.0000E+00
+                      8000.04p 5.84E-01        2457  2.4107E-02  2.5684E-04
+                     11000.04p 1.40E-02          78  1.2782E-03  3.9906E-05
+                     12000.04p 1.87E-03          16  1.4953E-04  1.6503E-05
+                     13000.04p 3.19E-02         240  2.4718E-03  5.7952E-04
+                     14000.04p 2.11E-01        1669  1.6671E-02  1.2177E-03
+                     19000.04p 9.20E-03         131  1.7166E-03  2.4450E-04
+                     20000.04p 3.90E-02         507  4.9062E-03  1.0409E-03
+                     26000.04p 4.14E-03         109  6.9744E-04  2.9651E-04
+
+         7        7   1000.04p 1.05E-01          17  4.6916E-06  0.0000E+00
+                      8000.04p 5.84E-01         803  2.4765E-04  1.6699E-06
+                     11000.04p 1.40E-02          18  5.5207E-06  0.0000E+00
+                     12000.04p 1.87E-03           5  3.5530E-06  0.0000E+00
+                     13000.04p 3.19E-02          67  1.6479E-05  7.1420E-08
+                     14000.04p 2.11E-01         535  1.4599E-04  7.1910E-06
+                     19000.04p 9.20E-03          31  7.2018E-06  1.5116E-06
+                     20000.04p 3.90E-02         161  4.0390E-05  1.0607E-05
+                     26000.04p 4.14E-03          40  4.3630E-06  2.9487E-06
+
+         8       11   1000.04p 1.05E-01         450  3.9979E-02  0.0000E+00
+                      8000.04p 5.84E-01       20309  4.9267E-01  8.5286E-03
+                     11000.04p 1.40E-02         704  1.8249E-02  1.1555E-03
+                     12000.04p 1.87E-03         109  3.2595E-03  2.8490E-06
+                     13000.04p 3.19E-02        1827  4.6006E-02  4.7835E-03
+                     14000.04p 2.11E-01       13645  4.6503E-01  5.9961E-02
+                     19000.04p 9.20E-03         882  1.9910E-02  4.1784E-03
+                     20000.04p 3.90E-02        4066  1.3462E-01  3.4180E-02
+                     26000.04p 4.14E-03         777  2.0783E-02  9.7195E-03
+
+         9       12   1000.04p 1.05E-01          42  4.8469E-04  0.0000E+00
+                      8000.04p 5.84E-01        1991  2.0997E-02  1.1358E-04
+                     11000.04p 1.40E-02          70  2.1858E-04  4.3312E-07
+                     12000.04p 1.87E-03          13  3.4675E-05  2.7500E-06
+                     13000.04p 3.19E-02         184  5.2173E-04  5.0387E-05
+                     14000.04p 2.11E-01        1327  9.2239E-03  2.1987E-04
+                     19000.04p 9.20E-03          97  2.0872E-04  2.0489E-05
+                     20000.04p 3.90E-02         511  2.5325E-03  3.6136E-04
+                     26000.04p 4.14E-03          93  2.3306E-03  2.1398E-03
+
+        10       13   1000.04p 1.05E-01      153203  5.9181E-03  0.0000E+00
+                      8000.04p 5.84E-01     6934584  2.8300E-01  4.8766E-03
+                     11000.04p 1.40E-02      242388  9.0286E-03  4.9162E-04
+                     12000.04p 1.87E-03       36023  1.4455E-03  8.5941E-05
+                     13000.04p 3.19E-02      696388  2.5443E-02  2.4652E-03
+                     14000.04p 2.11E-01     5190147  1.9659E-01  2.4031E-02
+                     19000.04p 9.20E-03      420124  1.3759E-02  3.8267E-03
+                     20000.04p 3.90E-02     2016752  8.1323E-02  3.4660E-02
+                     26000.04p 4.14E-03      453755  1.2872E-02  6.9430E-03
+
+        11       14   1000.04p 1.05E-01        5583  1.5819E-02  0.0000E+00
+                      8000.04p 5.84E-01      246999  8.2622E-01  1.2436E-02
+                     11000.04p 1.40E-02        8533  2.5811E-02  1.7647E-03
+                     12000.04p 1.87E-03        1233  3.5786E-03  1.8606E-04
+                     13000.04p 3.19E-02       24292  7.2605E-02  6.0955E-03
+                     14000.04p 2.11E-01      177929  6.0761E-01  7.2647E-02
+                     19000.04p 9.20E-03       13753  4.6065E-02  1.4438E-02
+                     20000.04p 3.90E-02       64355  1.9897E-01  6.2515E-02
+                     26000.04p 4.14E-03       13689  4.0304E-02  2.2541E-02
+
+        12       15   1000.04p 1.05E-01        2127  4.3773E-07  4.8751E-10
+                      8000.04p 5.84E-01       95905  1.8683E-05  4.9166E-07
+                     11000.04p 1.40E-02        3348  7.2700E-07  4.2340E-08
+                     12000.04p 1.87E-03         502  9.2890E-08  1.5027E-08
+                     13000.04p 3.19E-02        9465  1.7843E-06  2.7508E-07
+                     14000.04p 2.11E-01       69788  1.3025E-05  1.9795E-06
+                     19000.04p 9.20E-03        5283  1.0134E-06  3.8131E-07
+                     20000.04p 3.90E-02       25511  4.8500E-06  2.0052E-06
+                     26000.04p 4.14E-03        5589  9.6083E-07  5.3326E-07
+
+        13       18   1000.04p 1.05E-01        4911  6.1197E-03  0.0000E+00
+                      8000.04p 5.84E-01      228617  4.7611E-01  7.2646E-03
+                     11000.04p 1.40E-02        7583  1.7961E-02  4.4314E-04
+                     12000.04p 1.87E-03        1148  1.1672E-03  1.0997E-04
+                     13000.04p 3.19E-02       21919  4.8349E-02  2.0791E-03
+                     14000.04p 2.11E-01      159650  2.9065E-01  3.7753E-02
+                     19000.04p 9.20E-03       11773  3.6151E-02  1.6732E-02
+                     20000.04p 3.90E-02       55063  1.1162E-01  4.1560E-02
+                     26000.04p 4.14E-03       11015  2.2777E-02  6.8526E-03
+
+        14       19   1000.04p 1.05E-01        2739  7.5766E-03  0.0000E+00
+                      8000.04p 5.84E-01      127189  3.0318E-01  3.6479E-03
+                     11000.04p 1.40E-02        4308  1.3531E-02  2.0130E-03
+                     12000.04p 1.87E-03         686  2.1653E-03  3.4409E-04
+                     13000.04p 3.19E-02       12288  2.7617E-02  2.6237E-03
+                     14000.04p 2.11E-01       90781  2.1897E-01  2.6297E-02
+                     19000.04p 9.20E-03        6704  2.2744E-02  3.2882E-03
+                     20000.04p 3.90E-02       32061  7.6929E-02  2.2011E-02
+                     26000.04p 4.14E-03        6614  1.1976E-02  6.7282E-03
+
+              total                        17756335  5.4919E+00  5.7889E-01
+
+
+        total over all cells by nuclide       total  collisions   wgt. lost
+                                         collisions    * weight  to capture
+
+                      1000.04p               169129  7.6294E-02  4.8751E-10
+                      7000.04p                    0  0.0000E+00  0.0000E+00
+                      8000.04p              7658854  2.4265E+00  3.7126E-02
+                     11000.04p               267030  8.6083E-02  5.9084E-03
+                     12000.04p                39735  1.1804E-02  7.4818E-04
+                     13000.04p               766670  2.2303E-01  1.8677E-02
+                     14000.04p              5705471  1.8049E+00  2.2214E-01
+                     18000.04p                    0  0.0000E+00  0.0000E+00
+                     19000.04p               458778  1.4056E-01  4.2730E-02
+                     20000.04p              2198987  6.1095E-01  1.9634E-01
+                     26000.04p               491681  1.1175E-01  5.5224E-02
+1dxtran diagnostics --   photons       nps =     1000000                                                print table 150
+
+
+ dxtran sphere no. 1 located at x,y,z =-1.00000E+02 3.00000E+01 2.00000E+02
+                                             cumulative        weight           cumulative
+                                             fraction of       transmitted      fraction of
+  times average weight     transmissions     transmissions     per history      total weight
+
+         1.0000E-01         984352             0.44550         2.60667E-06        0.00794
+         1.0000E+00        1087140             0.93752         1.15977E-04        0.36107
+         2.0000E+00         102662             0.98398         5.28386E-05        0.52195
+         5.0000E+00          17691             0.99198         1.88305E-05        0.57929
+         1.0000E+01           7183             0.99524         1.70167E-05        0.63110
+         1.0000E+02           7379             0.99858         6.51275E-05        0.82940
+         1.0000E+03            561             0.99883         4.41243E-05        0.96375
+         1.0000E+38             16             0.99884         1.17816E-05        0.99963
+  1st 200 histories           2571             1.00000         1.22741E-07        1.00000
+
+ average weight per history = 3.28425E-04       largest weight = 2.02587E+00
+ largest/average = 6.16843E+03                  nps of largest =      980408
+
+
+ contributions by cell
+
+        cell    misses      hits    weight per history    weight per hit
+
+     1     1      4807        59       3.72911E-09         6.32053E-05
+     3     3         0   1000000       1.40466E-04         1.40466E-04
+     7     7      1299       230       3.31881E-10         1.44296E-06
+     8    11     14159     26133       1.18824E-05         4.54688E-04
+     9    12      3037       795       5.70663E-07         7.17815E-04
+    10    13  12052125   1047675       9.48710E-05         9.05538E-05
+    11    14    442127     39762       3.94615E-05         9.92442E-04
+    12    15    186598        51       1.25109E-19         2.45312E-15
+    13    18    372111     75632       1.42294E-05         1.88141E-04
+    14    19    230063     19218       2.69404E-05         1.40183E-03
+       total  13306326   2209555       3.28425E-04         1.48639E-04
+
+
+ misses
+   russian roulette on dxc                  0
+   psc=0.                                   0
+   russian roulette in transmission       13116234
+   underflow in transmission           190092
+   hit a zero-importance cell               0
+   time cutoff                              0
+   energy cutoff                            0
+   weight cutoff                            0
+
+
+ dxtran sphere no. 2 located at x,y,z =-1.60000E+02 3.00000E+01 2.00000E+02
+                                             cumulative        weight           cumulative
+                                             fraction of       transmitted      fraction of
+  times average weight     transmissions     transmissions     per history      total weight
+
+         1.0000E-01        3584981             0.92166         4.04021E-08        0.01503
+         1.0000E+00         208127             0.97517         1.84770E-07        0.08378
+         2.0000E+00          34263             0.98398         1.38891E-07        0.13546
+         5.0000E+00          32838             0.99242         2.94476E-07        0.24503
+         1.0000E+01          13607             0.99592         2.65156E-07        0.34369
+         1.0000E+02          12266             0.99907         8.80288E-07        0.67123
+         1.0000E+03            936             0.99931         6.19834E-07        0.90185
+         1.0000E+38             46             0.99933         2.62436E-07        0.99950
+  1st 200 histories           2622             1.00000         1.34111E-09        1.00000
+
+ average weight per history = 2.68759E-06       largest weight = 2.25756E-02
+ largest/average = 8.39993E+03                  nps of largest =       86148
+
+
+ contributions by cell
+
+        cell    misses      hits    weight per history    weight per hit
+
+     1     1      4804        62       2.93054E-13         4.72667E-09
+     3     3    721927    278073       3.10167E-08         1.11542E-07
+     7     7       945       584       3.90951E-22         6.69437E-19
+     8    11     31805      8487       8.37217E-11         9.86469E-09
+     9    12      3533       299       3.10498E-11         1.03846E-07
+    10    13   9268966   3494569       2.32978E-06         6.66687E-07
+    11    14    447842     34047       3.18653E-07         9.35920E-06
+    12    15    184038      2611       7.50837E-10         2.87567E-07
+    13    18    391720     56023       6.25966E-10         1.11734E-08
+    14    19    234350     14931       6.64867E-09         4.45293E-07
+       total  11289930   3889686       2.68759E-06         6.90954E-07
+
+
+ misses
+   russian roulette on dxc                  0
+   psc=0.                                   0
+   russian roulette in transmission       10027104
+   underflow in transmission          1262826
+   hit a zero-importance cell               0
+   time cutoff                              0
+   energy cutoff                            0
+   weight cutoff                            0
+
+1tally       24        nps =     1000000
++                                      R/hr per Curie at far door                                              
+           tally type 4    track length estimate of particle flux.                        
+           tally for  photons  
+
+           volumes 
+                   cell:       5                                                                                   
+               segment
+                 1       5.25000E+05
+                 2       5.25000E+05
+                 3       9.00000E+04
+                 4       2.70000E+05
+                 5       9.00000E+04
+              whole      1.50000E+06
+ 
+ cell  5                                                                                                                               
+ segment:          -212                                                                                                                
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 4.61293E-06 0.0289
+ 
+ cell  5                                                                                                                               
+ segment:           212        211                                                                                                     
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 5.55513E-06 0.0428
+ 
+ cell  5                                                                                                                               
+ segment:           212       -211       -311                                                                                          
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 4.14455E-06 0.0428
+ 
+ cell  5                                                                                                                               
+ segment:           212       -211        311        312                                                                               
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 7.39475E-06 0.0356
+ 
+ cell  5                                                                                                                               
+ segment:           212       -211        311       -312                                                                               
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 4.70908E-06 0.0384
+ 
+ cell  5                                                                                                                               
+ segment:   whole cell                                                                                                                 
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 5.42109E-06 0.0260
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally       24
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed     random        0.04      yes          yes            0.03      yes         yes            constant    random       4.01
+ passed?        yes          yes      yes          yes             yes      yes         yes               yes        yes         yes
+
+ ===================================================================================================================================
+
+
+ this tally meets the statistical criteria used to form confidence intervals: check the tally fluctuation chart to verify.
+ the results in other bins associated with this tally may not meet these statistical criteria.
+
+ ----- estimated confidence intervals:  -----
+
+ estimated asymmetric confidence interval(1,2,3 sigma): 4.5394E-06 to 4.9016E-06; 4.3582E-06 to 5.0827E-06; 4.1771E-06 to 5.2638E-06
+ estimated  symmetric confidence interval(1,2,3 sigma): 4.5284E-06 to 4.8898E-06; 4.3477E-06 to 5.0704E-06; 4.1671E-06 to 5.2511E-06
+
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally       24 with nps=     1000000 print table 160
+
+
+ normed average tally per history  = 4.70908E-06          unnormed average tally per history  = 4.23817E-01
+ estimated tally relative error    = 0.0384               estimated variance of the variance  = 0.0258
+ relative error from zero tallies  = 0.0088               relative error from nonzero scores  = 0.0373
+
+ number of nonzero history tallies =       12647          efficiency for the nonzero tallies  = 0.0126
+ history number of largest  tally  =       79115          largest  unnormalized history tally = 5.37149E+03
+ (largest  tally)/(average tally)  = 1.26741E+04          (largest  tally)/(avg nonzero tally)= 1.60289E+02
+
+ (confidence interval shift)/mean  = 0.0024               shifted confidence interval center  = 4.72046E-06
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            4.70908E-06             4.76876E-06                     0.012673
+      relative error                  3.83668E-02             3.99000E-02                     0.039961
+      variance of the variance        2.57579E-02             3.06164E-02                     0.188622
+      shifted center                  4.72046E-06             4.72228E-06                     0.000385
+      figure of merit                 2.87094E+02             2.65454E+02                    -0.075374
+
+ the estimated inverse power slope of the 200 largest  tallies starting at 3.72430E+02 is 4.0134
+ the history score probability density function appears to have an unsampled region at the largest  history scores:
+ please examine. see print table 161.
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (4.226E+05)*( 2.606E-02)**2 = (4.226E+05)*(6.793E-04) = 2.871E+02
+
+1unnormed tally density for tally       24          nonzero tally mean(m) = 3.351E+01   nps =     1000000  print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope= 4.0)
+  tally  number num den log den:d-d--d--d--d--d--d--d--d--d-d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d-d--d--d--d--d--d
+ 3.98-30      5 1.68+24  24.225 ********|********|********|*******|********|********|********|********|********|*******|********|***
+ 1.58-29      6 5.06+23  23.704 ********|********|********|*******|********|********|********|********|********|*******|********|*  
+ 6.31-29      2 4.23+22  22.627 ********|********|********|*******|********|********|********|********|********|*******|******* |   
+ 2.51-28      5 2.66+22  22.425 ********|********|********|*******|********|********|********|********|********|*******|******* |   
+ 1.00-27      4 5.34+21  21.728 ********|********|********|*******|********|********|********|********|********|*******|*****   |   
+ 3.98-27      6 2.01+21  21.304 ********|********|********|*******|********|********|********|********|********|*******|***     |   
+ 1.58-26      4 3.37+20  20.528 ********|********|********|*******|********|********|********|********|********|*******|*       |   
+ 6.31-26      3 6.35+19  19.803 ********|********|********|*******|********|********|********|********|********|*******|        |   
+ 2.51-25      3 1.59+19  19.203 ********|********|********|*******|********|********|********|********|********|*****  |        |   
+ 1.00-24      2 2.67+18  18.427 ********|********|********|*******|********|********|********|********|********|***    |        |   
+ 3.98-24      3 1.01+18  18.003 ********|********|********|*******|********|********|********|********|********|**     |        |   
+ 1.58-23      2 1.69+17  17.227 ********|********|********|*******|********|********|********|********|********|       |        |   
+ 6.31-23      6 1.27+17  17.104 ********|********|********|*******|********|********|********|********|********|       |        |   
+ 2.51-22      5 2.66+16  16.425 ********|********|********|*******|********|********|********|********|******  |       |        |   
+ 1.00-21      6 8.01+15  15.904 ********|********|********|*******|********|********|********|********|****    |       |        |   
+ 3.98-21      4 1.34+15  15.128 ********|********|********|*******|********|********|********|********|**      |       |        |   
+ 1.58-20      1 8.43+13  13.926 ********|********|********|*******|********|********|********|********|        |       |        |   
+ 6.31-20      4 8.47+13  13.928 ********|********|********|*******|********|********|********|********|        |       |        |   
+ 2.51-19      8 4.25+13  13.629 ********|********|********|*******|********|********|********|******* |        |       |        |   
+ 1.00-18      3 4.01+12  12.603 ********|********|********|*******|********|********|********|****    |        |       |        |   
+ 3.98-18      4 1.34+12  12.128 ********|********|********|*******|********|********|********|**      |        |       |        |   
+ 1.58-17      7 5.90+11  11.771 ********|********|********|*******|********|********|********|*       |        |       |        |   
+ 6.31-17      3 6.35+10  10.803 ********|********|********|*******|********|********|******* |        |        |       |        |   
+ 2.51-16      6 3.19+10  10.504 ********|********|********|*******|********|********|******* |        |        |       |        |   
+ 1.00-15      6 8.01+09   9.904 ********|********|********|*******|********|********|*****   |        |        |       |        |   
+ 3.98-15      7 2.35+09   9.371 ********|********|********|*******|********|********|***     |        |        |       |        |   
+ 1.58-14      5 4.21+08   8.625 ********|********|********|*******|********|********|*       |        |        |       |        |   
+ 6.31-14     10 2.12+08   8.326 ********|********|********|*******|********|********|        |        |        |       |        |   
+ 2.51-13     15 7.97+07   7.902 ********|********|********|*******|********|********|        |        |        |       |        |   
+ 1.00-12     10 1.34+07   7.126 ********|********|********|*******|********|******  |        |        |        |       |        |   
+ 3.98-12      6 2.01+06   6.304 ********|********|********|*******|********|***     |        |        |        |       |        |   
+ 1.58-11      9 7.58+05   5.880 ********|********|********|*******|********|**      |        |        |        |       |        |   
+ 6.31-11      4 8.47+04   4.928 ********|********|********|*******|********|        |        |        |        |       |        |   
+ 2.51-10      9 4.78+04   4.680 ********|********|********|*******|******* |        |        |        |        |       |        |   
+ 1.00-09     11 1.47+04   4.167 ********|********|********|*******|******  |        |        |        |        |       |        |   
+ 3.98-09     12 4.03+03   3.605 ********|********|********|*******|****    |        |        |        |        |       |        |   
+ 1.58-08     13 1.10+03   3.040 ********|********|********|*******|***     |        |        |        |        |       |        |   
+ 6.31-08     17 3.60+02   2.556 ********|********|********|*******|*       |        |        |        |        |       |        |   
+ 2.51-07     26 1.38+02   2.141 ********|********|********|*******|        |        |        |        |        |       |        |   
+ 1.00-06     24 3.21+01   1.506 ********|********|********|****** |        |        |        |        |        |       |        |   
+ 3.98-06     25 8.39+00   0.924 ********|********|********|****   |        |        |        |        |        |       |        |   
+ 1.58-05     33 2.78+00   0.444 ********|********|********|***    |        |        |        |        |        |       |        |   
+ 6.31-05     81 1.71+00   0.234 ********|********|********|**     |        |        |        |        |        |       |        |   
+ 2.51-04    133 7.07-01  -0.151 ********|********|********|*      |        |        |        |        |        |       |        |   
+ 1.00-03    269 3.59-01  -0.445 ********|********|********|       |        |        |        |        |        |       |        |   
+ 3.98-03    461 1.55-01  -0.811 ********|********|********|       |        |        |        |        |        |       |        |   
+ 1.58-02    631 5.32-02  -1.274 ********|********|******* |       |        |        |        |        |        |       |        |   
+ 6.31-02    723 1.53-02  -1.815 ********|********|*****   |       |        |        |        |        |        |       |        |   
+ 2.51-01   1151 6.12-03  -2.213 ********|********|****    |       |        |        |        |        |        |       |        |   
+ 1.00+00   1871 2.50-03  -2.602 ********|********|***     |       |        |        |        |        |        |       |        |   
+ 3.98+00   1777 5.96-04  -3.225 ********|********|*       |       |        |        |        |        |        |       |        |   
+ 1.58+01   1999 1.68-04  -3.774 ********|********|        |       |        |        |        |        |        |       |        |   
+ 6.31+01   1892 4.00-05  -4.397 mmmmmmmm|mmmmmmm |        |       |        |        |        |        |        |       |        |   
+ 2.51+02    932 4.95-06  -5.305 ********|****    |        |       |        |        |        |        |        |       |        |   
+ 1.00+03    315 4.21-07  -6.376 ********|*       | s      |       |        |        |        |        |        |       |        |   
+ 3.98+03     45 1.51-08  -7.821 ******  |      s |        |       |        |        |        |        |        |       |        |   
+ 6.31+03      1 4.29-10  -9.367 *       |   s    |        |       |        |        |        |        |        |       |        |   
+  total   12625 1.26-02         d-d--d--d--d--d--d--d--d--d-d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d--d-d--d--d--d--d--d
+ a total of          22 tallies were below the score grid bin boundaries.
+1cumulative tally number for tally       24         nonzero tally mean(m) = 3.351E+01   nps =     1000000  print table 162
+
+   abscissa     cum   ordinate    plot of the cumulative number of tallies in the tally fluctuation chart bin from 0 to 100 percent
+    tally      number  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 3.98107E-30       27    0.213|         |         |         |         |         |         |         |         |         |         |
+ 1.58489E-29       33    0.261|         |         |         |         |         |         |         |         |         |         |
+ 6.30957E-29       35    0.277|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-28       40    0.316|         |         |         |         |         |         |         |         |         |         |
+ 1.00000E-27       44    0.348|         |         |         |         |         |         |         |         |         |         |
+ 3.98107E-27       50    0.395|         |         |         |         |         |         |         |         |         |         |
+ 1.58489E-26       54    0.427|         |         |         |         |         |         |         |         |         |         |
+ 6.30957E-26       57    0.451|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-25       60    0.474|         |         |         |         |         |         |         |         |         |         |
+ 1.00000E-24       62    0.490|         |         |         |         |         |         |         |         |         |         |
+ 3.98107E-24       65    0.514|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-23       67    0.530|*        |         |         |         |         |         |         |         |         |         |
+ 6.30957E-23       73    0.577|*        |         |         |         |         |         |         |         |         |         |
+ 2.51189E-22       78    0.617|*        |         |         |         |         |         |         |         |         |         |
+ 1.00000E-21       84    0.664|*        |         |         |         |         |         |         |         |         |         |
+ 3.98107E-21       88    0.696|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-20       89    0.704|*        |         |         |         |         |         |         |         |         |         |
+ 6.30957E-20       93    0.735|*        |         |         |         |         |         |         |         |         |         |
+ 2.51189E-19      101    0.799|*        |         |         |         |         |         |         |         |         |         |
+ 1.00000E-18      104    0.822|*        |         |         |         |         |         |         |         |         |         |
+ 3.98107E-18      108    0.854|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-17      115    0.909|*        |         |         |         |         |         |         |         |         |         |
+ 6.30957E-17      118    0.933|*        |         |         |         |         |         |         |         |         |         |
+ 2.51189E-16      124    0.980|*        |         |         |         |         |         |         |         |         |         |
+ 1.00000E-15      130    1.028|*        |         |         |         |         |         |         |         |         |         |
+ 3.98107E-15      137    1.083|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-14      142    1.123|*        |         |         |         |         |         |         |         |         |         |
+ 6.30957E-14      152    1.202|*        |         |         |         |         |         |         |         |         |         |
+ 2.51189E-13      167    1.320|*        |         |         |         |         |         |         |         |         |         |
+ 1.00000E-12      177    1.400|*        |         |         |         |         |         |         |         |         |         |
+ 3.98107E-12      183    1.447|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-11      192    1.518|**       |         |         |         |         |         |         |         |         |         |
+ 6.30957E-11      196    1.550|**       |         |         |         |         |         |         |         |         |         |
+ 2.51189E-10      205    1.621|**       |         |         |         |         |         |         |         |         |         |
+ 1.00000E-09      216    1.708|**       |         |         |         |         |         |         |         |         |         |
+ 3.98107E-09      228    1.803|**       |         |         |         |         |         |         |         |         |         |
+ 1.58489E-08      241    1.906|**       |         |         |         |         |         |         |         |         |         |
+ 6.30957E-08      258    2.040|**       |         |         |         |         |         |         |         |         |         |
+ 2.51189E-07      284    2.246|**       |         |         |         |         |         |         |         |         |         |
+ 1.00000E-06      308    2.435|**       |         |         |         |         |         |         |         |         |         |
+ 3.98107E-06      333    2.633|***      |         |         |         |         |         |         |         |         |         |
+ 1.58489E-05      366    2.894|***      |         |         |         |         |         |         |         |         |         |
+ 6.30957E-05      447    3.534|****     |         |         |         |         |         |         |         |         |         |
+ 2.51189E-04      580    4.586|*****    |         |         |         |         |         |         |         |         |         |
+ 1.00000E-03      849    6.713|*******  |         |         |         |         |         |         |         |         |         |
+ 3.98107E-03     1310   10.358|*********|         |         |         |         |         |         |         |         |         |
+ 1.58489E-02     1941   15.348|*********|*****    |         |         |         |         |         |         |         |         |
+ 6.30957E-02     2664   21.064|*********|*********|*        |         |         |         |         |         |         |         |
+ 2.51189E-01     3815   30.165|*********|*********|*********|         |         |         |         |         |         |         |
+ 1.00000E+00     5686   44.959|*********|*********|*********|*********|*****    |         |         |         |         |         |
+ 3.98107E+00     7463   59.010|*********|*********|*********|*********|*********|*********|         |         |         |         |
+ 1.58489E+01     9462   74.816|*********|*********|*********|*********|*********|*********|*********|*****    |         |         |
+ 6.30957E+01    11354   89.776|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|         |
+ 2.51189E+02    12286   97.146|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 1.00000E+03    12601   99.636|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 3.98107E+03    12646   99.992|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 6.30957E+03    12647  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+    total       12625  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ a total of          22 tallies were below the score grid bin boundaries.
+
+1cumulative unnormed tally for tally       24         nonzero tally mean(m) = 3.351E+01   nps =   1000000  print table 162
+
+  abscissa     cum    ordinate                plot of the cumulative tally in the tally fluctuation chart bin from 0 to 100 percent
+   tally    tally/nps  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 3.981E-30  9.219E-36    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-29  5.424E-35    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-29  1.042E-34    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-28  9.583E-34    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-27  3.166E-33    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-27  1.535E-32    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-26  4.441E-32    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-26  1.387E-31    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-25  3.419E-31    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-24  1.774E-30    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-24  6.866E-30    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-23  1.848E-29    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-23  1.890E-28    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-22  8.940E-28    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-21  4.178E-27    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-21  1.281E-26    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-20  1.741E-26    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-20  1.576E-25    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-19  1.293E-24    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-18  2.899E-24    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-18  1.020E-23    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-17  8.777E-23    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-17  1.861E-22    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-16  9.478E-22    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-15  3.407E-21    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-15  2.416E-20    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-14  6.675E-20    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-14  3.647E-19    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-13  2.558E-18    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-12  8.934E-18    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-12  2.064E-17    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-11  9.744E-17    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-11  2.578E-16    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-10  1.605E-15    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-09  7.906E-15    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-09  3.190E-14    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-08  1.246E-13    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-08  6.708E-13    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-07  4.302E-12    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-06  1.695E-11    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-06  7.202E-11    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-05  4.175E-10    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-05  3.292E-09    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-04  2.279E-08    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-03  1.830E-07    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-03  1.256E-06    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-02  6.532E-06    0.002|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-02  3.278E-05    0.008|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-01  1.982E-04    0.047|         |         |         |         |         |         |         |         |         |         |
+ 1.000E+00  1.207E-03    0.285|         |         |         |         |         |         |         |         |         |         |
+ 3.981E+00  5.174E-03    1.221|*        |         |         |         |         |         |         |         |         |         |
+ 1.585E+01  2.249E-02    5.308|*****    |         |         |         |         |         |         |         |         |         |
+ 6.310E+01  9.054E-02   21.363|mmmmmmmmm|mmmmmmmmm|m        |         |         |         |         |         |         |         |
+ 2.512E+02  2.059E-01   48.577|*********|*********|*********|*********|*********|         |         |         |         |         |
+ 1.000E+03  3.446E-01   81.312|*********|*********|*********|*********|*********|*********|*********|*********|*        |         |
+ 3.981E+03  4.184E-01   98.733|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 6.310E+03  4.238E-01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+   total  4.23817E-01  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ a total tally/nps of 1.83869E-36 was below the score grid bin boundaries.
+
+1tally       34        nps =     1000000
++                                      R/hr per Curie in penetration opposite doors                            
+           tally type 4    track length estimate of particle flux.                        
+           tally for  photons  
+
+           volumes 
+                   cell:       6                                                                                   
+                         4.71239E+03
+ 
+ cell  6                                                                                                                               
+ multiplier bin:   8.63900E+04         2          -5       -6                                                                          
+                 2.04932E-02 0.0392
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally       34
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed     random        0.04       no           no            0.29       no          no            decrease    random       3.15
+ passed?        yes          yes       no           no              no       no          no                no        yes         yes
+
+ ===================================================================================================================================
+
+
+ warning.  the tally in the tally fluctuation chart bin did not pass  6 of the 10 statistical checks.
+
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally       34 with nps=     1000000 print table 160
+
+
+ normed average tally per history  = 2.04932E-02          unnormed average tally per history  = 9.65721E+01
+ estimated tally relative error    = 0.0392               estimated variance of the variance  = 0.2941
+ relative error from zero tallies  = 0.0003               relative error from nonzero scores  = 0.0392
+
+ number of nonzero history tallies =      907857          efficiency for the nonzero tallies  = 0.9079
+ history number of largest  tally  =      665741          largest  unnormalized history tally = 2.77367E+06
+ (largest  tally)/(average tally)  = 2.87213E+04          (largest  tally)/(avg nonzero tally)= 2.60748E+04
+
+ (confidence interval shift)/mean  = 0.0087               shifted confidence interval center  = 2.06708E-02
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            2.04932E-02             2.10818E-02                     0.028720
+      relative error                  3.92354E-02             4.72662E-02                     0.204683
+      variance of the variance        2.94130E-01             2.46416E-01                    -0.162223
+      shifted center                  2.06708E-02             2.07115E-02                     0.001970
+      figure of merit                 2.74523E+02             1.89162E+02                    -0.310944
+
+ the estimated inverse power slope of the 200 largest  tallies starting at 3.09157E+04 is 3.1498
+ the history score probability density function appears to have an unsampled region at the largest  history scores:
+ please examine. see print table 161.
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (4.226E+05)*( 2.549E-02)**2 = (4.226E+05)*(6.496E-04) = 2.745E+02
+
+1unnormed tally density for tally       34          nonzero tally mean(m) = 1.064E+02   nps =     1000000  print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope= 3.1)
+  tally  number num den log den:d-d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d
+ 5.01-30     27 6.73+24  24.828 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|*******|***
+ 2.51-29     33 1.64+24  24.215 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|*******|*  
+ 1.26-28     37 3.67+23  23.565 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|*******|   
+ 6.31-28     33 6.53+22  22.815 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|****** |   
+ 3.16-27     39 1.54+22  22.188 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|****   |   
+ 1.58-26     51 4.02+21  21.604 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|**     |   
+ 7.94-26     68 1.07+21  21.029 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|*      |   
+ 3.98-25     65 2.04+20  20.310 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*******|       |   
+ 2.00-24     85 5.32+19  19.726 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|*****  |       |   
+ 1.00-23    103 1.29+19  19.109 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|****   |       |   
+ 5.01-23     92 2.29+18  18.360 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|**     |       |   
+ 2.51-22     98 4.87+17  17.688 *******|*******|*******|*******|********|*******|*******|*******|*******|*******|       |       |   
+ 1.26-21    107 1.06+17  17.026 *******|*******|*******|*******|********|*******|*******|*******|*******|****** |       |       |   
+ 6.31-21    114 2.26+16  16.354 *******|*******|*******|*******|********|*******|*******|*******|*******|****   |       |       |   
+ 3.16-20    110 4.35+15  15.638 *******|*******|*******|*******|********|*******|*******|*******|*******|**     |       |       |   
+ 1.58-19    130 1.02+15  15.011 *******|*******|*******|*******|********|*******|*******|*******|*******|       |       |       |   
+ 7.94-19    120 1.89+14  14.276 *******|*******|*******|*******|********|*******|*******|*******|****** |       |       |       |   
+ 3.98-18    131 4.11+13  13.614 *******|*******|*******|*******|********|*******|*******|*******|*****  |       |       |       |   
+ 2.00-17    122 7.64+12  12.883 *******|*******|*******|*******|********|*******|*******|*******|***    |       |       |       |   
+ 1.00-16    107 1.34+12  12.126 *******|*******|*******|*******|********|*******|*******|*******|*      |       |       |       |   
+ 5.01-16    126 3.14+11  11.497 *******|*******|*******|*******|********|*******|*******|*******|       |       |       |       |   
+ 2.51-15    144 7.16+10  10.855 *******|*******|*******|*******|********|*******|*******|*****  |       |       |       |       |   
+ 1.26-14    163 1.62+10  10.209 *******|*******|*******|*******|********|*******|*******|***    |       |       |       |       |   
+ 6.31-14    151 2.99+09   9.476 *******|*******|*******|*******|********|*******|*******|**     |       |       |       |       |   
+ 3.16-13    152 6.00+08   8.778 *******|*******|*******|*******|********|*******|*******|       |       |       |       |       |   
+ 1.58-12    147 1.16+08   8.064 *******|*******|*******|*******|********|*******|****** |       |       |       |       |       |   
+ 7.94-12    169 2.66+07   7.425 *******|*******|*******|*******|********|*******|****   |       |       |       |       |       |   
+ 3.98-11    210 6.59+06   6.819 *******|*******|*******|*******|********|*******|**     |       |       |       |       |       |   
+ 2.00-10    435 2.72+06   6.435 *******|*******|*******|*******|********|*******|*      |       |       |       |       |       |   
+ 1.00-09    637 7.96+05   5.901 *******|*******|*******|*******|********|*******|       |       |       |       |       |       |   
+ 5.01-09    394 9.82+04   4.992 *******|*******|*******|*******|********|*****  |       |       |       |       |       |       |   
+ 2.51-08    205 1.02+04   4.008 *******|*******|*******|*******|********|***    |       |       |       |       |       |       |   
+ 1.26-07    170 1.69+03   3.227 *******|*******|*******|*******|********|*      |       |       |       |       |       |       |   
+ 6.31-07    222 4.40+02   2.643 *******|*******|*******|*******|********|       |       |       |       |       |       |       |   
+ 3.16-06    385 1.52+02   2.182 *******|*******|*******|*******|******* |       |       |       |       |       |       |       |   
+ 1.58-05   1382 1.09+02   2.037 *******|*******|*******|*******|******  |       |       |       |       |       |       |       |   
+ 7.94-05   5116 8.05+01   1.906 *******|*******|*******|*******|******  |       |       |       |       |       |       |       |   
+ 3.98-04   8684 2.73+01   1.435 *******|*******|*******|*******|*****   |       |       |       |       |       |       |       |   
+ 2.00-03    247 1.55-01  -0.811 *******|*******|*******|*******|        |       |       |       |       |       |       |       |   
+ 1.00-02    545 6.81-02  -1.167 *******|*******|*******|****** |        |       |       |       |       |       |       |       |   
+ 5.01-02   2738 6.82-02  -1.166 *******|*******|*******|****** |        |       |       |       |       |       |       |       |   
+ 2.51-01  11513 5.73-02  -1.242 *******|*******|*******|****** |        |       |       |       |       |       |       |       |   
+ 1.26+00  11648 1.16-02  -1.937 *******|*******|*******|****   |        |       |       |       |       |       |       |       |   
+ 6.31+00  56051 1.11-02  -1.955 *******|*******|*******|****   |        |       |       |       |       |       |       |       |   
+ 3.16+01 250554 9.90-03  -2.004 *******|*******|*******|***    |        |       |       |       |       |       |       |       |   
+ 1.58+02 520520 4.10-03  -2.387 mmmmmmm|mmmmmmm|mmmmmmm|mm     |        |       |       |       |       |       |       |       |   
+ 7.94+02  25542 4.02-05  -4.396 *******|*******|*****  |       |        |       |       |       |       |       |       |       |   
+ 3.98+03   6536 2.05-06  -5.688 *******|*******|**     |       |        |       |       |       |       |       |       |       |   
+ 2.00+04   1006 6.30-08  -7.201 *******|*****  |       |       |        |       |       |       |       |       |       |       |   
+ 1.00+05    176 2.20-09  -8.658 *******|**     |   s   |       |        |       |       |       |       |       |       |       |   
+ 5.01+05     84 2.09-10  -9.679 *******|       |s      |       |        |       |       |       |       |       |       |       |   
+ 2.51+06      6 2.98-12 -11.525 **     |    s  |       |       |        |       |       |       |       |       |       |       |   
+ 3.16+06      1 1.54-12 -11.813 *      | s     |       |       |        |       |       |       |       |       |       |       |   
+  total  907731 9.08-01         d-d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d--d-d--d--d-d--d--d--d-d--d
+ a total of         126 tallies were below the score grid bin boundaries.
+1cumulative tally number for tally       34         nonzero tally mean(m) = 1.064E+02   nps =     1000000  print table 162
+
+   abscissa     cum   ordinate    plot of the cumulative number of tallies in the tally fluctuation chart bin from 0 to 100 percent
+    tally      number  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 5.01187E-30      153    0.017|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-29      186    0.020|         |         |         |         |         |         |         |         |         |         |
+ 1.25893E-28      223    0.025|         |         |         |         |         |         |         |         |         |         |
+ 6.30957E-28      256    0.028|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-27      295    0.032|         |         |         |         |         |         |         |         |         |         |
+ 1.58489E-26      346    0.038|         |         |         |         |         |         |         |         |         |         |
+ 7.94328E-26      414    0.046|         |         |         |         |         |         |         |         |         |         |
+ 3.98107E-25      479    0.053|         |         |         |         |         |         |         |         |         |         |
+ 1.99526E-24      564    0.062|         |         |         |         |         |         |         |         |         |         |
+ 1.00000E-23      667    0.073|         |         |         |         |         |         |         |         |         |         |
+ 5.01187E-23      759    0.084|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-22      857    0.094|         |         |         |         |         |         |         |         |         |         |
+ 1.25893E-21      964    0.106|         |         |         |         |         |         |         |         |         |         |
+ 6.30957E-21     1078    0.119|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-20     1188    0.131|         |         |         |         |         |         |         |         |         |         |
+ 1.58489E-19     1318    0.145|         |         |         |         |         |         |         |         |         |         |
+ 7.94328E-19     1438    0.158|         |         |         |         |         |         |         |         |         |         |
+ 3.98107E-18     1569    0.173|         |         |         |         |         |         |         |         |         |         |
+ 1.99526E-17     1691    0.186|         |         |         |         |         |         |         |         |         |         |
+ 1.00000E-16     1798    0.198|         |         |         |         |         |         |         |         |         |         |
+ 5.01187E-16     1924    0.212|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-15     2068    0.228|         |         |         |         |         |         |         |         |         |         |
+ 1.25893E-14     2231    0.246|         |         |         |         |         |         |         |         |         |         |
+ 6.30957E-14     2382    0.262|         |         |         |         |         |         |         |         |         |         |
+ 3.16228E-13     2534    0.279|         |         |         |         |         |         |         |         |         |         |
+ 1.58489E-12     2681    0.295|         |         |         |         |         |         |         |         |         |         |
+ 7.94328E-12     2850    0.314|         |         |         |         |         |         |         |         |         |         |
+ 3.98107E-11     3060    0.337|         |         |         |         |         |         |         |         |         |         |
+ 1.99526E-10     3495    0.385|         |         |         |         |         |         |         |         |         |         |
+ 1.00000E-09     4132    0.455|         |         |         |         |         |         |         |         |         |         |
+ 5.01187E-09     4526    0.499|         |         |         |         |         |         |         |         |         |         |
+ 2.51189E-08     4731    0.521|*        |         |         |         |         |         |         |         |         |         |
+ 1.25893E-07     4901    0.540|*        |         |         |         |         |         |         |         |         |         |
+ 6.30957E-07     5123    0.564|*        |         |         |         |         |         |         |         |         |         |
+ 3.16228E-06     5508    0.607|*        |         |         |         |         |         |         |         |         |         |
+ 1.58489E-05     6890    0.759|*        |         |         |         |         |         |         |         |         |         |
+ 7.94328E-05    12006    1.322|*        |         |         |         |         |         |         |         |         |         |
+ 3.98107E-04    20690    2.279|**       |         |         |         |         |         |         |         |         |         |
+ 1.99526E-03    20937    2.306|**       |         |         |         |         |         |         |         |         |         |
+ 1.00000E-02    21482    2.366|**       |         |         |         |         |         |         |         |         |         |
+ 5.01187E-02    24220    2.668|***      |         |         |         |         |         |         |         |         |         |
+ 2.51189E-01    35733    3.936|****     |         |         |         |         |         |         |         |         |         |
+ 1.25893E+00    47381    5.219|*****    |         |         |         |         |         |         |         |         |         |
+ 6.30957E+00   103432   11.393|*********|*        |         |         |         |         |         |         |         |         |
+ 3.16228E+01   353986   38.991|*********|*********|*********|*********|         |         |         |         |         |         |
+ 1.58489E+02   874506   96.326|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmm   |
+ 7.94328E+02   900048   99.140|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 3.98107E+03   906584   99.860|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.99526E+04   907590   99.971|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 1.00000E+05   907766   99.990|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 5.01187E+05   907850   99.999|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 2.51189E+06   907856  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+ 3.16228E+06   907857  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+    total      907731  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ a total of         126 tallies were below the score grid bin boundaries.
+
+1cumulative unnormed tally for tally       34         nonzero tally mean(m) = 1.064E+02   nps =   1000000  print table 162
+
+  abscissa     cum    ordinate                plot of the cumulative tally in the tally fluctuation chart bin from 0 to 100 percent
+   tally    tally/nps  cum pct:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ 5.012E-30  8.196E-35    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-29  5.179E-34    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.259E-28  2.911E-33    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-28  1.361E-32    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-27  7.600E-32    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-26  4.866E-31    0.000|         |         |         |         |         |         |         |         |         |         |
+ 7.943E-26  2.958E-30    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-25  1.606E-29    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.995E-24  1.060E-28    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-23  6.114E-28    0.000|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-23  2.991E-27    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-22  1.427E-26    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.259E-21  8.170E-26    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-21  4.345E-25    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-20  2.144E-24    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-19  1.247E-23    0.000|         |         |         |         |         |         |         |         |         |         |
+ 7.943E-19  6.071E-23    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-18  3.353E-22    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.995E-17  1.536E-21    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-16  7.224E-21    0.000|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-16  3.867E-20    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-15  2.182E-19    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.259E-14  1.176E-18    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-14  5.917E-18    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-13  2.991E-17    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-12  1.409E-16    0.000|         |         |         |         |         |         |         |         |         |         |
+ 7.943E-12  8.236E-16    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-11  5.195E-15    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.995E-10  5.281E-14    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-09  3.635E-13    0.000|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-09  1.217E-12    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-08  3.881E-12    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.259E-07  1.418E-11    0.000|         |         |         |         |         |         |         |         |         |         |
+ 6.310E-07  8.593E-11    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.162E-06  7.679E-10    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.585E-05  1.376E-08    0.000|         |         |         |         |         |         |         |         |         |         |
+ 7.943E-05  2.461E-07    0.000|         |         |         |         |         |         |         |         |         |         |
+ 3.981E-04  1.590E-06    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.995E-03  1.852E-06    0.000|         |         |         |         |         |         |         |         |         |         |
+ 1.000E-02  5.012E-06    0.000|         |         |         |         |         |         |         |         |         |         |
+ 5.012E-02  9.625E-05    0.000|         |         |         |         |         |         |         |         |         |         |
+ 2.512E-01  1.105E-03    0.001|         |         |         |         |         |         |         |         |         |         |
+ 1.259E+00  9.842E-03    0.010|         |         |         |         |         |         |         |         |         |         |
+ 6.310E+00  2.200E-01    0.228|         |         |         |         |         |         |         |         |         |         |
+ 3.162E+01  4.922E+00    5.097|*****    |         |         |         |         |         |         |         |         |         |
+ 1.585E+02  3.827E+01   39.624|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|mmmmmmmmm|         |         |         |         |         |         |
+ 7.943E+02  4.739E+01   49.072|*********|*********|*********|*********|*********|         |         |         |         |         |
+ 3.981E+03  5.845E+01   60.529|*********|*********|*********|*********|*********|*********|*        |         |         |         |
+ 1.995E+04  6.643E+01   68.783|*********|*********|*********|*********|*********|*********|*********|         |         |         |
+ 1.000E+05  7.393E+01   76.556|*********|*********|*********|*********|*********|*********|*********|*******  |         |         |
+ 5.012E+05  9.005E+01   93.243|*********|*********|*********|*********|*********|*********|*********|*********|*********|***      |
+ 2.512E+06  9.380E+01   97.128|*********|*********|*********|*********|*********|*********|*********|*********|*********|*******  |
+ 3.162E+06  9.657E+01  100.000|*********|*********|*********|*********|*********|*********|*********|*********|*********|*********|
+   total  9.65721E+01  100.000:--------10--------20--------30--------40--------50--------60--------70--------80--------90-------100
+ a total tally/nps of 1.87899E-35 was below the score grid bin boundaries.
+
+1status of the statistical checks used to form confidence intervals for the mean for each tally bin
+
+
+ tally   result of statistical checks for the tfc bin (the first check not passed is listed) and error magnitude check for all bins
+
+       24   passed the 10 statistical checks for the tally fluctuation chart bin result               
+         passed all bin error check:     6 tally bins all have relative errors less than 0.10 with no zero bins
+
+       34   missed  6 of 10 tfc bin checks: the relative error does not monotonically decrease over the last half of the problem      
+         passed all bin error check:     1 tally bins all have relative errors less than 0.10 with no zero bins
+
+
+ the 10 statistical checks are only for the tally fluctuation chart bin and do not apply to other tally bins.
+
+ warning.       1 of the     2 tally fluctuation chart bins did not pass all 10 statistical checks.
+1tally fluctuation charts                              
+
+                            tally       24                          tally       34
+          nps      mean     error   vov  slope    fom      mean     error   vov  slope    fom
+        64000   4.7485E-06 0.1961 0.2637  2.3     170   2.1121E-02 0.1050 0.1430  1.7     594
+       128000   5.1349E-06 0.1401 0.2246  2.5     167   2.1237E-02 0.0766 0.1136  1.8     558
+       192000   4.9346E-06 0.1114 0.1567  2.5     178   2.0713E-02 0.0634 0.0982  1.8     549
+       256000   4.7605E-06 0.0915 0.1267  2.7     197   2.0524E-02 0.0548 0.0835  1.9     551
+       320000   4.6754E-06 0.0777 0.1080  2.7     218   2.0257E-02 0.0465 0.0708  1.8     609
+       384000   4.6810E-06 0.0682 0.0883  2.9     237   2.0410E-02 0.0425 0.0529  1.9     610
+       448000   4.6497E-06 0.0608 0.0777  3.0     256   1.9992E-02 0.0388 0.0468  1.9     627
+       512000   4.6507E-06 0.0553 0.0669  3.2     269   2.0285E-02 0.0406 0.0669  1.9     499
+       576000   4.7033E-06 0.0508 0.0569  3.3     284   2.0401E-02 0.0377 0.0566  2.2     515
+       640000   4.7441E-06 0.0485 0.0481  3.0     280   2.0325E-02 0.0352 0.0513  2.3     530
+       704000   4.7556E-06 0.0467 0.0402  3.0     274   2.0856E-02 0.0514 0.3785  2.3     227
+       768000   4.7078E-06 0.0441 0.0373  3.3     282   2.0684E-02 0.0483 0.3524  2.4     235
+       832000   4.7157E-06 0.0422 0.0328  3.5     286   2.0611E-02 0.0458 0.3223  2.6     243
+       896000   4.6884E-06 0.0407 0.0297  3.6     285   2.0694E-02 0.0429 0.3077  2.8     258
+       960000   4.6785E-06 0.0396 0.0274  3.6     281   2.0583E-02 0.0406 0.2976  2.8     268
+      1000000   4.7091E-06 0.0384 0.0258  4.0     287   2.0493E-02 0.0392 0.2941  3.1     275
+1mesh-based weight window generator                                                      print table 190
+
+     normalization:   0-group:  2.1191E-01          1-group:  2.1191E-01
+
+
+
+    477508 particles escaped wwg mesh.
+
+ ***********************************************************************************************************************
+
+ dump no.    2 on file droom4br     nps =     1000000     coll =       17756335     ctm =        2.37   nrn =        
+ 366907415
+
+        13 warning messages so far.
+
+
+ run terminated when     1000000  particle histories were done.
+
+ computer time =    2.37 minutes
+
+ mcnp     version 5     09282010                     07/15/11 13:07:38                     probid =  07/15/11 13:05:16 

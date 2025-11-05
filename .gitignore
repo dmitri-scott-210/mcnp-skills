@@ -1,0 +1,17 @@
+# Large data files that exceed GitHub limits
+example_files/intermediate_examples/advantg.wwinp
+example_files/unstructured-mesh_examples/um_10_cask_results_for_plotting/meshtal
+example_files/unstructured-mesh_examples/um_16_criticality/um_16_criticality/MCNP/caas.fwcadis.wwinp
+msre-benchmark/models/openmc_cad/h5m/msre_control_rod_1e-2.h5m
+msre-benchmark/models/openmc_cad/h5m/msre_reactor_1e-2.h5m
+msre-benchmark/research_data/models/openmc_cad/h5m/msre_control_rod_1e-2.h5m
+msre-benchmark/research_data/models/openmc_cad/h5m/msre_reactor_1e-2.h5m
+example_files/unstructured-mesh_examples/um_10_cask_results_for_plotting/meshtal_14.vts
+
+# General large file patterns
+*.h5m
+**/meshtal
+**/meshtal_*.vts
+*.wwinp
+*.tar.xz
+*.pdf

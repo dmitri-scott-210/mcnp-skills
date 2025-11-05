@@ -1,0 +1,27 @@
+{
+  "general_info": {
+    "name": "B",
+    "misc": {
+      "material": "U",
+      "number": "1"
+    },
+    "description": "some descriptor for benchmark B"
+  },
+  "execution_info": {
+    "arguments": {
+      "bench": "B"
+    },
+    "options": [
+      "world"
+    ],
+    "outputs": {
+      "output": "B.output"
+    }
+  },
+  "benchmark_result": {
+    "detector": {
+      "val": 1.001,
+      "std": 0.004
+    }
+  }
+}

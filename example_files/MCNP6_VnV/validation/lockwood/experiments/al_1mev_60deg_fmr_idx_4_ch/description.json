@@ -1,0 +1,38 @@
+{
+  "general_info": {
+    "name": "al_1mev_60deg_fmr_idx_4_ch",
+    "description": "",
+    "details": {
+      "material": "Aluminum",
+      "energy": 1.0,
+      "type": "Condensed History",
+      "angle": 60,
+      "fmr": 0.009,
+      "fmr_index": 4
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "al_1mev_60deg_fmr_idx_4_ch_",
+      "n": "al_1mev_60deg_fmr_idx_4_ch_"
+    },
+    "outputs": {
+      "outp": "al_1mev_60deg_fmr_idx_4_ch_o",
+      "mctal": "al_1mev_60deg_fmr_idx_4_ch_m"
+    },
+    "inputs": {
+      "inp": "al_1mev_60deg_fmr_idx_4_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.023078500000000002,
+      "err": 0.014
+    },
+    "reference": "SAND79-0414, p. 53",
+    "foil_thickness": 0.00505,
+    "energy_deposited": 4.57,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  }
+}

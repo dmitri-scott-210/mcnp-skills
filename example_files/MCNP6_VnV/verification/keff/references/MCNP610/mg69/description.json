@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg69",
+    "problem_type": "Multigroup",
+    "description": "UD2O-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg69.inp",
+      "n": "mg69"
+    },
+    "outputs": {
+      "outp": "mg69o",
+      "mctal": "mg69m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.99959,
+      "std": 8.74593e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-23"
+  }
+}

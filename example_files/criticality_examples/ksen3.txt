@@ -1,0 +1,75 @@
+puc6 3 x 2 array of cans
+c       CELL CARDS
+10      100     9.9270e-2   -3    u=1            imp:n=1
+20      0                    3    u=1            imp:n=1
+25      0                   -1 fill=1  u=2       imp:n=1
+30      200     8.6360e-2    1 -2      u=2       imp:n=1
+40      0                    2         u=2       imp:n=1
+50      0                   -4 fill=2  lat=1 u=3 imp:n=1
+60      0                   -5 fill=3            imp:n=1
+99      0                    5                   imp:n=0
+
+c       SURFACE CARDS
+1       RCC   0. 0.  0.    0. 0. 101.7     12.49
+2       RCC   0. 0. -1.    0. 0. 103.7     12.79
+3       pz    39.24
+4       RPP  -17.79 17.79   -17.79 17.79   -1. 102.7
+5       RPP  -17.79 88.95   -17.79 53.37   -1. 102.7
+
+c DATA CARDS
+c --------------------------------------------------------------
+c - from file puc1_data_cards.txt
+c - for problem puc1, based on Section 5.3 of Criticality Primer
+c --------------------------------------------------------------
+c
+c controls for criticality calculation
+c
+kcode  5000  1.0   50  250
+ksrc   0.0  0.0  19.62
+hsrc    3 -17.79 88.95   2 -17.79 53.37   1 -1. 102.7
+c
+c
+c Material cards - from 5.3.B in Criticality Primer
+c
+c PLUTONIUM-NITRATE SOLUTION
+c    total number density = 9.9270e-2 
+c
+m100   1001  6.0070e-2
+       8016  3.6540e-2
+       7014  2.3699e-3
+      94239  2.7682e-4
+      94240  1.2214e-5
+      94241  8.3390e-7
+      94242  4.5800e-8 
+mt100  lwtr            $ mt card invokes S(a,b) thermal scatter
+c
+c STAINLESS-STEEL      
+c       Cr number density = 1.6540e-2 
+c       Fe number density = 6.3310e-2 
+c       Ni number density = 6.5100e-3 
+c    total number density = 8.6360e-2 
+c
+c
+m200  24050  7.1866e-4     $ Cr-50  4.345%  
+      24052  1.3859e-2     $ Cr-52 83.789%
+      24053  1.5715e-3     $ Cr-53  9.501%
+      24054  3.9117e-4     $ Cr-54  2.365%
+      26054  3.7005e-3     $ Fe-54  5.845%
+      26056  5.8090e-2     $ Fe-56 91.754%
+      26057  1.3415e-3     $ Fe-57  2.119%
+      26058  1.7853e-4     $ Fe-58  0.282%
+      28058  4.4318e-3     $ Ni-58 68.0769%
+      28060  1.7071e-3     $ Ni-60 26.2231%
+      28061  7.4207e-5     $ Ni-61  1.1399%
+      28062  2.3661e-4     $ Ni-62  3.6345%
+      28064  6.0256e-5     $ Ni-64  0.9256%
+c
+c ### keff sensitivity cards
+c
+kopts   blocksize = 5
+c
+c pu-239 capture and fission sensitivity for thermal, intermediate, and fast
+ksen3   xs   iso = 94239.80c
+             rxn = -2 -6
+             erg = 0  0.625e-6   0.1   100
+

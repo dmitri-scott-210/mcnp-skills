@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "JEZ233",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001",
+      "case": ""
+    },
+    "description": "Bare sphere of 233U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "JEZ233",
+      "n": "JEZ233"
+    },
+    "outputs": {
+      "outp": "JEZ233o",
+      "mctal": "JEZ233m"
+    },
+    "inputs": {
+      "inp": "JEZ233"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.001
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.998885,
+      "std": 0.00055351
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VII.0"
+  }
+}

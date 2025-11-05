@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-014",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "014"
+    },
+    "description": "D38 Depleted Uranium Reflected HEU sphere: HEU-MET-FAST-014 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-014.i",
+      "n": "heu-met-fast-014"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-014.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-014o",
+      "mctal": "heu-met-fast-014m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9989,
+      "std": 0.0017
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997719,
+      "std": 0.000266313
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "SB25",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "001",
+      "case": "003"
+    },
+    "description": "Lattice of 233U fuel pins in water"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "SB25",
+      "n": "SB25"
+    },
+    "outputs": {
+      "outp": "SB25o",
+      "mctal": "SB25m"
+    },
+    "inputs": {
+      "inp": "SB25"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0024
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995332,
+      "std": 0.00109024
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VI"
+  }
+}

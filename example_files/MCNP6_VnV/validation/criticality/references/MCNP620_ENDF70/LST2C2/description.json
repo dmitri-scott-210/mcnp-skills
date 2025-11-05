@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "LST2C2",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "002"
+    },
+    "description": "Sphere of LEU (4.9 wt.%) uranyl fluoride solution"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "LST2C2",
+      "n": "LST2C2"
+    },
+    "outputs": {
+      "outp": "LST2C2o",
+      "mctal": "LST2C2m"
+    },
+    "inputs": {
+      "inp": "LST2C2"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0024,
+      "std": 0.0037
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.994009,
+      "std": 0.000617899
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VII.0"
+  }
+}

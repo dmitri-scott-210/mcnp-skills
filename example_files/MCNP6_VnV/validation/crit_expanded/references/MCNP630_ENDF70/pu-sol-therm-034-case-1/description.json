@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-sol-therm-034-case-1",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "034",
+      "case": "1"
+    },
+    "description": "PNL-10   PU-SOL-THERM-034  case 1  8.3 wt.% Pu-240  116 gPu/l "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-sol-therm-034-case-1.i",
+      "n": "pu-sol-therm-034-case-1"
+    },
+    "inputs": {
+      "inp": "pu-sol-therm-034-case-1.i"
+    },
+    "outputs": {
+      "outp": "pu-sol-therm-034-case-1o",
+      "mctal": "pu-sol-therm-034-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0062
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999905,
+      "std": 0.000405458
+    }
+  }
+}

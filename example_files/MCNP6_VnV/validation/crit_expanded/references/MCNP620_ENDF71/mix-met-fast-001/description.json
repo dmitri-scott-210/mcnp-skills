@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "mix-met-fast-001",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001"
+    },
+    "description": "HEU REFLECTED PU SPHERE, PLANET ASSEMBLY; MIX-MET-FAST-001 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mix-met-fast-001.i",
+      "n": "mix-met-fast-001"
+    },
+    "inputs": {
+      "inp": "mix-met-fast-001.i"
+    },
+    "outputs": {
+      "outp": "mix-met-fast-001o",
+      "mctal": "mix-met-fast-001m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0016
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999802,
+      "std": 0.000262725
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

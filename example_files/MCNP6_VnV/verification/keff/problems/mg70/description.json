@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg70",
+    "problem_type": "Multigroup",
+    "description": "URRa-2-1-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg70.inp",
+      "n": "mg70"
+    },
+    "outputs": {
+      "outp": "mg70o",
+      "mctal": "mg70m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.631452
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

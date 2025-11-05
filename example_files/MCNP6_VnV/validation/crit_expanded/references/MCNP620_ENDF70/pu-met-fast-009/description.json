@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-009",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "009"
+    },
+    "description": "AL(2014) REFLECTED PU(4.9) SPHERE: PU-MET-FAST-009 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-009.i",
+      "n": "pu-met-fast-009"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-009.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-009o",
+      "mctal": "pu-met-fast-009m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0027
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00527,
+      "std": 0.000280387
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg47",
+    "problem_type": "Multigroup",
+    "description": "U-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg47.inp",
+      "n": "mg47"
+    },
+    "outputs": {
+      "outp": "mg47o",
+      "mctal": "mg47m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.216349
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

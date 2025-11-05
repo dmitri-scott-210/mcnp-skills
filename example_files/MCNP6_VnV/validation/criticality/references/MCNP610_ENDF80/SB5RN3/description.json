@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "SB5RN3",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "001",
+      "case": "006"
+    },
+    "description": "Lattice of HEU fuel pins in water, with blanket of ThO2 pins"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "SB5RN3",
+      "n": "SB5RN3"
+    },
+    "outputs": {
+      "outp": "SB5RN3o",
+      "mctal": "SB5RN3m"
+    },
+    "inputs": {
+      "inp": "SB5RN3"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0015,
+      "std": 0.0028
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995802,
+      "std": 0.00147035
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VIII.0"
+  }
+}

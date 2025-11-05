@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "mo_0p5mev_0deg_fmr_idx_7_se",
+    "description": "",
+    "details": {
+      "material": "Molybdenum",
+      "energy": 0.5,
+      "type": "Single Event",
+      "angle": 0,
+      "fmr": 0.212,
+      "fmr_index": 7
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mo_0p5mev_0deg_fmr_idx_7_se_",
+      "n": "mo_0p5mev_0deg_fmr_idx_7_se_"
+    },
+    "outputs": {
+      "outp": "mo_0p5mev_0deg_fmr_idx_7_se_o",
+      "mctal": "mo_0p5mev_0deg_fmr_idx_7_se_m"
+    },
+    "inputs": {
+      "inp": "mo_0p5mev_0deg_fmr_idx_7_se_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.017970390000000003,
+      "err": 0.016
+    },
+    "reference": "SAND79-0414, p. 85",
+    "foil_thickness": 0.005301,
+    "energy_deposited": 3.39,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0183592,
+      "err": 0.0017
+    }
+  }
+}

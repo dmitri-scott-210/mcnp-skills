@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "FLAT23",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "006",
+      "case": ""
+    },
+    "description": "Sphere of 233U reflected by normal U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "FLAT23",
+      "n": "FLAT23"
+    },
+    "outputs": {
+      "outp": "FLAT23o",
+      "mctal": "FLAT23m"
+    },
+    "inputs": {
+      "inp": "FLAT23"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0014
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999604,
+      "std": 0.000722988
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VI"
+  }
+}

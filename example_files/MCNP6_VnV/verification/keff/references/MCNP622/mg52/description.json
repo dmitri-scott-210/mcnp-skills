@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg52",
+    "problem_type": "Multigroup",
+    "description": "UAL-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg52.inp",
+      "n": "mg52"
+    },
+    "outputs": {
+      "outp": "mg52o",
+      "mctal": "mg52m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00019,
+      "std": 0.000201809
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  }
+}

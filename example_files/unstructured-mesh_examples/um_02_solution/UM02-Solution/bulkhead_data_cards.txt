@@ -1,0 +1,26 @@
+c
+c  --------------
+c  Material Cards
+c
+m1    1000 2     8000 1
+m2    8000 0.23  7000 0.76
+m26  26000 1.0
+m82  82000 1.0
+c
+imp:p 1 10R 0
+c
+mode p
+c
+nps   1e6
+prdmp 1e5 1e5 0 1 1e5
+c
+print -85 -86
+c
+c Tallies
+f4:p 6
+c
+c Mesh Tally to Visualize Source Distribution
+fmesh14:p ORIGIN=-7 0 0 TYPE=source
+         IMESH=7  IINTS=15
+         JMESH=17 JINTS=17
+         KMESH=14 KINTS=14

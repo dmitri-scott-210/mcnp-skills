@@ -1,0 +1,157 @@
+Storage Facility + Multiple Sources on Table
+c
+c Facility
+c
+100     1  0.0764     -99 +10 +11 +12
+                          +13 +14 +15           imp:n=1
+c
+c Rooms 
+c
+110     2  4.8333e-5  -10  fill=3               imp:n=1
+120     2  4.8333e-5  -11                       imp:n=1
+130     2  4.8333e-5  -12                       imp:n=1
+c
+c Doorways
+c
+140     2  4.8333e-5  -13                       imp:n=1
+150     2  4.8333e-5  -14                       imp:n=1
+160     2  4.8333e-5  -15                       imp:n=1
+c
+c Multiple Sources on Table
+c
+200     2  4.8333e-5  +20 +21 +22 +25 
+                                   trcl=2  u=3  imp:n=1
+c
+c Table
+c
+210     3  -2.65869   -20          trcl=2  u=3  imp:n=1
+220     3  -2.65869   -21          trcl=2  u=3  imp:n=1
+230     3  -2.65869   -22          trcl=2  u=3  imp:n=1
+c
+c Sources
+c
+240     0             -23                  u=1  imp:n=1
+250     2  4.8333e-5   23                  u=1  imp:n=1
+260     0             -24  fill=1  trcl=1  u=2  imp:n=1
+                            lat=1
+270     0             -25  fill=2  trcl=2  u=3  imp:n=1
+c
+c Outside world
+c
+999     0             +99                       imp:n=0
+
+c 
+c Empty space in the rooms
+c
+10    rpp    -700  -100   -300   300    0  300
+11    rpp     100   700   -300   300    0  300
+12    rpp    -50    50    -300   300    0  300
+c
+c Empty space in the doorways
+c
+13    rpp     50    100    -300  -200    0  250
+14    rpp     700   750     200   300    0  250
+15    rpp    -100  -50      200   300    0  250
+c
+c Table top, leg, and bottom
+c
+20    rcc     0  0  0    0  0  2     45
+21    rcc     0  0  2    0  0  100   2.5
+22    rcc     0  0  102  0  0  2     60
+c
+c Spherical sources and lattice boxes
+c
+23    sz   0.5  0.5
+24    rpp  -25  25   -25  25   0  5
+25    rpp  -50  50   -50  50   104 109
+c
+c Building structure
+c
+99    rpp   -750   750    -350   350  -50  310
+
+c
+c Data Cards
+c
+mode n p
+nps 1e5
+print
+c
+c Translations
+c
+tr1  25  25  104
+tr2 -400 0   0
+c
+c Sources
+c
+sdef  cel=d1  par=fcel=d2  erg=fcel=d3  pos=0 0 0.5  rad=d8
+si1  l  (240<260[-1:0 -1:0 0]<270<110)
+sp1      1  1  1  1
+ds2  l   n  n  p  p
+ds3  s   4  5  6  7
+sp4  -4
+sp5  -3
+si6  l  1.17  1.33
+sp6      1     1
+si7  l  0.662
+sp7      1
+si8   0 0.5
+sp8  -21 2
+c
+c Tallies
+c
+fmesh4:n geom= xyz    origin= -750 -350 -50
+          imesh= 750   iints= 150
+          jmesh= 350   jints=  70
+          kmesh= 310   kints=  36
+c
+fmesh14:p geom= xyz    origin= -750 -350 -50
+          imesh= 750   iints= 150
+          jmesh= 350   jints=  70
+          kmesh= 310   kints=  36
+c
+c Materials
+c  Concrete
+m1     1001  0.00842
+       8016  0.04423
+      13027  0.00252
+      14028  0.014690958
+      14029  0.000718176
+      14030  0.000460866
+      11023  0.00105
+      20040  2.84037E-03
+      20042  1.89571E-05
+      20043  3.95550E-06
+      20044  6.11198E-05
+      20046  1.17200E-07
+      20048  5.47910E-06
+      26054  0.000041788
+      26056  0.000632003
+      26057  0.000014347
+      26058  0.000001862
+      19039  6.43481E-04
+      19040  8.07300E-08
+      19041  4.64384E-05
+mt1    lwtr
+c  Air
+m2     1001  1.7404E-10
+       1002  1.3065E-14
+       6000  1.11008E-08
+       7014  3.8981E-05
+       7015  1.3515E-07
+       8016  9.1205E-06
+       8017  3.4348E-09
+      18036  3.0439E-10
+      18038  5.3915E-11
+      18040  8.0974E-08
+mt2    lwtr
+c  Aluminum
+m3    12024  8.82164e-03 
+      12025  1.11680e-03 
+      12026  1.22960e-03 
+      13027  9.76816e-01 
+      14028  5.34789e-03 
+      14029  2.71677e-04 
+      14030  1.79301e-04 
+      25055  4.94084e-04 
+      26054  1.32675e-04 
+      26056  2.08272e-03 

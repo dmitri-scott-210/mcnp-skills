@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "PNL33",
+    "icsbep_name": {
+      "material": "MIX",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "004"
+    },
+    "description": "Lattice of mixed-oxide fuel pins in borated water"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "PNL33",
+      "n": "PNL33"
+    },
+    "outputs": {
+      "outp": "PNL33o",
+      "mctal": "PNL33m"
+    },
+    "inputs": {
+      "inp": "PNL33"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0024,
+      "std": 0.0021
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00661,
+      "std": 0.000760594
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VIII.0"
+  }
+}

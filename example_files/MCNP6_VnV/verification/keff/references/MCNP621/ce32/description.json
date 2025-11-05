@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce32",
+    "problem_type": "Continuous Energy",
+    "description": "PUa-1-1-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce32.inp",
+      "n": "ce32"
+    },
+    "outputs": {
+      "outp": "ce32o",
+      "mctal": "ce32m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999954,
+      "std": 0.000102419
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "al_0p3mev_0deg_fmr_idx_8_ch",
+    "description": "",
+    "details": {
+      "material": "Aluminum",
+      "energy": 0.3,
+      "type": "Condensed History",
+      "angle": 0,
+      "fmr": 0.501,
+      "fmr_index": 8
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "al_0p3mev_0deg_fmr_idx_8_ch_",
+      "n": "al_0p3mev_0deg_fmr_idx_8_ch_"
+    },
+    "outputs": {
+      "outp": "al_0p3mev_0deg_fmr_idx_8_ch_o",
+      "mctal": "al_0p3mev_0deg_fmr_idx_8_ch_m"
+    },
+    "inputs": {
+      "inp": "al_0p3mev_0deg_fmr_idx_8_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.015554,
+      "err": 0.014
+    },
+    "reference": "SAND79-0414, p. 59",
+    "foil_thickness": 0.00505,
+    "energy_deposited": 3.08,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-16"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0142137,
+      "err": 0.0019
+    }
+  }
+}

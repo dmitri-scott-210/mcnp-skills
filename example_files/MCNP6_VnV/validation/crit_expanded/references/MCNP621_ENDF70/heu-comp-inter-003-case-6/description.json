@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-comp-inter-003-case-6",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "COMP",
+      "spectrum": "INTER",
+      "number": "003",
+      "case": "6"
+    },
+    "description": "HEU-COMP-INTER-003  Case 6  DU Inner Refl, No Outer Reflector "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-comp-inter-003-case-6.i",
+      "n": "heu-comp-inter-003-case-6"
+    },
+    "inputs": {
+      "inp": "heu-comp-inter-003-case-6.i"
+    },
+    "outputs": {
+      "outp": "heu-comp-inter-003-case-6o",
+      "mctal": "heu-comp-inter-003-case-6m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0047
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995216,
+      "std": 0.00033818
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

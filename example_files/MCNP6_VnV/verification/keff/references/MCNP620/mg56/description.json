@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg56",
+    "problem_type": "Multigroup",
+    "description": "URRb-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg56.inp",
+      "n": "mg56"
+    },
+    "outputs": {
+      "outp": "mg56o",
+      "mctal": "mg56m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.365821
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.36584,
+      "std": 8.08467e-06
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

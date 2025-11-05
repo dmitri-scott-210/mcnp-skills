@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "UH3C6",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "COMP",
+      "spectrum": "INTER",
+      "number": "003",
+      "case": "006"
+    },
+    "description": "UH3 cylinders reflected by depleted uranium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "UH3C6",
+      "n": "UH3C6"
+    },
+    "outputs": {
+      "outp": "UH3C6o",
+      "mctal": "UH3C6m"
+    },
+    "inputs": {
+      "inp": "UH3C6"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0047
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995685,
+      "std": 0.000771024
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.1"
+  }
+}

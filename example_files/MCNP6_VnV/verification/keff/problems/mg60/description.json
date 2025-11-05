@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg60",
+    "problem_type": "Multigroup",
+    "description": "URRb-H2Oa(IN)-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg60.inp",
+      "n": "mg60"
+    },
+    "outputs": {
+      "outp": "mg60o",
+      "mctal": "mg60m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

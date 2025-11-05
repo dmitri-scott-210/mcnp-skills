@@ -1,0 +1,23 @@
+Govida Unstructured Mesh
+c
+c CELL CARDS
+1     100   -18.74       0     u=1     imp:n=1         $ Govida sphere
+2     0                  0     u=1     imp:n=1         $ background
+3     0                 -1     fill=1  imp:n=1         $ fill cell
+4     0                  1             imp:n=0         $ outside
+
+c SURFACE CARDS
+1   rpp -13.7186 13.7105 -13.7116 13.7191 -13.741 13.741
+
+C DATA CARDS
+c Embedded Geometry Specification
+embed1 meshgeo=abaqus mgeoin=g7.abaq.txt
+       meeout=g7.eeout
+       filetype=ascii
+       background=2
+       matcell= 1 1
+c
+kcode 10000  1.0  25  125
+ksrc  0.0  0.0  0.0
+m100   92235.80c -0.9473 
+       92238.80c -0.0527

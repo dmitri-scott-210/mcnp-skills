@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-sol-therm-021-case-3",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "021",
+      "case": "3"
+    },
+    "description": "PNL-6  PU-SOL-THERM-021 Case 3  15.2-inch Sphere of Plutonium Nitrate "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-sol-therm-021-case-3.i",
+      "n": "pu-sol-therm-021-case-3"
+    },
+    "inputs": {
+      "inp": "pu-sol-therm-021-case-3.i"
+    },
+    "outputs": {
+      "outp": "pu-sol-therm-021-case-3o",
+      "mctal": "pu-sol-therm-021-case-3m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0065
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00432,
+      "std": 0.000444903
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

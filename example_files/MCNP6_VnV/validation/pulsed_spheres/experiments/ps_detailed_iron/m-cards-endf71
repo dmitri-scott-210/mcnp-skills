@@ -1,0 +1,147 @@
+c       ENDF/B-VII.1-----------------------------------------
+m501 $  Air, nominally at 0.001288 g/cc
+         7014.80c   -0.7885
+         8016.80c   -0.2115
+c
+m521 $  Concrete, nominally at 2.35 g/cc
+c       ------------------
+c       Note:  While these 13 "atom fractions" only sum to 0.9966908 (not 1.000000),
+c       they were taken from page 142 of LA-12885 (Dec 1994).  Moreover, the atom
+c       fractions for the first 8 entries (O, H, Si, Ca, Al, C, Mg, and Na) are also
+c       the same as given on pp 309 & 315 of UCRL-51144, Rev I (Feb 1972), which goes
+c       on to simply note that the trace elements Fe, K (missing here), Ti, and Mn
+c       each account for less than 1.0 at% (each).  While one could speculate that
+c       potassium (K=19000) might account for the missing 0.33092 at% (at frac=
+c       0.0033092), or that the LANL numbers for the trace elements (last 5 entries)
+c       should be renormalized to sum to 1.3 at% (at frac=0.013), such small changes
+c       would be well below the uncertainties in most composition specs. In the absence
+c       of any clear knowledge on this negligible quantity, we have chosen to simply
+c       keep the same traditional material specs previously used by LANL in LA-12885.
+c       In this case, mcnp will automatically adjust all fractions to sum to 1.0 exactly.
+c       ------------------
+         8016.80c   0.557
+         1001.80c   0.151
+        14028.80c   0.1374227
+        14029.80c   0.0069583
+        14030.80c   0.0046190
+c        20000.   0.036
+        20040.80c   0.03489876
+        20042.80c   0.00023292
+        20043.80c   0.0000486
+        20044.80c   0.00075096
+        20046.80c   0.00000144
+        20048.80c   0.00006732
+        13027.80c   0.032
+         6000.80c   0.031
+c        12000.   0.018
+        12024.80c   0.0142182
+        12025.80c   0.0018
+        12026.80c   0.0019818
+        11023.80c   0.013
+        26054.80c   0.0001914
+        26056.80c   0.0030268
+        26057.80c   0.0000726
+c        22000.   0.0033
+        22046.80c   0.000264
+        22047.80c   0.0002409
+        22048.80c   0.0024354
+        22049.80c   0.0001815
+        22050.80c   0.0001782
+        25055.80c   0.0031
+c
+m522 $  Iron (with trace impurities), nominally at 7.85 g/cc
+        26054.80c   0.0562600
+        26056.80c   0.8896840
+        26057.80c   0.0213400
+        26058.80c   0.0027160
+         6000.80c   0.012
+        25055.80c   0.010
+        15031.80c   0.007
+        16032.80c   0.001
+c
+m581 $  Target Material (50 at% Tritium, 50 at% Titanium), nominally at 1.879497 g/cc
+c       ------------------
+c       Note:  This thin foil (see zone 1 of Fig 6 on page 10 of UCRL-51144)
+c       actually has a known mass of only 0.004 grams !!
+c       ------------------
+         1003.80c   0.5
+c        22000.   0.5
+        22046.80c   0.04
+        22047.80c   0.0365
+        22048.80c   0.369
+        22049.80c   0.0275
+        22050.80c   0.0270
+c
+m582 $  Target Component (all Tungsten), artificially at 30.073815 g/cc in model
+c       ------------------
+c       Note:  The larger-than-normal density (indicated here but actually specified
+c       on the mcnp cell card) is such that it will exactly replicate the known mass
+c       (3.250 grams) of zone 2 in Fig 6 when used in combination with the mcnp model
+c       which exactly replicates the geometry in Fig 6. This larger-than-normal density
+c       stems from the fact that Fig 6 on page 10 of UCRL-51144 is an "idealized"
+c       representation of the target assembly while the stated masses were measured.
+c       ------------------
+        74182.80c   0.2643
+        74183.80c   0.143
+        74184.80c   0.3067
+        74186.80c   0.286
+c
+m583 $  Target Component (mostly Iron and Copper), artificially at 20.096000 g/cc in model
+c       ------------------
+c       Note 1:  The "atom fractions" used here sum to 1.06 which cannot be right.
+c       Yet, they are "exactly" the same atom fractions given for zone 3 of the
+c       target assembly in Fig 6 on page 10 of UCRL-51144, Rev I (Feb 1972).  In
+c       the absence of any new (corrected) information, the best we can do is to
+c       stay with the original specs and let mcnp automatically renormalize each
+c       one so they sum to 1.000 exactly.
+c       Note 2:  The larger-than-normal density (indicated here but actually specified
+c       on the mcnp cell card) is such that it will exactly replicate the known mass
+c       (1.100 grams) of zone 3 in Fig 6 when used in combination with the mcnp model
+c       which exactly replicates the geometry in Fig 6. This larger-than-normal density
+c       stems from the fact that Fig 6 on page 10 of UCRL-51144 is an "idealized"
+c       representation of the target assembly while the stated masses were measured.
+c       ------------------
+        26054.80c   0.0261
+        26056.80c   0.4127
+        26057.80c   0.0099
+        26058.80c   0.0013
+        29063.80c   0.2213
+        29065.80c   0.0987
+         1001.80c   0.13
+         8016.80c   0.08
+        13027.80c   0.02
+         6000.80c   0.06
+c
+m584 $  Target Component (AL, H, and C) artificially at 23.180464 g/cc in model
+c       ------------------
+c       Note:  The larger-than-normal density (indicated here but actually specified
+c       on the mcnp cell card) is such that it will exactly replicate the known mass
+c       (1.500 grams) of zone 4 in Fig 6 when used in combination with the mcnp model
+c       which exactly replicates the geometry in Fig 6. This larger-than-normal density
+c       stems from the fact that Fig 6 on page 10 of UCRL-51144 is an "idealized"
+c       representation of the target assembly while the stated masses were measured.
+c       ------------------
+        13027.80c   0.5
+         1001.80c   0.30
+         6000.80c   0.20
+c
+m585 $  Target Component (all Aluminum), nominally at 2.701353 g/cc in model
+        13027.80c   1.0
+c
+m586 $  Target Component (all Aluminum), nominally at 2.705809 g/cc in model
+        13027.80c   1.0
+c
+m587 $  Target Component (Aluminum and Copper) artificially at 20.008000 g/cc in model
+c       ------------------
+c       Note:  The larger-than-normal density (indicated here but actually specified
+c       on the mcnp cell card) is such that it will exactly replicate the known mass
+c       (417.000 grams) of zone 7 in Fig 6 when used in combination with the mcnp model
+c       which exactly replicates the geometry in Fig 6. This larger-than-normal density
+c       stems from the fact that Fig 6 on page 10 of UCRL-51144 is an "idealized"
+c       representation of the target assembly while the stated masses were measured.
+c       ------------------
+        13027.80c   0.5
+        29063.80c   0.3459
+        29065.80c   0.1541
+c       ------------------------------------------------------
+c       END OF MATERIAL SPECS

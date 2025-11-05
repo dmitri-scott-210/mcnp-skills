@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "u233-met-fast-006",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "006",
+      "case": "001"
+    },
+    "description": "U233-MET-FAST-006  FLATTOP-23"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-met-fast-006i",
+      "n": "u233-met-fast-006"
+    },
+    "outputs": {
+      "outp": "u233-met-fast-006o"
+    },
+    "inputs": {
+      "inp": "u233-met-fast-006i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -271000.0,
+      "std": 3000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -294057.0,
+      "std": 4081.21
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.1"
+  }
+}

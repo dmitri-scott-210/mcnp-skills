@@ -1,0 +1,105 @@
+cvar10: duct w/ concrete and absorber; analog; energy cutoff; splitting & RR
+c       revised cell importances; energy splitting & RR
+c       source energy biasing; revised geometry splitting; forced collisions
+c       dxtran sphere at top + dxc cards
+c
+1001     0             (1 -21):-2
+1002   100  -2.03e0   -1  -3   2
+1003   100  -2.03e0   -1  -4   3
+1004   100  -2.03e0   -1  -5   4
+1005   100  -2.03e0   -1  -6   5
+1006   100  -2.03e0   -1  -7   6
+1007   100  -2.03e0   -1  -8   7
+1008   100  -2.03e0   -1  -9   8
+1009   100  -2.03e0   -1  -10  9
+1010   100  -2.03e0   -1  -11  10
+1011   100  -2.03e0   -1  -12  11
+1012   100  -2.03e0   -1  -13  12
+1013   100  -2.03e0   -1  -14  13
+1014   100  -2.03e0   -1  -15  14
+1015   100  -2.03e0   -1  -16  15
+1016   100  -2.03e0   -1  -17  16
+1017   100  -2.03e0   -1  -18  17
+1018   100  -2.03e0   -1  -19  18
+1019   100  -2.03e0   -1  -20  19
+1020     0            -1  -21  20
+1021   100  -2.03e-2  -1  -22  21
+1022     0             1   21 -22
+1023     0                22
+
+ 1     cy  100
+ 2     py  0
+ 3     py  10
+ 4     py  20
+ 5     py  30
+ 6     py  40
+ 7     py  50
+ 8     py  60
+ 9     py  70
+10     py  80
+11     py  90
+12     py  100
+13     py  110
+14     py  120
+15     py  130
+16     py  140
+17     py  150
+18     py  160
+19     py  170
+20     py  180
+21     py  2000
+22     py  2010
+
+mode   n
+c        the following is schaeffer portland concrete (page 451)
+m100    1001.70c  -.010
+        8016.70c  -.529
+       11023.70c  -.016
+       12000.62c  -.002
+       13027.70c  -.034
+       14000.60c  -.337
+       19000.62c  -.013
+       20000.62c  -.044
+       26000.55c  -.014
+        6012.50c  -.001
+c
+sdef   x=0 y=1.e-6 z=0 cel=1002 wgt=1  erg=d1
+si1   L   2   14
+sp1    0.95   0.05
+sb1    0.10   0.90
+c
+c  Geometry Splitting & RR
+c
+imp:n   0   1.00     2.43m    2.14m    2.11m    2.11m  $ 1001 - 1006
+            2.11m    2.11m    2.12m    2.13m    2.14m  $ 1007 - 1011
+            2.15m    2.16m    2.16m    2.17m    2.18m  $ 1012 - 1016
+            2.19m    2.22m    2.43m    1m  1m  1m  0   $ 1017 - 1023
+c
+c  Tallies
+c
+e0    .01 100            $ energy bin upper bounds
+f1:n  20
+f4:n  1021
+f5:n  200 2005 0 0
+pd0   0 19r 1 0 0        $ cell contributing to point detectors
+ft1   scx 1              $ contributions to tally 1 by energy
+ft4   scx 1              $ contributions to tally 4 by energy
+c
+c  Energy cutoff added
+c
+cut:n J  0.01  0 0       $ time cutoff, lower energy cut off, analog capture
+c
+c  Energy splitting/roulette
+c
+esplt:n  0.5 5  0.5 1  0.5 0.3  0.5 0.1  0.5 0.03
+c
+fcl:n  0 19R  1.0  0 0                          $ forced collisions
+c
+dxt:n  0. 2005. 0. 100.125  100.125             $ DXTRAN
+dxc0:n  0.     0.001  0.001  0.001  0.001       $ Contribution by cell  
+        0.010  0.01   0.01   0.01   0.01  0.01
+        0.015  0.02   0.04   0.08   0.2   0.4  
+        1.0    1.0  0  0  0 
+c
+nps  500000
+print -98 -100 -110 -140

@@ -1,0 +1,36 @@
+Sphere of HEU in water box
+c cell cards
+10   100   -19.1   -1      imp:n=1
+20   200    -1.0   -2  1   imp:n=1
+30     0           -3  2   imp:n=1
+40     0            3      imp:n=0
+
+c surface cards
+1   so    2.5
+2   rpp   -5  5   -5  5   -5  5
+3   so    25
+99  px    -15   $ dummy surface for point detector disc source
+
+c data cards
+nps    100000
+totnu
+m100     92235  -90     92238  -10
+m200      1001    2      8016    1
+sdef   pos=-15 0 0   axs=1 0 0   rad=d1  vec=1 0 0    dir=1
+       erg=14.1      tme=d2      sur=99  ara=3.14159
+si1    0   1
+sp1  -21   1
+si2    0   2.5
+sp2    0   1  
+c
+fc5    Time response of a neutron detector
+f5:n   15  0  0  0.1
+t5     1.e-1  11ilog 1e11
+tm5    10      0.9     0.9e-1  0.9e-2  0.9e-3  0.9e-4  0.9e-5
+       0.9e-6  0.9e-7  0.9e-8  0.9e-10 0.9e-11 0.9e-12
+de5  log  0.01   0.1    1     10
+df5  lin  0      0.4    0.25   0
+fq5  t  f
+
+
+

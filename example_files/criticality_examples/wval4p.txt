@@ -1,0 +1,32 @@
+wval4p:  Study of Pu reflected with Ta
+c
+c  Pu mass    = 4500 g
+c  Pu density = 19.8 g/cc
+c  Pu volume  = 227.272727
+c
+c  vary reflector thickness from 0+ to 30 cm
+c
+c  @@@  THICK   = .01  5. 10. 15. 20. 25. 30.
+c  @@@  R_INNER = 3.7857584
+c  @@@  R_OUTER = ( R_INNER + THICK )
+c
+c  reflector definition:
+c    reflector thickness    = THICK cm
+c    reflector inner radius = R_INNER cm
+c    reflector outer radius = R_OUTER cm
+c
+  1   4 -19.80  -1        imp:n=1 
+  2   1 -16.69  +1 -2     imp:n=1
+ 20   0         +2        imp:n=0
+
+  1 so    R_INNER
+  2 so    R_OUTER
+
+ kcode 10000 1.0 50 250
+ sdef pos=0 0 0 rad=d1
+  si1  0  R_INNER
+  sp1  -21 2
+c
+ m1  73180.80c 0.00012   73181.80c 0.99988
+ m4  94239.80c 1
+ prdmp 9e9 9e9 1 9e9

@@ -1,0 +1,23 @@
+Demo3: Volume Source in Steel Tank (1/4-inch thick walls) LA-UR-23-25214
+c       Tank is filled with radioactive water
+c       at a concentration of 1 microcurie per liter of Cs-137
+c       Tank volume = 9.38488e+3 liters
+c       Tally for fluence rate across side of tank
+c    ------------<<<<< Cell Card >>>>>------------------------------------------
+
+c    ************<<<<< End Cell Card >>>>>**************************************
+
+c    ------------<<<<< Surface Card >>>>>---------------------------------------
+
+c    ************<<<<< End Surface Card >>>>>***********************************
+
+c    ------------<<<<< Data Card >>>>>------------------------------------------
+m1   $ steel SAE 1020, D=8.0 g/cc
+       6000 -0.002
+      25055 -0.007
+      26000 -0.991
+m2   $ water, D=0.998207 g/cc
+       1001 -0.111894
+       8016 -0.888106
+nps  1e4
+c    ************<<<<< End Data Card >>>>>**************************************

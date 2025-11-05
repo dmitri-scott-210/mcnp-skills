@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg58",
+    "problem_type": "Multigroup",
+    "description": "URRb-H2Oa(1)-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg58.inp",
+      "n": "mg58"
+    },
+    "outputs": {
+      "outp": "mg58o",
+      "mctal": "mg58m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.99999,
+      "std": 8.65594e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-23"
+  }
+}

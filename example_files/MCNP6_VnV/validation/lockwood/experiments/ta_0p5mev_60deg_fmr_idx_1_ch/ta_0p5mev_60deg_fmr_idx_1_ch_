@@ -1,0 +1,22 @@
+Energy deposition for 0p5mev electrons in ta at 60deg incidence.
+1     0             100 -101 -200 imp:e=1
+2     1  -16.69  101 -102 -200 imp:e=1
+3     0             102 -103 -200 imp:e=1
+4     1  -16.69  103 -104 -200 imp:e=1
+999   0            -100 :104: 200 imp:e=0
+
+100     pz  0.0
+101     pz  0.1
+102     pz  0.100991611743559
+103     pz  0.200991611743559
+104     pz  5.0
+200     cz  100.0
+
+mode e p
+phys:e 0.5 13j 0.001
+m1 73000.14p -1
+sdef par=3 erg=0.5 x=0. y=0. z=0. vec=0 0 1 dir=0.5
+nps 1e6
+*f8:e 2
+prdmp 2j 1
+print

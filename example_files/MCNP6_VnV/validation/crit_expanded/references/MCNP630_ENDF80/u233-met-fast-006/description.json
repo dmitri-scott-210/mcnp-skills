@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "u233-met-fast-006",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "006"
+    },
+    "description": "U-233 SPHERE Reflected by Normal Uranium, FLATTOP-23: U233-MET-FAST-006 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-met-fast-006.i",
+      "n": "u233-met-fast-006"
+    },
+    "inputs": {
+      "inp": "u233-met-fast-006.i"
+    },
+    "outputs": {
+      "outp": "u233-met-fast-006o",
+      "mctal": "u233-met-fast-006m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0014
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999777,
+      "std": 0.00029271
+    }
+  }
+}

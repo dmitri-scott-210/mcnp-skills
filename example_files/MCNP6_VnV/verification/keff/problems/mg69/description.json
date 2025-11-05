@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg69",
+    "problem_type": "Multigroup",
+    "description": "UD2O-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg69.inp",
+      "n": "mg69"
+    },
+    "outputs": {
+      "outp": "mg69o",
+      "mctal": "mg69m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg47",
+    "problem_type": "Multigroup",
+    "description": "U-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg47.inp",
+      "n": "mg47"
+    },
+    "outputs": {
+      "outp": "mg47o",
+      "mctal": "mg47m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.216349
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.21633,
+      "std": 2.61788e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-23"
+  }
+}

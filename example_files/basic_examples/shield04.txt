@@ -1,0 +1,35 @@
+shield04 - shielding calculation with 252-Cf neutron source
+c >>>>> cell cards
+100    3000   -0.0013    -10 -20           $ air left of shield (w/ source)
+200    1000   -7.874     -10  20 -30       $ iron shield left layer
+210    2000   -1.0       -10  30 -40       $ water layer
+220    1000   -7.874     -10  40 -50       $ iron shield right layer
+300    3000   -0.0013    -10  50           $ air right of shield 
+999       0               10               $ rest of the world
+
+c >>>>> surface cards
+10     rpp    -10  140     -100  100   -100  100   $ problem bounding surfaces
+20     px      0                                   $ plane at beginning of shield
+30     px      10                                  $ plane at start of water layer
+40     px      20                                  $ plane at end of water layer
+50     px      40                                  $ plane at end of shield
+
+c >>>>> data cards
+nps     1e5
+c ### material specification
+m1000    26056    1.0                    $ shield, pure iron-56
+m2000     1001    2      8016   1        $ water
+mt2000    lwtr                           $ water s(a,b)
+m3000     7014    0.8    8016   0.2      $ air
+c ### source specification
+sdef    pos=-5  0  0     erg=d1
+sp1     -3   1.025   2.926         $ 252-Cf spontaneous watt fission spectrum
+c ### importances
+imp:n   1  4r  0
+c ### mesh tally specification
+fmesh4:n    geom=xyz    origin=0  -100  -100
+           imesh=40      iints=40
+           jmesh=100     jints=40
+           kmesh=100     kints=1
+fm4   -3.e8   0   -1  -4
+ 

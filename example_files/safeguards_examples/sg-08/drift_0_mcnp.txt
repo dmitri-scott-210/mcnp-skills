@@ -1,0 +1,53 @@
+drift_0
+c
+c ----------------------------------------------------------------
+c                    FOR TRAINING PURPOSES ONLY
+c ----------------------------------------------------------------
+c   
+1 1000	-0.874 -99 	imp:n,h=1 
+2 2000	-1.2e-3	-98 99	imp:n=1 imp:h=1 
+3 0		98	imp:n,h=0 
+
+99	rcc	0 0 0 	0 0 7.1 3.1 
+98	so	20 
+
+nps 5e4  
+mode n h 
+PHYS:N 50 50 4j 1  
+PHYS:h 50 50 -1 j 0 j 0 j j j 1 0 0 0.917 
+cut:n j 0 0 0 
+cut:h j 0 0 0 
+c Add a PTRAC File Below:
+
+sdef PAR = n erg = d1 pos = 0 0 -7
+c ------------------------------
+c Scintillator EJ-301
+c ------------------------------
+m1000 	1001 0.5477 
+      	6000 0.4523
+c ------------------------------
+c Air
+c ------------------------------
+m2000 	7014 -0.75
+	8016 -0.25
+c Source particle energies distributed according to Cf-252 Watt Spectrum
+SP1 -3 1.18 1.03419 
+F6:h 1 $Energy Deposition tally in cell 1, dose factors designated below
+DE6 lin	0	0.1	0.2	0.3	0.4 
+	0.5	0.6	0.7	0.8
+	0.9	1.0	1.5	2.0	2.5
+	3.0	3.5	4.0	4.5	5
+	5.5	6	7	8	9	10
+DF6 lin 0	0.1804	0.1802	0.2196	0.249 
+	0.2954	0.2954	0.3143	0.3314
+	0.347	0.4265	0.4265	0.5095	0.5095
+	0.5095	0.566	0.566	0.610	0.643
+	0.643	0.643	0.671	0.694	0.714	0.731
+F8:h 1 $Pulse height distribution tally in cell 1
+FT8 PHL 1 6 1 0 
+E8: 0 9i 10 $Energy Bins for pulse height tally
+F18:h 1 $Pulse height distribution tally in cell 1
+E18: 0 9i 10 $Energy bins for pulse height tally
+print 110
+
+

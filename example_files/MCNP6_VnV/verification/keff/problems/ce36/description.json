@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce36",
+    "problem_type": "Continuous Energy",
+    "description": "Ua-1-1-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce36.inp",
+      "n": "ce36"
+    },
+    "outputs": {
+      "outp": "ce36o",
+      "mctal": "ce36m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

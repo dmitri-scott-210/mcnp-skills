@@ -1,0 +1,34 @@
+ STACY Run 36  Uranyl Nitrate  9.97 wt.% Enr  253.9 g/l U  83.55 cm
+c  LEU-SOL-THERM-007  25 C
+1    1    0.086845     1   -2    4   -6           $ Tank Wall
+2    1    0.086845    -2    3   -4                $ Tank Bottom
+3    1    0.086845    -2    6   -7                $ Tank Top
+4    2    0.098947    -1    4   -5                $ Uranyl Nitrate Solution
+5    3    4.9425e-5   -1    5   -6                $ Air inside Tank
+6    0                 2:-3:7
+
+1   cz   29.5                                     $ Inner Radius of Tank
+2   cz   29.8                                     $ Outer Radius of Tank
+3   pz   -2.0                                     $ Bottom of Tank
+4   pz    0.0                                     $ Bottom of Uranyl Nitrate
+5   pz   83.55                                    $ Top of Uranyl Nitrate
+6   pz  150.0                                     $ Top of Air
+7   pz  152.5                                     $ Top of Tank
+
+kcode  5000  1.0  50  250
+imp:n   1.0   4r  0.0
+totnu
+sdef   cel=4  erg=d1  pos= 0 0 40
+sp1    -3
+area    27803.09     28928.41       2789.86       2789.86
+         2733.97      2789.86       2879.86
+vol      8383.34      5579.72       6974.65     228423.28
+       181627.37         0.0
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+prdmp   j   999999    1
+print
+ 
+ end of input

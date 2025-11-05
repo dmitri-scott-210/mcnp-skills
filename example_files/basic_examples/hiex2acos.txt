@@ -1,0 +1,52 @@
+hiex2acos - Heavy Ion example - RIA target test                    
+c Beginning of cell cards
+ 1  1 -0.5  -2  +1  -99  $ cell 1, above surface 1 (Z > 1.0 cm) but below
+c                         surface 2 (Z < 4.0 cm) and inside surface 99 (sphere
+c                         at (0,0,0) with R = 50 cm, filled with material 1 
+c                         (Li-nat = 0.075Li6 + 0.925Li7), density = 0.5 g/cm^3 
+ 2  0  -99  (+2:-1)      $ cell 2, inside the sphere and above surface 2 or
+c                         below surfice 1 (i.e., not inside the target geometry
+c                         defined by cell 1), void
+ 99 0   99               $ cell 99, outside the sphere, void
+c End of cell cards
+
+c Beginning of surface cards
+ 1  pz 1.0               $ plane normal to Z-axis, Z=1 cm
+ 2  pz 4.0               $ plane normal to Z-axis, Z=1 cm                       
+ 99 so 50.0              $ surface 99, sphere at (0,0,0) with R=50 cm
+c End of surface cards
+
+c Beginning of data cards
+ mode # n a t d s h      $ transport heavy ions (#), n, He4, t, d, He3, and protons
+ m1  3006  0.075  3007 0.925 $ material 1, Li-nat = 0.075Li6 + 0.925Li7 
+ phys:# 100000   $ transport heavy ions up to 10000 MeV (total energy, not "per nucleon"
+ phys:n 10000    $ transport neutrons up to 1 GeV
+ phys:h 10000    $ transport protons up to 1 GeV
+ phys:a 500      $ transport He4 up to 500 MeV
+ phys:t 500      $ transport t up to 500 MeV
+ phys:d 500      $ transport d up to 500 MeV
+ phys:s 500      $ transport He3 up to 500 MeV
+ imp:n 1 1 0     $ importance of n in cells 1 and 2 is 1, while in cell 99 is 0
+ imp:# 1 1 0     $ importance of heavy ions in cells 1 and 2 is 1, while in cell 99 is 0
+ sdef par=92238 erg=95200 pos 0 0 0 vec 0 0 1 dir 1
+c     source is an U238 beam at (0,0,0) in Z-direction, energy=95200 MeV, or 400 MeV/A
+ nps  5000       $ simulate 5000 histories
+ e0 0.0 49i 100000.0  $ use interpolation ("i") to get 50 energy bins between
+c                       0 to 100000 MeV, default for all tallies (Delta T = 2000 MeV)
+c                       this is not "per nucleon" of products, but for the total energy
+ f1:#  2                     $ tally surface current of heavy ion flux in cell 2,
+c                              i.e., count all heavy ions leaving the target
+ ft1  res  3000 89i 93000    $ tally residual nuclei (heavy ions) in 90 bins, according
+c                              to their charge, from Z=3 to Z=93, i.e., build energy
+c                              spectra of all products with Z from 3 to 93, without looking at their A 
+ *c1  3 2 1 0     $ tally the ions in 4 angular bins, namely, from 0 to 1, 1 to 2,
+c                    2 to 3, and 3 to 180 degrees (angles, in "degrees", because of *)
+c
+ f11:#  2                  $ tally surface current of heavy ion flux in cell 2,
+ ft11  res  3 93           $ tally all residual nuclei from Z=3 (Li) to Z=93 (Np)
+c   i.e., in contrast to the above FT1 RES, tally also separately A of ions, for every Z  
+ *c11  3 2 1 0    $ tally Li and Np in 4 angular bins, namely, from 0 to 1, 1 to 2,
+c                    2 to 3, and 3 to 180 degrees (angles, in "degrees", because of *)
+c
+ print             $ print all tables
+c End of data cards

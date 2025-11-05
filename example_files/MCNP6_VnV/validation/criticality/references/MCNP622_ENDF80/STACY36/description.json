@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "STACY36",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "007",
+      "case": "036"
+    },
+    "description": "Cylinder of IEU (9.97 wt.%) uranyl nitrate solution"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "STACY36",
+      "n": "STACY36"
+    },
+    "outputs": {
+      "outp": "STACY36o",
+      "mctal": "STACY36m"
+    },
+    "inputs": {
+      "inp": "STACY36"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9988,
+      "std": 0.0013
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0001,
+      "std": 0.000657823
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VIII.0"
+  }
+}

@@ -1,0 +1,52 @@
+shield05a - shielding calculation with 252-Cf neutron source
+c >>>>> cell cards
+100    3000   -0.0013    -10 -20         $ air left of shield (w/ source)
+200    1000   -7.874     -10  20 -21     $ iron shield left layer (zone 1)
+201    1000   -7.874     -10  21 -30     $ iron shield left layer (zone 2)
+210    2000   -1.0       -10  30 -31     $ water layer (zone 1)
+211    2000   -1.0       -10  31 -40     $ water layer (zone 2)
+220    1000   -7.874     -10  40 -41     $ iron shield right layer (zone 1)
+221    1000   -7.874     -10  41 -42     $ iron shield right layer (zone 2)
+222    1000   -7.874     -10  42 -43     $ iron shield right layer (zone 3)
+223    1000   -7.874     -10  43 -50     $ iron shield right layer (zone 4)
+300    3000   -0.0013    -10  50         $ air right of shield 
+999       0               10             $ rest of the world
+
+c >>>>> surface cards
+10     rpp    -10  140     -100  100    -100  100  $ problem bounding surfaces
+20     px      0                                   $ plane at beginning of shield
+21     px      5                                   $ segmenting plane
+30     px      10                                  $ plane at start of water layer
+31     px      15                                  $ segmenting plane
+40     px      20                                  $ plane at end of water layer
+41     px      25                                  $ segmenting plane
+42     px      30                                  $ segmenting plane
+43     px      35                                  $ segmenting plane
+50     px      40                                  $ plane at end of shield
+
+c >>>>> data cards
+nps     1e5
+c ### material specification
+m1000    26056    1.0                    $ shield, pure iron-56
+m2000     1001    2      8016   1        $ water
+mt2000    lwtr                           $ water s(a,b)
+m3000     7014    0.8    8016   0.2      $ air
+c ### source specification
+sdef    pos=-5  0  0     erg=d1
+sp1     -3   1.025   2.926         $ 252-Cf spontaneous watt fission spectrum
+c ### importances
+imp:n  1  2.0m  1.2m  0.9m  1.5m  3.6m  3.7m  1.8m  1.9m  1.6m  0
+c ### tally specification
+fc2     average dose rate in rem/hr, 10 cm from shield from 3e8 neutrons
+f2:n    10.1
+fm2     3.e8         $ multiply by source strength 3.e8 n/s
+c ### neutron flux to dose (rem/hr) factors (NCRP-38, ANSI/ANS-6.1.1-1977)
+c !!! NOT RECOMMENDED FOR ACTUAL CALCULATIONS !!!
+de2     log   2.50e-8   1.00e-7   1.00e-6   1.00e-5   1.00e-4   1.00e-3
+              1.00e-2   1.00e-1   5.00e-1   1.00e+0   2.50e+0   5.00e+0
+              7.00e+0   1.00e+1   1.40e+1   2.00e+1
+df2     log   3.67e-6   3.67e-6   4.46e-6   4.54e-6   4.18e-6   3.76e-6
+              3.56e-6   2.17e-5   9.26e-5   1.32e-4   1.25e-4   1.56e-4
+              1.47e-4   1.47e-4   2.08e-4   2.27e-4
+
+

@@ -1,0 +1,301 @@
+trr-l/m1 -MCNP INPUT DECK FOR THE THAI RESEARCH REACTOR 
+c 
+c 
+c Model of the Triga type OAEP Thai-Research-Reactor 
+c 
+c created March 31, 1998 by Jabo Tang & Franz Gallmeier ORNL, USA 
+c for the Office of Atomic Energy for Peace, Thailand 
+c 
+c This model includes: 
+c   -standard fuel rods (fresh fuel) 
+c   -LEU fuel rods (fresh fuel) 
+c   -vacant rods 
+c   -five control rods positioned independently by TR-cards 
+c    (fresh fuel & fresh boron carbide) 
+c   -the bottom and top grid plates c the safety plate 
+c   -substantial amount of light water about the core 
+c   -set up for keff calculations 
+C 
+C -------------------------------------------------------------------
+C CELL SPECIFICATION CARDS: 
+C -------------------------------------------------------------------
+C 
+C definition of rods: 
+C 
+c standard fuel rods 
+ 10  3 -6.109   -1   +4  -3                u=1 imp:n=1.0 $ fuel, std 
+ 11  5 -1.28    -1   +3  -5                u=1 imp:n=1.0 $ top reflector 
+ 12  5 -1.28    -1   +6  -4                u=1 imp:n=1.0 $ bottom reflector 
+ 13  1 -1.00    -1  +22  -6                u=1 imp:n=1.0 $ water below bott. refl. 
+ 14  1 -1.00    -1   +5 -24                u=1 imp:n=1.0 $ water above top refl. 
+ 15  2 -7.87    +1   -2 +22 -24            u=1 imp:n=1.0 $ ss304 cladding 
+ 16  7 -2.70    +21 -22                    u=1 imp:n=1.0 $ lower grid plate 
+ 17  7 -2.70    +2  +23 -24                u=1 imp:n=1.0 $ upper grid plate 
+ 18  1 -1.00    +2  +22 -23                u=1 imp:n=1.0 $ water outside rod 
+ 19  1 -1.00    (+31 -21):(+24 -32)        u=1 imp:n=1.0 $ water above & below rod 
+c 
+c leu fuel rods 
+20  like 10  but  mat=4  rho=-6.508        u=2 imp:n=1.0 $ fuel, std 
+21  like 11  but                           u=2 imp:n=1.0 $ top reflector 
+22  like 12  but                           u=2 imp:n=1.0 $ bottom reflector 
+23  like 13  but                           u=2 imp:n=1.0 $ water below bott. refl. 
+24  like 14  but                           u=2 imp:n=1.0 $ water above top refl. 
+25  like 15  but                           u=2 imp:n=1.0 $ ss clad 
+26  like 16  but                           u=2 imp:n=1.0 $ lower grid plate 
+27  like 17  but                           u=2 imp:n=1.0 $ upper grid plate 
+28  like 18  but                           u=2 imp:n=1.0 $ water outside rod 
+29  like 19  but                           u=2 imp:n=1.0 $ water above & below rod 
+c 
+c vacant rods (ct, rabbit, nd, iit) 
+30  like 10  but  mat=0                    u=3 imp:n=1.0 $ fuel, std 
+31  like 11  but  mat=0                    u=3 imp:n=1.0 $ top reflector 
+32  like 12  but  mat=0                    u=3 imp:n=1.0 $ bottom reflector 
+33  like 13  but                           u=3 imp:n=1.0 $ water below bott. refl. 
+34  like 14  but                           u=3 imp:n=1.0 $ water above top refl. 
+35  like 15  but                           u=3 imp:n=1.0 $ ss clad 
+36  like 16  but                           u=3 imp:n=1.0 $ lower grid plate 
+37  like 17  but                           u=3 imp:n=1.0 $ upper grid plate 
+38  like 18  but                           u=3 imp:n=1.0 $ water outside rod 
+39  like 19  but                           u=3 imp:n=1.0 $ water above & below rod 
+c 
+c control rod 1 (movable by tr4) 
+40  1 -1.00      -1 +41 -42                u=4 imp:n=1.0 $ water below fuel zone 
+41  3 -6.109     -1 +42 -43                u=4 imp:n=1.0 $ fuel zone 
+42  6 -2.50      -1 +43 -44                u=4 imp:n=1.0 $ b4c absorber 
+43  0            -1 +44 -45                u=4 imp:n=1.0 $ void zone above absorber 
+45  2 -7.87      +1  -2 +41 -45            u=4 imp:n=1.0 $ 55 clad 
+46  1 -1.00      -2 +31 -41                u=4 imp:n=1.0 $ water below control rod 
+47  1 -1.00      -2 +45 -32                u=4 imp:n=1.0 $ water above control rod 
+48  1 -1.00      (+2 +31 -21):(+2 +22 -23)
+                :(+2 +24 -32)              u=4 imp:n=1.0 $ water outside of rod 
+49  7 -2.70  (+2 +21 -22):(+2 +23 -24)     u=4 imp:n=1.0 $ grid plates 
+c 
+c control rod 2 (movable by tr5) 
+50  1 -1.00      -1 +51 -52                u=5 imp:n=1.0 $ water below fuel zone 
+51  3 -6.109     -1 +52 -53                u=5 imp:n=1.0 $ fuel zone 
+52  6 -2.50      -1 +53 -54                u=5 imp:n=1.0 $ b4c absorber 
+53  0            -1 +54 -55                u=5 imp:n=1.0 $ void zone above absorber 
+55  2 -7.87      +1  -2 +51 -55            u=5 imp:n=1.0 $ ss clad 
+56  1 -1.00      -2 +31 -51                u=5 imp:n=1.0 $ water below control rod 
+57  1 -1.00      -2 +55 -32                u=5 imp:n=1.0 $ water above control rod 
+58  1 -1.00      (+2 +31 -21):(+2 +22 -23)
+                :(+2 +24 -32)              u=5 imp:n=1.0 $ water outside of rod 
+59  7 -2.70      (+2 +21 -22):(+2 +23 -24) u=5 imp:n=1.0 $ grid plates 
+c 
+c control rod 3 (movable by tr6) 
+60  1 -1.00      -1 +61 -62                u=6 imp:n=1.0 $ water below fuel zone 
+61  3 -6.109     -1 +62 -63                u=6 imp:n=1.0 $ fuel zone 
+62  6 -2.50      -1 +63 -64                u=6 imp:n=1.0 $ b4c absorber 
+63  0            -1 +64 -65                u=6 imp:n=1.0 $ void zone above absorber 
+65  2 -7.87      +1 -2 +61 -65             u=6 imp:n=1.0 $ ss clad 
+66  1 -1.00      -2 +31 -61                u=6 imp:n=1.0 $ water below control rod 
+67  1 -1.00      -2 +65 -32                u=6 imp:n=1.0 $ water above control rod 
+68  1 -1.00      (+2 +31 -21):(+2 +22 -23)
+                :(+2 +24 -32)              u=6 imp:n=1.0 $ water outside of rod 
+69  7 -2.70      (+2 +21 -22):(+2 +23 -24) u=6 imp:n=1.0 $ grid plates 
+c 
+c control rod 4 (movable by tr7) 
+70  1 -1.00      -1 +71 -72                u=7 imp:n=1.0 $ water below fuel zone 
+71  3 -6.109     -1 +72 -73                u=7 imp:n=1.0 $ fuel zone 
+72  6 -2.50      -1 +73 -74                u=7 imp:n=1.0 $ b4c absorber 
+73  0            -1 +74 -75                u=7 imp:n=1.0 $ void zone above absorber 
+75  2 -7.87      +1  -2 +71 -75            u=7 imp:n=1.0 $ ss clad 
+76  1 -1.00      -2 +31 -71                u=7 imp:n=1.0 $ water belay control rod 
+77  1 -1.00      -2 +75 -32                u=7 imp:n=1.0 $ water above control rod 
+78  1 -1.00      (+2 +31 -21):(+2 +22 -23)
+                :(+2 +24 -32)              u=7 imp:n=1.0 $ water outside of rod 
+79  7 -2.70      (+2 +21 -22):(+2 +23 -24) u=7 imp:n=1.0 $ grid plates 
+c 
+c control rod 5 (movable by tr8) 
+80  1 -1.00      -1 +81 -82                u=8 imp:n=1.0 $ water below fuel zone 
+81  3 -6.109     -1 +82 -83                u=8 imp:n=1.0 $ fuel zone 
+82  6 -2.50      -1 +83 -84                u=8 imp:n=1.0 $ Mc absorber 
+83  0            -1 +84 -85                u=8 imp:n=1.0 $ void zone above absorber 
+85  2 -7.87      +1  -2 +81 -85            u=8 imp:n=1.0 $ ss clad 
+86  1 -1.00      -2 +31 -81                u=8 imp:n=1.0 $ water below control rod 
+87  1 -1.00      -2 +85 -32                u=8 imp:n=1.0 $ water above control rod 
+88  1 -1.00      (+2 +31 -21):(+2 +22 -23)
+                :(+2 +24 -32)              u=8 imp:n=1.0 $ water outside of rod 
+89  7 -2.70      (+2 +21 -22):(+2 +23 -24) u=8 imp:n=1.0 $ grid plates 
+c 
+c empty position
+90  1 -1.00     +31 -21                    u=9 imp:n=1.0 $ water below grid plates 
+91  1 -1.00     +22 -23                    u=9 imp:n=1.0 $ water between grid plates 
+92  1 -1.00     +24 -32                    u=9 imp:n=1.0 $ water above grid plates 
+93  7 -2.70     (+21 -22):(+23 -24)        u=9 imp:n=1.0 $ grid plates 
+c 
+c definition of the core configuration: 
+100  0           -11 +13 -12 fill=10           imp:n=1.0 $ 'iiindo'ii cell 
+110  1 -1.00    -301 +302 -303 +304 -305 +306 
+                                           u=10 imp:n=1.0
+      lat=2 fill -7:7 -7:7 0:0 
+      9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+       9 9 9 9 9 9 9 9 1 1 1 3 3 9 9 
+        9 9 9 9 9 9 1 1 1 1 1 1 1 3 9 
+         9 9 9 9 9 1 1 2 2 2 2 2 1 1 9 
+          9 9 9 9 1 1 2 5 2 2 6 2 1 1 9 
+           9 9 9 3 1 2 2 1 3 1 2 2 1 1 9 
+            9 9 3 1 2 2 1 1 1 1 2 2 1 1 9 
+             9 9 1 2 2 1 1 3 1 1 7 2 1 9 9 $ center 
+              9 3 1 2 2 4 1 1 3 2 2 1 1 9 9 
+               9 1 1 2 2 1 1 1 2 2 1 1 9 9 9 
+                9 1 1 2 2 2 2 8 2 1 3 9 9 9 9 
+                 9 1 1 2 2 2 2 2 1 1 9 9 9 9 9 
+                  9 1 1 1 1 1 1 1 3 9 9 9 9 9 9 
+                   9 9 1 1 1 1 1 9 9 9 9 9 9 9 9 
+                    9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
+c
+120  7 -2.70     -11  +14  -13                  imp:n=1.0 $ safety plate 
+130  1 -1.00    -101 +102 -103 (+11 :-14 :+12)  imp:n=1.0 $ water about the core 
+999  0           101:-102:103                   imp:n=0   $ system boundary 
+c ------------------------------------------------------------------------
+c END OF CELL SPECIFICATION CARDS 
+c ------------------------------------------------------------------------
+c .... a blank line seperates the cell cards from the surface cards .... 
+
+c -----------------------------------------------------------------------
+c SURFACE SPECIFICATION CARDS 
+c ------------------------------------------------------------------------
+c fuel rod surface cards 
+1      cz    1.815    $ radius of fuel and graphite 
+2      cz    1.865    $ radius of rod 
+3      pz   19.05     $ top of fuel 
+4      pz  -19.05     $ bottom of fuel 
+5      pz   27.75     $ top of graphite 
+6      pz  -27.75     $ bottom of graphite
+c core dimension surface cards 
+11     cz   27.5      $ radius of core 
+12     pz   73.00     $ upper core extension 
+13     pz  -69.00     $ upper safety plate 
+14     pz  -70.00     $ lower safety plate 
+c grid plates surface cards 
+21     pz  -32.40     $ lower grid plate 
+22     pz  -30.92     $ lower grid plate 
+23     pz   30.49     $ upper grid plate 
+24     pz   33.03     $ upper grid plate 
+c general control rod surface cards 
+31     pz -120.0      $ lower extension of geometry 
+32     pz  100.0      $ upper extension of geometry 
+c control rod 1 surface cards 
+41  4  pz  -67.00     $ lower control rod extension 
+42  4  pz  -57.15     $ lower end fuel zone 
+43  4  pz  -19.05     $ bottom of fuel 
+44  4  pz   19.05     $ top of fuel 
+45  4  pz   36.00     $ upper end void zone 
+c control rod 2 surface cards 
+51  5  pz  -67.00     $ lower control rod extension 
+52  5  pz  -57.15     $ lower end fuel zone 
+53  5  pz  -19.05     $ bottom of fuel 
+54  5  pz   19.05     $ top of fuel 
+55  5  pz   36.00     $ upper end void zone 
+c control rod 3 surface cards 
+61  6  pz  -67.00     $ lower control rod extension 
+62  6  pz  -57.15     $ lower end fuel zone 
+63  6  pz  -19.05     $ bottom of fuel 
+64  6  pz   19.05     $ top of fuel 
+65  6  pz   36.00     $ upper end void zone 
+c control rod 4 surface cards 
+71  7  pz  -67.00     $ lower control rod extension 
+72  7  pz  -57.15     $ lover end fuel zone 
+73  7  pz  -19.05     $ bottom of fuel 
+74  7  pz   19.05     $ top of fuel 
+75  7  pz   36.00     $ upper end void zone 
+c control rod 5 surface cards 
+81  8  pz  -67.00     $ lower control rod extension 
+82  8  pz  -57.15     $ lower end fuel zone 
+83  8  pz  -19.05     $ bottom of fuel 
+84  8  pz   19.05     $ top of fuel 
+85  8  pz   36.00     $ upper end void zone 
+c water surrounding the core 
+101    cz   54.0 $ radius of water outside core 
+102    pz  -75.0 $ bottom of water 
+103    pz   75.0 $ top of water 
+c hexagonal cell 
+301    p    1.73205  1  0   4.34 
+302    P    1.73205  1  0  -4.34 
+303    py   2.17   
+304    py  -2.17 
+305    P   -1.73205  1  0   4.34 
+306    P   -1.73205  1  0  -4.34 
+c -----------------------------------------------------------------------
+c END OF SURFACE SPECIFICATION CARDS 
+c 
+c .. a blank line seperates the surface cards from the parameter cards .. 
+
+c 
+c TRANSFORMATION CARDS: 
+c 
+c for positioning the control rods 
+c (the positive third entry gives the CR position 
+c where the value 0.0 describes the fully inserted 
+c CR position) 
+c 
+c CRl -> universe u=4 -> transformation tr4 
+c CR2 -> universe u=5 -> transformation tr5 
+c CR3 -> universe u=6 -> transformation tr6 
+c CR4 -> universe u=7 -> transformation tr7 
+c CR5 -> universe u=8 -> transformation tr8 
+tr4   0   0   +1.0 
+tr5   0   0   +9.0 
+tr6   0   0  +18.0 
+tr7   0   0  +36.0 
+tr8   0   0  +27.0 
+c 
+c END OF TRANSFORMATION CARDS 
+c 
+c MATERIAL CARDS: 
+c -----------------------------------------------------------------------
+c material 1: light water (h2o) density= 1.00 g/cm**3 
+m1    1001.50c 0.66667     8016.50c 0.33333 
+mt1   lwtr.01t 
+c 
+c material 2: cladding (SS304) density= 7.87 g/cm**3 
+m2   25055.50c 8.3717-4   26000.55c 5.6089-2   24000.50c 1.4161-2 
+     28000.50c 1.0046-2   42000.50c 2.0929-3 
+c 
+c material 3: standard fuel density=6.109l g/cro**3 
+c m3    1001.50c 5.5318-2   40000.35c 3.5849-2 
+m3    1001.50c 5.5318-2   40000     3.5849-2 
+     92235.50c 2.4800-4   92238.50c 9.8550-4 
+mt3  h/zr.01t 
+c 
+c material 4: leu fuel density=6.508 g/cm**3 
+c used Hf poison instead of Er poison 
+c with an atomic number 
+c scaled by the ratio of mic. absorption cross sections (173/105) 
+c m4    1001.50c 5.0440-2    40000.35c 3.4295-2   72000.35c 6.3186-5 
+m4    1001.50c 5.0440-2    40000     3.4295-2   72000     6.3186-5 
+     92235.50c 6.3860-4    92238.50c 2.5700-3 
+mt4  h/zr.01t 
+c 
+c material 5: graphite density=1.28 g/cm**3 
+c 20% porosity 
+m5   6012.50c 6.4240-2 
+mt5  grph.01t 
+c 
+c material 6: boron carbide (b4c) density 2.50 g/cm**3 
+m6   5010.50c 2.1780-2     5011.50c 8.7131-2    6012.50c 2.7228-2 
+c 
+c material 7: aluminum 6061 density=2.70 g/cm**3 
+m7   12000.50c 6.08867-4   13027.50c 5.93050-2   14000.50c 3.51273-4 
+     22000.50c 1.71637-5   24000.50c 5.05971-5   25055.50c 1.49649-5 
+     26000.55c 1.00105-4   29000.50c 8.72506-5 
+c ----------------------------------------------------------------------
+c END OF MATERIAL CARDS 
+c --------------------------------------------------------------------
+c 
+c ---------------------------------------------------
+c PARAMETER CARDS 
+c -----------------------------------------------------
+tmp   0.060e-6  0.025e-6  8r  0.025e-6  0.060e-6
+      0.025e-6  8r  0.025e-6  62r 
+sdef  pos 0 0 0   axs=0 0 1   rad=d1   ext=d2   erg=d3 
+si1   0 28 
+si2  20 
+sp3  -2 
+kcode  5000  1.0  50 500 
+hsrc  7 -30 30   7 -30 30   7 -50 50
+mode n 
+c -----------------------------------------------------
+c END OF PARAMETER CARDS 
+c -----------------------------------------------------

@@ -1,0 +1,32 @@
+{
+  "general_info": {
+    "name": "PUBTNS",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003",
+      "case": "103"
+    },
+    "description": "3 x 3 x 3 array of small cylinders of plutonium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "PUBTNS",
+      "n": "PUBTNS"
+    },
+    "outputs": {
+      "outp": "PUBTNSo",
+      "mctal": "PUBTNSm"
+    },
+    "inputs": {
+      "inp": "PUBTNS"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    }
+  }
+}

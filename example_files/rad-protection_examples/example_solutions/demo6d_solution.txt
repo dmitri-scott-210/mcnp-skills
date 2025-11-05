@@ -1,0 +1,95 @@
+DT Neutron Generator LA-UR-23-22342 LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --The generator produces 1e5 pulses/yr
+c    --Df table is ICRP-74 1996 Ambient Dose Equivalent
+c    S(neutrons/yr)=(Neutrons/Pulse)(pulses/yr)=(2.65e8)(1e5)=2.65e13 neutrons/yr
+c    C1(neutrons*pSv/yr)=(S Neutrons/yr)(1 pSv)
+c    C1=(2.65e13)(DCF)=2.65e13 (neutrons*mrem/yr)
+c    2.65e13 * 1e-7(pSv/mrem)=2.65e6 (neutrons*mrem/yr)
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    1    -2.3      -1                       imp:n=1        $ Concrete Floor
+2    2    -0.9      -2                       imp:n=1        $ Drywall Slab
+3    0              -3 #2 #1                 imp:n=1        $ Boundary
+4    0               3                       imp:n=0        $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RPP  0 600 -300 300 -30 0                    $ Concrete Floor
+2    RPP  500 502.54 -250 250 0 280.48            $ Drywall Slab
+3    RPP  0 600 -300 300 -30 280.48               $ Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Concrete D=2.3 g/cc
+       1001.70c -0.004530
+       8016.70c  -0.512600
+      11023.70c  -0.015270
+      13027.70c  -0.035550
+      14000.60c  -0.360360
+      20000.60c  -0.057910
+      26000.55c  -0.013780
+m2   $ Drywall (Gypsum) D=2.32 g/cc
+       1001.70c  -0.023416
+       8016.70c  -0.557572
+      16000.60c  -0.186215
+      20000.60c  -0.232797
+mode n
+sdef pos=300 0 100                                $ Position (300,0,100)
+     par=1                                        $ Neutrons Only
+     erg=14                                       $ Neutron Energy
+f5:n 550 0 100 0                                  $ Detect @ (550,0,100) R=0
+fm5 2.65e6
+c       ICRP-74 H*(10) conversion function: psVcm^2
+#       DE0         DF0
+        LIN         LIN
+        1.00E-09    6.6 
+        1.00E-08    9   
+        2.50E-08    10.6
+        1.00E-07    12.9
+        2.00E-07    13.5
+        5.00E-07    13.6
+        1.00E-06    13.3
+        2.00E-06    12.9
+        5.00E-06    12  
+        1.00E-05    11.3
+        2.00E-05    10.6
+        5.00E-05    9.9 
+        1.00E-04    9.4 
+        2.00E-04    8.9 
+        5.00E-04    8.3 
+        1.00E-03    7.9 
+        0.002       7.7 
+        0.005       8   
+        0.01        10.5
+        0.02        16.6
+        0.03        23.7
+        0.05        41.1
+        0.07        60  
+        0.1         88  
+        0.15        132 
+        0.2         170 
+        0.3         233 
+        0.5         322 
+        0.7         375 
+        0.9         400 
+        1           416 
+        1.2         425 
+        2           420 
+        3           412 
+        4           408 
+        5           405 
+        6           400 
+        7           405 
+        8           409 
+        9           420 
+        10          440 
+        12          480 
+        14          520 
+        15          540 
+        16          540 
+        18          570 
+        20          600 
+nps  5e6                                          $ Terminate after 5e6 particle
+c    ************<<<<< End Data Cards >>>>>**************************************

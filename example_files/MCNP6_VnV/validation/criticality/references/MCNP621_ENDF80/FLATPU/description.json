@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "FLATPU",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "006",
+      "case": ""
+    },
+    "description": "Plutonium sphere reflected by normal U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "FLATPU",
+      "n": "FLATPU"
+    },
+    "outputs": {
+      "outp": "FLATPUo",
+      "mctal": "FLATPUm"
+    },
+    "inputs": {
+      "inp": "FLATPU"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.998127,
+      "std": 0.000764671
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VIII.0"
+  }
+}

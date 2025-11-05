@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce31",
+    "problem_type": "Continuous Energy",
+    "description": "PU-1-1-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce31.inp",
+      "n": "ce31"
+    },
+    "outputs": {
+      "outp": "ce31o",
+      "mctal": "ce31m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.5
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.5,
+      "std": 4.2845e-09
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

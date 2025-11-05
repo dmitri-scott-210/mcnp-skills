@@ -1,0 +1,1354 @@
+          Code Name & Version = MCNP_6.20, 6.2.0
+  
+     _/      _/        _/_/_/       _/      _/       _/_/_/         _/_/_/ 
+    _/_/  _/_/      _/             _/_/    _/       _/    _/     _/        
+   _/  _/  _/      _/             _/  _/  _/       _/_/_/       _/_/_/     
+  _/      _/      _/             _/    _/_/       _/           _/    _/    
+ _/      _/        _/_/_/       _/      _/       _/             _/_/       
+  
+  +-----------------------------------------------------------------------+
+  | Copyright (2018).  Los Alamos National Security, LLC.  All rights     !
+  | reserved.                                                             !
+  |  This material was produced under U.S. Government contract            !
+  | DE-AC52-06NA25396 for Los Alamos National Laboratory, which is        !
+  | operated by Los Alamos National Security, LLC for the U.S.            !
+  | Department of Energy. The Government is granted for itself and        !
+  | others acting on its behalf a paid-up, nonexclusive, irrevocable      !
+  | worldwide license in this material to reproduce, prepare derivative   !
+  | works, and perform publicly and display publicly. Beginning five (5)  !
+  | years after February 14, 2018, subject to additional five-year        !
+  | worldwide renewals, the Government is granted for itself and others   !
+  | acting on its behalf a paid-up, nonexclusive, irrevocable worldwide   !
+  | license in this material to reproduce, prepare derivative works,      !
+  | distribute copies to the public, perform publicly and display         !
+  | publicly, and to permit others to do so. NEITHER THE UNITED STATES    !
+  | NOR THE UNITED STATES DEPARTMENT OF ENERGY, NOR LOS ALAMOS NATIONAL   !
+  | SECURITY, LLC, NOR ANY OF THEIR EMPLOYEES, MAKES ANY WARRANTY,        !
+  | EXPRESS OR IMPLIED, OR ASSUMES ANY LEGAL LIABILITY OR RESPONSIBILITY  !
+  | FOR THE ACCURACY, COMPLETENESS, OR USEFULNESS OF ANY INFORMATION,     !
+  | APPARATUS, PRODUCT, OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE  !
+  | WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS.                            !
+  +-----------------------------------------------------------------------+
+  
+1mcnp     version 6     ld=02/20/18                     09/21/21 11:25:19 
+ *************************************************************************                 probid =  09/21/21 11:25:19 
+ n=caas_hybrid.txt tasks 4
+
+ 
+  warning.  universe map (print table 128) disabled.
+ 
+  comment.  Physics models disabled.
+         1-       caas CSG model
+         2-       c ----------------------------- Cell Cards ---------------------------------- 80
+         3-       1     4     0.0764       0                               u=1 imp:n=1
+         4-       2     4     0.0764       0                               u=1 imp:n=1
+         5-       3     4     0.0764       0                               u=1 imp:n=1
+         6-       4     4     0.0764       0                               u=1 imp:n=1
+         7-       5     4     0.0764       0                               u=1 imp:n=1
+         8-       6     4     0.0764       0                               u=1 imp:n=1
+         9-       7     4     0.0764       0                               u=1 imp:n=1
+        10-       8     4     0.0764       0                               u=1 imp:n=1
+        11-       9     4     0.0764       0                               u=1 imp:n=1
+        12-       10    3     4.8333e-5   0                               u=1 imp:n=1 $ background
+        13-       11    3     4.8333e-5    -200 11 40                     fill=1 imp:n=1 $ fill cell
+        14-       100   1     9.9270e-2     -10 -12                            imp:n=1 $ Pu nitrate
+        15-       101   3     4.8333e-5     -10 +12                            imp:n=1 $ Air in tank
+        16-       102   2     8.6360e-2     +10 -11                            imp:n=1 $ Steel tank
+        17-       120   5     -0.92         -40                                imp:n=1 $ Detector
+        18-       200     0                  200                               imp:n=0
+        19-       c
+        20-       
+        21-       c ----------------------------- Cell Cards ---------------------------------- 80
+        22-       10    rcc    0  0  2     0  0  100     50                           $ inside tank
+        23-       11    rcc    0  0  1     0  0  101    50.5                          $ outside tank
+        24-       12    pz     14.6                                                   $ height of solution
+        25-       40    sph    -255  -300  295     5.0                                $ detector
+        26-       200   rpp -1300.5 1900.5 -1900.5 250.5 -50.5 310.5
+        27-       
+        28-       c ----------------------------- Data Cards ---------------------------------- 80
+        29-       c Embedded Geometry Specification
+        30-       embed1 meshgeo=abaqus mgeoin=caas_hybrid.abaq
+        31-              meeout=caas_hybrid.mcnp.eeout
+        32-              filetype=ascii
+        33-              background=10
+        34-              matcell= 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9
+        35-       nps 1e6
+        36-       sdef pos=0 0 8.3 rad=d1 axs=0 0 1 ext=d2 erg=d3
+        37-       si1 H 0 50
+        38-       sp1 -21 1
+        39-       si2 -6.3 6.3
+        40-       sp2 -21 0
+        41-       si3 L
+        42-              1.0000000000E-08  1.6860000000E-08  2.8426000000E-08  4.7925000000E-08
+        43-              8.0801000000E-08  1.3623000000E-07  2.2968000000E-07  3.8724000000E-07
+        44-              6.5288000000E-07  1.1008000000E-06  1.8559000000E-06  3.1289000000E-06
+        45-              5.2754000000E-06  8.8942000000E-06  1.4996000000E-05  2.5282000000E-05
+        46-              4.2626000000E-05  7.1866000000E-05  1.2117000000E-04  2.0428000000E-04
+        47-              3.4442000000E-04  5.8069000000E-04  9.7903000000E-04  1.6506000000E-03
+        48-              2.7829000000E-03  4.6920000000E-03  7.9107000000E-03  1.3337000000E-02
+        49-              2.2487000000E-02  3.7912000000E-02  6.3919000000E-02  1.0777000000E-01
+        50-              1.8169000000E-01  3.0633000000E-01  5.1647000000E-01  8.7077000000E-01
+        51-              1.4681000000E+00  2.4752000000E+00  4.1732000000E+00  7.0359000000E+00
+        52-              1.1862000000E+01  2.0000000000E+01
+        53-       sp3 D
+        54-              2.5000250003E-03  3.8200382004E-03  8.3100831008E-03  1.4770147701E-02
+        55-              1.8960189602E-02  1.6320163202E-02  1.0750107501E-02  7.8500785008E-03
+        56-              1.3790137901E-02  1.3050130501E-02  1.4420144201E-02  1.4370143701E-02
+        57-              1.4280142801E-02  1.4070140701E-02  1.3930139301E-02  1.4560145601E-02
+        58-              1.4820148201E-02  1.4850148501E-02  1.5150151502E-02  1.5470154702E-02
+        59-              1.5640156402E-02  1.5880158802E-02  1.6040160402E-02  1.6200162002E-02
+        60-              1.6460164602E-02  1.6700167002E-02  1.7140171402E-02  1.7660176602E-02
+        61-              1.8600186002E-02  1.9970199702E-02  2.2260222602E-02  2.5910259103E-02
+        62-              3.1810318103E-02  4.1220412204E-02  5.0380503805E-02  7.7180771808E-02
+        63-              8.5630856309E-02  1.0427104271E-01  8.8540885409E-02  3.9760397604E-02
+        64-              6.4900649006E-03  2.1000210002E-04
+        65-       nonu 0 15r
+  warning.  tallies with nonu card do not include any fission neutrons.
+        66-       f6:n 120
+        67-       fm6 464638
+        68-       embee6:n embed=1 energy=464638 errors=yes
+        69-       mode n
+        70-       c
+        71-       c ### materials
+        72-       c plutonium nitrate solution
+        73-       m1     1001  6.0070e-2
+        74-              8016  3.6540e-2
+        75-              7014  2.3699e-3
+        76-             94239  2.7682e-4
+        77-             94240  1.2214e-5
+        78-             94241  8.3390e-7
+        79-             94242  4.5800e-8
+        80-       mt1    lwtr
+        81-       c stainless steel
+        82-       m2    24050  7.1866e-4     $ Cr-50  4.345%
+        83-             24052  1.3859e-2     $ Cr-52 83.789%
+        84-             24053  1.5715e-3     $ Cr-53  9.501%
+        85-             24054  3.9117e-4     $ Cr-54  2.365%
+        86-             26054  3.7005e-3     $ Fe-54  5.845%
+        87-             26056  5.8090e-2     $ Fe-56 91.754%
+        88-             26057  1.3415e-3     $ Fe-57  2.119%
+        89-             26058  1.7853e-4     $ Fe-58  0.282%
+        90-             28058  4.4318e-3     $ Ni-58 68.0769%
+        91-             28060  1.7071e-3     $ Ni-60 26.2231%
+        92-             28061  7.4207e-5     $ Ni-61  1.1399%
+        93-             28062  2.3661e-4     $ Ni-62  3.6345%
+        94-             28064  6.0256e-5     $ Ni-64  0.9256%
+        95-       c dry air (typical of American Southwest)
+        96-       m3     1001  1.7404E-10
+        97-              1002  1.3065E-14
+        98-              2003  8.3540E-16
+        99-              2004  4.5549E-10
+       100-              6000  1.11008E-08
+       101-              7014  3.8981E-05
+       102-              7015  1.3515E-07
+       103-              8016  9.1205E-06
+       104-              8017  3.4348E-09
+       105-             18036  3.0439E-10
+       106-             18038  5.3915E-11
+       107-             18040  8.0974E-08
+       108-             36078  1.7811E-14
+       109-             36080  1.1164E-13
+       110-             36082  5.6154E-13
+       111-             36083  5.49985E-13
+       112-             36084  2.69359E-12
+       113-             36086  7.98498E-13
+       114-             54124  2.30549E-13
+       115-       mt3    lwtr
+       116-       c los alamos concrete
+       117-       m4     1001  0.00842
+       118-              8016  0.04423
+       119-             13027  0.00252
+       120-             14028  0.014690958
+       121-             14029  0.000718176
+       122-             14030  0.000460866
+       123-             11023  0.00105
+       124-             20040  2.84037E-03
+       125-             20042  1.89571E-05
+       126-             20043  3.95550E-06
+       127-             20044  6.11198E-05
+       128-             20046  1.17200E-07
+       129-             20048  5.47910E-06
+       130-             26054  0.000041788
+       131-             26056  0.000632003
+       132-             26057  0.000014347
+       133-             26058  0.000001862
+       134-             19039  6.43481E-04
+       135-             19040  8.07300E-08
+       136-             19041  4.64384E-05
+       137-       mt4    lwtr
+       138-       c polyethlyene
+       139-       m5     1001  2
+       140-              6000  1
+       141-       mt5    poly
+       142-       
+
+ ***************************************************
+ * Random Number Generator  =                    1 *
+ * Random Number Seed       =       19073486328125 *
+ * Random Number Multiplier =       19073486328125 *
+ * Random Number Adder      =                    0 *
+ * Random Number Bits Used  =                   48 *
+ * Random Number Stride     =               152917 *
+ ***************************************************
+
+
+ ****************************************
+ ***** ABAQUS Input File Statistics *****
+ ****************************************
+
+       File:           caas_hybrid.abaq
+ 
+       Number of Parts                                                9
+       Number of Assemblies                                           1
+       Number of Instances                                            9
+       Number of Materials                                            1
+ 
+       Number of Parts with 1st Order Tets                            9
+       Number of Parts with 1st Order Pents                           0
+       Number of Parts with 1st Order Hexs                            0
+       Number of Parts with 2nd Order Tets                            0
+       Number of Parts with 2nd Order Pents                           0
+       Number of Parts with 2nd Order Hexs                            0
+ 
+                                       UNASSEMBLED Maximums
+       Total Number of 1st Order Tets                              2775
+       Total Number of 1st Order Pents                                0
+       Total Number of 1st Order Hexs                                 0
+       Total Number of 2nd Order Tets                                 0
+       Total Number of 2nd Order Pents                                0
+       Total Number of 2nd Order Hexs                                 0
+       Total Number of Elements                                    2775
+       Total Number of Nodes                                       1118
+       Max   Number of Pseudo-Cells                                  18
+ 
+                                       PART Maximums
+       Maximum Number of Nodes                                      531
+       Maximum Number of 1st Order Tets                            1477
+       Maximum Number of 1st Order Pents                              0
+       Maximum Number of 1st Order Hexs                               0
+       Maximum Number of 2nd Order Tets                               0
+       Maximum Number of 2nd Order Pents                              0
+       Maximum Number of 2nd Order Hexs                               0
+       Maximum Number of Elements                                  1477
+       Maximum Number of Materials                                    1
+       Maximum Number of Volume Source Sets                           0
+       Maximum Number of Statistical Regions                          1
+       Maximum Number of Material Elements                         1477
+       Maximum Number of Statistical Region Elements               1477
+ 
+
+
+                                       ASSEMBLED Maximums
+       Total Number of Pseudo-Cells                                   9
+       Total Number of Elements                                    2775
+       Total Number of Nodes                                       1118
+
+
+
+ *********************
+ ***** PART DATA *****
+ *********************
+
+ ***** PART #   1    walls                                                                           
+
+       Number of 1st Order Tets                1477
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                          531
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements             1477
+                 Statistical Elements          1477
+
+ ***** PART #   2    labwall                                                                         
+
+       Number of 1st Order Tets                  42
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           28
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               42
+                 Statistical Elements            42
+
+ ***** PART #   3    wall1                                                                           
+
+       Number of 1st Order Tets                  59
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           35
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               59
+                 Statistical Elements            59
+
+ ***** PART #   4    wall2                                                                           
+
+       Number of 1st Order Tets                  42
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           28
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               42
+                 Statistical Elements            42
+
+ ***** PART #   5    wall3                                                                           
+
+       Number of 1st Order Tets                  42
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           28
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               42
+                 Statistical Elements            42
+
+ ***** PART #   6    wall4                                                                           
+
+       Number of 1st Order Tets                  42
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           28
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               42
+                 Statistical Elements            42
+
+ ***** PART #   7    wall5                                                                           
+
+       Number of 1st Order Tets                  90
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           52
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               90
+                 Statistical Elements            90
+
+ ***** PART #   8    wall6                                                                           
+
+       Number of 1st Order Tets                  42
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                           28
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements               42
+                 Statistical Elements            42
+
+ ***** PART #   9    ceiling                                                                         
+
+       Number of 1st Order Tets                 939
+       Number of 1st Order Pents                  0
+       Number of 1st Order Hexs                   0
+       Number of 2nd Order Tets                   0
+       Number of 2nd Order Pents                  0
+       Number of 2nd Order Hexs                   0
+       Number of Nodes                          360
+       Number of Materials                        1
+       Number of Statistical Regions              1
+       Number of Source Sets                      0
+       Maximum Number in any Part Set
+                 Material Elements              939
+                 Statistical Elements           939
+
+
+ *************************
+ ***** MATERIAL DATA *****
+ *************************
+
+ ***** MATERIAL #   1    concrete_1                                                                      
+
+
+ *************************
+ ***** INSTANCE DATA *****
+ *************************
+
+ ***** INSTANCE #   1    wallsP1                                 wallsP1                                 
+ ***** INSTANCE #   2    labwallP1                               labwallP1                               
+ ***** INSTANCE #   3    wall1P1                                 wall1P1                                 
+ ***** INSTANCE #   4    wall2P1                                 wall2P1                                 
+ ***** INSTANCE #   5    wall3P1                                 wall3P1                                 
+ ***** INSTANCE #   6    wall4P1                                 wall4P1                                 
+ ***** INSTANCE #   7    wall5P1                                 wall5P1                                 
+ ***** INSTANCE #   8    wall6P1                                 wall6P1                                 
+ ***** INSTANCE #   9    ceilingP1                               ceilingP1                               
+
+
+ ***********************************************************************************************************************
+ *  Building the Global Tracking Model                                                                                 *
+ ***********************************************************************************************************************
+
+
+ Adding Instance #     1   :  wallsP1                                      [Part:]   wallsP1                                 
+
+        First 1st Order TET  element number:            1      Last  1st Order TET  element number:         1477
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1477
+                                                               Last GLOBAL node            :          531
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     2   :  labwallP1                                    [Part:]   labwallP1                               
+
+        First 1st Order TET  element number:         1478      Last  1st Order TET  element number:         1519
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1519
+                                                               Last GLOBAL node            :          559
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     3   :  wall1P1                                      [Part:]   wall1P1                                 
+
+        First 1st Order TET  element number:         1520      Last  1st Order TET  element number:         1578
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1578
+                                                               Last GLOBAL node            :          594
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     4   :  wall2P1                                      [Part:]   wall2P1                                 
+
+        First 1st Order TET  element number:         1579      Last  1st Order TET  element number:         1620
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1620
+                                                               Last GLOBAL node            :          622
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     5   :  wall3P1                                      [Part:]   wall3P1                                 
+
+        First 1st Order TET  element number:         1621      Last  1st Order TET  element number:         1662
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1662
+                                                               Last GLOBAL node            :          650
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     6   :  wall4P1                                      [Part:]   wall4P1                                 
+
+        First 1st Order TET  element number:         1663      Last  1st Order TET  element number:         1704
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1704
+                                                               Last GLOBAL node            :          678
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     7   :  wall5P1                                      [Part:]   wall5P1                                 
+
+        First 1st Order TET  element number:         1705      Last  1st Order TET  element number:         1794
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1794
+                                                               Last GLOBAL node            :          730
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     8   :  wall6P1                                      [Part:]   wall6P1                                 
+
+        First 1st Order TET  element number:         1795      Last  1st Order TET  element number:         1836
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         1836
+                                                               Last GLOBAL node            :          758
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+
+ Adding Instance #     9   :  ceilingP1                                    [Part:]   ceilingP1                               
+
+        First 1st Order TET  element number:         1837      Last  1st Order TET  element number:         2775
+        First 1st Order PENT element number:            0      Last  1st Order PENT element number:            0
+        First 1st Order HEX  element number:            0      Last  1st Order HEX  element number:            0
+        First 2nd Order TET  element number:            0      Last  2nd Order TET  element number:            0
+        First 2nd Order PENT element number:            0      Last  2nd Order PENT element number:            0
+        First 2nd Order HEX  element number:            0      Last  2nd Order HEX  element number:            0
+
+                                                               Last GLOBAL element         :         2775
+                                                               Last GLOBAL node            :         1118
+
+
+        Translate:      0.000000000000000     0.000000000000000     0.000000000000000
+        Rotate   :      0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000     0.000000000000000     0.000000000000000
+                        0.000000000000000
+
+    Global Model Extents
+    Min X: -1.30000E+03   Max X:  1.90000E+03
+    Min Y: -1.90000E+03   Max Y:  2.50000E+02
+    Min Z: -5.00000E+01   Max Z:  3.10000E+02
+
+
+  **********************************************************************************************************************
+  * Pseudo-Cell Cross Reference Table                                                                                  *
+  **********************************************************************************************************************
+  Pseudo-Cell #    MCNP6 Cell #    Instance #    Part #    Material #    Material Name
+  -------------    ------------    ----------    ------    ----------    -------------
+              1               1             1         1             1    concrete_1                              
+              2               2             2         2             1    concrete_1                              
+              3               3             3         3             1    concrete_1                              
+              4               4             4         4             1    concrete_1                              
+              5               5             5         5             1    concrete_1                              
+              6               6             6         6             1    concrete_1                              
+              7               7             7         7             1    concrete_1                              
+              8               8             8         8             1    concrete_1                              
+              9               9             9         9             1    concrete_1                              
+
+ ***********************************************************************************************************************
+ * Global Tracking Model Complete                                                                                      *
+ ***********************************************************************************************************************
+
+ ***** Estimated Memory Usage for Temporary Mesh Arrays *****
+
+                                       Bytes            MB
+       Character Arrays :               4608             0
+       Integer Arrays   :            2493164             2
+       Real Arrays      :             115416             0
+       Total            :            2613188             2
+
+
+ ***** Estimated Memory Usage for Permanent Mesh Arrays *****
+
+                                       Bytes            MB
+       Character Arrays :                  0             0
+       Integer Arrays   :             431252             0
+       Real Arrays      :            1401144             1
+       Total            :            1832396             1
+
+ 
+  comment.  total nubar used if fissionable isotopes are present.
+
+ surface       10.2 and surface       11.2 are the same.       11.2 will be deleted.
+ 
+  comment.           1 surfaces were deleted for being the same as others.
+ 
+  warning.    1 materials had unnormalized fractions. print table 40.
+1cells                                                                                                  print table 60
+
+                               atom        gram                                            neutron                                     
+              cell      mat   density     density     volume       mass            pieces importance                                   
+
+        1        1        4s 7.64000E-02 2.38564E+00 5.01500E+08 1.19640E+09           0  1.0000E+00                                   
+        2        2        4s 7.64000E-02 2.38564E+00 1.35000E+07 3.22061E+07           0  1.0000E+00                                   
+        3        3        4s 7.64000E-02 2.38564E+00 1.57500E+07 3.75738E+07           0  1.0000E+00                                   
+        4        4        4s 7.64000E-02 2.38564E+00 1.35000E+07 3.22061E+07           0  1.0000E+00                                   
+        5        5        4s 7.64000E-02 2.38564E+00 1.35000E+07 3.22061E+07           0  1.0000E+00                                   
+        6        6        4s 7.64000E-02 2.38564E+00 1.35000E+07 3.22061E+07           0  1.0000E+00                                   
+        7        7        4s 7.64000E-02 2.38564E+00 2.77500E+07 6.62015E+07           0  1.0000E+00                                   
+        8        8        4s 7.64000E-02 2.38564E+00 1.35000E+07 3.22061E+07           0  1.0000E+00                                   
+        9        9        4s 7.64000E-02 2.38564E+00 6.88000E+07 1.64132E+08           0  1.0000E+00                                   
+       10       10        3s 4.83330E-05 1.15775E-03 0.00000E+00 0.00000E+00           0  1.0000E+00                                   
+       11       11        3s 4.83330E-05 1.15775E-03 0.00000E+00 0.00000E+00           0  1.0000E+00                                   
+       12      100        1s 9.92700E-02 1.24127E+00 9.89602E+04 1.22837E+05           1  1.0000E+00                                   
+       13      101        3s 4.83330E-05 1.15775E-03 6.86438E+05 7.94725E+02           1  1.0000E+00                                   
+       14      102        2  8.63600E-02 7.93363E+00 2.37983E+04 1.88807E+05           1  1.0000E+00                                   
+       15      120        5s 1.18494E-01 9.20000E-01 5.23599E+02 4.81711E+02           1  1.0000E+00                                   
+       16      200        0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00           0  0.0000E+00                                   
+
+ total                                               6.82110E+08 1.62565E+09
+
+    minimum source weight = 1.0000E+00    maximum source weight = 1.0000E+00
+ 
+  comment.  threading will be used when possible in portions of mcnp6.
+ 
+  comment.  threading will be used for n/p/e table physics.
+ 
+  comment.  threading will generally not be used for model physics.
+
+         3 warning messages so far.
+1cross-section tables                                                                                   print table 100
+     XSDIR used: C:\MY_MCNP\MCNP_DATA/xsdir_mcnp6.2
+
+     table    length
+
+                        tables from file xdata/endf71x/H/1001.720nc                                      
+
+   1001.90c    4242  H1 ENDF71x (jlconlin)  Ref. see jlconlin (ref 06/04/2015  10:00:53)          mat 125      06/04/15
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     particle-production data for deuterons being expunged from   1001.90c          
+
+                        tables from file xdata/endf71x/H/1002.710nc                                      
+
+   1002.80c    6466  H2 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)          mat 128      12/17/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from   1002.80c          
+                     particle-production data for tritons   being expunged from   1002.80c          
+
+                        tables from file xdata/endf71x/He/2003.710nc                                     
+
+   2003.80c    4157  He3 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 225      12/13/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     particle-production data for alphas    being expunged from   2003.80c          
+
+                        tables from file xdata/endf71x/He/2004.710nc                                     
+
+   2004.80c   10204  He4 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 228      12/13/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/C/6000.710nc                                      
+
+   6000.80c   46348  C0 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)          mat 600      12/20/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from   6000.80c          
+                     particle-production data for deuterons being expunged from   6000.80c          
+                     particle-production data for alphas    being expunged from   6000.80c          
+
+                        tables from file xdata/endf71x/N/7014.710nc                                      
+
+   7014.80c   69296  N14 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 725      12/16/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from   7014.80c          
+                     particle-production data for deuterons being expunged from   7014.80c          
+                     particle-production data for alphas    being expunged from   7014.80c          
+
+                        tables from file xdata/endf71x/N/7015.710nc                                      
+
+   7015.80c   19933  N15 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 728      12/16/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/O/8016.710nc                                      
+
+   8016.80c  174111  O16 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 825      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from   8016.80c          
+                     particle-production data for deuterons being expunged from   8016.80c          
+                     particle-production data for tritons   being expunged from   8016.80c          
+                     particle-production data for alphas    being expunged from   8016.80c          
+
+                        tables from file xdata/endf71x/O/8017.710nc                                      
+
+   8017.80c    5541  O17 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 828      12/13/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Na/11023.710nc                                    
+
+  11023.80c   48527  Na23 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1125      12/22/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Al/13027.710nc                                    
+
+  13027.80c   91499  Al27 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1325      12/22/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  13027.80c          
+                     particle-production data for deuterons being expunged from  13027.80c          
+                     particle-production data for tritons   being expunged from  13027.80c          
+                     particle-production data for alphas    being expunged from  13027.80c          
+
+                        tables from file xdata/endf71x/Si/14028.710nc                                    
+
+  14028.80c  114175  Si28 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1425      12/14/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  14028.80c          
+                     particle-production data for deuterons being expunged from  14028.80c          
+                     particle-production data for tritons   being expunged from  14028.80c          
+                     particle-production data for alphas    being expunged from  14028.80c          
+
+                        tables from file xdata/endf71x/Si/14029.710nc                                    
+
+  14029.80c  102874  Si29 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1428      12/14/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  14029.80c          
+                     particle-production data for deuterons being expunged from  14029.80c          
+                     particle-production data for tritons   being expunged from  14029.80c          
+                     particle-production data for alphas    being expunged from  14029.80c          
+
+                        tables from file xdata/endf71x/Si/14030.710nc                                    
+
+  14030.80c   97356  Si30 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1431      12/16/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  14030.80c          
+                     particle-production data for deuterons being expunged from  14030.80c          
+                     particle-production data for tritons   being expunged from  14030.80c          
+                     particle-production data for alphas    being expunged from  14030.80c          
+
+                        tables from file xdata/endf71x/Ar/18036.710nc                                    
+
+  18036.80c   12854  Ar36 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1825      12/16/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Ar/18038.710nc                                    
+
+  18038.80c   14180  Ar38 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1831      12/16/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 3.0000E-01 to 1.0000E+00 mev.
+
+                        tables from file xdata/endf71x/Ar/18040.710nc                                    
+
+  18040.80c  157801  Ar40 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1837      12/15/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/K/19039.710nc                                     
+
+  19039.80c  134868  K39 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat1925      12/13/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/K/19040.710nc                                     
+
+  19040.80c   15394  K40 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat1928      12/15/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/K/19041.710nc                                     
+
+  19041.80c  176931  K41 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat1931      12/15/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Ca/20040.710nc                                    
+
+  20040.80c  114445  Ca40 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2025      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20040.80c          
+                     particle-production data for deuterons being expunged from  20040.80c          
+                     particle-production data for tritons   being expunged from  20040.80c          
+                     particle-production data for helions   being expunged from  20040.80c          
+                     particle-production data for alphas    being expunged from  20040.80c          
+
+                        tables from file xdata/endf71x/Ca/20042.710nc                                    
+
+  20042.80c  119060  Ca42 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2031      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20042.80c          
+                     particle-production data for deuterons being expunged from  20042.80c          
+                     particle-production data for tritons   being expunged from  20042.80c          
+                     particle-production data for helions   being expunged from  20042.80c          
+                     particle-production data for alphas    being expunged from  20042.80c          
+
+                        tables from file xdata/endf71x/Ca/20043.710nc                                    
+
+  20043.80c  118730  Ca43 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2034      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20043.80c          
+                     particle-production data for deuterons being expunged from  20043.80c          
+                     particle-production data for tritons   being expunged from  20043.80c          
+                     particle-production data for helions   being expunged from  20043.80c          
+                     particle-production data for alphas    being expunged from  20043.80c          
+
+                        tables from file xdata/endf71x/Ca/20044.710nc                                    
+
+  20044.80c   90358  Ca44 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2037      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20044.80c          
+                     particle-production data for deuterons being expunged from  20044.80c          
+                     particle-production data for tritons   being expunged from  20044.80c          
+                     particle-production data for helions   being expunged from  20044.80c          
+                     particle-production data for alphas    being expunged from  20044.80c          
+
+                        tables from file xdata/endf71x/Ca/20046.710nc                                    
+
+  20046.80c   69162  Ca46 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2043      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20046.80c          
+                     particle-production data for deuterons being expunged from  20046.80c          
+                     particle-production data for tritons   being expunged from  20046.80c          
+                     particle-production data for helions   being expunged from  20046.80c          
+                     particle-production data for alphas    being expunged from  20046.80c          
+
+                        tables from file xdata/endf71x/Ca/20048.710nc                                    
+
+  20048.80c   65031  Ca48 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2049      12/21/12
+                     Energy range:   1.00000E-11  to  2.00000E+02 MeV.
+                     particle-production data for protons   being expunged from  20048.80c          
+                     particle-production data for deuterons being expunged from  20048.80c          
+                     particle-production data for tritons   being expunged from  20048.80c          
+                     particle-production data for helions   being expunged from  20048.80c          
+                     particle-production data for alphas    being expunged from  20048.80c          
+
+                        tables from file xdata/endf71x/Cr/24050.710nc                                    
+
+  24050.80c  254240  Cr50 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2425      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  24050.80c          
+                     particle-production data for deuterons being expunged from  24050.80c          
+                     particle-production data for tritons   being expunged from  24050.80c          
+                     particle-production data for alphas    being expunged from  24050.80c          
+
+                        tables from file xdata/endf71x/Cr/24052.710nc                                    
+
+  24052.80c  257927  Cr52 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2431      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  24052.80c          
+                     particle-production data for deuterons being expunged from  24052.80c          
+                     particle-production data for tritons   being expunged from  24052.80c          
+                     particle-production data for alphas    being expunged from  24052.80c          
+
+                        tables from file xdata/endf71x/Cr/24053.710nc                                    
+
+  24053.80c  214665  Cr53 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2434      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  24053.80c          
+                     particle-production data for deuterons being expunged from  24053.80c          
+                     particle-production data for tritons   being expunged from  24053.80c          
+                     particle-production data for alphas    being expunged from  24053.80c          
+
+                        tables from file xdata/endf71x/Cr/24054.710nc                                    
+
+  24054.80c  154713  Cr54 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2437      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  24054.80c          
+                     particle-production data for deuterons being expunged from  24054.80c          
+                     particle-production data for tritons   being expunged from  24054.80c          
+                     particle-production data for alphas    being expunged from  24054.80c          
+
+                        tables from file xdata/endf71x/Fe/26054.710nc                                    
+
+  26054.80c  175785  Fe54 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2625      12/22/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  26054.80c          
+                     particle-production data for deuterons being expunged from  26054.80c          
+                     particle-production data for tritons   being expunged from  26054.80c          
+                     particle-production data for alphas    being expunged from  26054.80c          
+
+                        tables from file xdata/endf71x/Fe/26056.710nc                                    
+
+  26056.80c  279631  Fe56 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2631      12/22/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  26056.80c          
+                     particle-production data for deuterons being expunged from  26056.80c          
+                     particle-production data for tritons   being expunged from  26056.80c          
+                     particle-production data for alphas    being expunged from  26056.80c          
+
+                        tables from file xdata/endf71x/Fe/26057.710nc                                    
+
+  26057.80c  173223  Fe57 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2634      12/22/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  26057.80c          
+                     particle-production data for deuterons being expunged from  26057.80c          
+                     particle-production data for tritons   being expunged from  26057.80c          
+                     particle-production data for alphas    being expunged from  26057.80c          
+
+                        tables from file xdata/endf71x/Fe/26058.710nc                                    
+
+  26058.80c  103250  Fe58 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2637      12/22/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     particle-production data for protons   being expunged from  26058.80c          
+                     particle-production data for alphas    being expunged from  26058.80c          
+
+                        tables from file xdata/endf71x/Ni/28058.710nc                                    
+
+  28058.80c  320299  Ni58 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2825      12/15/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  28058.80c          
+                     particle-production data for deuterons being expunged from  28058.80c          
+                     particle-production data for tritons   being expunged from  28058.80c          
+                     particle-production data for alphas    being expunged from  28058.80c          
+
+                        tables from file xdata/endf71x/Ni/28060.710nc                                    
+
+  28060.80c  271359  Ni60 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2831      12/17/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  28060.80c          
+                     particle-production data for deuterons being expunged from  28060.80c          
+                     particle-production data for tritons   being expunged from  28060.80c          
+                     particle-production data for alphas    being expunged from  28060.80c          
+
+                        tables from file xdata/endf71x/Ni/28061.710nc                                    
+
+  28061.80c  142217  Ni61 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2834      12/13/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  28061.80c          
+                     particle-production data for deuterons being expunged from  28061.80c          
+                     particle-production data for tritons   being expunged from  28061.80c          
+                     particle-production data for alphas    being expunged from  28061.80c          
+
+                        tables from file xdata/endf71x/Ni/28062.710nc                                    
+
+  28062.80c  139268  Ni62 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2837      12/17/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  28062.80c          
+                     particle-production data for deuterons being expunged from  28062.80c          
+                     particle-production data for tritons   being expunged from  28062.80c          
+                     particle-production data for alphas    being expunged from  28062.80c          
+                     probability tables used from 6.0000E-01 to 1.0000E+00 mev.
+
+                        tables from file xdata/endf71x/Ni/28064.710nc                                    
+
+  28064.80c  119304  Ni64 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2843      12/17/12
+                     Energy range:   1.00000E-11  to  1.50000E+02 MeV.
+                     particle-production data for protons   being expunged from  28064.80c          
+                     particle-production data for deuterons being expunged from  28064.80c          
+                     particle-production data for tritons   being expunged from  28064.80c          
+                     particle-production data for alphas    being expunged from  28064.80c          
+
+                        tables from file xdata/endf71x/Kr/36078.710nc                                    
+
+  36078.80c  598491  Kr78 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3625      12/18/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     particle-production data for protons   being expunged from  36078.80c          
+                     particle-production data for alphas    being expunged from  36078.80c          
+                     probability tables used from 8.0000E-04 to 1.0000E-01 mev.
+
+                        tables from file xdata/endf71x/Kr/36080.710nc                                    
+
+  36080.80c   91338  Kr80 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3631      12/22/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 1.0000E-03 to 1.0000E-01 mev.
+
+                        tables from file xdata/endf71x/Kr/36082.710nc                                    
+
+  36082.80c   61003  Kr82 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3637      12/16/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 4.0000E-05 to 1.0000E-01 mev.
+
+                        tables from file xdata/endf71x/Kr/36083.710nc                                    
+
+  36083.80c   57729  Kr83 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3640      12/22/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 2.7200E-04 to 1.0000E-01 mev.
+
+                        tables from file xdata/endf71x/Kr/36084.710nc                                    
+
+  36084.80c  101129  Kr84 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3643      12/22/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Kr/36086.710nc                                    
+
+  36086.80c  101209  Kr86 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat3649      12/16/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+
+                        tables from file xdata/endf71x/Xe/54124.710nc                                    
+
+  54124.80c  609116  Xe124 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)       mat5425      12/14/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     particle-production data for protons   being expunged from  54124.80c          
+                     particle-production data for alphas    being expunged from  54124.80c          
+                     probability tables used from 2.6000E-04 to 1.0000E-01 mev.
+
+                        tables from file xdata/endf71x/Pu/94239.710nc                                    
+
+  94239.80c  658814  Pu239 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09total nu  10:00:53)       mat9437      12/18/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 2.5000E-03 to 3.0000E-02 mev.
+
+                        tables from file xdata/endf71x/Pu/94240.710nc                                    
+
+  94240.80c  682282  Pu240 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09total nu  10:00:53)       mat9440      12/17/12
+                     Energy range:   1.00000E-11  to  3.00000E+01 MeV.
+                     probability tables used from 5.7000E-03 to 4.0000E-02 mev.
+
+                        tables from file xdata/endf71x/Pu/94241.710nc                                    
+
+  94241.80c  151773  Pu241 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09total nu  10:00:53)       mat9443      12/17/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 3.0000E-04 to 4.0200E-02 mev.
+
+                        tables from file xdata/endf71x/Pu/94242.710nc                                    
+
+  94242.80c  268185  Pu242 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09total nu  10:00:53)       mat9446      12/17/12
+                     Energy range:   1.00000E-11  to  2.00000E+01 MeV.
+                     probability tables used from 9.2300E-04 to 4.4726E-02 mev.
+
+                        tables from file xdata/ENDF71SaB/lwtr.20t                                        
+
+   lwtr.20t 1228849  H in h2o at 293.6k from ENDF/B-VII                                      1001     0     0  01/19/12
+                     Energy range:   0.00000E+00  to  9.15000E-06 MeV.
+
+                        tables from file xdata/ENDF71SaB/poly.20t                                        
+
+   poly.20t  969610  H in polyethylene at 293.6K from ENDF/B-VII                             1001     0     0  01/19/12
+                     Energy range:   0.00000E+00  to  9.15000E-06 MeV.
+
+  total    10068952
+
+1particles and energy limits                                                                            print table 101
+
+                         particle      maximum       smallest      largest       always        always
+                         cutoff        particle      table         table         use table     use model
+   particle type         energy        energy        maximum       maximum       below         above
+
+    1  n    neutron     0.0000E+00    1.0000E+36    2.0000E+01    2.0000E+02    1.0000E+36    1.0000E+36
+ 
+  comment.  setting up hash-based fast table search for xsec tables
+
+ ------------------------------------------------------------------------------------------
+ =====> Set up arrays for hash-based fast table search for xsec data
+
+    number of hash bins   =     8192
+    min hash table energy =  1.00000E-11
+    max hash table energy =  2.00000E+02
+
+           nuclide      ne      emin        emax     ave_bins  min_bins  max_bins
+            1001.90c     590 1.00000E-11 2.00000E+01       0.1       0.0       1.0
+            1002.80c     542 1.00000E-11 1.50000E+02       0.1       0.0       2.0
+            2003.80c     693 1.00000E-11 2.00000E+01       0.1       0.0       3.0
+            2004.80c     483 1.00000E-11 2.00000E+01       0.1       0.0       1.0
+            6000.80c    1326 1.00000E-11 1.50000E+02       0.2       0.0       9.0
+            7014.80c    1826 1.00000E-11 1.50000E+02       0.2       0.0      20.0
+            7015.80c     888 1.00000E-11 2.00000E+01       0.1       0.0       5.0
+            8016.80c    2917 1.00000E-11 1.50000E+02       0.4       0.0      30.0
+            8017.80c     620 1.00000E-11 2.00000E+01       0.1       0.0       2.0
+           11023.80c    3503 1.00000E-11 2.00000E+01       0.4       0.0      68.0
+           13027.80c    5563 1.00000E-11 1.50000E+02       0.7       0.0      88.0
+           14028.80c    8236 1.00000E-11 1.50000E+02       1.0       0.0     115.0
+           14029.80c    5034 1.00000E-11 1.50000E+02       0.6       0.0      99.0
+           14030.80c    6235 1.00000E-11 1.50000E+02       0.8       0.0      99.0
+           18036.80c     856 1.00000E-11 2.00000E+01       0.1       0.0      10.0
+           18038.80c     924 1.00000E-11 2.00000E+01       0.1       0.0       9.0
+           18040.80c   23603 1.00000E-11 2.00000E+01       2.9       0.0     171.0
+           19039.80c   24943 1.00000E-11 2.00000E+01       3.0       0.0     154.0
+           19040.80c     834 1.00000E-11 2.00000E+01       0.1       0.0       3.0
+           19041.80c   33384 1.00000E-11 2.00000E+01       4.1       0.0     173.0
+           20040.80c    9591 1.00000E-11 2.00000E+02       1.2       0.0     139.0
+           20042.80c    8173 1.00000E-11 2.00000E+02       1.0       0.0     138.0
+           20043.80c    6348 1.00000E-11 2.00000E+02       0.8       0.0     102.0
+           20044.80c    5236 1.00000E-11 2.00000E+02       0.6       0.0     141.0
+           20046.80c    1047 1.00000E-11 2.00000E+02       0.1       0.0      40.0
+           20048.80c    1578 1.00000E-11 2.00000E+02       0.2       0.0      87.0
+           24050.80c   34462 1.00000E-11 1.50000E+02       4.2       0.0     246.0
+           24052.80c   32805 1.00000E-11 1.50000E+02       4.0       0.0     214.0
+           24053.80c   24388 1.00000E-11 1.50000E+02       3.0       0.0     138.0
+           24054.80c   15322 1.00000E-11 1.50000E+02       1.9       0.0     180.0
+           26054.80c   21487 1.00000E-11 1.50000E+02       2.6       0.0     218.0
+           26056.80c   30280 1.00000E-11 1.50000E+02       3.7       0.0     214.0
+           26057.80c   15925 1.00000E-11 1.50000E+02       1.9       0.0     175.0
+           26058.80c   12025 1.00000E-11 2.00000E+01       1.5       0.0     164.0
+           28058.80c   47876 1.00000E-11 1.50000E+02       5.8       0.0     285.0
+           28060.80c   39302 1.00000E-11 1.50000E+02       4.8       0.0     200.0
+           28061.80c   11786 1.00000E-11 1.50000E+02       1.4       0.0     118.0
+           28062.80c   11840 1.00000E-11 1.50000E+02       1.4       0.0     134.0
+           28064.80c   10542 1.00000E-11 1.50000E+02       1.3       0.0     276.0
+           36078.80c    2037 1.00000E-11 2.00000E+01       0.2       0.0      68.0
+           36080.80c    3963 1.00000E-11 2.00000E+01       0.5       0.0      68.0
+           36082.80c    2820 1.00000E-11 2.00000E+01       0.3       0.0      14.0
+           36083.80c    1498 1.00000E-11 2.00000E+01       0.2       0.0      40.0
+           36084.80c   11915 1.00000E-11 2.00000E+01       1.5       0.0     145.0
+           36086.80c   14731 1.00000E-11 2.00000E+01       1.8       0.0     195.0
+           54124.80c    2337 1.00000E-11 2.00000E+01       0.3       0.0      41.0
+           94239.80c   72051 1.00000E-11 2.00000E+01       8.8       0.0     185.0
+           94240.80c   48359 1.00000E-11 3.00000E+01       5.9       0.0     194.0
+           94241.80c   18430 1.00000E-11 2.00000E+01       2.2       0.0      86.0
+           94242.80c   15668 1.00000E-11 2.00000E+01       1.9       0.0     139.0
+            lwtr.20t     116 1.78000E-11 9.15000E-06       0.0       0.0       1.0
+            poly.20t     116 1.78000E-11 9.15000E-06       0.0       0.0       1.0
+
+ ------------------------------------------------------------------------------------------
+
+
+ ***********************************************************************************************************************
+
+ dump no.    1 on file caas_hybrid.txtr     nps =           0     coll =              0     ctm =        0.00   nrn =   
+              0
+
+         3 warning messages so far.
+1problem summary                                                                                                           
+
+      run terminated when     1000000  particle histories were done.
++                                                                                                    09/21/21 11:26:25 
+
+ =====>      57.41 M histories/hr    (based on wall-clock time in mcrun)
+
+
+      caas CSG model     probid =  09/21/21 11:25:19 
+
+ neutron creation    tracks      weight        energy            neutron loss        tracks      weight        energy
+                                 (per source particle)                                           (per source particle)
+
+ source             1000000    1.0000E+00    1.2323E+00          escape              114518    8.9152E-02    5.9241E-02
+ nucl. interaction        0    0.            0.                  energy cutoff            0    0.            0.        
+ particle decay           0    0.            0.                  time cutoff              0    0.            0.        
+ weight window            0    0.            0.                  weight window            0    0.            0.        
+ cell importance          0    0.            0.                  cell importance          0    0.            0.        
+ weight cutoff            0    5.6342E-02    2.0755E-04          weight cutoff       885530    5.6136E-02    1.9902E-04
+ e or t importance        0    0.            0.                  e or t importance        0    0.            0.        
+ dxtran                   0    0.            0.                  dxtran                   0    0.            0.        
+ forced collisions        0    0.            0.                  forced collisions        0    0.            0.        
+ exp. transform           0    0.            0.                  exp. transform           0    0.            0.        
+ upscattering             0    0.            1.1210E-07          downscattering           0    0.            1.0997E+00
+ photonuclear             0    0.            0.                  capture                  0    5.1574E-01    6.8095E-02
+ (n,xn)                  94    7.4262E-05    7.8120E-05          loss to (n,xn)          46    3.6581E-05    4.5137E-04
+ prompt fission           0    0.            0.                  loss to fission          0    3.9535E-01    4.8871E-03
+ delayed fission          0    0.            0.                  nucl. interaction        0    0.            0.        
+ prompt photofis          0    0.            0.                  particle decay           0    0.            0.        
+ tabular boundary         0    0.            0.                  tabular boundary         0    0.            0.        
+ tabular sampling         0    0.            0.                  elastic scatter          0    0.            0.        
+     total          1000094    1.0564E+00    1.2326E+00              total          1000094    1.0564E+00    1.2326E+00
+
+   number of neutrons banked                      48        average time of (shakes)              cutoffs
+   neutron tracks per source particle     1.0001E+00          escape            7.5597E+04          tco   1.0000E+33
+   neutron collisions per source particle 4.8770E+01          capture           7.8882E+04          eco   0.0000E+00
+   total neutron collisions                 48769978          capture or escape 7.8398E+04          wc1  -5.0000E-01
+   net multiplication              1.0000E+00 0.0000          any termination   6.0471E+04          wc2  -2.5000E-01
+
+ computer time so far in this run     4.26 minutes            maximum number ever in bank         2
+ computer time in mcrun               4.18 minutes            bank overflows to backup file       0
+ source particles per minute            2.3948E+05
+ random numbers generated                562869683            most random numbers used was        9656 in history      978573
+
+ range of sampled source weights = 1.0000E+00 to 1.0000E+00
+
+ number of histories processed by each thread
+      255282      248862      249410      246446
+1neutron  activity in each cell                                                                         print table 126
+
+                       tracks     population   collisions   collisions     number        flux        average      average
+              cell    entering                               * weight     weighted     weighted   track weight   track mfp
+                                                          (per history)    energy       energy     (relative)      (cm)
+
+        1        1      673253       322786     22353544    1.3589E+01   7.0864E-05   2.5607E-01   6.6137E-01   2.4580E+00
+        2        2          66           37         1022    4.7466E-04   2.0261E-05   9.8857E-02   4.8409E-01   2.1888E+00
+        3        3        2761         1966        57623    3.0284E-02   2.8449E-05   1.1358E-01   5.6524E-01   2.1407E+00
+        4        4      146368       101782      4508531    2.7499E+00   7.0509E-05   2.5618E-01   6.6268E-01   2.4566E+00
+        5        5       51384        37238      1467349    8.3197E-01   3.8745E-05   1.5013E-01   6.1078E-01   2.2335E+00
+        6        6        2832         1948        57875    3.0453E-02   2.8217E-05   1.0761E-01   5.6421E-01   2.1338E+00
+        7        7       56260        39544      1595811    9.0241E-01   3.8699E-05   1.5308E-01   6.0899E-01   2.2311E+00
+        8        8         742          546        16261    7.6650E-03   1.9005E-05   9.3125E-02   4.9604E-01   2.0460E+00
+        9        9      358214       204954      3437257    2.3777E+00   1.2963E-04   3.6654E-01   7.5201E-01   2.7093E+00
+       10       10     1553337       389852       141906    9.9517E-02   1.6075E-04   4.2720E-01   7.6081E-01   4.2346E+03
+       11       11           0            0            0    0.0000E+00   0.0000E+00   0.0000E+00   0.0000E+00   0.0000E+00
+       12      100     1196950      1000037     14417450    1.3550E+01   6.5439E-04   8.1178E-01   9.6379E-01   1.8077E+00
+       13      101      236823       189845         3969    3.6734E-03   1.1391E-03   9.6104E-01   9.5088E-01   6.0891E+03
+       14      102      689737       395434       711285    6.0004E-01   7.3885E-04   7.6179E-01   8.9310E-01   2.4997E+00
+       15      120           3            3           95    3.6150E-05   2.9765E-08   3.5725E-08   3.8133E-01   2.3402E-01
+
+           total       4968730      2685972     48769978    3.4773E+01
+
+1tally        6        nps =     1000000
+           tally type 6    track length estimate of heating.                                   
+           particle(s): neutrons 
+
+           this tally is all multiplied by  4.64638E+05
+
+           masses  
+                   cell:      120                                                                                  
+                         4.81711E+02
+ 
+ cell  120                                                                                                                             
+                 1.79568E-09 0.8936
+
+
+ ===================================================================================================================================
+
+           results of 10 statistical checks for the estimated answer for the tally fluctuation chart (tfc) bin of tally        6
+
+ tfc bin     --mean--      ---------relative error---------      ----variance of the variance----      --figure of merit--     -pdf-
+ behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
+
+ desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
+ observed    decrease       0.89      yes          yes            0.97      yes          no            decrease   decrease      0.00
+ passed?         no           no      yes          yes              no      yes          no                no         no          no
+
+ ===================================================================================================================================
+
+
+ warning.  the tally in the tally fluctuation chart bin did not pass  7 of the 10 statistical checks.
+
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally 6 with nps = 1000000             print table 160
+
+
+ normed average tally per history  = 1.79568E-09          unnormed average tally per history  = 8.64999E-07
+ estimated tally relative error    = 0.8936               estimated variance of the variance  = 0.9734
+ relative error from zero tallies  = 0.5773               relative error from nonzero scores  = 0.6821
+
+ number of nonzero history tallies =           3          efficiency for the nonzero tallies  = 0.0000
+ history number of largest  tally  =      234264          largest  unnormalized history tally = 7.67761E-01
+ (largest  tally)/(average tally)  = 8.87587E+05          (largest  tally)/(avg nonzero tally)= 2.66276E+00
+
+ (confidence interval shift)/mean  = 0.4385               shifted confidence interval center  = 2.58309E-09
+
+
+ if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
+
+      estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
+
+      mean                            1.79568E-09             3.38950E-09                     0.887585
+      relative error                  8.93627E-01             6.67262E-01                    -0.253310
+      variance of the variance        9.73410E-01             4.93283E-01                    -0.493243
+      shifted center                  2.58309E-09             2.58781E-09                     0.001825
+      figure of merit                 2.99882E-01             5.37861E-01                     0.793576
+
+ there is not enough information in the largest  history scores (usually less than 500 scores) for a reliable estimate of the slope.
+ the history score probability density function appears to have an unsampled region at the largest  history scores:
+ please examine. see print table 161.
+
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (2.395E+05)*( 1.119E-03)**2 = (2.395E+05)*(1.252E-06) = 2.999E-01
+
+1unnormed tally density for tally 6          nonzero tally mean(m) = 2.883E-01   nps = 1000000               print table 161
+
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope= 0.0)
+  tally  number num den log den:d------------------------------------------------d------------------------------------------------d-
+ 7.94-03      1 6.12-04  -3.213 *************************************************|************************************************|*
+ 1.00-02      0 0.00+00   0.000                                                  |                                                | 
+ 1.26-02      0 0.00+00   0.000                                                  |                                                | 
+ 1.58-02      0 0.00+00   0.000                                                  |                                                | 
+ 2.00-02      0 0.00+00   0.000                                                  |                                                | 
+ 2.51-02      0 0.00+00   0.000                                                  |                                                | 
+ 3.16-02      0 0.00+00   0.000                                                  |                                                | 
+ 3.98-02      0 0.00+00   0.000                                                  |                                                | 
+ 5.01-02      0 0.00+00   0.000                                                  |                                                | 
+ 6.31-02      0 0.00+00   0.000                                                  |                                                | 
+ 7.94-02      0 0.00+00   0.000                                                  |                                                | 
+ 1.00-01      1 4.86-05  -4.313 **********************************************   |                                                | 
+ 1.26-01      0 0.00+00   0.000                                                  |                                                | 
+ 1.58-01      0 0.00+00   0.000                                                  |                                                | 
+ 2.00-01      0 0.00+00   0.000                                                  |                                                | 
+ 2.51-01      0 0.00+00   0.000                                                  |                                                | 
+ 3.16-01      0 0.00+00   0.000                                                  |                                                | 
+ 3.98-01      0 0.00+00   0.000                                                  |                                                | 
+ 5.01-01      0 0.00+00   0.000                                                  |                                                | 
+ 6.31-01      0 0.00+00   0.000                                                  |                                                | 
+ 7.94-01      1 6.12-06  -5.213 *                                                |                                                | 
+  total       3 3.00-06         d------------------------------------------------d------------------------------------------------d-
+
+1status of the statistical checks used to form confidence intervals for the mean for each tally bin
+
+
+ tally   result of statistical checks for the tfc bin (the first check not passed is listed) and error magnitude check for all bins
+
+        6   missed  7 of 10 tfc bin checks: the relative error exceeds the recommended value of 0.1 for nonpoint detector tallies     
+         missed all bin error check:     1 tally bins had     0 bins with zeros and     1 bins with relative errors exceeding 0.10
+
+
+ the 10 statistical checks are only for the tally fluctuation chart bin and do not apply to other tally bins.
+
+ warning.       1 of the     1 tally fluctuation chart bins did not pass all 10 statistical checks.
+ warning.       1 of the     1 tallies had bins with relative errors greater than recommended.
+1tally fluctuation charts                              
+
+                            tally        6
+          nps      mean     error   vov  slope    fom
+        64000   0.0000E+00 0.0000 0.0000  0.0 0.0E+00
+       128000   1.2743E-10 1.0000 1.0000  0.0 1.9E+00
+       192000   8.4955E-11 1.0000 1.0000  0.0 1.3E+00
+       256000   6.2896E-09 0.9899 0.9998  0.0 9.6E-01
+       320000   5.0317E-09 0.9899 0.9998  0.0 7.7E-01
+       384000   4.1931E-09 0.9899 0.9998  0.0 6.4E-01
+       448000   3.5940E-09 0.9899 0.9998  0.0 5.5E-01
+       512000   3.1448E-09 0.9899 0.9998  0.0 4.8E-01
+       576000   3.1175E-09 0.8936 0.9734  0.0 5.2E-01
+       640000   2.8057E-09 0.8936 0.9734  0.0 4.7E-01
+       704000   2.5507E-09 0.8936 0.9734  0.0 4.3E-01
+       768000   2.3381E-09 0.8936 0.9734  0.0 3.9E-01
+       832000   2.1583E-09 0.8936 0.9734  0.0 3.6E-01
+       896000   2.0041E-09 0.8936 0.9734  0.0 3.4E-01
+       960000   1.8705E-09 0.8936 0.9734  0.0 3.1E-01
+      1000000   1.7957E-09 0.8936 0.9734  0.0 3.0E-01
+
+ ***********************************************************************************************************************
+
+ dump no.    2 on file caas_hybrid.txtr     nps =     1000000     coll =       48769978     ctm =        4.18   nrn =   
+      562869683
+
+         6 warning messages so far.
+
+
+ run terminated when     1000000  particle histories were done.
+
+ computer time =    4.27 minutes
+
+ mcnp     version 6     02/20/18                     09/21/21 11:26:25                     probid =  09/21/21 11:25:19 

@@ -1,0 +1,28 @@
+psrc4 - 14 MeV neutrons cylindrical volume source
+c
+ 10  0      -1  imp:n=1
+ 99  0      +1  imp:n=0
+
+ 1  so   2.0
+
+ mode n
+ nps  1e6
+c
+c ===> single source energy
+c
+ sdef  pos=0 0 0  erg=14.0  rad=d1  axs= 0 0 1  ext=d2
+ si1 H 0.0 0.5
+ sp1 -21 1
+c
+ si2 -0.75 0.75
+ sp2 -21 0
+c
+c ===> fmesh tally surrounding the source
+c
+fmesh4:n  GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+          type=source
+c
+ print

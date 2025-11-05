@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-inter-006-case-4",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "INTER",
+      "number": "006",
+      "case": "4"
+    },
+    "description": " ZEUS-4  9 Units, 2 Graphite Plates/Unit HEU-MET-INTER-006, case 4 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-inter-006-case-4.i",
+      "n": "heu-met-inter-006-case-4"
+    },
+    "inputs": {
+      "inp": "heu-met-inter-006-case-4.i"
+    },
+    "outputs": {
+      "outp": "heu-met-inter-006-case-4o",
+      "mctal": "heu-met-inter-006-case-4m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0016,
+      "std": 0.0008
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00815,
+      "std": 0.000323626
+    }
+  }
+}

@@ -1,0 +1,28 @@
+ IEU-MET-FAST-004  IEU (36 wt.%) Sphere Refl by Graphite 
+1      0              -1
+2      1  4.7991e-2    1   -2
+3      2  7.7716e-2    2   -3
+4      0               3
+
+1     so      2.788
+2     so     14.000
+3     so     17.200
+
+mode   n
+kcode  5000  1.0   50   250
+imp:n   1.0   1.0  1.0   0.0
+sdef   cel=2     erg=d1    rad=d2    pos=0.0 0.0 0.0
+sp1    -3
+si2    0.0    7.8726
+sp2    -21    2
+vol      90.775  11403.265   9820.401      0.0
+area     97.678   2463.009   3717.635
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+totnu
+prdmp    j    999999    1
+print
+
+ end of input

@@ -1,0 +1,26 @@
+wval4:  Study of Pu reflected with Ta
+c
+c  Pu mass    = 4500 g
+c  Pu density = 19.8 g/cc
+c  Pu volume  = 227.272727
+c
+c  reflector definition:
+c    reflector thickness    = 7.62 
+c    reflector inner radius = 3.7857584
+c    reflector outer radius = 11.405758
+c
+  1   4 -19.80  -1        imp:n=1 
+  2   1 -16.69  +1 -2     imp:n=1
+ 20   0         +2        imp:n=0
+
+  1 so  3.7857584
+  2 so  11.405758
+
+ kcode 10000 1.0 50 250
+ sdef pos=0 0 0  rad=d1  
+  si1  0 3.78
+  sp1  -21 2
+c
+ m1  73180.80c 0.00012   73181.80c 0.99988
+ m4  94239.80c 1
+ prdmp 9e9 9e9 1 9e9

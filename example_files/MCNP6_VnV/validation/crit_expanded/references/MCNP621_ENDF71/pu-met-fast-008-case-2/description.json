@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-008-case-2",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "008",
+      "case": "2"
+    },
+    "description": " PU-MET-FAST-008  case 2  THOR  Plutonium sphere reflected by thorium "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-008-case-2.i",
+      "n": "pu-met-fast-008-case-2"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-008-case-2.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-008-case-2o",
+      "mctal": "pu-met-fast-008-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0006
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997658,
+      "std": 0.000283314
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

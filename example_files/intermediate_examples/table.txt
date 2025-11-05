@@ -1,0 +1,70 @@
+Multiple Sources on a Table
+c
+c Outside table and sources
+c
+200     2  4.8333e-5  -10 +20 +21 +22 +25       imp:n=1
+c
+c Table
+c
+210     3  -2.7       -20                       imp:n=1
+220     3  -2.7       -21                       imp:n=1
+230     3  -2.7       -22                       imp:n=1
+c
+c Sources
+c
+240     0             -23                  u=1  imp:n=1
+250     2  4.8333e-5   23                  u=1  imp:n=1
+260     0             -24  fill=1  trcl=1  u=2  imp:n=1
+                            lat=1
+270     0             -25  fill=2               imp:n=1
+c
+c Outside world
+c
+999     0             +10                       imp:n=0
+
+c 
+c Space around table and sources
+c
+10    rpp    -300   300   -300   300    0  300
+c
+c Table top, leg, and bottom
+c
+20    rcc     0  0  0    0  0  2     45
+21    rcc     0  0  2    0  0  100   2.5
+22    rcc     0  0  102  0  0  2     60
+c
+c Spherical sources and lattice boxes
+c
+23    sz   0.5  0.5
+24    rpp  -25  25   -25  25   0  5
+25    rpp  -50  50   -50  50   104 109
+
+c
+c Translations
+c
+tr1  25  25  104
+c
+c Materials
+c  Air
+m2     1001  1.7404E-10
+       1002  1.3065E-14
+       6000  1.11008E-08
+       7014  3.8981E-05
+       7015  1.3515E-07
+       8016  9.1205E-06
+       8017  3.4348E-09
+      18036  3.0439E-10
+      18038  5.3915E-11
+      18040  8.0974E-08
+mt2    lwtr
+c  Aluminum
+m3    12024  8.82164e-03 
+      12025  1.11680e-03 
+      12026  1.22960e-03 
+      13027  9.76816e-01 
+      14028  5.34789e-03 
+      14029  2.71677e-04 
+      14030  1.79301e-04 
+      25055  4.94084e-04 
+      26054  1.32675e-04 
+      26056  2.08272e-03

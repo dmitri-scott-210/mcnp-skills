@@ -1,0 +1,20 @@
+ Jezebel-233  U233-MET-FAST-001 solid bare U-233 sphere 
+1         1        0.047602        -1        $ U-233 Sphere
+2         0                         1
+ 
+1         so       5.9838
+ 
+kcode   1000000   1.00   100   1100
+kopts   kinetics=yes
+imp:n     1.0    0.0
+sdef   cel=1  erg=d1
+sp1    -3
+vol        897.47      0.0
+area       449.95
+totnu
+read file=m-cards-endf71
+rand    seed=19073486328125
+prdmp    j    999999
+print
+
+ end of input

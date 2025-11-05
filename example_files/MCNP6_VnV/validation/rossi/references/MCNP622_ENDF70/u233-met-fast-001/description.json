@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "u233-met-fast-001",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "001",
+      "case": "001"
+    },
+    "description": "Jezebel-233  U233-MET-FAST-001 solid bare U-233 sphere"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-met-fast-001i",
+      "n": "u233-met-fast-001"
+    },
+    "outputs": {
+      "outp": "u233-met-fast-001o"
+    },
+    "inputs": {
+      "inp": "u233-met-fast-001i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -1000000.0,
+      "std": 10000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -1077640.0,
+      "std": 7003.650000000001
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.0"
+  }
+}

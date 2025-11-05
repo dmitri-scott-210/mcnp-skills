@@ -1,0 +1,24 @@
+Energy deposition for 1mev electrons in c at 0deg incidence.
+1     1  -2.267 100 -101 -200 imp:e=1 
+2     0            101 -102 -200 imp:e=1 
+3     1  -2.267 102 -103 -200 imp:e=1 
+4     0            103 -104 -200 imp:e=1 
+5     1  -2.267 104 -105 -200 imp:e=1 
+999   0           -100 :105: 200 imp:e=0 
+
+100     pz  0.0
+101     pz  0.0780930745478606
+102     pz  0.178093074547861
+103     pz  0.184978826643141
+104     pz  0.284978826643141
+105     pz  5.0
+200     cz  100.0
+
+mode e p
+phys:e 1 13j 0.001
+m1 6000.14p -1
+sdef par=3 erg=1 x=0. y=0. z=0. vec=0 0 1 dir=1
+nps 1e6
+*f8:e 3
+prdmp 2j 1 
+print

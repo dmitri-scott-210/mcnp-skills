@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg13",
+    "problem_type": "Multigroup",
+    "description": "Ua-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg13.inp",
+      "n": "mg13"
+    },
+    "outputs": {
+      "outp": "mg13o",
+      "mctal": "mg13m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

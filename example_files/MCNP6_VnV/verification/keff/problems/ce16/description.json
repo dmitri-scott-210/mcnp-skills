@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce16",
+    "problem_type": "Continuous Energy",
+    "description": "Ub-H2O(1)-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce16.inp",
+      "n": "ce16"
+    },
+    "outputs": {
+      "outp": "ce16o",
+      "mctal": "ce16m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

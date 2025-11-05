@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-sol-therm-011-case-18-1",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "011",
+      "case": "18-1"
+    },
+    "description": "PNL-3 18\" Cadmium-covered Bare Sphere of Pu Nitrate, 22.35 gPu/l, 4.2 wt% Pu-240 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-sol-therm-011-case-18-1.i",
+      "n": "pu-sol-therm-011-case-18-1"
+    },
+    "inputs": {
+      "inp": "pu-sol-therm-011-case-18-1.i"
+    },
+    "outputs": {
+      "outp": "pu-sol-therm-011-case-18-1o",
+      "mctal": "pu-sol-therm-011-case-18-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0052
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.994132,
+      "std": 0.000350403
+    }
+  }
+}

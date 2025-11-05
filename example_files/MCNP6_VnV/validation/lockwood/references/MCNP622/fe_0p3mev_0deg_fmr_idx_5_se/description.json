@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "fe_0p3mev_0deg_fmr_idx_5_se",
+    "description": "",
+    "details": {
+      "material": "Iron",
+      "energy": 0.3,
+      "type": "Single Event",
+      "angle": 0,
+      "fmr": 0.714,
+      "fmr_index": 5
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "fe_0p3mev_0deg_fmr_idx_5_se_",
+      "n": "fe_0p3mev_0deg_fmr_idx_5_se_"
+    },
+    "outputs": {
+      "outp": "fe_0p3mev_0deg_fmr_idx_5_se_o",
+      "mctal": "fe_0p3mev_0deg_fmr_idx_5_se_m"
+    },
+    "inputs": {
+      "inp": "fe_0p3mev_0deg_fmr_idx_5_se_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0037164000000000003,
+      "err": 0.012
+    },
+    "reference": "SAND79-0414, p. 69-70",
+    "foil_thickness": 0.01956,
+    "energy_deposited": 0.19,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.00204734,
+      "err": 0.0072
+    }
+  }
+}

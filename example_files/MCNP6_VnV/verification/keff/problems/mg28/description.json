@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg28",
+    "problem_type": "Multigroup",
+    "description": "UD2O-H2O(10)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg28.inp",
+      "n": "mg28"
+    },
+    "outputs": {
+      "outp": "mg28o",
+      "mctal": "mg28m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

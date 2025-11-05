@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ZEUS2",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "INTER",
+      "number": "006",
+      "case": "002"
+    },
+    "description": "HEU platters moderated by graphite and reflected by copper"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ZEUS2",
+      "n": "ZEUS2"
+    },
+    "outputs": {
+      "outp": "ZEUS2o",
+      "mctal": "ZEUS2m"
+    },
+    "inputs": {
+      "inp": "ZEUS2"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9997,
+      "std": 0.0008
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999277,
+      "std": 0.000738109
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VIII.0"
+  }
+}

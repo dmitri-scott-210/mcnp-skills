@@ -1,0 +1,20 @@
+b1 - Godiva - burnup
+c
+c CELL CARDS
+10   100  -18.74  -1 vol=2797.5 
+20   0             1
+ 
+c SURFACE CARDS
+1    so   8.741
+ 
+c DATA CARDS
+kcode 1000  1.0  10  50
+ksrc  0. 0. 0.
+imp:n 1 0
+BURN  TIME=10 100
+      PFRAC=1.0 1.0
+      POWER=5
+      MAT=100
+      BOPT=1.0 4 
+      OMIT=100,2,90234,91232
+m100  92235 -94.73  92238 -5.27

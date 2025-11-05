@@ -1,0 +1,53 @@
+Example 5: Pulse-Height Detector (F8 with Zero/Epsilon Bins)
+
+PURPOSE:
+Simulate pulse-height tally in a NaI detector to demonstrate F8 energy deposition with proper zero and epsilon bins.
+
+GEOMETRY:
+- Point gamma source (662 keV Cs-137)
+- Cylindrical NaI detector (5 cm long × 5 cm diameter)
+- Detector at 10 cm from source
+
+TALLY DETAILS:
+- F8:P = Pulse-height tally (energy deposited per history)
+- E8 card with CRITICAL zero and epsilon bins:
+  - E8 0 = Zero bin (histories with NO energy deposition)
+  - E8 1E-5 = Epsilon bin (very small depositions from artifacts)
+  - E8 0.1 ... 1.0 = Physical bins (actual pulse-height spectrum)
+
+**CRITICAL REQUIREMENT:** Zero and epsilon bins are MANDATORY for F8 tallies!
+Without them, normalization is lost and statistics are meaningless.
+
+KEY LEARNING POINTS:
+1. F8 scores TOTAL energy deposited in cell per source particle
+2. Zero bin captures non-interacting particles (essential for normalization)
+3. Epsilon bin captures computational artifacts (delta rays, rounding)
+4. Energy bins are PULSE energy (total deposited), NOT particle energy
+5. F8 is fundamentally different from F4/F6 (per-history, not per-event)
+
+F8 SPECIAL FEATURES:
+- Cannot use DE/DF dose functions
+- Cannot use FM multipliers
+- Cannot use CF/SF flagging
+- Variance reduction limited (no WWG, use WWN instead)
+- Use VAR RR=off to disable roulette for realism
+
+EXPECTED OUTPUT:
+- Zero bin: Fraction of gammas that pass through without interaction
+- Epsilon bin: Very small (near-zero) depositions
+- Photopeak: Near 662 keV (full energy deposition)
+- Compton continuum: Partial energy depositions (0-480 keV)
+- Backscatter peak: ~200 keV (180° Compton scatter)
+
+PULSE-HEIGHT PHYSICS:
+- Photopeak: Complete energy absorption (photoelectric + Compton)
+- Compton edge: Maximum Compton transfer (~480 keV at 662 keV)
+- Backscatter: Gammas scattered 180° before entering detector
+- X-ray escape: Iodine K-shell x-rays (28 keV) escape detector
+
+VARIATIONS TO TRY:
+- Different sources: Co-60 (1.17/1.33 MeV), Na-22 (511/1275 keV)
+- Detector sizes: Vary cylinder dimensions
+- Shielding: Add lead collimator around detector
+- Multiple peaks: Use multiple source energies (SI/SP cards)
+- Realistic detector: Use FT8 PHL with NaI-1 response

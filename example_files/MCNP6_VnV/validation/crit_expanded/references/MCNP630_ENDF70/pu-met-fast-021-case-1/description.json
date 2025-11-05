@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-021-case-1",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "021",
+      "case": "1"
+    },
+    "description": "PU CYLINDER REFLECTED BY BE, ASSEMBLY 50 (#2115): PU-MET-FAST-021 case 1 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-021-case-1.i",
+      "n": "pu-met-fast-021-case-1"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-021-case-1.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-021-case-1o",
+      "mctal": "pu-met-fast-021-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0026
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00207,
+      "std": 0.000280537
+    }
+  }
+}

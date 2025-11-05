@@ -1,0 +1,86 @@
+Photon Skyshine LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --Co-60 emits 2 photons of energies 1.173 and 1.332 Mev at a rate of 
+c    1 photon/decay each.
+c    --1.1416 R/Rad
+c    de/df table is ICRU 57 table A.1
+c    mfp(cm)=1/(LAC)=1/(6.828e-5)=1.4645e4 cm (Use 1.5e4 cm)
+c    S(photons/hr/Ci)=(3.7e10 dps/ci)(photons/decay)(3.6e3 s/hr)
+c    S=(3.7e10)(2)(3.6e3)=2.664e14 photons/hr (3.7e10 photons/s/Ci Each)
+c    C1(photons*microR/hr/Rad)=(S Photons/hr)(1.1416 R/Rad)(1e6 microR/R)
+c    C1=(2.664e14)(1.1416)(1e6)=3.04e20 (photons*microR/hr/Rad)
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    2    -1.52     -1                       imp:p=0.5      $ Ground
+2    1    -0.001205 -2                       imp:p=1        $ Silo interior
+3    3    -2.3      -3 2                     imp:p=1        $ Silo inner wall
+4    3    -2.3      -4 3                     imp:p=0        $ Kill Zone
+5    3    -2.3      -5 4                     imp:p=1        $ Silo Outer Wall
+6    1    -0.001205 -6 10 #2 #3 #4 #5        imp:p=1        $ Air segment 1
+7    1    -0.001205 -7 6 10                  imp:p=0.5      $ Air Segment 2
+8    1    -0.001205 -8 7 10                  imp:p=0.25     $ Air Segment 3
+9    1    -0.001205 -9 8 10                  imp:p=0.125    $ Air Segment 4
+10   0               9 10                    imp:p=0        $ Boundary
+11   0              -10 #1                   imp:p=0        $ Boundary                  
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RCC  0 0 -30 0 0 30 6e4                      $ Ground
+2    RCC  0 0 0 0 0 228.6 124.46                  $ Silo inner wall
+3    RCC  0 0 0 0 0 228.6 144.46                  $ Kill Zone inner surface
+4    RCC  0 0 0 0 0 228.6 145.46                  $ Kill Zone Outer Surface
+5    RCC  0 0 0 0 0 228.6 165.46                  $ Silo Outer Wall
+6    so   1.5e4                                   $ Air Segment 1
+7    so   3.0e4                                   $ Air Segment 2
+8    so   4.5e4                                   $ Air Segment 3
+9    so   6.0e4                                   $ Air Segment 4 and boundary
+10   pz   0                                       $ Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+PRINT   110
+m1   $ Air D=0.001205 g/cc
+       6000 -0.000124
+       7000 -0.755268
+       8000 -0.231781
+      18000 -0.012827
+m2   $ Earth U.S. Average D=1.52 g/cc
+       8000 -0.513713
+      11000 -0.006140
+      12000 -0.013303
+      13000 -0.068563
+      14000 -0.271183
+      19000 -0.014327
+      20000 -0.051167
+      22000 -0.004605
+      25000 -0.000716
+      26000 -0.056283
+m3   $ Concrete D=2.3 g/cc
+       1000 -0.004530
+       8000 -0.512600
+      11000 -0.015270
+      13000 -0.035550
+      14000 -0.360360
+      20000 -0.057910
+      26000 -0.013780
+mode p
+sdef pos=0 0 198                                  $ position (0,0,198)
+     par=2                                        $ photons only
+     erg=d1                                       $ energy in dataset 1
+si1  L 1.173  1.332                               $ energies
+sp1  d 3.7e10 3.7e10                              $ Emmision rate (photons/s)
+f5z:p $ intercept ring radius Avg volume radius
+        100       1e4         50
+fm5  3.04e20                                      $ Convert to microR/hr (C1)
+de5  0.01  0.015  0.02   0.03   0.04   0.05   0.06
+     0.08  0.1    0.15   0.2    0.3    0.4    0.5
+     0.6   0.8    1.0    1.5    2.0    3.0    4.0
+     5.0   6.0    8.0    10.0
+df5  7.430e-10 3.120e-10 1.680e-10 0.721e-10 0.429e-10 0.323e-10 0.289e-10
+     0.307e-10 0.371e-10 0.599e-10 0.856e-10 1.380e-10 1.890e-10 2.380e-10
+     2.840e-10 3.690e-10 4.470e-10 6.140e-10 7.550e-10 9.960e-10 12.10e-10
+     14.10e-10 16.10e-10 20.10e-10 24.00e-10
+RAND    GEN=2   $ Use L'Ecuyer 63 bit generator, period = 2^63 = 9.2E18
+ctme 5
+c    ************<<<<< End Data Cardss >>>>>**************************************

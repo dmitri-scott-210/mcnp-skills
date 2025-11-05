@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "c_1mev_0deg_fmr_idx_1_se",
+    "description": "",
+    "details": {
+      "material": "Carbon",
+      "energy": 1.0,
+      "type": "Single Event",
+      "angle": 0,
+      "fmr": 0.016,
+      "fmr_index": 1
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "c_1mev_0deg_fmr_idx_1_se_",
+      "n": "c_1mev_0deg_fmr_idx_1_se_"
+    },
+    "outputs": {
+      "outp": "c_1mev_0deg_fmr_idx_1_se_o",
+      "mctal": "c_1mev_0deg_fmr_idx_1_se_m"
+    },
+    "inputs": {
+      "inp": "c_1mev_0deg_fmr_idx_1_se_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0259126,
+      "err": 0.02
+    },
+    "reference": "SAND79-0414, p. 47-48",
+    "foil_thickness": 0.01561,
+    "energy_deposited": 1.66,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-09-24"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0278291,
+      "err": 0.0009
+    }
+  }
+}

@@ -1,0 +1,25 @@
+Demo1: Photon Fluence LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    S(Photons/s)=1e3
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    0 -1                                         $ Sphere
+2    0  1                                         $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    so 100                                       $ Sphere
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+mode p                                            $ photons
+sdef pos= 0 0 0                                   $ Position (0,0,0)
+     par= 2                                        $ Emits photons
+     erg= 1.0                                      $ 1 MeV energy
+imp:p 1 0                                         $ Sets the importances of cells
+f2:p 1                                            $ Fluence across surface 1
+fm2  1000                                         $ Convert to photons/sec (S)
+nps  10000                                        $ Terminate after 1e4 particle
+c    ************<<<<< End Data Cards >>>>>**************************************
+

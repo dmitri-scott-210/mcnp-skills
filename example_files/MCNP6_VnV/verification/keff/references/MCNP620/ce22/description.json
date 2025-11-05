@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce22",
+    "problem_type": "Continuous Energy",
+    "description": "UD2O-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce22.inp",
+      "n": "ce22"
+    },
+    "outputs": {
+      "outp": "ce22o",
+      "mctal": "ce22m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999969,
+      "std": 5.10687e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

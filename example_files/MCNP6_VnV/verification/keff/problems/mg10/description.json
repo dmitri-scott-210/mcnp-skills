@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg10",
+    "problem_type": "Multigroup",
+    "description": "PUb-H2O(10)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg10.inp",
+      "n": "mg10"
+    },
+    "outputs": {
+      "outp": "mg10o",
+      "mctal": "mg10m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

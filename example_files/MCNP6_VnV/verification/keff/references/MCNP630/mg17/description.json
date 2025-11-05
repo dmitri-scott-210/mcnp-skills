@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg17",
+    "problem_type": "Multigroup",
+    "description": "Uc-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg17.inp",
+      "n": "mg17"
+    },
+    "outputs": {
+      "outp": "mg17o",
+      "mctal": "mg17m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.256083
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.25609,
+      "std": 3.0364e-09
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-15"
+  }
+}

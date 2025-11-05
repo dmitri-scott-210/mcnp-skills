@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg41",
+    "problem_type": "Multigroup",
+    "description": "UD2Ob-1-1-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg41.inp",
+      "n": "mg41"
+    },
+    "outputs": {
+      "outp": "mg41o",
+      "mctal": "mg41m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-sol-therm-032",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "032"
+    },
+    "description": " ICSBEP HEU-SOL-THERM-032  (ORNL-10)  CSEWG: T-5 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-sol-therm-032.i",
+      "n": "heu-sol-therm-032"
+    },
+    "inputs": {
+      "inp": "heu-sol-therm-032.i"
+    },
+    "outputs": {
+      "outp": "heu-sol-therm-032o",
+      "mctal": "heu-sol-therm-032m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0015,
+      "std": 0.0026
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.998674,
+      "std": 0.000165991
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VIII.0"
+  }
+}

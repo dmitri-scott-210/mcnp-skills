@@ -1,0 +1,33 @@
+{
+  "general_info": {
+    "name": "ieu-comp-therm-002-case-3",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "3"
+    },
+    "description": " MATR 17% - Gd   IEU-COMP-THERM-002, case 3 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ieu-comp-therm-002-case-3.i",
+      "n": "ieu-comp-therm-002-case-3"
+    },
+    "inputs": {
+      "inp": "ieu-comp-therm-002-case-3.i"
+    },
+    "outputs": {
+      "outp": "ieu-comp-therm-002-case-3o",
+      "mctal": "ieu-comp-therm-002-case-3m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0017,
+      "std": 0.0044
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

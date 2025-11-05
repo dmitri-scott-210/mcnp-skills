@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "ieu-met-fast-003-case-2",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003",
+      "case": "2"
+    },
+    "description": " Solid Bare IEU sphere  IEU-MET-FAST-003 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ieu-met-fast-003-case-2.i",
+      "n": "ieu-met-fast-003-case-2"
+    },
+    "inputs": {
+      "inp": "ieu-met-fast-003-case-2.i"
+    },
+    "outputs": {
+      "outp": "ieu-met-fast-003-case-2o",
+      "mctal": "ieu-met-fast-003-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0017
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00275,
+      "std": 0.000278229
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

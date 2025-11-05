@@ -1,0 +1,19 @@
+ Godiva  Solid Bare HEU sphere  HEU-MET-FAST-001
+1         1        4.7984e-02         -1        imp:n=1
+2         0                            1        imp:n=0
+ 
+1         so       8.7407
+
+kcode   200000   1.00   100   1100
+kopts   kinetics=yes
+sdef   cel=1     erg=d1    rad=d2    pos=0.0 0.0 0.0
+sp1    -3
+si2    0.0    8.7407
+sp2    -21    2
+totnu
+read   file=m-cards-endf71
+rand    seed=19073486328125
+prdmp    j    999999
+print
+
+ end of input

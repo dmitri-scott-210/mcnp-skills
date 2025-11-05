@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "JEZ240",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "002",
+      "case": ""
+    },
+    "description": "Bare sphere of plutonium (20.1 at.% 240Pu)"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "JEZ240",
+      "n": "JEZ240"
+    },
+    "outputs": {
+      "outp": "JEZ240o",
+      "mctal": "JEZ240m"
+    },
+    "inputs": {
+      "inp": "JEZ240"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.002
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00019,
+      "std": 0.000551083
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VII.0"
+  }
+}

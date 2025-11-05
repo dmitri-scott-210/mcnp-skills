@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg27",
+    "problem_type": "Multigroup",
+    "description": "UD2O-H2O(1)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg27.inp",
+      "n": "mg27"
+    },
+    "outputs": {
+      "outp": "mg27o",
+      "mctal": "mg27m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

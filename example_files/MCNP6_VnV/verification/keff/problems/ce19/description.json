@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce19",
+    "problem_type": "Continuous Energy",
+    "description": "Ud-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce19.inp",
+      "n": "ce19"
+    },
+    "outputs": {
+      "outp": "ce19o",
+      "mctal": "ce19m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.232667
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg65",
+    "problem_type": "Multigroup",
+    "description": "URRd-H2Oc(1)-2-0-ISLC"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg65.inp",
+      "n": "mg65"
+    },
+    "outputs": {
+      "outp": "mg65o",
+      "mctal": "mg65m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

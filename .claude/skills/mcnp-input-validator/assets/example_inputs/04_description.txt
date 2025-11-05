@@ -1,0 +1,68 @@
+EXAMPLE 04: Undefined Material in Cell Definition
+
+ERROR TYPE: F-005 (FATAL - Cross-Reference)
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Cell references non-existent material
+- Material cross-reference validation
+- How to identify missing material definitions
+
+INVALID FILE (04_undefined_material_INVALID.i):
+- Cell 2 definition: "2  5  -8.9  1 -2"
+  - Cell number: 2
+  - Material: 5 (m=5)
+  - Density: -8.9 atom/b-cm
+  - Geometry: Between surfaces 1 and 2
+- Only M1 card defined
+- M5 card is MISSING
+- MCNP fatal error: "material 5 has not been defined"
+
+FIXED FILE (04_undefined_material_FIXED.i):
+- M5 card added with Copper isotopes
+- Material 5 now defined
+- Cross-reference valid
+- File will run successfully
+
+KEY LESSON:
+Every material number used in a cell MUST have a corresponding
+M card definition in the Data Cards block.
+
+Cell format: j  m  d  geom
+  - j = cell number
+  - m = material number (must have M card)
+  - d = density
+  - geom = geometry
+
+Special case: m=0 means VOID (no material, no M card needed)
+
+HOW TO FIX:
+1. Identify cell with undefined material (e.g., cell 2, m=5)
+2. Add M card for that material number
+3. Define appropriate isotopes and fractions
+4. Verify density value matches material
+5. Re-validate cross-references
+
+MATERIAL DEFINITION FORMAT:
+M[number]  ZAID1  fraction1
+           ZAID2  fraction2
+           ...
+
+Example:
+M5   29063.80c  0.692    $ Cu-63
+     29065.80c  0.308    $ Cu-65
+
+REFERENCE:
+- MCNP6 Manual §5.6: Material Specification
+- error_catalog.md: F-005
+- validation_procedures.md: Cross-Reference Validation
+
+RELATED SKILLS:
+- mcnp-material-builder: Material definition standards
+- mcnp-cross-reference-checker: Material dependency checking
+
+VALIDATION CHECK:
+Validator detects:
+  "FATAL: Cell 2 uses material 5, but M5 card not defined"
+  "Location: Cell card '2  5  -8.9  1 -2'"
+  "Fix: Add M5 material specification in data block"

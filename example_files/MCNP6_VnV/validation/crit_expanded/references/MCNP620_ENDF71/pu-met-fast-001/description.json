@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-001",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001"
+    },
+    "description": " Jezebel  PU-MET-FAST-001  bare solid Pu sphere "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-001.i",
+      "n": "pu-met-fast-001"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-001.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-001o",
+      "mctal": "pu-met-fast-001m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.002
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999349,
+      "std": 0.000259022
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

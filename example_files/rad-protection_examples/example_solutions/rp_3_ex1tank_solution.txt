@@ -1,0 +1,23 @@
+Steel Tank: Geometry Exercise #1 LA-UR-23-25214
+c steel tank 2 meters on y axis inside, 3 meters on z axis exterior, and 1 meter on x axis centered on origin. Walls are 0.635 cm thick
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    0      -2      imp:p=1 $ void inside tank
+2    1 -8.0 -1 2    imp:p=1 $ steel wall
+3    0       1      imp:p=0 $ Void outside tank
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RCC          $ Macrobody: Right Circular Cylinder (Exterior wall)
+        0 0 0     $ (x,y,z) coordinates of the center of the cylinder base
+        0 0 300   $ Axis vector for orientation and cylinder height
+        100.635   $ Radius of cylinder $ outside of wall
+2    RCC 0 0 0.635 0 0 298.73 100 $ Interior wall   
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+mode p
+m1      6000   -0.002
+        25000  -0.007
+        26000  -0.991 $ steel SAE 1020
+C       steel density = 8.0 g/cm3
+c    ************<<<<< End Data Cards >>>>>**************************************

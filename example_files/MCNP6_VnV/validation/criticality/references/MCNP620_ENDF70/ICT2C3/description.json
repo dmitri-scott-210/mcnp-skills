@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "ICT2C3",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "003"
+    },
+    "description": "Lattice of IEU (17 wt.%) fuel rods in water"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ICT2C3",
+      "n": "ICT2C3"
+    },
+    "outputs": {
+      "outp": "ICT2C3o",
+      "mctal": "ICT2C3m"
+    },
+    "inputs": {
+      "inp": "ICT2C3"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0017,
+      "std": 0.0044
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.0037,
+      "std": 0.000697894
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VII.0"
+  }
+}

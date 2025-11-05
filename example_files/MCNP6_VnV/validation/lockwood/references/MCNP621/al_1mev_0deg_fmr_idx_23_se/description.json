@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "al_1mev_0deg_fmr_idx_23_se",
+    "description": "",
+    "details": {
+      "material": "Aluminum",
+      "energy": 1.0,
+      "type": "Single Event",
+      "angle": 0,
+      "fmr": 0.552,
+      "fmr_index": 23
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "al_1mev_0deg_fmr_idx_23_se_",
+      "n": "al_1mev_0deg_fmr_idx_23_se_"
+    },
+    "outputs": {
+      "outp": "al_1mev_0deg_fmr_idx_23_se_o",
+      "mctal": "al_1mev_0deg_fmr_idx_23_se_m"
+    },
+    "inputs": {
+      "inp": "al_1mev_0deg_fmr_idx_23_se_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0082315,
+      "err": 0.014
+    },
+    "reference": "SAND79-0414, p. 51",
+    "foil_thickness": 0.00505,
+    "energy_deposited": 1.63,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-09-24"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.00677005,
+      "err": 0.0029
+    }
+  }
+}

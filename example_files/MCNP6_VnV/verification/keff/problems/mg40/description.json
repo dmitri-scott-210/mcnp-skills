@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg40",
+    "problem_type": "Multigroup",
+    "description": "UD2Ob-1-1-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg40.inp",
+      "n": "mg40"
+    },
+    "outputs": {
+      "outp": "mg40o",
+      "mctal": "mg40m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.227391
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,44 @@
+EXAMPLE: TRCL Usage with Universes
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Intermediate
+
+DEMONSTRATES:
+- Cell transformation using TRCL parameter
+- Placing a universe with transformation
+- Difference between surface TR and cell TRCL
+
+KEY FEATURES:
+- Detector defined in universe 1 at origin
+- Cell 10 fills with universe 1, applies TRCL=1
+- TRCL transforms the filled universe's orientation and position
+- Multiple cells can fill same universe with different TRCLs
+
+TR CARDS:
+*TR1  10 10 0     $ First placement
+*TR2  -10 10 0    $ Second placement
+*TR3  10 -10 0    $ Third placement
+*TR4  -10 -10 0   $ Fourth placement
+
+EXPECTED RESULT:
+- Four identical detectors from universe 1
+- Placed at four corners: (±10, ±10, 0)
+- Each detector R=3 cm sphere
+
+COMPARISON:
+Surface TR:
+  - Transforms the surface definition
+  - 10 1 SO 5.0  $ Surface 10 uses TR1
+
+Cell TRCL:
+  - Transforms the universe filling the cell
+  - 10  0  -100  FILL=1  TRCL=1  $ Cell fills with universe 1, transformed
+
+RELATED SKILLS:
+- mcnp-lattice-builder: Regular vs irregular component placement
+- mcnp-geometry-builder: Universe concept
+
+USAGE NOTES:
+- TRCL is used with FILL parameter to place universes
+- Each cell can have different TRCL for same universe
+- Don't apply both surface TR and cell TRCL to same geometry (double transformation)

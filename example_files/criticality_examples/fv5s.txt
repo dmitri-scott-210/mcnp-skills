@@ -1,0 +1,52 @@
+Problem fv5s  -  Fuel assembly
+c
+c    CELLS
+1    1  0.06925613  -1      u=1         $ fuel
+2    2  0.042910     1 -2   u=1         $ clad
+3    3  0.100059     2      u=1         $ water
+4    0              -3     fill=1   lat=1   u=2
+5    0              -4     fill=2
+6    3  0.100059     4 -5               $ outer water
+7    4  0.083770     5 -6               $ outer Fe
+c  8    0               6
+
+c    SURFACES
+1    RCC  0. 0. 0.   0. 0. 360.   0.44
+2    RCC  0. 0. 0.   0. 0. 360.   0.49
+3    RPP  -.7 .7      -.7 .7       0. 0.   $ infinite in z
+4    RPP  -10.5 10.5  -10.5 10.5   0. 360.
+5    RPP  -13.0 13.0  -13.0 13.0   0. 0.
+*6    RPP  -13.5 13.5  -13.5 13.5  0. 0.
+
+c    DATA
+c
+kcode   1000    1.0  0 30 
+sdef    x=d1 y=d2 z=d3 cel=d4
+si1  -.7 .7 $  -10.5 10.5
+sp1     0 1
+si2  -.7 .7 $  -10.5 10.5
+sp2     0 1
+si3     0. 360.
+sp3     0 1
+si4  L  (-1<4[-7:-1 -7:-1 0]<5)
+sp4 1 48r
+c
+print
+imp:n    1 1 1 1 1 1 1 
+c
+m1   92238 2.2380e-2   92235 8.2213e-4  8016 4.6054e-2  $ fuel
+m2   40000 4.2910e-2                                    $ clad
+m3    1001 6.6706e-2    8016 3.3353e-2                  $ water
+mt3   lwtr
+m4   26000 8.3770e-2                                    $ Fe
+c
+fmesh4:n  geom=xyz  origin= -10.5 -10.5 0
+       imesh= 10.5  iints=15
+       jmesh= 10.5  jints=15
+       kmesh= 360.  kints= 1
+fm4  -1  0   -6 -8
+ mplot  fmesh 4
+c
+f14:n  (1<4[-7:7 -7:7 0:0]<5)
+fm14  -1  1   -6 -8
+sd14   705.6  224r

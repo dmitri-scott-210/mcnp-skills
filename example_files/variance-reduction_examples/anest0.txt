@@ -1,0 +1,37 @@
+simple nested dxtran test for air transport
+c
+10  100  -0.00125  -1     imp:n=1
+11  100  -0.00125   1 -2  imp:n=1 
+12  100  -0.00125   2 -3  imp:n=1 
+13  100  -0.00125   3 -4  imp:n=1 
+14  100  -0.00125   4 -5  imp:n=1 
+20  100  -0.00125   5 -9  imp:n=1 
+30   0              9     imp:n=0
+
+1  sph  0 0 0      1
+2  sph  0 0 0     20
+3  sph  0 0 0    100
+4  sph  0 0 0  35000
+5  sph  0 0 0  70000
+6  sph  0 0 0  50000
+7  sph  0 0 0  60000
+9  sph  0 0 0 500000
+
+mode n
+c
+m100  7014 0.78  8016 0.22  $ air
+c
+sdef  erg= 2  par=n  pos= 210000 0 0
+c
+f1:n 1
+c
+dxt:n  0 0 0    10    10  $ inner most sphere
+       1e-16 1e-17        $ dwc1 dwc2
+c
+dd    -4.2e-14  1000
+c
+nps 200000
+c
+dbcn 49J 1
+prdmp 4J 20000
+print

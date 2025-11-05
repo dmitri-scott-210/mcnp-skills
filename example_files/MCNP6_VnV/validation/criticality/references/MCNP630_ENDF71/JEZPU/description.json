@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "JEZPU",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001",
+      "case": ""
+    },
+    "description": "Bare sphere of plutonium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "JEZPU",
+      "n": "JEZPU"
+    },
+    "outputs": {
+      "outp": "JEZPUo",
+      "mctal": "JEZPUm"
+    },
+    "inputs": {
+      "inp": "JEZPU"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.002
+    }
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999036,
+      "std": 0.000604854
+    }
+  }
+}

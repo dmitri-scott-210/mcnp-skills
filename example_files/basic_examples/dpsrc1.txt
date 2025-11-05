@@ -1,0 +1,26 @@
+dpsrc1 - photon dependent point sources
+c
+ 10  0      -1  imp:p=1
+ 99  0      +1  imp:p=0
+
+ 1  so   2.0
+
+ mode p
+ nps  1e6
+c
+c ===> single source energy
+c
+ sdef  pos=d10  erg=FPOS=d20
+c
+si10  L  0 0 -0.6   0 0 +0.6
+sp10       1          1
+ds20  L  0.14       1.88
+c
+c ===> fmesh tally surrounding the source
+c
+fmesh4:p  GEOM= xyz    ORIGIN= -1.0 -1.0 -1.0
+          IMESH= 1.0   IINTS= 100
+          JMESH= 1.0   JINTS= 100
+          KMESH= 1.0   KINTS= 100
+c
+ print

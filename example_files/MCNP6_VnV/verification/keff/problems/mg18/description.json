@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg18",
+    "problem_type": "Multigroup",
+    "description": "Uc-H2O(2)-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg18.inp",
+      "n": "mg18"
+    },
+    "outputs": {
+      "outp": "mg18o",
+      "mctal": "mg18m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

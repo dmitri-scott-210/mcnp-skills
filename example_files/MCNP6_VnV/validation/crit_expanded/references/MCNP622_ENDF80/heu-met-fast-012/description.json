@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-012",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "012"
+    },
+    "description": "Al Reflected HEU Sphere: HEU-MET-FAST-012 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-012.i",
+      "n": "heu-met-fast-012"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-012.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-012o",
+      "mctal": "heu-met-fast-012m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9992,
+      "std": 0.0018
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997269,
+      "std": 0.000269827
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VIII.0"
+  }
+}

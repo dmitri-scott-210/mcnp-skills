@@ -1,0 +1,181 @@
+Fission chamber geometry: PPAC + FC with Frisch Grid ==
+c
+c ************************** CELLS ************************
+1   0               (33 : -34 : 107)              imp:n=0           $ External world
+2   2  -8.0          -24  68 -69                  imp:n=1           $ SS cover FC
+3   2  -8.0          -25  24  43 -69              imp:n=1           $ SS cylinder
+4   1  -0.001205     -33  69 -70                  imp:n=1           $ Air after FC
+5   2  -8.0          -25  21  41 -43              imp:n=1           $ SS
+6   2  -8.0          -25  40 -41                  imp:n=1           $ SS 304
+7   1  -0.001205     (-33 25  40 -69):
+                     (-33 34 -40)                 imp:n=1           $ Air
+78 14  -11.5       -16  54 -55                    imp:n=1           $ 240Pu dioxyde
+79  6  -2.6989     -18  55 -57                    imp:n=1 fcl:n=1   $ Al backing for Pu
+80  6  -2.6989     -18  57 -58                    imp:n=1 fcl:n=1   $ Al backing for U
+81  8  -10.97      -16  58 -59                    imp:n=1           $ 238U dioxyde
+82  9  -0.001561   -24 43 -68 #78 #79 #80 #81     imp:n=1           $ Gas
+83  9  -0.001561   -21 41 -43                     imp:n=1           $ Gas
+c
+108 12  -10.5       -97     101 -102              imp:n=1           $ Si backing
+109 13  -1.89       -96  93 102 -103              imp:n=1           $ Viton rubber
+c
+110  2  -8.0     (-95 94 105 -107):
+                 (-97 95 105 -106):
+                 (-98 16 103 -105):
+                 (-93 16 102 -103):
+                 (-98 96 102 -103)                imp:n=1           $ Steel tube
+111  6  -2.6989  (-99 95 100 -101):
+                 (-99 97 101 -102):
+                 (-99 98 102 -104)                imp:n=1           $ Al flange
+112  0           (-16 102 -105):
+                 (-94 105 -107)                   imp:n=1           $ Vacuum in beam line
+c
+113  1 -0.001205   -33 70 -107
+                   #108 #109 #110 #111 #112       imp:n=1           $ Air
+
+c *********************** SURFACES ************************
+16    cz    1.5
+18    cz    2.5
+21    cz    8.1
+24    cz    8.95
+25    cz    9.0
+33    cz    50.0
+34    pz    -20.0
+40    pz      0.45
+41    pz      0.85
+43    pz      1.35
+54    pz     10.77
+55    pz     10.79
+57    pz     10.815
+58    pz     10.84
+59    pz     10.86
+68    pz     13.44
+69    pz     13.5
+70    pz     18.0
+93    cz     1.6
+94    cz     1.72
+95    cz     1.75
+96    cz     1.8
+97    cz     1.9
+98    cz     2.0
+99    cz     2.25
+100   pz     22.79
+101   pz     22.84
+102   pz     22.89
+103   pz     23.016
+104   pz     23.24
+105   pz     23.29
+106   pz     23.34
+107   pz     46.49
+c
+
+mode n
+c
+c ============================
+c    MATERIAL DEFINITION
+c ============================
+c
+c http://www.pnnl.gov/main/publications/external/
+c technical_reports/PNNL-15870Rev1.pdf
+c .......... AIR ..........
+m1     6000  -.000124
+       7014  -.755268
+       8016  -.231781
+       18040 -.012827
+c
+c ...... SS 304 .............
+m2     6000 -.000400
+      14028 -.004611484
+      14029 -.000234158
+      14030 -.000154358
+      15031 -.000230
+      16032 -.000142527
+      16033 -.000001125
+      16034 -.0000063225
+      16036 -.0000000255
+      24050 -.00825588
+      24052 -.1592005
+      24053 -.01805114
+      24054 -.00449293
+      25055 -.010000
+      26054 -.0410161185
+      26056 -.6438653442
+      26057 -.01487036043
+      26058 -.00197817687
+      28058 -.0629711325
+      28060 -.0242563675
+      28061 -.0010544075
+      28062 -.0033619125
+      28064 -.00085618
+c
+c ..... Aluminum .....
+m6   13027  -1.
+c
+c ...... 242PuO2 .......
+m7    94242  .333343
+      8016   .666657
+c
+c ...... 238UO2 .......
+m8    92238  .333343
+      8016   .666657
+c
+c .... P10 gas ......
+m9     1001  .285714
+       6000  .071429
+      18040  .642857
+c
+c ..... Silver
+m12    47000 1.
+c
+c ..... Viton rubber (O-ring)
+m13    1001 .133327
+       6000 .333341
+       9019 .533332
+c
+c ...... 240PuO2 .......
+m14   94240  .333343
+       8016  .666657
+c
+c ============================
+c        SOURCE DEFINITION
+c ============================
+c
+sdef  pos=0.0  0.0  23.0 axs= 0 0 1  vec=0.0 0.0 -1.0 erg = 3.5
+c
+c ============================
+c           TALLIES
+c ============================
+c
+c  Neutron flux in the U and Pu
+f14:n 78
+f24:n 81
+c
+c  REMEMBER!!!!
+c  Commented FM: Neutron induced fission reaction rate in U and in Pu
+c  Since C= at/barn and not at/(barn*cm), in order to have
+c  results in reactions/cm^3 you have to divide
+c  your results per DeltaX (DeltaX = thickness of U or Pu)
+c
+c  Now: Neutron induced fission reaction rate in U and in Pu.
+c  Results are in fissions / (incident particle*cm^3).
+c  Therefore they need to be multiplied for the volume.
+c
+c ==== 242Pu ===
+f34:n 78
+fm34: (2.56480279406852869e-02 7 -6)
+c
+c ==== 238U ===
+f44:n 81
+fm44: (2.44675286104914513e-02 8 -6)
+c
+c ============================
+c      VARIANCE REDUCTION
+c ============================
+c
+dxt:n 0 0 10.81 1.6 1.7
+dd1  -5e-4  0
+c
+nps 1000000
+c
+print -140 -130 -100
+dbcn 49J 1

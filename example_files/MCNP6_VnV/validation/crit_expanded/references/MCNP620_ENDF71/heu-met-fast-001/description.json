@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-001",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001"
+    },
+    "description": "Godiva  Solid Bare HEU sphere  HEU-MET-FAST-001  CSEWG:F-5 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-001.i",
+      "n": "heu-met-fast-001"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-001.i"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-001o",
+      "mctal": "heu-met-fast-001m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.001
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999359,
+      "std": 0.000277969
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

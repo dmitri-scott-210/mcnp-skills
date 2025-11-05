@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg54",
+    "problem_type": "Multigroup",
+    "description": "URRa-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg54.inp",
+      "n": "mg54"
+    },
+    "outputs": {
+      "outp": "mg54o",
+      "mctal": "mg54m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg15",
+    "problem_type": "Multigroup",
+    "description": "Ub-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg15.inp",
+      "n": "mg15"
+    },
+    "outputs": {
+      "outp": "mg15o",
+      "mctal": "mg15m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.330917
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.33092,
+      "std": 6.51251e-09
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-23"
+  }
+}

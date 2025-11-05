@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "THOR",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "008",
+      "case": ""
+    },
+    "description": "Plutonium sphere reflected by thorium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "THOR",
+      "n": "THOR"
+    },
+    "outputs": {
+      "outp": "THORo",
+      "mctal": "THORm"
+    },
+    "inputs": {
+      "inp": "THOR"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0006
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.99803,
+      "std": 0.000690342
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-14",
+    "data": "ENDF/B-VII.0"
+  }
+}

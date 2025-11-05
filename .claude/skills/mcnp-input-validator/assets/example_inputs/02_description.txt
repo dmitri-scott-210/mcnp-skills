@@ -1,0 +1,50 @@
+EXAMPLE 02: Undefined Surface in Cell Geometry
+
+ERROR TYPE: F-004 (FATAL - Cross-Reference)
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Cell geometry references non-existent surface
+- Cross-reference validation catches this
+- How to identify missing surface definitions
+
+INVALID FILE (02_undefined_surface_INVALID.i):
+- Cell 1 geometry: "-1 2 -3" references surfaces 1, 2, 3
+- Only surfaces 1 and 2 are defined
+- Surface 3 is referenced but NOT defined
+- MCNP fatal error: "surface 3 has not been defined"
+
+FIXED FILE (02_undefined_surface_FIXED.i):
+- Surface 3 added: "3 PZ 10"
+- All referenced surfaces now defined
+- Cross-references valid
+- File will run successfully
+
+KEY LESSON:
+Every surface number used in cell geometry MUST have a corresponding
+surface card definition.
+
+Cell geometry expression: -1 2 -3
+Means: Inside surface 1, outside surface 2, inside surface 3
+All three surfaces (1, 2, 3) must be defined.
+
+HOW TO FIX:
+1. Parse cell geometry to extract all surface numbers
+2. Verify each surface number has definition
+3. Add missing surface cards
+4. Re-validate cross-references
+
+REFERENCE:
+- MCNP6 Manual §4.4: Cross-References
+- error_catalog.md: F-004
+- validation_procedures.md: Cross-Reference Validation
+
+RELATED SKILLS:
+- mcnp-geometry-builder: Cell and surface definition
+- mcnp-cross-reference-checker: Comprehensive dependency checking
+
+VALIDATION CHECK:
+Validator detects:
+  "FATAL: Cell 1 geometry references undefined surface 3"
+  "Location: Cell 1 definition"
+  "Fix: Add surface card for surface 3"

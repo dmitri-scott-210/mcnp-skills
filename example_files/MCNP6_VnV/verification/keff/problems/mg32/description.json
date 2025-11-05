@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg32",
+    "problem_type": "Multigroup",
+    "description": "PUa-1-1-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg32.inp",
+      "n": "mg32"
+    },
+    "outputs": {
+      "outp": "mg32o",
+      "mctal": "mg32m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

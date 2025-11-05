@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-024-case-2",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "024",
+      "case": "2"
+    },
+    "description": "Simplified Plutonium Sphere reflected by Polyethylene, VNIIEF:  PU-MET-FAST-024 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-024-case-2.i",
+      "n": "pu-met-fast-024-case-2"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-024-case-2.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-024-case-2o",
+      "mctal": "pu-met-fast-024-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.002
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00188,
+      "std": 0.00028645
+    }
+  }
+}

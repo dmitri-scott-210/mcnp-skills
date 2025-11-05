@@ -1,0 +1,59 @@
+Contact Dose Rate (rad/h) from Vial LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --Co-60 emits two photons at energies of 1.1732 and 1.3325 Mev at a rate of
+c    1 photon/decay each.
+c    --Cs-137 emits one photon of energy 0.662 Mev at a rate of 0.85 
+c    Photons/decay.
+c    --1.602e-8 Rad/(Mev/g)
+c    S(Photons/hr)=(Activity Ci)(3.7e10 dps/Ci)(photons/dec)(3.6e3 s/hr)
+c    S(Co-60)=(2e-3)(3.7e10)(2)(3.6e3)=5.328e11 photons/hr(7.40e7 Photons/s ea.)
+c    S(Cs-137)=(3e-3)(3.7e10)(0.85)(3.6e3)=3.3966e11 photons/hr(9.44e7 Photon/s)
+c    S(Total)=8.7246e11 photons/hr
+c    C1((Rad/hr)*photon/(Mev/g))=(S(Total) photons/hr)(1.602e-8 Rad/(MeV/g))
+c    C1=(8.7246e11)(1.602e-8)=1.3977e4 (Rad/hr)*Photon/(Mev/g)
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    2    -1.0      -1                       imp:p=1        $ Liquid Sample
+2    3    -0.92     -2 #1                    imp:p=1        $ Vial
+3    1    -1.0      -3 2                     imp:p=1        $ Tissue Measurement Cell
+4    1    -1.0      -4 3                     imp:p=1        $ Tissue
+5    0               #1 #2 #3 #4             imp:p=0        $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RCC  0 0 0.2 0 0 9.8 0.8                     $ Vial Inner wall
+2    RCC  0 0 0 0 0 10 1                          $ Vial Outer Wall
+3    RCC  0 0 0 0 0 10 1.01                       $ Tissue Measure Boundary
+4    RCC  0 0 0 0 0 10 2                          $ Tissue Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------                          
+c  ICRU Soft Tissue den = 1.0 g cm-3
+m1     1000   -0.101172
+       6000   -0.111000
+       7000   -0.026000
+       8000   -0.761828                            
+m2     $ Water D=1.0 g/cc
+       1000 -0.111894
+       8000 -0.888106   
+m3    $ Poly, D=0.92 g/cc
+       1000 -0.142857
+       6000 -0.857143                            
+mode p                                            $ Photons
+SDEF pos=0 0 0.2                                  $ Position center bottom face
+     rad=d2                                       $ Radius is data set 2
+     ext=d3                                       $ length is data set 3
+     cel=1                                        $ Cell 1
+     par=2                                        $ Photons
+     erg=d1                                       $ Energy is in data set 1
+si1  L 0.662     1.1732   1.3325                  $ Photon energies
+sp1  d 3.3966e11 2.664e11 2.664e11                $ Energy Distribution
+si2  0   0.8                                      $ Radius=0.8
+sp2  -21 1                                        $ Distribution
+si3  0   9.8                                      $ Length= 9.8
+sp3  -21 1                                        $ Distribution
+f6:p 3                                            $ Fluence in cell
+fm6  1.3977e4                                     $ Convert to Rad/hr (C1)
+nps  1e4                                          $ Terminate after 1e4 particle
+c    ************<<<<< End Data Cards >>>>>**************************************

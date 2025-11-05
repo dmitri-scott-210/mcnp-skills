@@ -1,0 +1,25 @@
+import os
+import isc # import the isc module
+
+# set the path to the ISC data
+iscdata = os.getenv("ISCDATA")
+
+# open an abundance data file and convert it to an abundance library
+abund_file = isc.AbundanceFile(os.path.join(iscdata,"nist.na.xml"))
+abund_lib = isc.AbundanceLib(abund_file)
+
+# open a decay data file and convert it to a decay data library
+decay_file = isc.DecayFile(os.path.join(iscdata,"endf7.dk.xml"))
+decay_lib = isc.DecayLib(decay_file)
+
+# open an emission file index (contains relative paths to emission data files)
+emission_index = isc.EmissionFileIndex(os.path.join(iscdata,"endf7.idx.xml"))
+# initialize an empty emission library
+emission_lib = isc.EmissionLib()
+
+# loop over all SZAs and import the emission data
+# NOTE: one need not load everything, only the things you need
+for sza in emission_index.GetSZAs():
+  print("loading emission data for isotope {:d}".format(sza))
+  emission_file = isc.EmissionFile( os.path.join(iscdata,emission_index.GetPath(sza)) )
+  emission_lib.SetFromEmissionFile( emission_file )

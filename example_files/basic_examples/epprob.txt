@@ -1,0 +1,14 @@
+Electron-Photon Test Problem
+1 10 -19.25 -100 imp:p,e=1
+2 0          100 imp:p,e=0
+
+100 so 0.1
+
+mode p e 
+nps 1000
+sdef par=p erg=10
+m10 74000 -1
+*f8:e,p 1 
+f16:e   1 
+f26:p   1 
+f36:e,p 1 

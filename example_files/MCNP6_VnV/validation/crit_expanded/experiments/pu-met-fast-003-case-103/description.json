@@ -1,0 +1,33 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-003-case-103",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "003",
+      "case": "103"
+    },
+    "description": " PU-MET-FAST-003  Case 103  3x3x3 Array of Pu Buttons "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-003-case-103.i",
+      "n": "pu-met-fast-003-case-103"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-003-case-103.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-003-case-103o",
+      "mctal": "pu-met-fast-003-case-103m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.003
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

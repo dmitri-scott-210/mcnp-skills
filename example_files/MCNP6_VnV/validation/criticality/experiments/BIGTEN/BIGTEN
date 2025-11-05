@@ -1,0 +1,25 @@
+Big Ten Two-Zone Homogenized Benchmark  IEU-MET-FAST-007
+1     1   4.806192e-02      -1                   $ Central Core
+2     2   4.777901e-02       1   -2              $ Reflector
+3     0                      2
+
+1    rcc     0.0  0.0  -28.8169    0.0  0.0  57.6338   26.67  $ Core
+2    rcc     0.0  0.0  -48.2600    0.0  0.0  96.5200   41.91  $ Reflector
+
+mode    n
+kcode   5000   1.00   50   250
+imp:n   1.0   1.0   0.0
+sdef   cel=1  erg=d1
+sp1    -3
+vol   128787.3    403814.3         0.0
+area       0.0      9657.8      2234.6      2234.6
+           0.0     25416.4      5518.0      5518.0
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+totnu
+prdmp    j    999999    1
+print
+
+ end of input

@@ -1,0 +1,37 @@
+EXAMPLE: 90° Rotation About Z-Axis
+
+SOURCE: Created for mcnp-transform-editor skill
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Rotation-only TR card (12 parameters: translation + matrix)
+- 90° counterclockwise rotation about z-axis
+- Reorienting a cylindrical component
+
+KEY FEATURES:
+- Cylinder originally along +x axis (0 to 10 cm in x)
+- Rotated 90° CCW about z-axis → cylinder along +y axis
+- Translation is zero (rotation about origin)
+- Matrix form shown explicitly
+
+TR CARD:
+*TR1  0 0 0  0 -1 0  1 0 0  0 0 1    $ 90° CCW about z-axis
+
+ROTATION MATRIX INTERPRETATION:
+Row 1: (0, -1, 0)  → new x-axis points along old -y direction
+Row 2: (1,  0, 0)  → new y-axis points along old +x direction
+Row 3: (0,  0, 1)  → new z-axis unchanged
+
+EXPECTED RESULT:
+- Original cylinder: axis from (0,0,0) to (10,0,0)
+- Rotated cylinder: axis from (0,0,0) to (0,10,0)
+- Both cylinders R=2 cm
+
+RELATED SKILLS:
+- mcnp-geometry-builder: RCC surface type (right circular cylinder)
+- transformation_theory.md: Rotation matrix fundamentals
+
+USAGE NOTES:
+- Rotation matrices must be orthonormal (validate before use)
+- Right-hand rule: positive rotation is CCW looking down axis toward origin
+- Can use degree input instead: *TR1  0 0 0  0 0 90  1

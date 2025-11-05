@@ -1,0 +1,24 @@
+src5 -  tabulated energy spectrum - histograms
+c
+ 10  0      -1  imp:n=1
+ 99  0      +1  imp:n=0
+
+ 1  so   1.0
+
+ mode n
+ nps 1e6
+c
+c ===> tabulated histogram PDF
+c ===>   supply UPPER boundaries of bins
+c ===>   lower bound of first bin assumed 0.0
+c ===>   supply probability for each bin 
+c ===>   probabilities need not be normalized
+c
+ sdef  x=0 y=0 z=0  erg=d1
+   si1  H    .5    1.9   3.0   10.0   30.0
+   sp1    .0   .1     .5    .25    .1
+c
+c ===> tally leakage, 1000 equal delta-E bins
+c
+ f1:n  1
+ e1   .01  999i  30.

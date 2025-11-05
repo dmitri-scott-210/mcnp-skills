@@ -1,0 +1,28 @@
+fv2b - Problem fv2  -  pin cell - using universe & fill
+c
+c    CELLS
+10   100  0.06925613  -1      u=1         $ fuel
+20   200  0.042910     1 -2   u=1         $ clad
+30   300  0.100059     2      u=1         $ water
+40   0                -3     fill=1       $ first pin cell
+50   like 40 but     trcl=(2. 0. 0.)      $ second pin cell
+60   0              #40 #50 -4            $ bounding cell
+70   0                 4                  $ outer, zero-importance cell
+
+c    SURFACES
+1    RCC  0. 0. -180.   0. 0. 360.   0.44
+2    RCC  0. 0. -180.   0. 0. 360.   0.49
+3    RPP  -.7 .7  -.7 .7    -210. 210.
+4    rcc  1. 0. -300.   0. 0. 600.   2.   $ big cylinder to bound pin cells
+
+c    DATA
+c
+kcode   1000    0.1  10  50 
+hsrc   4  -.5 2.5    4 -.5 2.5    4 -180. 180.
+ksrc    0 0 0
+imp:n    1 1 1 1   1 1 0
+c
+m100   92238 2.2380e-2   92235 8.2213e-4  8016 4.6054e-2  $ fuel
+m200   40000 4.2910e-2                                    $ clad
+m300    1001 6.6706e-2    8016 3.3353e-2                  $ water
+mt300   lwtr

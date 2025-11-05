@@ -1,0 +1,119 @@
+Demo6b: Neutron Shielding: 50-cm Thick Concrete Slab LA-UR-23-25214
+c       sealed Cf-252 Source: Neutron Emission Rate = 2.0e+8 neutrons/sec
+c       This input file provides the transmitted neutron dose
+c       plus the secondary gammma contribution. Fission product gamma emission
+c       will be ignored as its contribution is minor relative to the
+c       neutron dose.
+c
+c    ------------<<<<< Cell Card >>>>>------------------------------------------
+1    1    -2.3      -1                       imp:n,p=1      $ Shield Segment 1
+2    1    -2.3      -2                       imp:n,p=2      $ Shield Segment 2
+3    1    -2.3      -3                       imp:n,p=4      $ Shield Segment 3
+4    1    -2.3      -4                       imp:n,p=8      $ Shield Segment 4
+5    1    -2.3      -5                       imp:n,p=16     $ Shield Segment 5
+6    0              -6 #1 #2 #3 #4 #5        imp:n,p=1      $ Boundary
+7    0               6                       imp:n,p=0      $ Boundary
+c    ************<<<<< End Cell Card >>>>>**************************************
+
+c    ------------<<<<< Surface Card >>>>>---------------------------------------
+1    RPP  30 40 -100 100 -100 100                 $ Shield Segment 1
+2    RPP  40 50 -100 100 -100 100                 $ Shield Segment 2
+3    RPP  50 60 -100 100 -100 100                 $ Shield Segment 3
+4    RPP  60 70 -100 100 -100 100                 $ Shield Segment 4
+5    RPP  70 80 -100 100 -100 100                 $ Shield Segment 5
+6    RPP  0 110 -100 100 -100 100                 $ Boundary
+c    ************<<<<< End Surface Card >>>>>***********************************
+
+c    ------------<<<<< Data Card >>>>>------------------------------------------
+m1   $ Concrete D=2.3 g/cc                                                          
+       1001 -0.004530
+       8016 -0.512600
+      11023 -0.015270
+      13027 -0.035550
+      14000 -0.360360
+      20000 -0.057910
+      26000 -0.013780                                                          
+mode n p                                                                                                                         
+sdef pos=0 0 0                                    $ Position (0,0,0)                
+     par=n                                        $ Emits neutrons                  
+     erg=d1                                       $ Watts Fission Spectrum                         
+sp1 -3 1.18 1.03419                               $ Constants A & B for Cf-252, may be different depending on source                                   
+c       Tally card
+f5:n 100 0 0 0                                    $ Detect at (100,0,0) R=0         
+fm5 7.2E4                                         $ Convert to mrem/h
+c
+c 2E8 [par/s] * 3600 [s/h] = 7.2E11 [par/h] * DCF[pSv/par] = [psv/h] * 1E-10 [rem/pSv]
+c 7.2E1 [rem/h] * 1.14 [R/rem] * 1E3 [mR/R]] = 8.21E4 [mR/h]
+c for photon assuming rem=rad, due to weighting factor = 1
+c
+f15:p 100 0 0 0                                   $ Detect at (100,0,0) R=0         
+fm15 8.208E4                                      $ Convert to mR/h (C2)           
+c       ICRP-74 H*(10) conversion function: pSv cm^2 (Neutron DCF)
+#       DE5         DF5
+     1.00E-09	     6.6
+     1.00E-08	     9
+     2.53E-08	     10.6
+     1.00E-07	     12.9
+     2.00E-07	     13.5
+     5.00E-07	     13.6
+     1.00E-06	     13.3
+     2.00E-06	     12.9
+     5.00E-06	     12
+     1.00E-05	     11.3
+     2.00E-05	     10.6
+     5.00E-05	     9.9
+     1.00E-04	     9.4
+     2.00E-04	     8.9
+     5.00E-04	     8.3
+     1.00E-03	     7.9
+     2.00E-03	     7.7
+     5.00E-03	     8
+     1.00E-02	     10.5
+     2.00E-02	     16.6
+     3.00E-02	     23.7
+     5.00E-02	     41.1
+     7.00E-02	     60
+     1.00E-01	     88
+     1.50E-01	     132
+     2.00E-01	     170
+     3.00E-01	     233
+     5.00E-01	     322
+     7.00E-01	     375
+     9.00E-01	     400
+     1.00E+00	     416
+     1.20E+00	     425
+     2.00E+00	     420
+     3.00E+00	     412
+     4.00E+00	     408
+     5.00E+00	     405
+     6.00E+00	     400
+     7.00E+00	     405
+     8.00E+00	     409
+     9.00E+00	     420
+     1.00E+01	     440
+     1.20E+01	     480
+     1.40E+01	     520
+     1.50E+01	     540
+     1.60E+01	     555
+     1.80E+01	     570
+     2.00E+01	     600
+     3.00E+01	     515
+     5.00E+01	     400
+     7.50E+01	     330
+     1.00E+02	     285
+     1.25E+02	     260
+     1.50E+02	     245
+     1.75E+02	     250
+     2.01E+02	     260
+c       ICRU 57, Table A.1: Fluence to Air Dose Conversion                       
+c       Function, pGy cm^2 (Photon DCF)                                                      
+de15    0.01 0.015 0.020 0.030 0.040 0.050 0.060 0.080 0.100 
+        0.150 0.200 0.300 0.400 0.500 0.600 0.800 1.000 
+        1.500 2.000 3.000 4.000 5.000 6.000 8.000 10.000                                
+df15    7.43 3.12 1.68 0.721 0.429                          
+        0.323 0.289 0.307 0.371 0.599                       
+        0.856 1.38 1.89 2.38 2.84                           
+        3.69 4.47 6.14 7.55 9.96                             
+        12.1 14.1 16.1 20.1 24      
+nps     1E6     $ Terminate after 1e6 particle
+c    ************<<<<< End Data Card >>>>>**************************************

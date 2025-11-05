@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce06",
+    "problem_type": "Continuous Energy",
+    "description": "PUb-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce06.inp",
+      "n": "ce06"
+    },
+    "outputs": {
+      "outp": "ce06o",
+      "mctal": "ce06m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

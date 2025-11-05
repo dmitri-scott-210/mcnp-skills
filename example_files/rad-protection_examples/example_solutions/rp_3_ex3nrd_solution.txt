@@ -1,0 +1,25 @@
+Eberline NRD Rem Meter, Class Exercise #3 LA-UR-23-25214
+c NRD. Outer sphere radius 11.152. Cd sphere on inner sphere thickness 0.0033. 
+c inner sphere radius 3.0015. tube length 13.844 from top of outer sphere. 
+c tube radius 0.795
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    1 -0.930000 -1 2 4  imp:p=1 $ Poly sphere
+2    3 -8.620000 -2 3 4  imp:p=1 $ Cd coating
+3    0           -3 4    imp:p=1 $ inner void
+4    2 -0.000125 -4      imp:p=1 $ counting tube
+5    0           1 4     imp:p=0 $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    so 11.152
+2    so 3.0048
+3    so 3.0015
+4    RCC 0 0 -2.692 0 0 13.844 0.795
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   1001 -0.143716
+     6000 -0.856284  $ Polyethylene Sphere Density 0.930000
+m2   2003 -1.000000  $ He3 counting gas density 0.000125
+m3   48000 -1.000000 $ Cd coating density 8.650000
+c    ************<<<<< End Data Cards >>>>>**************************************

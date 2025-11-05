@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-inter-006-case-3",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "INTER",
+      "number": "006",
+      "case": "3"
+    },
+    "description": " ZEUS-3  9 Units, 4 C Plates/Unit  HEU-MET-INTER-006, case 3 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-inter-006-case-3.i",
+      "n": "heu-met-inter-006-case-3"
+    },
+    "inputs": {
+      "inp": "heu-met-inter-006-case-3.i"
+    },
+    "outputs": {
+      "outp": "heu-met-inter-006-case-3o",
+      "mctal": "heu-met-inter-006-case-3m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0015,
+      "std": 0.0009
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.1",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00074,
+      "std": 0.000318212
+    }
+  }
+}

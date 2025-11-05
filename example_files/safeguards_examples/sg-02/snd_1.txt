@@ -1,0 +1,72 @@
+snd_1
+c
+c ----------------------------------------------------------------
+c                    FOR TRAINING PURPOSES ONLY
+c ----------------------------------------------------------------
+c                                                                               
+c -------------
+c Source Cells
+c -------------
+100 10 -2 -10                          imp:n=1  $ Cf-252 Source
+c
+c --------------
+c Detector Cells
+c --------------
+200 20 -0.96 -20 #210 #211 #212 #213    imp:n=1  $ Polyethylene Slab
+210 21 -4.991e-4 -21                    imp:n=1  $ 3He Tube
+211 like 210 but  trcl=(0  5 0)
+212 like 210 but  trcl=(0 10 0)
+213 like 210 but  trcl=(0 15 0)
+c
+c ----------------
+c Void
+c ----------------
+998 0 -999 10 #200 #210 #211 #212 #213  imp:n=1  $ Inside Void
+999 0 999                               imp:n=0  $ Outside Void
+
+c ----------------
+c Source Surfaces
+c ----------------
+c Cf-252 source
+10 sx -5 0.01
+c
+c -----------------
+c Detector Surfaces
+c -----------------
+20 rpp 5 15 -12.5 12.5 -12.5 12.5                $ Poly slab containing 3He tubes
+c
+21 rcc 10 -7.5 -10 0 0 20 1.27                   $ 3He Tube (2.54 cm diameter, 20 cm active height)
+c
+c ----------------
+c Void
+c ----------------
+999 so 50                                        $ Void
+
+c ---------------
+c Material Cards
+c ---------------
+c Source Material (Cf-252)
+m10 98252 1.0
+c
+c Detector Materials
+c Polyethylene slab
+m20 6012 2.0 1001 4.0
+mt20 poly.20t
+c
+c 3He at 4atm
+m21 2003 1.0
+c
+c --------------
+c Source Card
+c --------------
+sdef pos=-5 0 0 par=sf
+fmult data=3 method=3 shift=1
+nps 1e6
+print 38
+c
+c --------------
+c Tally Card
+c --------------
+f4:n 210 211 212 213 T
+sd4  1  1  1  1  1
+fm4 -1 21 103

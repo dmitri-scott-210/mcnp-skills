@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce30",
+    "problem_type": "Continuous Energy",
+    "description": "Ue-Fe-Na-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce30.inp",
+      "n": "ce30"
+    },
+    "outputs": {
+      "outp": "ce30o",
+      "mctal": "ce30m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

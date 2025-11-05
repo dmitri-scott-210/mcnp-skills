@@ -1,0 +1,146 @@
+Variance Reduction: photons in a double room environment
+c
+c Full thickness (~24 inch) concrete walls
+c
+c ***** CELLS *****
+c
+ 1  1  -2.3  101 -102  202 -203  302 -303      $ middle door (exit near room)
+ 2  0        102 -103  202 -205  302 -303      $ near room center
+ 3  0        103 -104  204 -205  302 -303      $ near door (entrance)
+ 4  0        106 -101  202 -205  302 -303      $ far room center
+ 5  0        105 -106  204 -205  302 -303      $ far door (exit far room)
+c
+ 6  0       -501  101 -102                     $ penetration opposite doors
+ 7  1  -2.3 -502  101 -102                     $ middle of wall penetration 
+c
+11  1  -2.3  103 -104  202 -204  302 -303
+12  1  -2.3  105 -104  201 -202  302 -303
+13  1  -2.3  101 -102  203 -205  302 -303  501  502
+14  1  -2.3  105 -104  205 -206  302 -303
+15  1  -2.3  105 -106  202 -204  302 -303
+18  1  -2.3  105 -104  201 -206  301 -302      $ floor
+19  1  -2.3  105 -104  201 -206  303 -304      $ roof
+c
+20  0       -400 (-105:104:-201:206:-301:304)  $ outside room
+21  0        400                               $ outside world
+c
+c ***** END CELLS *****
+
+c ***** SURFACES *****
+c
+101  px -160
+102  px -100
+103  px  100
+104  px  160
+105  px -420
+106  px -350
+c
+201  py -410
+202  py -350
+203  py -250
+204  py  -50
+205  py   50
+206  py  110
+211  py   15   $ tally segmenting surface
+212  py  -15   $ tally segmenting surface
+213  py -315   $ tally segmenting surface
+214  py -285   $ tally segmenting surface
+c
+221  py   15   $ tally segmenting surface
+222  py  -15   $ tally segmenting surface
+223  py -315   $ tally segmenting surface
+224  py -285   $ tally segmenting surface
+c
+301  pz  -60
+302  pz    0
+303  pz  250
+304  pz  310
+311  pz   50   $ tally segmenting surface
+312  pz  100   $ tally segmenting surface
+c
+400  s  0  -175  127  600
+c
+501 c/x    30.0 200 5
+502 c/x  -100.0 200 5
+c
+c ***** END SURFACES *****
+
+c ***** DATA CARDS *****
+c
+mode p
+phys:p  0.01    1  1          $ 
+cut:p   J    0.01  0          $ 10 keV cutoff; analog capture
+imp:p   1 14R 0
+c
+c Materials
+c
+c ANSI/ANS 6.6.1-1987 Concrete Composition
+m1    1000 7.86e+21  
+      8000 4.38e+22
+     11000 1.05e+21
+     12000 1.40e+20
+     13000 2.39e+21
+     14000 1.58e+22
+     19000 6.90e+20
+     20000 2.92e+21
+     26000 3.10e+20
+c
+c Dry Air
+m2    7000 -0.755
+      8000 -0.232
+     18000 -0.013
+c
+sdef  par=2 pos=130 0 100  erg=0.6616  dir=d1  vec= -1 0 0
+si1   h -1 0 1
+sp1   d  0  0.5  0.5
+sb1   d  0   1    10
+c
+c f4:p   1
+c fs4    -213 214 -311 312 T
+c sd4     5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6
+c fm4     8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie
+c fc4     R/hr per Curie at middle door
+c tf4   3J 5
+c
+c f14:p  3
+c fs14   -212 211 -311 312 T
+c sd14    5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6
+c fm14    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie
+c fc14    R/hr per Curie at near door
+c tf14  3J 5
+c
+f24:p   5
+fs24   -212 211 -311 312 T
+sd24    5.25e+5  5.25e+5  9.0e+4  2.7e+5  9.0e+4  1.5e+6
+fm24    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie
+fc24    R/hr per Curie at far door
+tf24  3J 5
+e24  0.01  0.1  1.0
+c
+f34:p   6
+fm34    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie
+fc34    R/hr per Curie in penetration opposite doors
+c
+c f44:p   7
+c fm44    8.639e+4  2  -5  -6  $ multiplier for CS-137 R/hr per Curie
+c fc44    R/hr per Curie in penetration opposite doors
+c
+nps 1000000
+prdmp 1e+9  1e+9
+c
+print
+dxt:p  -100 30 200  5  6   -160 30 200  5  6
+ext:p  0 8R -0.9x  0 5R
+c
+wwg  24  0
+wwge:p 0.01 0.1 1.0
+mesh  geom=rec  origin= -425 -415 -65  ref= 129 0 100
+      imesh -360  -160  -100  100  165
+      iints    1     1    12    1    1
+      jmesh -350  -250    50  115
+      jints    1     1    10    1
+      kmesh    0   150  250  320
+      kints    1     1   10    1
+wwp:p 4J -1
+
+

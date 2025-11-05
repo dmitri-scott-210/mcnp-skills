@@ -1,0 +1,55 @@
+AVR Exercise: 7 MeV gamma source in iron medium
+c
+c --- Cell Cards ---
+c
+10  100  -7.86  -1
+20  100  -7.86   1 -2
+30  100  -7.86   2 -3
+40  100  -7.86   3 -4
+50   0           4
+
+c --- Surface Cards ---
+c
+1  so   28.0    $ Detector surface
+2  so   30.0    $ Detector surface
+3  so   32.0    $ Detector surface
+4  so 3000.0    $ Outer surface of iron
+
+c --- Data Cards ---
+c
+m100  26000 -1.000    $ natural iron (density 7.86 g/cm^3)
+c
+c Source
+c
+sdef erg= 7.0  par= 2
+mode p
+c
+nps 10000000
+c
+c Tallies
+c
+f2:p  1               $ surface detector at 28 cm
+f12:p 2               $ surface detector at 30 cm
+f22:p 3               $ surface detector at 32 cm
+f105:p  30 0 0  0     $ point detector 30 cm on X-axis
+f115:p  30 0 0 -0.3
+f125:p  30 0 0 -0.5
+c
+c --- Photon ambient dose equivalent H*(10mm) Sv cm^2; from ICRP 1987
+c
+de    0.100E-01 0.150E-01 0.200E-01 0.300E-01 0.400E-01 0.500E-01
+      0.600E-01 0.800E-01 0.100E+00 0.150E+00 0.200E+00 0.300E+00
+      0.400E+00 0.500E+00 0.600E+00 0.800E+00 0.100E+01 0.150E+01
+      0.200E+01 0.300E+01 0.400E+01 0.500E+01 0.600E+01 0.800E+01 0.100E+02
+df    0.769E-13 0.846E-12 0.101E-11 0.785E-12 0.614E-12 0.526E-12
+      0.504E-12 0.532E-12 0.611E-12 0.890E-12 0.118E-11 0.181E-11
+      0.238E-11 0.289E-11 0.338E-11 0.429E-11 0.511E-11 0.692E-11
+      0.848E-11 0.111E-10 0.133E-10 0.154E-10 0.174E-10 0.212E-10 0.252E-10
+c
+c Variance Reduction
+c
+imp:p 1 1 1 1 0
+c
+dxt:p  30 0 0 4 4
+c
+print -85 -86

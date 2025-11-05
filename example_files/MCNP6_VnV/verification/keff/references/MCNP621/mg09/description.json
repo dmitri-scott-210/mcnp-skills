@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg09",
+    "problem_type": "Multigroup",
+    "description": "PUb-H2O(1)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg09.inp",
+      "n": "mg09"
+    },
+    "outputs": {
+      "outp": "mg09o",
+      "mctal": "mg09m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999864,
+      "std": 9.72795e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

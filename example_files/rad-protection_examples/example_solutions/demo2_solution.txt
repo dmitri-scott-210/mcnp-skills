@@ -1,0 +1,26 @@
+Demo2: Disk Source without shield LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    A(cm^2)=(pi)(r^2 cm^2)=(pi)(50^2)=7.853e+3 cm^2
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    0              -1                       imp:p=1        $ Boundary
+2    0               1                       imp:p=0        $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    so 100                                       $ Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+mode p                                            $ photons
+sdef pos= 0 0 0                                   $ position (0,0,0)
+     rad= d1                                      $ Radius in dataset 1
+     axs= 1 0 0                                   $ Faces x-axis
+     ext= 0                                       $ Disc Source 
+si1  0 50                                         $ radius
+sp1  -21 1                                        $ distribution
+f5:p 50 0 0 0                                     $ tally at (50,0,0) 
+fm5  7.85e+3                                      $ Convert to photons/cm^2 (A)
+nps  1e4                                          $ Terminate after 1e4 particles
+c    ************<<<<< End Data Cards >>>>>**************************************

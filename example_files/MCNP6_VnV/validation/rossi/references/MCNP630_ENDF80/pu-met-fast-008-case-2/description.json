@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-008-case-2",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "008",
+      "case": "002"
+    },
+    "description": "PU-MET-FAST-008  THOR"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-008-case-2i",
+      "n": "pu-met-fast-008-case-2"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-008-case-2o"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-008-case-2i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -197000.0,
+      "std": 10000.0
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-16"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -210565.0,
+      "std": 7391.0
+    }
+  }
+}

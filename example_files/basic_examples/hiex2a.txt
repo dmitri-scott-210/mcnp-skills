@@ -1,0 +1,35 @@
+Heavy Ion example - RIA target test                    
+1  1 -0.5  -2  +1  -99
+2  0  -99  (+2:-1)
+99 0   99
+
+1  pz 1.0
+2  pz 4.0                                                       
+99 so 50.0                                                           
+                                                          
+mode # n a t d s h 
+m1  3006  0.075  3007 0.925
+phys:# 100000
+phys:n 10000 
+phys:h 10000 
+phys:a 500
+phys:t 500
+phys:d 500
+phys:s 500
+imp:n 1 1 0
+imp:# 1 1 0
+sdef par=92238 erg=95200 pos 0 0 0 vec 0 0 1 dir 1
+nps  5000
+e0 0.0 49i 100000.0 
+c
+f1:#  2
+ft1  res  3000 89i 93000
+*c1  3 2 1 0 T
+cm1  0.000624911   1.68970708   2.646582999   8.229455624 $ normalize by solid angle
+c
+f11:#  2
+ft11  res  3 93
+*c11  3 2 1 0 T
+cm11  0.000624911   1.68970708   2.646582999   8.229455624 $ normalize by solid angle
+c
+print

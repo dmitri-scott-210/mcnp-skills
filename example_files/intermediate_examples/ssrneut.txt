@@ -1,0 +1,47 @@
+Neutron spallation source read
+c
+c  Cell Cards
+c
+ 10   0           -11             -9
+ 20   0           +11 -2          -9
+ 30   100  -1.0       +2    +4 -5 -9
+ 40   200  -7.874     +2 +3 -4 -5   
+ 50   0               +2 -3    -5   
+ 60   0                        +5 -9
+ 99   0                           +9
+
+c
+c  Surface Cards
+c
+ 11 PX    5
+ 2  PX   10
+ 3  CX  2.5
+ 4  CX  7.5
+ 5  PX   60
+ 9  RPP   0 100   -25  25   -25  25
+
+c
+c  Data Cards
+c
+IMP:N 1 5r 0
+MODE N
+NPS  5e6
+SSR NEW 11 TR=1
+TR1 -5 0 0
+c
+c Materials
+c
+M100  1001 2 8016 1 5010 2
+MT100 lwtr
+M200  26056 1.0
+c
+F4:N 60
+E4 1E-6 99ilog 30
+c
+FMESH14:N  GEOM=XYZ  ORIGIN= 0 -25 -25
+           IMESH=100  IINTS=200
+           JMESH=25  JINTS=50
+           KMESH=25  KINTS=50
+           OUT=NONE
+c
+PRINT

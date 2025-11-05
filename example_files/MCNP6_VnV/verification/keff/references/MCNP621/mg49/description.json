@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg49",
+    "problem_type": "Multigroup",
+    "description": "U-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg49.inp",
+      "n": "mg49"
+    },
+    "outputs": {
+      "outp": "mg49o",
+      "mctal": "mg49m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00004,
+      "std": 9.28905e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

@@ -1,0 +1,13 @@
+Demo1: Photon Fluence LA-UR-23-25214
+1       0 -1
+2       0 1
+
+1       so 100
+
+c ------------- Data Cards -------------------- 
+mode    p
+sdef    pos=0 0 0 par=2 erg=1.0
+imp:p   1 0
+f2:p    1
+fm2     1000
+nps     10000

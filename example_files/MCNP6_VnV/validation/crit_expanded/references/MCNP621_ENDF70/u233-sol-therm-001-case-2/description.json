@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "u233-sol-therm-001-case-2",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "001",
+      "case": "2"
+    },
+    "description": "CSEWG: ORNL-6  1.0253 g/l Unreflected 27.24\" Sphere; U233-SOL-THERM-001 #2 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-sol-therm-001-case-2.i",
+      "n": "u233-sol-therm-001-case-2"
+    },
+    "inputs": {
+      "inp": "u233-sol-therm-001-case-2.i"
+    },
+    "outputs": {
+      "outp": "u233-sol-therm-001-case-2o",
+      "mctal": "u233-sol-therm-001-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0005,
+      "std": 0.0033
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00114,
+      "std": 0.000265696
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

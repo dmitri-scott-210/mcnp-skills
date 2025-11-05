@@ -1,0 +1,17 @@
+import os
+import isc # import the isc module
+
+# set the path to the ISC data
+iscdata = os.getenv("ISCDATA")
+
+# initialize an empty abundance lib
+abund_lib = isc.AbundanceLib()
+
+# initialize an empty decay lib
+decay_lib = isc.DecayLib()
+
+# initialize an empty emission library
+emission_lib = isc.EmissionLib()
+
+# load the libraries from the prebuilt binary file
+isc.loadLibs(abund_lib, decay_lib, emission_lib, os.path.join(iscdata,"endf7.isc.bin"))

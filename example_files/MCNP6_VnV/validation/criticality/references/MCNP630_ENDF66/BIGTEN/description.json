@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "BIGTEN",
+    "icsbep_name": {
+      "material": "IEU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "007",
+      "case": ""
+    },
+    "description": "Cylinder of IEU (10 wt.%) reflected by normal uranium"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "BIGTEN",
+      "n": "BIGTEN"
+    },
+    "outputs": {
+      "outp": "BIGTENo",
+      "mctal": "BIGTENm"
+    },
+    "inputs": {
+      "inp": "BIGTEN"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9948,
+      "std": 0.0013
+    }
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VI",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00725,
+      "std": 0.000544758
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "heu-met-fast-072-case-1",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "fast",
+      "number": "072",
+      "case": "001"
+    },
+    "description": "Zeus Iron 1 Bmark (6 Layers of Side Reflector 0.118\" Al Shim)"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-fast-072-case-1i",
+      "n": "heu-met-fast-072-case-1"
+    },
+    "outputs": {
+      "outp": "heu-met-fast-072-case-1o"
+    },
+    "inputs": {
+      "inp": "heu-met-fast-072-case-1i"
+    }
+  },
+  "experiment_data": {
+    "rossi-alpha": {
+      "val": -37266.0,
+      "std": 477.0
+    },
+    "reference": "LA-UR-11-11271"
+  },
+  "calculation_data": {
+    "rossi-alpha": {
+      "val": -41003.5,
+      "std": 256.191
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VIII.0"
+  }
+}

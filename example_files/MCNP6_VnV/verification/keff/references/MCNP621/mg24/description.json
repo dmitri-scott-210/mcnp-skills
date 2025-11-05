@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg24",
+    "problem_type": "Multigroup",
+    "description": "UD2O-1-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg24.inp",
+      "n": "mg24"
+    },
+    "outputs": {
+      "outp": "mg24o",
+      "mctal": "mg24m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999963,
+      "std": 5.56143e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

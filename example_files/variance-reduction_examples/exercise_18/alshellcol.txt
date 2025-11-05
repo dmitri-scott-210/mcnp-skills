@@ -1,0 +1,97 @@
+aluminum spherical shell and collimator
+c
+c CELL CARDS
+10   101  -1.292e-3   -1                     $ central cavity air
+11   100  -2.7         1  -2   31  32        $ aluminum shell
+12   102  -1.292e-3    1  -2  -31  32        $ inner air penetration
+13   103  -1.292e-3    1  -2  -32  31        $ outer air penetrations
+c
+21     0             -51                     $ left collimator air
+22     0             -52                     $ right collimator air
+23   104  -19.30      51  -53  41            $ left collimator tungsten
+24   105  -19.30      52  -54 -42            $ right collimator tungsten
+25   106  -2.2505     53   54  41  -42  -98  $ concrete wall
+c
+60   107  -1.302     -61                     $ detector
+c
+80     0               2  -98 -41            $ air left of wall
+85     0              42  -98  61            $ air right of wall
+90     0              98  -99                $ exterior
+ 
+c SURFACE CARDS
+c
+c Aluminum sphere with hole
+1    so    160.0
+2    so    168.0
+31   rcc   158.0  0.0  0.0    6.0  0.0  0.0  4.0
+32   rcc   164.0  0.0  0.0    6.0  0.0  0.0  4.0
+c
+c Collimator & Wall
+41   px    300.0
+42   px    500.0
+51   rcc   300.0  0.0  0.0  100.0  0.0  0.0  4.0
+52   rcc   400.0  0.0  0.0  100.0  0.0  0.0  4.0
+53   rcc   300.0  0.0  0.0  100.0  0.0  0.0  5.0
+54   rcc   400.0  0.0  0.0  100.0  0.0  0.0  5.0
+c
+c Detector geometry
+61   rcc   600.0  0.0  0.0    5.0  0.0  0.0  7.5
+c
+98   rpp  -500.0 1000.0  -500.0 500.0  -500.0  500.0
+99   rpp  -600.0 1100.0  -600.0 600.0  -600.0  600.0
+ 
+c DATA CARDS
+c
+imp:n 1 11R 0
+c
+c Materials
+c
+m100  13027  1             $ aluminum
+m101   8016  1  7014 4     $ pseudo air
+m102   8016  1  7014 4     $ pseudo air
+m103   8016  1  7014 4     $ pseudo air
+m104  74000  1             $ tungsten
+m105  74000  1             $ tungsten
+c  ****************************************************************
+c   los alamos concrete: -2.2505 g/cm^3
+m106    1001              8.47636e-2        $  Hydrogen (H-1)
+        8016              6.04086e-1        $  Oxygen (O)
+        11023             9.47250e-3        $  Sodium (Na)
+        12000             2.99826e-3        $  Magnesium (Mg)
+        13027             2.48344e-2        $  Aluminum (Al)
+        14000             2.41860e-1        $  Silicon (Si)
+        19000             6.85513e-3        $  Potassium (K)
+        20000             2.04808e-2        $  Calcium (Ca)
+        26054             2.74322e-4        $  Iron (Fe-54)
+        26056             4.26455e-3        $  Iron (Fe-56)
+        26057             9.76410e-5        $  Iron (Fe-57)
+        26058             1.30187e-5        $  Iron (Fe-58)
+c  ****************************************************************
+c          C8H10 Detector: -1.032 g/cm^3
+m107    6000            .40                $  Carbon 12 (C)
+        1001            .60                $  Hydrogen (H-1)
+c  ****************************************************************
+c
+c Source
+c
+sdef pos= 0 0 0  erg= 14
+c Volume Tallies
+f4:n  10
+f14:n 11
+f24:n 12
+f34:n 60
+e34 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+c
+c Surface Tallies
+f2:n  31.1
+f12:n 31.2
+f22:n 31.3
+f32:n 51.2
+sd12 50.26548
+sd22 50.26548
+sd32 50.26548
+c
+c Variance reduction
+c
+nps 1000000
+print

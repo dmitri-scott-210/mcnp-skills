@@ -1,0 +1,41 @@
+Proton source on Tungsten target
+c
+c  Cell Cards
+c
+ 10   0            +1    -9     IMP:H,N=1
+ 20   0            -1 +2 -9     IMP:H,N=1
+ 30   100  -19.25     -2        IMP:H,N=1
+ 99   0                  +9     IMP:H,N=0
+
+c
+c  Surface Cards
+c
+ 1  PX    10
+ 2  RPP  2.5  5  -2.5 2.5  -2.5 2.5
+ 9  RPP  -15 15   -15  15   -15  15
+
+c
+c  Data Cards
+c
+MODE H N
+NPS  1e5
+SSW 1 PTY=N
+c
+PHYS:H 150
+SDEF PAR=H ERG=150 VEC=1 0 0 DIR=1
+c
+c Materials
+c
+M100 74000 1.0
+c
+FMESH4:H   GEOM=XYZ  ORIGIN=-5 -5 -5
+           IMESH= 5  IINTS=150
+           JMESH= 5  JINTS=150
+           KMESH= 5  KINTS=150
+           OUT=NONE
+c
+FMESH14:N  GEOM=XYZ  ORIGIN=-15 -15 -15
+           IMESH=15  IINTS=150
+           JMESH=15  JINTS=150
+           KMESH=15  KINTS=150
+           OUT=NONE

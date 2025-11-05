@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce26",
+    "problem_type": "Continuous Energy",
+    "description": "UD2O-H2O(10)-1-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce26.inp",
+      "n": "ce26"
+    },
+    "outputs": {
+      "outp": "ce26o",
+      "mctal": "ce26m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

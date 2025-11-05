@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce39",
+    "problem_type": "Continuous Energy",
+    "description": "UD2Oa-1-1-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce39.inp",
+      "n": "ce39"
+    },
+    "outputs": {
+      "outp": "ce39o",
+      "mctal": "ce39m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

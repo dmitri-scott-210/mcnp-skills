@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg55",
+    "problem_type": "Multigroup",
+    "description": "URRa-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg55.inp",
+      "n": "mg55"
+    },
+    "outputs": {
+      "outp": "mg55o",
+      "mctal": "mg55m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

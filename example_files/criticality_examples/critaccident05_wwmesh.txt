@@ -1,0 +1,9 @@
+mesh      geom=xyz    origin=-750 -350 -200   ref=-600  200   0
+         imesh=-700   -25    25   125  700  750
+         iints=   1     5     5     1    5    1
+         jmesh=-300   300   350
+         jints=   1     6     1
+         kmesh=-150   150   200
+         kints=   1     1     1
+
+

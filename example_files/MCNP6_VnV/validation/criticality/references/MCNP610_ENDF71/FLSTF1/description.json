@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "FLSTF1",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "SOL",
+      "spectrum": "INTER",
+      "number": "001",
+      "case": "001"
+    },
+    "description": "Sphere of uranyl fluoride solution enriched in 233U"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "FLSTF1",
+      "n": "FLSTF1"
+    },
+    "outputs": {
+      "outp": "FLSTF1o",
+      "mctal": "FLSTF1m"
+    },
+    "inputs": {
+      "inp": "FLSTF1"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0083
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.984518,
+      "std": 0.00109766
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.1.0",
+    "date": "2021-08-16",
+    "data": "ENDF/B-VII.1"
+  }
+}

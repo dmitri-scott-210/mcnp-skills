@@ -1,0 +1,19 @@
+g4 - Godiva - using SDEF & surfaces
+c
+c CELL CARDS
+1    1  -18.74  -1   imp:n=1
+2    0           1   imp:n=0
+ 
+c SURFACE CARDS
+1    so 8.741
+ 
+c DATA CARDS
+kcode 5000 1.0 50 150
+c
+c uniform volume source inside sphere
+sdef  pos 0 0 0  rad=d1
+ si1   0 8.741
+ sp1   -21  2
+c
+m1  92235 -94.73
+    92238 -5.27

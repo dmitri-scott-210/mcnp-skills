@@ -1,0 +1,38 @@
+{
+  "general_info": {
+    "name": "cu_0p3mev_0deg_fmr_idx_1_ch",
+    "description": "",
+    "details": {
+      "material": "Copper",
+      "energy": 0.3,
+      "type": "Condensed History",
+      "angle": 0,
+      "fmr": 0.087,
+      "fmr_index": 1
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "cu_0p3mev_0deg_fmr_idx_1_ch_",
+      "n": "cu_0p3mev_0deg_fmr_idx_1_ch_"
+    },
+    "outputs": {
+      "outp": "cu_0p3mev_0deg_fmr_idx_1_ch_o",
+      "mctal": "cu_0p3mev_0deg_fmr_idx_1_ch_m"
+    },
+    "inputs": {
+      "inp": "cu_0p3mev_0deg_fmr_idx_1_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.10465379999999999,
+      "err": 0.013
+    },
+    "reference": "SAND79-0414, p. 77-78",
+    "foil_thickness": 0.02194,
+    "energy_deposited": 4.77,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  }
+}

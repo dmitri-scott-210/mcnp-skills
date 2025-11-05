@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg63",
+    "problem_type": "Multigroup",
+    "description": "URRd-H2Ob(1)-2-0-ISLC"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg63.inp",
+      "n": "mg63"
+    },
+    "outputs": {
+      "outp": "mg63o",
+      "mctal": "mg63m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999928,
+      "std": 5.57838e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-15"
+  }
+}

@@ -1,0 +1,43 @@
+#drift_2
+#
+# ----------------------------------------------------------------
+#                    FOR TRAINING PURPOSES ONLY
+# ----------------------------------------------------------------
+#   
+[global]
+modeltype=event
+datasource=mcnp
+ptrac_type=bin  
+datafile=omcnp_p
+det_cells=1 2 3 4
+
+[SourceInformation]
+call=SourceInformation
+multi_src=yes
+
+[TimeDistribution]
+call=TimeDistribution
+activity=100
+
+[Scintillation]
+call=Scintillation
+detector=EJ309
+optical_transport=0.6
+voltage=2000
+gain=2.0e5
+
+[Digitizer]
+call=Digitizer
+voltage_range =2.0
+digitizer_samples=256
+resolution=16384
+ter_res = 50
+DC_offset = 0.1
+start_point = 0.1
+digitizer_rate=500.0e6
+trigger_ADC=70
+
+[WriteOutput]
+call=WriteOutput
+output=output.txt
+outputs=nps det_cell corr_count

@@ -1,0 +1,72 @@
+Radiation Shielding (Variance Reduction) with Hole in Shield LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    --Cs-137 emits photons of energy 0.6617 MeV at a rate of 0.85 photons/decay
+c    --1.1416 R/Rad
+c    --de/df tables retrieved from ICRP 74 A.1
+c    S(Photons/hr)=(Activity Ci)(3.7e10 dps/Ci)(Photons/decay)(3.6e3 s/hr)
+c    S=(1)(3.7e10)(0.85)(3.6e3)=1.1322 Photons/hr (3.145e10 Photons/s)
+c    C1(mR*Photons/hr/Rad)=(S Photons/hr)(1.1416 R/Rad)(1e3 mR/R)
+c    C1=(1.1322)(1.1416)(1e3)=1.2925e17 mR*Photon/hr/Rad
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>------------------------------------------
+1    1    -2.3      -1 7                     imp:p=1        $ Shield Section
+2    1    -2.3      -2 7                     imp:p=2        $ Shield Section
+3    1    -2.3      -3 7                     imp:p=4        $ Shield Section
+4    1    -2.3      -4 7                     imp:p=8        $ Shield Section
+5    1    -2.3      -5 7                     imp:p=16       $ Shield Section
+6    1    -2.3      -6 7                     imp:p=32       $ Shield Section
+7    2    -0.0009   -7                       imp:p=1        $ Penetration
+8    2    -0.0009   -8 #1 #2 #3 #4 #5 #6 #7  imp:p=1        $ Boundary
+9    0               8                       imp:p=0        $ Boundary
+c    ************<<<<< End Cell Cards >>>>>**************************************
+
+c    ------------<<<<< Surface Cards >>>>>---------------------------------------
+1    RPP  40 45 -100 100 -100 100                 $ Shield Section 1
+2    RPP  45 50 -100 100 -100 100                 $ Shield Section 2
+3    RPP  50 55 -100 100 -100 100                 $ Shield Section 3
+4    RPP  55 60 -100 100 -100 100                 $ Shield Section 4
+5    RPP  60 65 -100 100 -100 100                 $ Shield Section 5
+6    RPP  65 70 -100 100 -100 100                 $ Shield Section 6
+7    RCC  40 20 0 30 0 0 7.5                      $ Penetration
+8    so   300								$ Boundary
+c    ************<<<<< End Surface Cards >>>>>***********************************
+
+c    ------------<<<<< Data Cards >>>>>------------------------------------------
+m1   $ Concrete D=2.3 g/cc
+       1000 -0.004530
+       8000 -0.512600
+      11000 -0.015270
+      13000 -0.035550
+      14000 -0.360360
+      20000 -0.057910
+      26000 -0.013780
+m2     7000 -0.755 
+       8000 -0.232 
+      18000 -0.013 $Dry Air  
+mode p                                            $ Photons
+sdef pos=0 0 0                                    $ Position (0,0,0)
+     erg=0.6617                                   $ Energy
+     par=2                                        $ Photons Only
+f5:p 100 0 0 0                                    $ Detector @ (100,0,0) R=0
+f15:p 100 20 0 0                                  $ Detector @ (100,20,0) R=0
+fm5  1.2925e17                                    $ Convert to mR/hr (C1)
+fm15 1.2925e17                                    $ Convert to mR/hr (C1)
+de5  0.01  0.015  0.02   0.03   0.04   0.05   0.06
+     0.08  0.1    0.15   0.2    0.3    0.4    0.5
+     0.6   0.8    1.0    1.5    2.0    3.0    4.0
+     5.0   6.0    8.0    10.0
+df5  7.430e-10 3.120e-10 1.680e-10 0.721e-10 0.429e-10 0.323e-10 0.289e-10
+     0.307e-10 0.371e-10 0.599e-10 0.856e-10 1.380e-10 1.890e-10 2.380e-10
+     2.840e-10 3.690e-10 4.470e-10 6.140e-10 7.550e-10 9.960e-10 12.10e-10
+     14.10e-10 16.10e-10 20.10e-10 24.00e-10
+de15 0.01  0.015  0.02   0.03   0.04   0.05   0.06
+     0.08  0.1    0.15   0.2    0.3    0.4    0.5
+     0.6   0.8    1.0    1.5    2.0    3.0    4.0
+     5.0   6.0    8.0    10.0
+df15 7.430e-10 3.120e-10 1.680e-10 0.721e-10 0.429e-10 0.323e-10 0.289e-10
+     0.307e-10 0.371e-10 0.599e-10 0.856e-10 1.380e-10 1.890e-10 2.380e-10
+     2.840e-10 3.690e-10 4.470e-10 6.140e-10 7.550e-10 9.960e-10 12.10e-10
+     14.10e-10 16.10e-10 20.10e-10 24.00e-10
+nps  1e4                                          $ Terminate after 1e4 particle
+c    ************<<<<< End Data Cards >>>>>**************************************

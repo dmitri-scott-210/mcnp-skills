@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun 29 15:51:19 2021
+
+@author: swoldegiorgis
+"""
+
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pylab as plt
+
+params = {
+    'axes.labelsize': 10,
+    'font.size': 10,
+    'legend.fontsize': 10,
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'text.usetex': False,
+    'figure.figsize': [5.5, 4.5]
+    }
+matplotlib.rcParams.update(params)
+
+
+ptrac_output = 'output.txt'
+column_data = open(ptrac_output, "r").readlines()
+nps = [] 
+det_cells = []
+cor_count = []
+for line in column_data[3:]:
+    nps.append(int(line.split()[0]))
+    det_cells.append(int(line.split()[1]))
+    cor_count.append(str(line.split()[2]))
+    
+# Convert the list into numpy array for a more convinient analysis
+nps = np.asarray(nps)
+det_cells = np.asarray(det_cells)
+cor_count = np.asarray(cor_count)
+
+# Find correlated (double) events, extracting the detector cells where the first 
+# and the second detections occured. This will be used to determine the correlation angle. 
+# NOTE - 'triple' events are not analyzed in this example. 
+doubles_idx = np.where(cor_count == 'double')[0]
+first_event_det = det_cells[doubles_idx[0::2]] # detector number for first event
+second_event_det = det_cells[doubles_idx[1::2]] # detector number for second event
+
+# Determine number of correlated counts with correlation angles of 90 and 180 degree
+count_90 = 0
+count_180 = 0
+for i in range(len(first_event_det)):
+    # 180 degree counts
+    if first_event_det[i] == 1 and second_event_det[i] == 2:
+        count_180 += 1
+    elif first_event_det[i] == 3 and second_event_det[i] == 4:
+        count_180 += 1
+    # in reverse order
+    elif first_event_det[i] == 2 and second_event_det[i] == 1:
+        count_180 += 1
+    elif first_event_det[i] == 4 and second_event_det[i] == 3:
+        count_180 += 1
+    # 90 degree counts
+    elif first_event_det[i] == 1 and second_event_det[i] == 3:
+        count_90 += 1
+    elif first_event_det[i] == 1 and second_event_det[i] == 4:
+        count_90 += 1
+    elif first_event_det[i] == 2 and second_event_det[i] == 3:
+        count_90 += 1
+    elif first_event_det[i] == 2 and second_event_det[i] == 4:
+        count_90 += 1
+    # in reverse order
+    elif first_event_det[i] == 3 and second_event_det[i] == 1:
+        count_90 += 1
+    elif first_event_det[i] == 4 and second_event_det[i] == 1:
+        count_90 += 1
+    elif first_event_det[i] == 3 and second_event_det[i] == 2:
+        count_90 += 1
+    elif first_event_det[i] == 4 and second_event_det[i] == 2:
+        count_90 += 1
+
+# Generate a histogram of correlated counts for the two angles
+fig, ax = plt.subplots(1,1)
+ax.scatter([90, 180], [count_90, count_180], marker = "s", c = 'k')
+ax.set_xlabel('Correlation angles [degree]')
+ax.set_ylabel('Counts')
+ax.set_xticks([90, 180])
+
+# Save figure
+fig.savefig('Figure_2_Cf252_correlated_counts_plot.png')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

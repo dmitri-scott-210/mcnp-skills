@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "u233-met-fast-001",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "001"
+    },
+    "description": "Jezebel-233  U233-MET-FAST-001  solid bare U-233 sphere  CSEWG F-19 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-met-fast-001.i",
+      "n": "u233-met-fast-001"
+    },
+    "inputs": {
+      "inp": "u233-met-fast-001.i"
+    },
+    "outputs": {
+      "outp": "u233-met-fast-001o",
+      "mctal": "u233-met-fast-001m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.001
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999298,
+      "std": 0.000260401
+    }
+  }
+}

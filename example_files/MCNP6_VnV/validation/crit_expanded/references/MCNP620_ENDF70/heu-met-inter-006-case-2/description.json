@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "heu-met-inter-006-case-2",
+    "icsbep_name": {
+      "material": "HEU",
+      "form": "MET",
+      "spectrum": "INTER",
+      "number": "006",
+      "case": "2"
+    },
+    "description": "ZEUS-2  9 Units, 6 C Plates/Unit  Final Bmark Model  HEU-MET-INTER-006, case 2 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "heu-met-inter-006-case-2.i",
+      "n": "heu-met-inter-006-case-2"
+    },
+    "inputs": {
+      "inp": "heu-met-inter-006-case-2.i"
+    },
+    "outputs": {
+      "outp": "heu-met-inter-006-case-2o",
+      "mctal": "heu-met-inter-006-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0001,
+      "std": 0.0008
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997074,
+      "std": 0.000323075
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

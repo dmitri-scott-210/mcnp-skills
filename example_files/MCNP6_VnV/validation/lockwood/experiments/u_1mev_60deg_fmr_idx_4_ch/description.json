@@ -1,0 +1,38 @@
+{
+  "general_info": {
+    "name": "u_1mev_60deg_fmr_idx_4_ch",
+    "description": "",
+    "details": {
+      "material": "Uranium",
+      "energy": 1.0,
+      "type": "Condensed History",
+      "angle": 60,
+      "fmr": 0.023,
+      "fmr_index": 4
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u_1mev_60deg_fmr_idx_4_ch_",
+      "n": "u_1mev_60deg_fmr_idx_4_ch_"
+    },
+    "outputs": {
+      "outp": "u_1mev_60deg_fmr_idx_4_ch_o",
+      "mctal": "u_1mev_60deg_fmr_idx_4_ch_m"
+    },
+    "inputs": {
+      "inp": "u_1mev_60deg_fmr_idx_4_ch_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0459576,
+      "err": 0.014
+    },
+    "reference": "SAND79-0414, p. 113",
+    "foil_thickness": 0.01473,
+    "energy_deposited": 3.12,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  }
+}

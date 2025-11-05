@@ -1,0 +1,21 @@
+Falstaff Case 1  U233-SOL-INTER-001  IEU Fluoride Solution reflected by Be
+1    1  0.094214    -1             $ IEU Fluoride
+2    2  0.086952     1   -2        $ SS Shell
+3    3  0.12161      2   -3        $ Be Reflector
+4    0                    3
+
+1   so   7.8726           $ IR of Shell
+2   so   7.9209           $ OR of Shell
+3   so  15.9209           $ OR of Be
+
+kcode   10000  1.0    100    600
+imp:n   1.0    1.0    1.0    0.0
+sdef   cel=1     erg=d1    rad=d2    pos=0.0 0.0 0.0
+sp1    -3
+si2    0.0    7.8726
+sp2    -21    2
+vol   2043.82     37.85  14822.41     0.0
+area   778.84    788.42   3185.26
+read file=m-cards-endf71
+totnu
+prdmp  999999  999999  1  1  999999

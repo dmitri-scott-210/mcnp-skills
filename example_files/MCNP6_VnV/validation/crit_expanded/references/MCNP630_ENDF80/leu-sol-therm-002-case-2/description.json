@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "leu-sol-therm-002-case-2",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "2"
+    },
+    "description": " Bare Sphere of 4.9 wt.% UO2F2-H2O  LEU-SOL-THERM-002  Case 2 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "leu-sol-therm-002-case-2.i",
+      "n": "leu-sol-therm-002-case-2"
+    },
+    "inputs": {
+      "inp": "leu-sol-therm-002-case-2.i"
+    },
+    "outputs": {
+      "outp": "leu-sol-therm-002-case-2o",
+      "mctal": "leu-sol-therm-002-case-2m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0024,
+      "std": 0.0037
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_info": {
+    "data": "ENDF/B-VIII.0",
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-14"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.995899,
+      "std": 0.00028317
+    }
+  }
+}

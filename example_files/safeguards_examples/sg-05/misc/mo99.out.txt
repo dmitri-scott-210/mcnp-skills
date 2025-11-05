@@ -1,0 +1,54 @@
+USER INPUT MATERIAL SPECIFICATION:
+
+      SZA   Isotope    Atom Frac
+    42099     Mo-99  1.00000e+00
+
+Material density: 1.00000e+00 a/b*cm
+
+The material was aged for 2.37384e+05 s  using data from endf7.dk.xml
+
+RESULTING MATERIAL SPECIFICATION:
+
+      SZA   Isotope    Atom Frac    Mass Frac
+    42099     Mo-99  5.00189e-01  5.00193e-01
+    43099     Tc-99  4.55809e-01  4.55805e-01
+    44099     Ru-99  1.46309e-05  1.46307e-05
+  1043099   Tc-99m1  4.39877e-02  4.39874e-02
+
+Atom density: 1.00000e+00 a/b*cm
+Mass density: 1.64239e+02 g/cm^3
+
+TOTAL PARTICLE EMISSION RATES
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate
+          p  1.85942e+18  1.13214e+16  2.98276e-01
+          e  4.37447e+18  2.66348e+16  7.01724e-01
+      Total  6.23389e+18  3.79562e+16  1.00000e+00
+
+ISOMER PARTICLE EMISSION RATES
+
+42099, Mo-99:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+          p  4.93611e+17  3.00545e+15  2.08289e-01  7.91819e-02
+          e  1.87623e+18  1.14238e+16  7.91711e-01  3.00972e-01
+      Total  2.36984e+18  1.44292e+16  1.00000e+00  3.80154e-01
+
+43099, Tc-99:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+          p  6.15862e+05  3.74980e+03  1.29853e-05  9.87926e-14
+          e  4.74269e+10  2.88768e+08  9.99987e-01  7.60791e-09
+      Total  4.74275e+10  2.88771e+08  1.00000e+00  7.60801e-09
+
+44099, Ru-99:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+      Total  0.00000e+00  0.00000e+00  0.00000e+00  0.00000e+00
+
+1043099, Tc-99m1:
+
+   Particle   cm^-3 s^-1    g^-1 s^-1   Frac. Rate    Frac. Tot
+          p  1.36581e+18  8.31598e+15  3.53465e-01  2.19094e-01
+          e  2.49825e+18  1.52110e+16  6.46535e-01  4.00752e-01
+      Total  3.86405e+18  2.35270e+16  1.00000e+00  6.19846e-01

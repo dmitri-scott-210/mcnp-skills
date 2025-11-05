@@ -1,0 +1,24 @@
+Energy deposition for 0p3mev electrons in cu at 0deg incidence.
+1     1  -8.96 100 -101 -200 imp:e=1 
+2     0            101 -102 -200 imp:e=1 
+3     1  -8.96 102 -103 -200 imp:e=1 
+4     0            103 -104 -200 imp:e=1 
+5     1  -8.96 104 -105 -200 imp:e=1 
+999   0           -100 :105: 200 imp:e=0 
+
+100     pz  0.0
+101     pz  0.00248660714285714
+102     pz  0.102486607142857
+103     pz  0.104935267857143
+104     pz  0.204935267857143
+105     pz  5.0
+200     cz  100.0
+
+mode e p
+phys:e 0.3 13j 0.001
+m1 29000.14p -1
+sdef par=3 erg=0.3 x=0. y=0. z=0. vec=0 0 1 dir=1
+nps 1e6
+*f8:e 3
+prdmp 2j 1 
+print

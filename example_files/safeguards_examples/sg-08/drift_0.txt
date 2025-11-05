@@ -1,0 +1,23 @@
+#drift_0
+#
+# ----------------------------------------------------------------
+#                    FOR TRAINING PURPOSES ONLY
+# ----------------------------------------------------------------
+#   
+[global]
+modeltype=event
+datasource=mcnp
+ptrac_type=bin 
+
+
+[Scintillation]
+call=Scintillation
+
+
+[Digitizer]
+call=Digitizer
+
+
+[WriteOutput]
+call=WriteOutput
+

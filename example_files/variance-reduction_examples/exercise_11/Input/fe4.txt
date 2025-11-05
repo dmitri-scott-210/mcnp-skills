@@ -1,0 +1,73 @@
+fe4: use generated weight window from fe2
+c
+c  Try exp transform with .1y
+c
+11     100  -7.847   -2   1
+12     100  -7.847   -3   2
+13     100  -7.847   -4   3
+14     100  -7.847   -5   4
+15     100  -7.847   -6   5
+16     100  -7.847   -7   6
+17     100  -7.847   -8   7
+18     100  -7.847   -9   8
+19     100  -7.847   -10  9
+20     100  -7.847   -11  10
+21     100  -7.847   -12  11
+22     100  -7.847   -13  12
+23     100  -7.847   -14  13
+24     100  -7.847   -15  14
+25     100  -7.847   -16  15
+26     100  -7.847   -17  16
+27     100  -7.847   -18  17
+28     100  -7.847   -19  18
+91     0    -1
+92     0     19
+ 
+ 1     py  0
+ 2     py  20
+ 3     py  40
+ 4     py  60
+ 5     py  80
+ 6     py  100
+ 7     py  120
+ 8     py  140
+ 9     py  160
+10     py  180
+11     py  200
+12     py  220
+13     py  240
+14     py  260
+15     py  280
+16     py  300
+17     py  320
+18     py  340
+19     py  360
+
+c
+c  Materials
+c 
+m100 26000.55c  -.014
+c
+c  Source
+c
+sdef  x=0 y=1.E-6 z=0  wgt=1  erg=2.0
+nps 200000
+c
+mode   n
+imp:n  1 17r 0 0
+c
+c  Tallies
+c
+f1:n  19
+c
+c  Time, Energy, Implicit Capture/Weight Cutoffs
+c
+cut:n 1.e20 0.01  0 0
+c
+wwp:n  5 3 5 0  -1  
+ext:n  .1y 17r 0 0
+c
+c  Output
+c
+print
+ 

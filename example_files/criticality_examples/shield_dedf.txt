@@ -1,0 +1,10 @@
+c ### neutron flux to dose (rem/hr) factors
+c !!! NOT RECOMMENDED FOR ACTUAL CALCULATIONS !!!
+de2     log   2.50e-8   1.00e-7   1.00e-6   1.00e-5   1.00e-4   1.00e-3
+              1.00e-2   1.00e-1   5.00e-1   1.00e+0   2.50e+0   5.00e+0
+              7.00e+0   1.00e+1   1.40e+1   2.00e+1
+df2     log   3.67e-6   3.67e-6   4.46e-6   4.54e-6   4.18e-6   3.76e-6
+              3.56e-6   2.17e-5   9.26e-5   1.32e-4   1.25e-4   1.56e-4
+              1.47e-4   1.47e-4   2.08e-4   2.27e-4
+
+

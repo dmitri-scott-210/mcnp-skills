@@ -1,0 +1,81 @@
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import sys, getopt
+
+inputfile = 'output.txt'
+measurementfile = 'measurements'
+outputfile = 'python_output.pdf'
+display = 1
+
+try:
+  opts, args = getopt.getopt(sys.argv[1:],"hbi:m:o:",["help", "iFile=", "mFile=", "oFile=", "batch"])
+  for opt, arg in opts:
+    if opt in ("-h","--help"):
+      print('pyDrift.py -b -i <DRiFTinputfile> -m <measurementinputfile> -o <outputfile>')
+      print('-b : Do not display plot (Needed if running in a batch command)')
+      print('-i : DRiFT input file, in ASCII format, defaults to \"output.txt\"')
+      print('-m : Measurement data input file, in ASCII format, defaults to \"measurement\"')
+      print('-o : Output image file, should be .pdf, .png, etc, defaults to \"python_output.pdf\"')
+      sys.exit(2)
+    elif opt in ("-i","--iFile"):
+      inputfile = str(arg)
+    elif opt in ("-m","--mFile"):
+      measurementfile = str(arg)
+    elif opt in ("-o","--oFile"):
+      outputfile = str(arg)
+    elif opt in ("-b","--batch"):
+      display = 0
+except getopt.GetoptError as err:
+  print(str(err))
+
+if display == 0:
+  matplotlib.use('Agg')
+min_e = 0.0;
+max_e = 5.0;
+histo_bins = 100;
+
+PSDval1 = 0.165;
+PSDval2 = -0.02;
+PSDval3 = 0.002;
+
+m_energy, m_psd = np.loadtxt(measurementfile, unpack=True)
+source_e, NPS, det_pulse, det_cell, time, PSD, cells_history = np.loadtxt(inputfile,unpack=True,skiprows=1,usecols=(0,1,2,3,5,6,7))
+
+drift_counts = len(source_e)
+measured_counts = 0
+measurement = []
+measure_in = []
+
+for i in range(0,len(m_energy)):
+  measure_in.append([m_energy[i],m_psd[i]])
+
+for energy, PSDmeasured in measure_in:
+  if energy > min_e:
+    if PSDmeasured > PSDval1+PSDval2*energy+PSDval3*energy*energy:
+      measurement.append(energy)
+      measured_counts += 1
+    if measured_counts > drift_counts: break
+
+xx = np.arange(min_e, max_e, (max_e-min_e)/histo_bins)
+
+counts, bin_edges = np.histogram(measurement,histo_bins,[min_e,max_e])
+counts_d, bin_edges_d = np.histogram(det_pulse,histo_bins,[min_e,max_e])
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.set_yscale('log')
+
+bin_centers = (bin_edges[:-1]+bin_edges[1:])/2.0
+
+plt.plot(bin_centers,counts,"cD",ms=3,label="Measurement")
+plt.step(bin_centers,counts_d,"m-",where='mid',lw=1,label="MCNP+DRiFT")
+leg = plt.legend(loc='best')
+plt.xlabel("Energy (MeVee)")
+plt.ylabel("Count")
+plt.grid(True)
+plt.xlim([0,5])
+
+if display == 1:
+  plt.show()
+fig.savefig(outputfile)

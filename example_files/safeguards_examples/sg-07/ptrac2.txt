@@ -1,0 +1,32 @@
+reflected box of uranium and neutron source
+c cell cards
+1 1000 -19.1 -10 -20 imp:n=1 $ uranium fuel
+2 2000 -1.0   10 -20 imp:n=1 $ water
+3 0               20 imp:n=0 $ void
+
+c surface cards
+10 cz 12.0
+*20 rpp -20. 20. -20 20 -20 20
+
+c data cards
+mode n
+sdef pos=0 0 0 ext=d1 rad=d2 erg=d3 axs=0 0 1
+si1 -20 20 $ uniform height
+sp1   0  1
+si2 0 12.0 $ uniform in volume
+sp2 -21 1
+sp3 -3 0.648 6.81057 $ u238 spontaneous fission
+c
+m1000 92235.70c -0.12
+      92238.70c -0.88
+m2000 1001.70c 2
+      8016.70c 1
+mt2000 lwtr.10t
+c
+print
+rand gen=2 seed=12345
+c write collision and source events for post processing
+c ptrac file=bin max=1e9 write=all event=col,src
+c ptrac file=hdf5 flushnps=1000 event=col,src
+nps 300 $ for fixed source
+

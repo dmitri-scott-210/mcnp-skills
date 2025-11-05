@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "HISHPG",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "COMP",
+      "spectrum": "INTER",
+      "number": "001",
+      "case": ""
+    },
+    "description": "Infinite, homog. mixture of plutonium, hydrogen, & graphite"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "HISHPG",
+      "n": "HISHPG"
+    },
+    "outputs": {
+      "outp": "HISHPGo",
+      "mctal": "HISHPGm"
+    },
+    "inputs": {
+      "inp": "HISHPG"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.011
+    }
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.01052,
+      "std": 0.00056652
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VI"
+  }
+}

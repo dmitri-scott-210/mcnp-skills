@@ -1,0 +1,16 @@
+g5 - Godiva - using SRCTP
+c
+c CELL CARDS
+1    1  -18.74  -1  imp:n=1
+2    0           1  imp:n=0
+ 
+c SURFACE CARDS
+1    so 8.741
+ 
+c DATA CARDS
+kcode 5000 1.0  0 100
+c
+m1    92235 -94.73
+      92238 -5.27
+c
+print

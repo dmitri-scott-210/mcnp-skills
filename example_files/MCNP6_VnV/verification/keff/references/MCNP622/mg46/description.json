@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg46",
+    "problem_type": "Multigroup",
+    "description": "PU-2-0-SP"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg46.inp",
+      "n": "mg46"
+    },
+    "outputs": {
+      "outp": "mg46o",
+      "mctal": "mg46m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00008,
+      "std": 9.24607e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  }
+}

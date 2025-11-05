@@ -1,0 +1,44 @@
+{
+  "general_info": {
+    "name": "pu-met-fast-019",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "019"
+    },
+    "description": "Be-REFLECTED PU SPHERE [VNIITF FACILITY]: PU-MET-FAST-019 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-met-fast-019.i",
+      "n": "pu-met-fast-019"
+    },
+    "inputs": {
+      "inp": "pu-met-fast-019.i"
+    },
+    "outputs": {
+      "outp": "pu-met-fast-019o",
+      "mctal": "pu-met-fast-019m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 0.9992,
+      "std": 0.0015
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.997517,
+      "std": 0.000289219
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VII.0"
+  }
+}

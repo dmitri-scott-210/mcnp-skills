@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg51",
+    "problem_type": "Multigroup",
+    "description": "UAL-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg51.inp",
+      "n": "mg51"
+    },
+    "outputs": {
+      "outp": "mg51o",
+      "mctal": "mg51m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.999769,
+      "std": 0.000179387
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-15"
+  }
+}

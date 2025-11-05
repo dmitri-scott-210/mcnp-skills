@@ -1,0 +1,83 @@
+ ZEBRA Core 8  MIX-MET-FAST-008  Exp. 7 (ZEBRA 8H) 
+1      2  0.047133    3   -4   9  -10   13  -14  $ Bottom nat-U plate
+2      2  0.047133    3   -4   9  -10   14  -15  $ 2nd nat-U plate
+3      2  0.047133    3   -4   9  -10   15  -16  $ 3rd nat-U plate
+4      1  0.047402    3   -4   9  -10   16  -17  $ Enriched U plate
+5      2  0.047133    3   -4   9  -10   17  -18  $ 4th nat-U plate
+6      2  0.047133    3   -4   9  -10   18  -19  $ 5th nat-U plate
+7      2  0.047133    3   -4   9  -10   19  -20  $ Top nat-U plate
+8      0              2   -3   8  -11   13  -20  $ Left gap
+9      0              3   -4   8   -9   13  -20  $ Front gap
+10     0              4   -5   8  -11   13  -20  $ Right gap
+11     0              3   -4  10  -11   13  -20  $ Back gap
+12     3  0.085680    1   -2   7  -12   13  -20  $ Left sheath side
+13     3  0.085680    2   -5   7   -8   13  -20  $ Front sheath side
+14     3  0.085680    5   -6   7  -12   13  -20  $ Right sheath side
+15     3  0.085680    2   -5  11  -12   13  -20  $ Back sheath side
+16     0             -1:6:-7:12:-13:20
+
+*1    px     -2.62720                  $ Left edge of sheath
+2     px     -2.55100                  $ Inside left edge of sheath
+3     px     -2.53350                  $ Left edge of U metal plates
+4     px      2.53350                  $ Right edge of U metal plates
+5     px      2.55100                  $ Inside right edge of sheath
+*6    px      2.62720                  $ Right edge of sheath
+*7    py     -2.62720                  $ Front edge of sheath
+8     py     -2.55100                  $ Inside front edge of sheath
+9     py     -2.53350                  $ Front edge of U metal plates
+10    py      2.53350                  $ Back edge of U metal plates
+11    py      2.55100                  $ Inside back edge of sheath
+*12   py      2.62720                  $ Back edge of sheath
+*13   pz     -1.11125                  $ Bottom of 1st nat-U plate
+14    pz     -0.79375                  $ Top of 1st nat-U plate
+15    pz     -0.47625                  $ Top of 2nd nat-U plate
+16    pz     -0.15875                  $ Top of 3rd nat-U plate
+17    pz      0.15875                  $ Top of Enriched U plate
+18    pz      0.47625                  $ Top of 4th nat-U plate
+19    pz      0.79375                  $ Top of 5th nat-U plate
+*20   pz      1.11125                  $ Top of 6th nat-U plate
+
+mode   n
+kcode  5000   1.0   50   150
+ksrc   -2.5   2.5  -0.9525     -2.5  -2.5  -0.9525
+        2.5  -2.5  -0.9525      2.5   2.5  -0.9525
+        0.0   0.0  -0.9525
+       -2.5   2.5  -0.6350     -2.5  -2.5  -0.6350
+        2.5  -2.5  -0.6350      2.5   2.5  -0.6350
+        0.0   0.0  -0.6350
+       -2.5   2.5  -0.3175     -2.5  -2.5  -0.3175
+        2.5  -2.5  -0.3175      2.5   2.5  -0.3175
+        0.0   0.0  -0.3175
+       -2.5   2.5  -0.1588     -2.5  -2.5  -0.1588
+        2.5  -2.5  -0.1588      2.5   2.5  -0.1588
+        0.0   0.0  -0.1588
+       -2.5   2.5   0.1588     -2.5  -2.5   0.1588
+        2.5  -2.5   0.1588      2.5   2.5   0.1588
+        0.0   0.0   0.1588
+       -2.5   2.5   0.3175     -2.5  -2.5   0.3175
+        2.5  -2.5   0.3175      2.5   2.5   0.3175
+        0.0   0.0   0.3175
+       -2.5   2.5   0.6350     -2.5  -2.5   0.6350
+        2.5  -2.5   0.6350      2.5   2.5   0.6350
+        0.0   0.0   0.6350
+       -2.5   2.5   0.9525     -2.5  -2.5   0.9525
+        2.5  -2.5   0.9525      2.5   2.5   0.9525
+        0.0   0.0   0.9525
+imp:n   1.0   14r   0.0
+totnu
+vol     8.15165   8.15165   8.15165   8.15165   8.15165
+        8.15165   8.15165   0.19844   0.19707   0.19844
+        0.19707   0.88986   0.86405   0.88986   0.86405
+        0.0
+area   11.67790  11.67790  11.33195  11.33195  11.67790
+       11.67790  11.67790  11.33195  11.26141  11.26141
+       11.33195  11.67790  27.60872  25.67449  25.67449
+       25.67449  25.67449  25.67449  25.67449  27.60872
+c
+c Material Cards
+read   file=m-cards-endf71
+c
+prdmp    j    999999    1
+print
+
+ end of input

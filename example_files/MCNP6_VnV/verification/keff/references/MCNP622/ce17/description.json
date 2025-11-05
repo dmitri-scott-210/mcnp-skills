@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "ce17",
+    "problem_type": "Continuous Energy",
+    "description": "Uc-1-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce17.inp",
+      "n": "ce17"
+    },
+    "outputs": {
+      "outp": "ce17o",
+      "mctal": "ce17m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 2.256083
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 2.25609,
+      "std": 2.44861e-14
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18"
+  }
+}

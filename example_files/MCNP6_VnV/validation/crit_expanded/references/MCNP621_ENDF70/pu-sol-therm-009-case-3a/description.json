@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "pu-sol-therm-009-case-3a",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "009",
+      "case": "3A"
+    },
+    "description": "PU-SOL-THERM-009  Case 3A  Plutonium Nitrate Solution in Al-1100 Sphere "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "pu-sol-therm-009-case-3a.i",
+      "n": "pu-sol-therm-009-case-3a"
+    },
+    "inputs": {
+      "inp": "pu-sol-therm-009-case-3a.i"
+    },
+    "outputs": {
+      "outp": "pu-sol-therm-009-case-3ao",
+      "mctal": "pu-sol-therm-009-case-3am"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0033
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.01895,
+      "std": 0.000169093
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.0"
+  }
+}

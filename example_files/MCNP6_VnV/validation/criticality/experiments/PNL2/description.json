@@ -1,0 +1,32 @@
+{
+  "general_info": {
+    "name": "PNL2",
+    "icsbep_name": {
+      "material": "PU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "021",
+      "case": "003"
+    },
+    "description": "Sphere of plutonium nitrate solution"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "PNL2",
+      "n": "PNL2"
+    },
+    "outputs": {
+      "outp": "PNL2o",
+      "mctal": "PNL2m"
+    },
+    "inputs": {
+      "inp": "PNL2"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0065
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg64",
+    "problem_type": "Multigroup",
+    "description": "URRd-H2Ob(10)-2-0-ISLC"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg64.inp",
+      "n": "mg64"
+    },
+    "outputs": {
+      "outp": "mg64o",
+      "mctal": "mg64m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

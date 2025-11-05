@@ -1,0 +1,187 @@
+triga-1 - unit cell example
+c
+c  This file -- fuel rod in hexagonal unit cell
+c
+c   -standard fuel rods (fresh fuel) - use mat=3 rho=-6.109
+c   -LEU fuel rods (fresh fuel)      - use mat=4 rho=-6.508
+c 
+c  +-----------------------------------------------------+
+c  | base input from:                                    |
+c  |     ORNL-TM-13656, June 1998                        |
+c  |     Model of Triga type OAEP Thai-Research-Reactor  |
+c  +-----------------------------------------------------+
+c 
+c                  W              pz
+c        -----sr--------rs-----    3
+c        grid sr        rs plate
+c        -----sr   W    rs-----    4
+c             sr        rs
+c             sr--------rs         5
+c             sr        rs                 W = water
+c             sr   C    rs                 C = graphite plug
+c             sr        rs                 F = fuel
+c             sr--------rs         6       r = clad tube, inner (sur=1)
+c             sr        rs                 s = clad tube, outer (sur=2)
+c             sr   F    rs  W
+c             sr        rs
+c             sr        rs
+c             sr--------rs         7
+c             sr        rs     
+c             sr   C    rs
+c             sr        rs
+c             sr--------rs         8
+c             sr        rs
+c             sr   W    rs
+c             sr        rs
+c        --------------------      9
+c             bottom plate  
+c        --------------------     10
+c                  W
+c       
+C --------------------------------------------------- CELL CARDS --------
+ 100 1000 -1.00    +3               u=1 imp:n=1.0   $ water above 
+ 101 7000 -2.70    -3  +4  +2       u=1 imp:n=1.0   $ upper grid plate 
+c
+c =====> fuel rod 
+ 102 1000 -1.00    -1  -3  +5       u=1 imp:n=1.0   $ water above upper plug
+ 103 5000 -1.28    -1  -5  +6       u=1 imp:n=1.0   $ upper graphite plug
+ 104 3000 -6.109   -1  -6  +7       u=1 imp:n=1.0   $ fuel, std 
+ 105 5000 -1.28    -1  -7  +8       u=1 imp:n=1.0   $ lower graphite plug
+ 106 1000 -1.00    -1  -8  +9       u=1 imp:n=1.0   $ water below lower plug  
+c
+ 107 2000 -7.87    +1  -2  -3  +9   u=1 imp:n=1.0   $ ss304 cladding 
+ 108 1000 -1.00    +2  -4  +9       u=1 imp:n=1.0   $ water outside rod 
+c
+ 109 7000 -2.70    -9  +10          u=1 imp:n=1.0   $ lower grid plate 
+ 110 1000 -1.00    -10              u=1 imp:n=1.0   $ water below
+c
+c =====> hex unit cell
+ 199    0          -20     fill=1       imp:n=1.0
+c ------------------------------------------------------------------------
+
+c --------------------------------------------------- SURFACE CARDS ------
+ 1   cz    1.815    $ clad inner radius, fuel outer radius
+ 2   cz    1.865    $ clad outer radius
+ c
+ 3   pz   33.00     $ upper grid plate - top
+ 4   pz   30.50     $ upper grid plate - bottom
+ 5   pz   27.75     $ upper graphite plug - top
+ 6   pz   19.05     $ top of fuel 
+ 7   pz  -19.05     $ bottom of fuel 
+ 8   pz  -27.75     $ bottom of graphite plug
+ 9   pz  -31.00     $ lower grid plate - top
+10   pz  -32.50     $ lower grid plate - bottom
+c
+c hexagonal cell,  pitch = 4.34, reflecting BC
+*20  rhp   0. 0. -75.    0. 0. 150.    2.17  0  0
+c -----------------------------------------------------------------------
+
+c --------------------------------------------------- MATERIAL CARDS ----
+m1000  $=====> light water (h2o) density= 1.00 g/cc, 293.6 K
+         1001.70c  0.66667
+         8016.70c  0.33333 
+mt1000   lwtr.10t 
+c 
+m2000  $=====> cladding (SS304) density= 7.87 g/cc,  293.6 K
+        25055.70c  8.3717e-4
+        26054.70c  3.27840e-03
+        26056.70c  5.14639e-02
+        26057.70c  1.18853e-03
+        26058.70c  1.58171e-04
+        24050.70c  6.15295e-04
+        24052.70c  1.18654e-02
+        24053.70c  1.34544e-03
+        24054.70c  3.34908e-04
+        28058.70c  6.83901e-03
+        28060.70c  2.63437e-03
+        28061.70c  1.14514e-04
+        28062.70c  3.65122e-04
+        28064.70c  9.29858e-05
+        42092.70c  3.09121e-04
+        42094.70c  1.93175e-04
+        42095.70c  3.32771e-04
+        42096.70c  3.49096e-04
+        42097.70c  2.00081e-04
+        42098.70c  5.06273e-04
+        42100.70c  2.02383e-04
+c 
+m3000  $=====> standard fuel density=6.109l g/cc,    600 K
+         1001.71c  5.5318e-02
+        40090.71c  1.84443e-02
+        40091.71c  4.02226e-03
+        40092.71c  6.14810e-03
+        40094.71c  6.23056e-03
+        40096.71c  1.00377e-03
+        92235.71c  2.4800e-04
+        92238.71c  9.8550e-04
+mt3000   h/zr.13t 
+c 
+m4000  $=====> leu fuel density=6.508 g/cm**3,   600 K
+         1001.71c  5.0440e-2
+        40090.71c  1.76448e-02
+        40091.71c  3.84790e-03
+        40092.71c  5.88159e-03
+        40094.71c  5.96047e-03
+        40096.71c  9.60260e-04
+        68162.71c  5.3306e-08
+        68164.71c  6.1398e-07
+        68166.71c  1.2848e-05
+        68167.71c  8.7702e-06
+        68168.71c  1.0346e-05
+        68170.71c  5.7180e-06
+        92235.71c  6.3860e-4
+        92238.71c  2.5700e-3 
+mt4000   h/zr.13t
+c 
+m5000  $=====> graphite density=1.28 g/cm**3,  20% porosity,  293.6 K
+         6000.70c 6.4240-2 
+mt5000   grph.10t 
+c 
+m7000  $=====> aluminum 6061 density=2.70 g/cm**3,  293.6 K
+        12024.70c  4.80944e-04
+        12025.70c  6.08867e-05
+        12026.70c  6.70363e-05
+        13027.70c  5.93050e-2
+        14028.70c  3.23954e-04
+        14029.70c  1.64571e-05
+        14030.70c  1.08614e-05
+        22046.70c  1.41601e-06
+        22047.70c  1.27698e-06
+        22048.70c  1.26531e-05
+        22049.70c  9.28556e-07
+        22050.70c  8.89080e-07
+        24050.70c  2.19844e-06
+        24052.70c  4.23948e-05
+        24053.70c  4.80723e-06
+        24054.70c  1.19662e-06
+        25055.70c  1.49649e-5 
+        26054.70c  5.85114e-06
+        26056.70c  9.18503e-05
+        26057.70c  2.12122e-06
+        26058.70c  2.82296e-07
+        29063.70c  6.03338e-05
+        29065.70c  2.69168e-05
+c ----------------------------------------------------------------------
+c 
+c --------------------------------------------------- OTHER CARDS ------
+c =====> controls
+kcode  5000  1.0  25  125 
+hsrc  3 -1.815 1.815  3 -1.815 1.815   11 -19.05 19.05
+c
+c =====> temperatures:  fuel= 600K,  other= 293.6K          
+tmp   2.5301e-8  3r  5.1704e-8   2.5301e-8 5r 
+c
+c =====> source guess
+sdef  pos 0 0 0   axs=0 0 1   rad=d1   ext=d2   erg=d3 
+si1   0 1.815
+si2  -19.05 19.05
+sp2   0 1
+sp3  -3 
+c
+c =====> mesh tally for detailed fission rate
+c fmesh4:n  geom=xyz origin= -1.815 -1.815 -19.05
+c           imesh= 1.815  iints=25
+c           jmesh= 1.815  jints=25 
+c           kmesh= 19.05  kints=1
+c fm4  -1. 0  -6
+c ----------------------------------------------------------------------

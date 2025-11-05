@@ -1,0 +1,161 @@
+#!/usr/bin/env python
+
+import h5py
+import matplotlib as mpl
+#mpl.use('Agg') # For certain HPC backends
+import matplotlib.pyplot as plt
+from os.path import exists
+# -------------------------------------------------------
+# NOTE: rename this file to plot_ptrac.py. It could not
+# be attached to the PDF unless it had extension .txt
+#
+# This file assumes you have a valid installation of
+# MCNPTools available, and have ran a corresponding input
+# file `pincell.txt` to produce a ptrac.h5 output file. It
+# is also necessary to have h5py and matplotlib installed
+# with the python distribution.
+#
+# To run: python3 plot_ptrac.py
+#
+# It is straightforward to extend the parsing in this file
+# to other uses. If you donot have MCNPTools, the first
+# part of the script will successfully complete, and the
+# mcnptools code below it can be removed.
+# -------------------------------------------------------
+
+def plot_points(ax, points, color, label=None):
+    """Plot several points over geometry"""
+    x = [pair[0] for pair in points]
+    y = [pair[1] for pair in points]
+    ax.scatter(x,y,c=color,alpha=0.6,label=label)
+    return
+
+
+def plot_results_with_h5py(ptrac_file):
+    """Directly plot results in h5py"""
+    ptrack_file = h5py.File(ptrac_file, 'r')
+    ptrack_grp = ptrack_file['ptrack']
+
+    # In older versions of h5py, it is a little tricky to access the datatype:
+    print("What fields are available?: ",
+    ptrack_grp["Collision"].dtype.fields.keys())
+
+    # Plot the distribution of the source energies
+    src_energies = [ data['energy'] for data in ptrack_grp["Source"] ]
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.hist(src_energies, bins = 25)
+    ax.set_xlabel("Energy (MeV)")
+    ax.set_ylabel("Number Samples")
+    fig.savefig("energy_spectra.pdf", bbox_inches='tight')
+
+    # Bin fission sites by incident neutron enery, and plot H scatters
+    slow_fission_sites = []
+    fast_fission_sites = []
+    hydrogen_scatters = []
+
+    # Load subset to reduce plotting strain
+    for entry in ptrack_grp["Collision"][:3000000]:
+        xy = (entry['x'],entry['y'])
+        if entry['reaction_type'] == 18: # MT number from ENDF format
+            if entry['energy'] > 1: # MeV
+                fast_fission_sites.append( xy )
+            else:
+                slow_fission_sites.append( xy )
+        elif entry['reaction_type'] == 2 and entry['zaid'] == 1001:
+            hydrogen_scatters.append( xy )
+
+    # Plot the points of fast and slow fissions, as well as hydrogen scatters
+    # simply to outline the geometry
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plot_points(ax, fast_fission_sites,'#1b9e77',label="Fast Fissions")
+    plot_points(ax, slow_fission_sites,'#d95f02',label="Slow Fissions")
+    plot_points(ax, hydrogen_scatters, '#7570b3', label="H Scatters")
+    ax.set_xlabel("x (cm)")
+    ax.set_ylabel("y (cm)")
+    ax.legend(loc='upper right')
+    ax.set_aspect(1)
+    fig.savefig(ptrac_file+"_h5py_plot.pdf", bbox_inches='tight')
+
+    print("Number of fast fissions: {}".format(len(fast_fission_sites)))
+    print("Number of slower fissions: {}".format(len(slow_fission_sites)))
+    print("Number of scatters: {}".format(len(hydrogen_scatters)))
+
+
+def plot_results_with_mcnptools(ptrac_file, file_type):
+    """Plot same results as before but with MCNPTools"""
+    slow_fission_sites = []
+    fast_fission_sites = []
+    hydrogen_scatters = []
+
+    from mcnptools import Ptrac
+    # Open in mcnptools
+    if file_type == 'bin':
+        pdata = Ptrac(ptrac_file, Ptrac.BIN_PTRAC)
+    elif file_type == 'asc':
+        pdata = Ptrac(ptrac_file, Ptrac.ASC_PTRAC)
+    elif file_type == 'hdf5':
+        pdata = Ptrac(ptrac_file, Ptrac.HDF5_PTRAC)
+    else:
+        print("Need a proper ptrac file_type {'bin','asc','hdf5'}")
+        return
+
+    # Read in batches
+    num_collisions = 0
+    while True:
+
+        # Read histories in iterations, until 3M collisions have been processed
+        hists = pdata.ReadHistories(100)
+        if len(hists) == 0 or num_collisions > 3000000:
+            break
+
+        for h in hists: # history loop
+            for e in range(h.GetNumEvents()): # event loop, per history
+                event = h.GetEvent(e)
+                xy = (event.Get(Ptrac.X), event.Get(Ptrac.Y))
+                if event.Type() == Ptrac.COL:
+                    num_collisions += 1
+                    mt_number = event.Get(Ptrac.RXN) # See manual
+                    if mt_number == 18:
+                        if event.Get(Ptrac.ENERGY) > 1.0:
+                            fast_fission_sites.append(xy)
+                        else:
+                            slow_fission_sites.append(xy)
+                    elif mt_number == 2 and event.Get(Ptrac.ZAID) == 1001:
+                        hydrogen_scatters.append(xy)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plot_points(ax, fast_fission_sites,'#1b9e77', label="Fast Fissions")
+    plot_points(ax, slow_fission_sites,'#d95f02', label="Slow Fissions")
+    plot_points(ax, hydrogen_scatters, '#7570b3', label="H Scatters")
+    ax.legend(loc='upper right')
+    ax.set_aspect(1)
+    fig.savefig(ptrac_file+"_mcnptools_plot.pdf", bbox_inches='tight')
+
+    print("Number of fast fissions: {}".format(len(fast_fission_sites)))
+    print("Number of slower fissions: {}".format(len(slow_fission_sites)))
+    print("Number of scatters: {}".format(len(hydrogen_scatters)))
+
+
+# Processing and printing/plotting all results
+legacy_ptrac_file = 'ptrac2_bin.p'
+if exists(legacy_ptrac_file):
+    print("\n*** Processing legacy ptrac with MCNPTools ***")
+    plot_results_with_mcnptools(legacy_ptrac_file, 'bin')
+else:
+    print("\n*** Legacy ptrac file {} not found ***".format(legacy_ptrac_file))
+
+hdf5_ptrac_file = 'ptrac2_hdf5.p.h5'
+if exists(hdf5_ptrac_file):
+    print("\n*** Processing HDF5 ptrac with MCNPTools ***")
+    plot_results_with_mcnptools(hdf5_ptrac_file, 'hdf5')
+
+    print("\n*** Processing HDF5 ptrac with h5py ***")
+    plot_results_with_h5py(hdf5_ptrac_file)
+else:
+    print("\n*** HDF5 ptrac file {} not found ***".format(hdf5_ptrac_file))
+
+# Display all the figures, a copy is also saved in the working directory
+plt.show()

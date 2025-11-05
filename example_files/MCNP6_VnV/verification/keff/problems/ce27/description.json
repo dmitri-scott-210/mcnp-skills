@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "ce27",
+    "problem_type": "Continuous Energy",
+    "description": "UD2O-H2O(1)-1-0-CY"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ce27.inp",
+      "n": "ce27"
+    },
+    "outputs": {
+      "outp": "ce27o",
+      "mctal": "ce27m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

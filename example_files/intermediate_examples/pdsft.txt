@@ -1,0 +1,34 @@
+2 MeV photon source, carbon steel shield and various point detectors
+c GEOMETRY - CELLS
+100    0              -10      imp:p=0    $ void to left, kill neutrons
+200    0              +10 -20  imp:p=1    $ void to left  of slab
+300    1000   -7.82   +20 -30  imp:p=1    $ Carbon steel
+400    0              +30 -40  imp:p=1    $ void to right of slab
+500    0              +40      imp:p=0    $ void to right, kill neutrons
+
+c GEOMETRY - SURFACES
+10     px     -5.0                        $ x-plane, problem left  boundary
+20     px      5.0                        $ x-plane, left  side of poly slab
+30     px     10.0                        $ x-plane, right side of poly slab
+40     px     25.0                        $ x-plane, problem right boundary
+
+c OTHER STUFF
+c
+mode  p
+nps     1e5                               $ number of neutrons to run
+c
+c MATERIALS - Carbon steel
+m1000    26000  -0.995   6000  -0.005
+c
+c SOURCE
+sdef    pos= 0. 0. 0.     erg=2.         $ isotropic source
+c
+c POINT DETECTOR
+f5:p    20.0  0.0  0.0      0.0
+ft5   pds   0
+c
+f15:p   20.0  0.0  0.0      0.0
+ft15  pds   1
+c
+f25:p   20.0  0.0  0.0      0.0
+ft25  pds   2

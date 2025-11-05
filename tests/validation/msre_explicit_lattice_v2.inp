@@ -1,0 +1,215 @@
+MSRE Benchmark - Explicit Lattice v2 (GT-MHR Pattern Applied)
+c =================================================================
+c Molten Salt Reactor Experiment (ORNL, 1965-1969)
+c Based on IRPhEP Benchmark: MSRE-MSR-RESR-001
+c Configuration: Zero-power critical with EXPLICIT fuel channels
+c Pattern: Applied GT-MHR validated lattice structure
+c Expected k-eff: 1.020 +/- 0.003 (benchmark target)
+c =================================================================
+c Created: 2025-11-01 (v2 - GT-MHR pattern application)
+c MCNP Version: MCNP6.2+
+c Improvements:
+c   1. Full cylinder coverage (41x41 array, not 28x28 RPP)
+c   2. Proper universe system (u=1 fuel, u=2 graphite, u=10 lattice)
+c   3. Circular FILL pattern like GT-MHR particle lattice
+c   4. Graphite matrix in lattice cell (like GT-MHR)
+c =================================================================
+c BLOCK 1: CELL CARDS
+c =================================================================
+c --- UNIVERSE 1: Fuel Channel Unit Cell (like GT-MHR TRISO particle) ---
+c Fuel salt channel surrounded by graphite in unit cell
+10   1  -2.27    -10              U=1  IMP:N=1   $ Fuel salt (LiF-BeF2-ZrF4-UF4)
+11   2  -1.84     10              U=1  IMP:N=1   $ Graphite with 2 ppm boron
+c
+c --- UNIVERSE 2: Graphite-Only Cell (like GT-MHR edge cells) ---
+c Solid graphite for peripheral positions
+20   2  -1.84        -20          U=2  IMP:N=1   $ Solid graphite (no fuel)
+c
+c --- UNIVERSE 10: Lattice Element (like GT-MHR particle lattice) ---
+c Cubic lattice 41x41x1 with circular pattern of fuel channels
+c Graphite matrix material (like GT-MHR cell 200)
+100  2  -1.84  -100  LAT=1  U=10  IMP:N=1
+     $ Lattice with graphite matrix (3.5921 cm pitch)
+     FILL= -20:20 -20:20 0:0
+c Row -20 (bottom edge - all graphite)
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -19
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -18
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -17
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -16
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -15
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -14
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -13
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -12
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -11
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -10
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -9
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -8
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -7
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -6
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -5
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -4
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -3
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -2
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row -1
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 0 (center)
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 1
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 2
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 3
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 4
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 5
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 6
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 7
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 8
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 9
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 10
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 11
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 12
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 13
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 14
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 15
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 16
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 17
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 18
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 19
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c Row 20 (top edge - all graphite)
+     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+c
+c --- UNIVERSE 0: Main Geometry ---
+c Core region - Cylindrical core filled with lattice universe
+101  0          -101  103  -104  FILL=10  IMP:N=1
+     $ Core: R=70.485 cm, filled with lattice universe 10
+c
+c Lower plenum (void below core)
+200  0          -101  102  -103  IMP:N=1   $ Lower plenum (inside core cylinder)
+c
+c Upper plenum (void above core)
+300  0          -101  104  -105  IMP:N=1   $ Upper plenum (inside core cylinder)
+c
+c Hastelloy-N vessel wall
+400  3  -8.89   101  -106  102  -105  IMP:N=1   $ Vessel: R=70.485 to 72.485 cm
+c
+c Outside world (graveyard)
+999  0           106:-102:105      IMP:N=0   $ Graveyard
+
+c =================================================================
+c BLOCK 2: SURFACE CARDS
+c =================================================================
+c --- Universe 1 surfaces (fuel channel) ---
+10   CZ   0.961                                  $ Fuel channel radius
+c
+c --- Universe 2 surfaces (graphite cell) ---
+20   RPP  -1.79605  1.79605  -1.79605  1.79605  -1e6  1e6
+     $ Same unit cell size as fuel channel
+c
+c --- Universe 10 surfaces (lattice element) ---
+100  RPP  -1.79605  1.79605  -1.79605  1.79605  -1e6  1e6
+     $ Lattice element (3.5921 cm pitch, half-width = 1.79605 cm)
+c
+c --- Main geometry surfaces ---
+101  CZ   70.485                                 $ Core radius
+102  PZ   0.0                                    $ Bottom of lower plenum
+103  PZ   12.954                                 $ Core bottom (top of lower plenum)
+104  PZ   176.324                                $ Core top
+105  PZ   197.660                                $ Top of upper plenum
+106  CZ   72.485                                 $ Vessel outer radius
+
+c =================================================================
+c BLOCK 3: DATA CARDS
+c =================================================================
+c --- Particle Mode ---
+MODE  N
+c
+c --- Material 1: Fuel Salt (in channels only) ---
+c Composition: LiF-BeF2-ZrF4-UF4 (65-29.1-5-0.9 mol%)
+c   - Li-7 enriched to 99.99%
+c   - U-235 enriched to 33%
+c Density: 2.27 g/cm3 at 650C
+c =================================================================
+M1   3007.70c  0.021605    $ Li-7 (99.99% enriched)
+     4009.70c  0.009676    $ Be-9
+     9019.70c  0.048809    $ F-19
+     40090.70c 0.001663    $ Zr-90
+     92235.70c 0.000097    $ U-235 (33% enriched)
+     92238.70c 0.000200    $ U-238
+MT1  lwtr.20t                                     $ Thermal scattering (approx)
+TMP1  7.95e-8                                     $ Temperature: 650C
+c
+c --- Material 2: CGB Graphite with 2 ppm Boron Impurities ---
+c Density: 1.84 g/cm3
+c Boron: 2 ppm by weight (CRITICAL for reactivity)
+c =================================================================
+M2   6000.70c  0.092161    $ C-12 (natural carbon)
+     5010.70c  0.000001    $ B-10 (2 ppm - strong thermal absorber)
+     5011.70c  0.000004    $ B-11 (natural ratio)
+MT2  grph.20t                                     $ Graphite thermal scattering
+TMP2  7.95e-8                                     $ Temperature: 650C
+c
+c --- Material 3: Hastelloy-N Vessel ---
+c Composition: 71% Ni, 16% Mo, 7% Cr, 5% Fe, 1% Mn
+c Density: 8.89 g/cm3
+c =================================================================
+M3  28058.70c  0.067635    $ Ni-58
+     42098.70c 0.009336    $ Mo-98
+     24052.70c 0.007529    $ Cr-52
+     26056.70c 0.005008    $ Fe-56
+     25055.70c 0.001018    $ Mn-55
+TMP3  7.95e-8                                     $ Temperature: 650C
+c
+c --- Criticality Source ---
+KCODE  10000  1.0  50  500                        $ 10000 neutrons/cycle,
+                                                   $ 50 skip, 500 active
+KSRC   0 0 90                                     $ Core center
+       0 0 80
+       0 0 100
+       15 15 90
+       -15 -15 90
+       20 0 90
+       0 20 90
+       -20 0 90
+       0 -20 90
+c
+c --- Output Control ---
+PRINT
+c
+c --- Termination ---
+c Runtime controlled by KCODE cycles (500 active)

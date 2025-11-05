@@ -1,0 +1,131 @@
+Research Reactor Material Library
+================================================================================
+Application: Research reactor and test facility materials
+Source: TRIGA and pool-type research reactor designs
+Complexity: Intermediate
+Materials: LEU fuel (19.75%), beryllium reflector, aluminum, light water
+================================================================================
+c
+c ========================================================================
+c Material 1: LEU UO2-Al Dispersion Fuel (19.75% enriched)
+c Density: 3.5 g/cm3 (UO2 particles in aluminum matrix)
+c Temperature: 350 K (research reactors run cool, ~1 MW thermal)
+c Enrichment: 19.75% U-235 (maximum for LEU)
+c Loading: 30% UO2 by volume in Al matrix
+c Application: Plate-type research reactor fuel
+c ========================================================================
+M1   92235.80c  -0.0478  92238.80c  -0.1942  8016.80c  -0.0781  &
+     13027.80c  -0.6799
+TMP1  3.02e-8
+c
+c ========================================================================
+c Material 2: TRIGA Fuel (U-ZrH1.6)
+c Density: 6.0 g/cm3
+c Temperature: 400 K (TRIGA operates at low power density)
+c Enrichment: 20% U-235 (LEU version)
+c Composition: Uranium-zirconium hydride, H:Zr ratio ~1.6
+c Application: TRIGA fuel elements (inherent safety features)
+c ========================================================================
+M2   92235.80c  -0.08  92238.80c  -0.32  40000.80c  -0.5735  &
+     1001.80c  -0.0265
+MT2  H-ZRH.42t
+TMP2  3.45e-8
+c
+c ========================================================================
+c Material 3: Beryllium Metal Reflector
+c Density: 1.85 g/cm3
+c Temperature: 320 K (reflector runs slightly warm)
+c Composition: Pure Be-9 (100% natural abundance)
+c Application: Neutron reflector (excellent properties)
+c ========================================================================
+M3   4009.80c  1.0
+MT3  BE.40t
+TMP3  2.76e-8
+c
+c ========================================================================
+c Material 4: Aluminum 6061 (Structural)
+c Density: 2.70 g/cm3
+c Temperature: 320 K
+c Composition: Al 97.9%, Mg 1.0%, Si 0.6%, Cu 0.3%, Cr 0.2%
+c Application: Fuel cladding, structural components
+c ========================================================================
+M4   13027.80c  -0.979  12000.80c  -0.010  14000.80c  -0.006  &
+     29000.80c  -0.003  24000.80c  -0.002
+TMP4  2.76e-8
+c
+c ========================================================================
+c Material 5: Light Water Pool (No Boron)
+c Density: 1.0 g/cm3
+c Temperature: 298 K (pool maintained near room temp)
+c Composition: Pure H2O (no boron in research reactors typically)
+c Application: Moderator, coolant, and biological shield
+c ========================================================================
+M5   1001.80c  2.0  8016.80c  1.0
+MT5  H-H2O.40t
+TMP5  2.57e-8
+c
+c ========================================================================
+c Material 6: Graphite Reflector
+c Density: 1.60 g/cm3
+c Temperature: 320 K
+c Composition: Nuclear-grade graphite
+c Application: Alternative reflector material
+c ========================================================================
+M6   6000.80c  1.0
+MT6  GRPH.40t
+TMP6  2.76e-8
+c
+c ========================================================================
+c NOTES AND USAGE
+c ========================================================================
+c
+c 1. LEU Fuel Forms:
+c    - Dispersion: UO2 particles in Al matrix (plate fuel)
+c    - TRIGA: U-ZrH homogeneous (rod fuel)
+c    - MTR: Highly enriched historically, now converting to LEU
+c
+c 2. Enrichment Limit:
+c    - 19.75% U-235 is maximum for Low-Enriched Uranium (LEU)
+c    - Historical research reactors used HEU (93%)
+c    - Global RERTR program converting HEU to LEU
+c
+c 3. TRIGA Features:
+c    - Zirconium hydride provides prompt negative feedback
+c    - Can safely pulse to high power
+c    - H-ZRH.42t S(alpha,beta) critical for reactivity
+c
+c 4. Beryllium Reflector:
+c    - (n,2n) reaction increases neutron economy
+c    - Low absorption, good scattering
+c    - Toxic - handle with care
+c    - Temperature limit ~773 K (oxidation concerns)
+c
+c 5. Aluminum Advantages:
+c    - Low absorption cross section
+c    - Good thermal conductivity
+c    - Easy to fabricate
+c    - Compatible with water
+c
+c 6. Research Reactor Operations:
+c    - Typical power: 1-10 MW thermal
+c    - Fuel temperature: 350-450 K (much cooler than power reactors)
+c    - Water: Room temperature, no pressurization
+c    - No boron typically (control rods provide shutdown)
+c
+c 7. Pool Water:
+c    - Pure water, demineralized
+c    - NO boron (unlike PWR)
+c    - Acts as moderator, coolant, and shield
+c    - Depth: 6-8 m typical for shielding
+c
+c 8. Material Modifications:
+c    - Dispersion fuel: Adjust UO2 loading (20-40% typical)
+c    - TRIGA: H:Zr ratio varies (1.0 to 1.7)
+c    - Reflector: Can use graphite or BeO as alternatives
+c
+c 9. S(alpha,beta) Tables:
+c    - H-H2O.40t for water at 293.6 K
+c    - H-ZRH.42t for TRIGA fuel at 373.6 K
+c    - BE.40t for beryllium at 293.6 K
+c    - GRPH.40t for graphite at 293.6 K
+c    - Match TMP card to table temperature

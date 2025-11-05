@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "u233-comp-therm-001-case-3",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "COMP",
+      "spectrum": "THERM",
+      "number": "001",
+      "case": "3"
+    },
+    "description": "BAPL SB Criticals  Core 2 1/2  Full U-233 Core  U233-COMP-THERM-001  Case 3 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-comp-therm-001-case-3.i",
+      "n": "u233-comp-therm-001-case-3"
+    },
+    "inputs": {
+      "inp": "u233-comp-therm-001-case-3.i"
+    },
+    "outputs": {
+      "outp": "u233-comp-therm-001-case-3o",
+      "mctal": "u233-comp-therm-001-case-3m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0024
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.00002,
+      "std": 0.000472046
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.2",
+    "date": "2022-04-18",
+    "data": "ENDF/B-VIII.0"
+  }
+}

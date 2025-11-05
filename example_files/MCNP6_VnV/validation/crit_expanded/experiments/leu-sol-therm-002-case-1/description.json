@@ -1,0 +1,33 @@
+{
+  "general_info": {
+    "name": "leu-sol-therm-002-case-1",
+    "icsbep_name": {
+      "material": "LEU",
+      "form": "SOL",
+      "spectrum": "THERM",
+      "number": "002",
+      "case": "1"
+    },
+    "description": "Sphere of 4.9 wt.% UO2F2-H2O reflected by Water  LEU-SOL-THERM-002  Case 1 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "leu-sol-therm-002-case-1.i",
+      "n": "leu-sol-therm-002-case-1"
+    },
+    "inputs": {
+      "inp": "leu-sol-therm-002-case-1.i"
+    },
+    "outputs": {
+      "outp": "leu-sol-therm-002-case-1o",
+      "mctal": "leu-sol-therm-002-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0038,
+      "std": 0.004
+    },
+    "reference": "ICSBEP Handbook 2015"
+  }
+}

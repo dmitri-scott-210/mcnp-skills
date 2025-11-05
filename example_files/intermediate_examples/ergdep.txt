@@ -1,0 +1,44 @@
+Energy deposition tallies with p e physics
+1 10 -19.25 -100
+2 0          100
+
+100 so 20.
+
+c
+c Data cards
+c
+mode p e 
+nps 1000
+imp:p 1 0
+imp:e 1 0
+c
+c Source
+c
+sdef par=p erg=2
+c
+c Material
+c
+m10 74000 -1
+c
+c Tallies
+c
+f4:p    1
+fm4    -1 10 -5 -6
+sd4     1
+c
++f6     1
+sd6     1
+c
+f16:p   1
+sd16    1
+c
+f26:e   1
+sd26    1
+c
+f36:p,e 1
+sd36    1
+c
+*f38:p,e 1
+c
+f48:p,e  1
+e48 0 1e-12 1e-4 20ilog 2

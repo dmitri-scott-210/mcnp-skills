@@ -1,0 +1,23 @@
+{
+  "general_info": {
+    "name": "mg48",
+    "problem_type": "Multigroup",
+    "description": "U-2-0-SL"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg48.inp",
+      "n": "mg48"
+    },
+    "outputs": {
+      "outp": "mg48o",
+      "mctal": "mg48m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.0
+    },
+    "reference": "LA-UR-01-3082"
+  }
+}

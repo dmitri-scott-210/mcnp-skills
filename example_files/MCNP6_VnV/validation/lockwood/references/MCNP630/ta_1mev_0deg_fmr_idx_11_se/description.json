@@ -1,0 +1,49 @@
+{
+  "general_info": {
+    "name": "ta_1mev_0deg_fmr_idx_11_se",
+    "description": "",
+    "details": {
+      "material": "Tantalum",
+      "energy": 1.0,
+      "type": "Single Event",
+      "angle": 0,
+      "fmr": 0.12,
+      "fmr_index": 11
+    }
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "ta_1mev_0deg_fmr_idx_11_se_",
+      "n": "ta_1mev_0deg_fmr_idx_11_se_"
+    },
+    "outputs": {
+      "outp": "ta_1mev_0deg_fmr_idx_11_se_o",
+      "mctal": "ta_1mev_0deg_fmr_idx_11_se_m"
+    },
+    "inputs": {
+      "inp": "ta_1mev_0deg_fmr_idx_11_se_"
+    }
+  },
+  "experiment_data": {
+    "tally": {
+      "val": 0.0544495,
+      "err": 0.012
+    },
+    "reference": "SAND79-0414, p. 97",
+    "foil_thickness": 0.01655,
+    "energy_deposited": 3.29,
+    "units_foil_thickness": "g$\\cdot$cm$^{-2}$",
+    "units_energy_deposited": "MeV$\\cdot$g$^{-1}\\cdot$cm$^{2}$"
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.3.0",
+    "date": "2022-12-16"
+  },
+  "calculation_data": {
+    "tally": {
+      "val": 0.0568718,
+      "err": 0.0014
+    }
+  }
+}

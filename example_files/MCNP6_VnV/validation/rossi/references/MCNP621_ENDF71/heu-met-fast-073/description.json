@@ -1,0 +1,41 @@
+{
+    "general_info": {
+        "name": "heu-met-fast-073",
+        "icsbep_name": {
+            "material": "HEU",
+            "form": "MET",
+            "spectrum": "fast",
+            "number": "073",
+            "case": "001"
+        },
+        "description": "5th Zeus Experiment  8 HEU Plates  Benchmark Model (Rev)"
+    },
+    "execution_info": {
+        "arguments": {
+            "i": "heu-met-fast-073i",
+            "n": "heu-met-fast-073"
+        },
+        "outputs": {
+            "outp": "heu-met-fast-073o"
+        }
+    },
+    "experiment_data": {
+        "rossi-alpha": {
+            "val": -89909.9,
+            "std": 816.9
+        },
+        "reference": "LA-UR-19-25525"
+    },
+    "calculation_data": {
+        "rossi-alpha": {
+            "val": -108594.0,
+            "std": 693.739
+        }
+    },
+    "calculation_info": {
+        "code": "MCNP6",
+        "version": "6.2.1",
+        "date": "2021-05-19",
+        "data": "ENDF/B-VII.1"
+    }
+}

@@ -1,0 +1,12 @@
+region_attributes
+title "IntermediateAttila4MC"
+info " "
+version "1.0.0"
+created "2020-06-16T12:36:08"
+last_modified "2020-06-16T12:36:08"
+"Air-" "Air" 1
+"Bpoly-" "BoratedPolyethylene" 1
+"Concrete-" "Concrete" 1
+"Tissue-" "SoftTissue" 1
+"SSteel304-" "StainlessSteel304" 1
+end_region_attributes

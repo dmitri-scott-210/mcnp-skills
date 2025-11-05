@@ -1,0 +1,45 @@
+{
+  "general_info": {
+    "name": "u233-met-fast-004-case-1",
+    "icsbep_name": {
+      "material": "U233",
+      "form": "MET",
+      "spectrum": "FAST",
+      "number": "004",
+      "case": "1"
+    },
+    "description": "W REFLECTED 10.012 kg U-233 SPHERE, PLANET: U233-FAST-MET-004, CASE 1 "
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "u233-met-fast-004-case-1.i",
+      "n": "u233-met-fast-004-case-1"
+    },
+    "inputs": {
+      "inp": "u233-met-fast-004-case-1.i"
+    },
+    "outputs": {
+      "outp": "u233-met-fast-004-case-1o",
+      "mctal": "u233-met-fast-004-case-1m"
+    }
+  },
+  "experiment_data": {
+    "k-eff": {
+      "val": 1.0,
+      "std": 0.0007
+    },
+    "reference": "ICSBEP Handbook 2015"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 0.998768,
+      "std": 0.000282036
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.0",
+    "date": "2021-08-13",
+    "data": "ENDF/B-VII.1"
+  }
+}

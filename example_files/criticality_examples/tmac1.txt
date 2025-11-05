@@ -1,0 +1,29 @@
+tmac1 - Tally Problem with macrobodies
+1 5 -1.0 -1
+2 0        1 -2
+3 0        2 
+
+1 RCC  0 0 0   0 0 1   4
+2 RPP -5 5   -5 5   0 2
+
+mode    n  p
+nps 100000
+imp:n,p  1  1  0
+sdef   axs 0 0 1   rad d1 
+       vec 0 0 1   dir 1   sur=1.3
+       erg=10    par=n
+si1 5
+m5   1001.66c 2.0   8016.66c 1.0
+print  110  170
+c
+c current across cylinder top
+f111:n   1.2
+f121:p   1.2
+c
+c current across box top
+f211:n  2.5
+f221:p  2.5
+c
+c leakage from box
+f311:n  2.1  2.2  2.3  2.4  2.5  1.3  T
+f321:p  2.1  2.2  2.3  2.4  2.5  1.3  T

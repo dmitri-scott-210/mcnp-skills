@@ -1,0 +1,48 @@
+C0-60 Gamma Ray Constant LA-UR-23-25214
+c    ------------<<<<< Assumptions and Calculations >>>>>-----------------------
+c    C(Rads/Photon)=(9.6352e-9)(atoms/molecule)/(molar mass)
+c    C=(9.6352e-9)(1)/(14.75)=6.532e-10 Rads/Photon
+c    C(R/Photon)=(Rad/photon)/(0.876 Rad/R)=(6.532e-10)/0.876=7.457e-10 R/Photon
+c    C1=(3.7e10 dps/Ci)(photons/decay)(3.6e3 s/hr)(7.457e-10 R/Photon)
+c    C1=(3.7e10)(2)(3.6e3)(7.457e-10)=1.987e5 R/hr/Ci
+c    C2=(3.7e10 dps/Ci)(photons/decay)(3.6e3 s/hr)/(0.876 Rad/R)
+c    C2=(3.7e10)(2)(3.6e3)/(0.876)=3.041e14 R/hr/Ci
+c    ICRU 57 Table A-1 used for f5 tally
+c    ************<<<<< End Assumptions and Calculations >>>>>*******************
+c
+c    ------------<<<<< Cell Cards >>>>>-----------------------------------------
+1    1    -0.0009   -1                       imp:p=1        $ Sphere
+2    0               1                       imp:p=0        $ Boundary
+c    ************<<<<< End of Cell Cards >>>>>**********************************
+
+c    ------------<<<<< Surface Cards >>>>>--------------------------------------
+1    so   100                                     $ Sphere @ (0,0,0) r=100
+c    ************<<<<< End of Surface Cards >>>>>*******************************
+
+c    -------------<<<<< Data Cards >>>>>----------------------------------------
+c    Air @ Los Alamos; Density = 0.0009 g per cc
+c    Reference- PNNL-15870 Revison 1
+c    de/df table procured from ICRU 57 Table A.1
+m1   $Air
+      6000 -0.000124                              $ Composition: C
+      7014 -0.755268                              $ Composition: N
+      8016 -0.231781                              $ Composition: O
+     18040 -0.012827                              $ Composition: Ar
+mode p                                            $ Photons
+sdef pos=0 0 0 par=2 erg=d1                       $ Co-60 point source @ (0,0,0)
+si1  L 1.173 1.332                                $ Energy of Co-60 Photons
+sp1  d 1 1                                        $ Discrete Probability
+f2:p 1                                            $ Calc Fluence across Surf. 1
+fm2  1.987e5 1 -5 -6                              $ Convert to R/hr/Ci (C1)
+f5:p 100 0 0 0                                    $ Point detector @ (100,0,0)
+fm5  3.041e14                                     $ Convert to R/hr/Ci (C2)
+de5  0.01       0.015      0.02       0.03       0.04       0.05      0.06
+     0.08       0.1        0.15       0.2        0.3        0.4       0.5
+     0.6        0.8        1.0        1.5        2.0        3.0       4.0
+     5.0        6.0        8.0        10.0
+df5  7.430e-10  3.120e-10  1.680e-10  0.721e-10  0.429e-10  0.323e-10 0.289e-10
+     0.307e-10  0.371e-10  0.599e-10  0.856e-10  1.380e-10  1.890e-10 2.380e-10
+     2.840e-10  3.690e-10  4.470e-10  6.140e-10  7.550e-10  9.960e-10 12.10e-10
+     14.10e-10  16.10e-10  20.10e-10  24.00e-10
+nps  1e4                                          $ Teminate after 1e4 particles
+c    *************<<<<< End of Data Cards >>>>>*********************************

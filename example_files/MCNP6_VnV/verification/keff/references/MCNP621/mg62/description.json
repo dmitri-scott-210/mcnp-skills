@@ -1,0 +1,34 @@
+{
+  "general_info": {
+    "name": "mg62",
+    "problem_type": "Multigroup",
+    "description": "URRd-2-0-IN"
+  },
+  "execution_info": {
+    "arguments": {
+      "i": "mg62.inp",
+      "n": "mg62"
+    },
+    "outputs": {
+      "outp": "mg62o",
+      "mctal": "mg62m"
+    }
+  },
+  "analytic_data": {
+    "k-eff": {
+      "val": 1.03497
+    },
+    "reference": "LA-UR-01-3082"
+  },
+  "calculation_data": {
+    "k-eff": {
+      "val": 1.03496,
+      "std": 1.68068e-05
+    }
+  },
+  "calculation_info": {
+    "code": "MCNP6",
+    "version": "6.2.1",
+    "date": "2021-08-23"
+  }
+}

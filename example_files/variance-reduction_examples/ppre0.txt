@@ -1,0 +1,137 @@
+AVR Class: photon-pre-collision point detector with concrete cylinder
+c
+c Adapted from:
+c T. Booth and D. Verwaerde, "Benchmark Calculations", in Monte-Carlo 
+c Methods and Applications in Neutronics, Photonics and Statistical Physics,
+c R. Alcouffe, R. Dautray, A. Forster, G. Ledanois and B. Mercier, eds., 
+c Springer-Verlag, Berlin (1985), p.432.
+c
+c
+11 1 -1.0 -11               $ concrete
+12 1 -1.0 -12
+13 1 -1.0 -13
+14 1 -1.0 -14
+15 1 -1.0 -15
+16 1 -1.0 -16
+17 1 -1.0 -17
+18 1 -1.0 -18
+19 1 -1.0 -19
+20 1 -1.0 -20
+21 1 -1.0 -21
+22 1 -1.0 -22
+23 1 -1.0 -23
+24 1 -1.0 -24
+25 1 -1.0 -25
+26 1 -1.0 -26
+27 1 -1.0 -27
+28 1 -1.0 -28
+29 1 -1.0 -29
+30 1 -1.0 -30
+40 0 70 -80 50 -60          $ void for tally
+50 0 10 -40 #20             $ void
+60 0 40                     $ outside
+
+10 rcc 0 0 000 0 0 400 20     $ concrete cylinder
+11 rcc 0 0 000 0 0  20 20
+12 rcc 0 0 020 0 0  20 20 
+13 rcc 0 0 040 0 0  20 20 
+14 rcc 0 0 060 0 0  20 20 
+15 rcc 0 0 080 0 0  20 20 
+16 rcc 0 0 100 0 0  20 20 
+17 rcc 0 0 120 0 0  20 20 
+18 rcc 0 0 140 0 0  20 20 
+19 rcc 0 0 160 0 0  20 20 
+20 rcc 0 0 180 0 0  20 20 
+21 rcc 0 0 200 0 0  20 20 
+22 rcc 0 0 220 0 0  20 20 
+23 rcc 0 0 240 0 0  20 20 
+24 rcc 0 0 260 0 0  20 20 
+25 rcc 0 0 280 0 0  20 20 
+26 rcc 0 0 300 0 0  20 20 
+27 rcc 0 0 320 0 0  20 20 
+28 rcc 0 0 340 0 0  20 20 
+29 rcc 0 0 360 0 0  20 20 
+30 rcc 0 0 380 0 0  20 20 
+40 rcc 0 0 -40 0 0 480 500  $ enclosing cylinder
+50 cz 399.5
+60 cz 400.5
+70 pz 174.5 
+80 pz 175.5 
+ 
+imp:p 1 21R 0
+mode p
+sdef par=2 pos=0 0 0.0000001  dir=1 vec=0 0 1 erg=d1 ara=1.0
+sp1 -2 1.30 
+c
+c concrete 
+m1   1000  0.006094
+     8000  0.043421
+     14000 0.01739
+     13000 0.002686
+     22000 0.001958
+     26000 0.000334
+c
+f12:p 10.2
+f22:p 10.3
+f24:p 40
+c 
+c Point Detectors in void ring
+c
+f105:p  400 0 175  1
+c
+f115:p  400 0 175  1
+c
+f125:p  400 0 175  1
+c 
+c Ring Detectors in void ring
+c
+f205z:p  175 400  1
+c
+f215z:p  175 400  1
+c
+f225z:p  175 400  1
+c
+c Point Detectors @ cylinder end
+c
+f305:p  0 0 400  -0.1
+c
+f315:p  0 0 400  -0.1
+c
+f325:p  0 0 400  -0.1
+c
+#    de0   df0
+     0.01  2.78E-06
+     0.015 1.11E-06
+     0.02  5.88E-07
+     0.03  2.56E-07
+     0.04  1.56E-07
+     0.05  1.20E-07
+     0.06  1.11E-07
+     0.08  1.20E-07
+     0.10  1.47E-07
+     0.15  2.38E-07
+     0.20  3.45E-07
+     0.30  5.56E-07
+     0.40  7.69E-07
+     0.50  9.09E-07
+     0.60  1.14E-06
+     0.80  1.47E-06
+     1.00  1.79E-06
+     1.50  2.44E-06
+     2.00  3.03E-06
+     3.00  4.00E-06
+     4.00  4.76E-06
+     5.00  5.56E-06
+     6.00  6.25E-06
+     8.00  7.69E-06
+    10.00  9.09E-06
+c
+nps 100000
+c
+print  -85 -86
+c
+c  For backward compatability, set the first calculation of the
+c  point detector average contribution at nps =  200
+c
+dbcn 66j 200
+c
