@@ -26,6 +26,43 @@ Complete the final 8 skills: validation/debugging tools and specialized meta-ski
 
 ---
 
+## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
+
+**MANDATORY for ALL Phase 5 skills - NO EXCEPTIONS:**
+
+### Correct Directory Structure
+```
+.claude/skills/[skill-name]/
+├── SKILL.md                          ← Main skill file
+├── fatal_error_catalog.md            ← Reference files at ROOT level
+├── warning_catalog.md                ← NOT in subdirectories
+├── example_catalog.md                ← Same level as SKILL.md
+├── [other-reference].md              ← Root skill directory
+├── scripts/                          ← Subdirectory for scripts ONLY
+│   ├── error_parser.py
+│   ├── example_finder.py
+│   └── README.md
+└── example_inputs/                   ← DIRECTLY at root (NOT in assets/)
+    └── [error examples or data]
+```
+
+### WRONG Structures (NEVER CREATE THESE)
+```
+❌ WRONG #1: references/ subdirectory
+.claude/skills/[skill-name]/
+└── references/                       ← WRONG - No subdirectory!
+    └── [reference files]             ← Should be at root level
+
+❌ WRONG #2: assets/ subdirectory (MOST COMMON ERROR)
+.claude/skills/[skill-name]/
+└── assets/                           ← WRONG - assets/ NEVER EXISTS!
+    └── example_inputs/               ← Should be at root level
+```
+
+**Reference:** CLAUDE-SESSION-REQUIREMENTS.md lines 495-540, LESSONS-LEARNED.md Lesson #16
+
+---
+
 ## 📚 DOCUMENTATION TO READ (ONCE AT PHASE START)
 
 ### Required Reading List
@@ -260,13 +297,13 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 2. **Cross-Reference with Documentation** (0k if cached, or read specific docs as needed)
 3. **Identify Discrepancies and Gaps** (1k tokens)
 4. **Create Skill Revamp Plan** (1k tokens)
-5. **Extract Content to references/** (2k tokens)
-6. **Add Example Files to assets/** (1k tokens)
+5. **Extract Content to Root Skill Directory** (2k tokens) - Reference .md files at ROOT level
+6. **Add Example Files to example_inputs/ at ROOT Level** (1k tokens) - DIRECTLY at root, NO assets/
 7. **Create/Bundle Scripts** (1k tokens)
 8. **Streamline SKILL.md** (3k tokens)
-9. **Validate Quality - 25-Item Checklist** (1k tokens)
+9. **Validate Quality - 26-Item Checklist** (1k tokens)
 10. **Test Skill** (minimal tokens)
-11. **Update REVAMP-PROJECT-STATUS.md** (minimal tokens)
+11. **Update PHASE-5-PROJECT-STATUS.md** (minimal tokens)
 
 **Total per skill:** ~10k tokens
 
@@ -323,7 +360,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
   - [ ] mcnp-input-validator - done in Phase 1? [Yes/No]
   - [ ] mcnp-geometry-checker - done in Phase 1? [Yes/No]
   - If done, count as 6 skills in Phase 5, not 8
-- [ ] REVAMP-PROJECT-STATUS.md updated with Phase 5 start
+- [ ] PHASE-5-PROJECT-STATUS.md updated with Phase 5 start
 - [ ] Token budget noted (~90-120k depending on cache)
 
 ### Documentation Reading (As Needed Per Skill)
@@ -336,10 +373,12 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 **For each skill:**
 - [ ] Check if already done in Phase 1 first
 - [ ] Follow 11-step workflow
+- [ ] Extract reference .md files to ROOT level (NOT in subdirectories)
+- [ ] Add to example_inputs/ DIRECTLY at root (NO assets/)
 - [ ] Emphasize integration with other skills
 - [ ] Create comprehensive error catalogs
 - [ ] Update STATUS continuously
-- [ ] Complete 25-item quality checklist
+- [ ] Complete 26-item quality checklist (includes NO assets/ check)
 
 **Skills (in order):**
 1. [ ] mcnp-fatal-error-debugger
@@ -356,7 +395,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 - [ ] **ALL 36 SKILLS REVAMPED** 🎉
 - [ ] Final integration check across all phases
 - [ ] Create skill ecosystem map (which skills connect to which)
-- [ ] REVAMP-PROJECT-STATUS.md marked as COMPLETE
+- [ ] PHASE-5-PROJECT-STATUS.md marked as COMPLETE
 - [ ] Celebrate! 🎊
 
 ---
@@ -460,11 +499,11 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 
 ### Phase Complete When:
 - ✅ All required Phase 5 skills completed (6-8 depending on Phase 1)
-- ✅ Every skill passes 25-item quality checklist
+- ✅ Every skill passes 26-item quality checklist (includes NO assets/ check)
 - ✅ Error catalogs comprehensive
 - ✅ Meta-skills have functional search tools
 - ✅ Integration map complete (all 36 skills connected)
-- ✅ REVAMP-PROJECT-STATUS.md marked COMPLETE
+- ✅ PHASE-5-PROJECT-STATUS.md marked COMPLETE
 - ✅ Token budget within estimates (~90-120k)
 - ✅ **PROJECT COMPLETE** 🎉
 
@@ -485,7 +524,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 
 ## 📈 PROGRESS TRACKING
 
-**Monitor in REVAMP-PROJECT-STATUS.md:**
+**Monitor in PHASE-5-PROJECT-STATUS.md:**
 
 ```markdown
 ## PHASE 5 PROGRESS (FINAL PHASE)
@@ -568,7 +607,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 
 ### When Phase 5 Complete:
 
-1. **Update REVAMP-PROJECT-STATUS.md:**
+1. **Update PHASE-5-PROJECT-STATUS.md:**
    - Mark all 36 skills as complete
    - Add final statistics
    - Celebrate success! 🎉

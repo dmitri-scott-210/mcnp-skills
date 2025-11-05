@@ -1,38 +1,39 @@
 # CLAUDE SESSION REQUIREMENTS - MCNP SKILLS REVAMP PROJECT
 
-**Version:** 2.4
+**Version:** 2.5
 **Created:** 2025-11-02
-**Last Updated:** 2025-11-05 (Session 18 - TIER 1 & TIER 2 COMPLETE)
+**Last Updated:** 2025-11-05 (Session 20 - PHASE 1 COMPLETE, PHASE 2 STARTING)
 
 ---
 
 ## 🚨 CURRENT PROJECT STATE (READ THIS FIRST) 🚨
 
-**Last Updated:** Session 18 - 2025-11-05
+**Last Updated:** Session 20 - 2025-11-05
 
 ### Current Phase Information
-- **Active Phase:** Phase 1 (Category A&B - 16 skills)
-- **Phase Master Plan:** `PHASE-1-MASTER-PLAN.md`
-- **Active Status Document:** `PHASE-1-PROJECT-STATUS-PART-6.md`
-- **Session:** 19 (next session)
-- **Tier 1 Skills Complete:** 7/7 (100%) ✅ ALL TIER 1 COMPLETE
-  - ✅ mcnp-input-builder (Session 8)
-  - ✅ mcnp-geometry-builder (Session 8)
-  - ✅ mcnp-material-builder (Session 10)
-  - ✅ mcnp-source-builder (Session 13)
-  - ✅ mcnp-tally-builder (Sessions 14-15)
-  - ✅ mcnp-physics-builder (Session 15)
-  - ✅ mcnp-lattice-builder (Session 16)
-- **Tier 2 Skills Complete:** 5/5 (100%) ✅ ALL TIER 2 COMPLETE
-  - ✅ mcnp-input-validator (Session 17)
-  - ✅ mcnp-geometry-editor (Session 17)
-  - ✅ mcnp-input-editor (Session 17)
-  - ✅ mcnp-transform-editor (Session 17)
-  - ✅ mcnp-variance-reducer (Session 17)
-- **Tier 3 Skills Complete:** 1/4 (25%)
-  - ✅ mcnp-cell-checker (Session 18)
-- **Phase 1 Overall:** 13/16 skills complete (81.25%)
-- **Next Tier:** Tier 3 (Validation - 3 skills remaining)
+- **Active Phase:** Phase 2 (Category D - 6 skills)
+- **Phase Master Plan:** `PHASE-2-MASTER-PLAN.md`
+- **Active Status Document:** `PHASE-2-PROJECT-STATUS.md`
+- **Session:** 21 (next session)
+
+### Phase 1 Summary (COMPLETE ✅)
+- **Status:** 16/16 skills complete (100%) ✅ **PHASE 1 COMPLETE**
+- **Tier 1 Skills:** 7/7 complete (100%)
+  - ✅ mcnp-input-builder, mcnp-geometry-builder, mcnp-material-builder
+  - ✅ mcnp-source-builder, mcnp-tally-builder, mcnp-physics-builder
+  - ✅ mcnp-lattice-builder
+- **Tier 2 Skills:** 5/5 complete (100%)
+  - ✅ mcnp-input-validator, mcnp-geometry-editor, mcnp-input-editor
+  - ✅ mcnp-transform-editor, mcnp-variance-reducer
+- **Tier 3 Skills:** 4/4 complete (100%)
+  - ✅ mcnp-cell-checker, mcnp-cross-reference-checker
+  - ✅ mcnp-geometry-checker, mcnp-physics-validator
+- **Completed:** Session 20 (2025-11-05)
+
+### Phase 2 Progress
+- **Status:** 0/6 skills complete (0%)
+- **Skills:** output-parser, mctal-processor, mesh-builder, plotter, tally-analyzer (partial), statistics-checker (partial)
+- **Next Skill:** mcnp-output-parser
 
 ### Critical Context
 - **Token budget optimization:** 6-step startup procedure (saves ~10k tokens)

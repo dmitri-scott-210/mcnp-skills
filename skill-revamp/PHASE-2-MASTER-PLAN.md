@@ -26,6 +26,45 @@ Revamp 6 output analysis and mesh-focused skills that share documentation about 
 
 ---
 
+## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
+
+**MANDATORY for ALL Phase 2 skills - NO EXCEPTIONS:**
+
+### Correct Directory Structure
+```
+.claude/skills/[skill-name]/
+├── SKILL.md                          ← Main skill file
+├── output_formats.md                 ← Reference files at ROOT level
+├── mctal_format.md                   ← NOT in subdirectories
+├── hdf5_structure.md                 ← Same level as SKILL.md
+├── [other-reference].md              ← Root skill directory
+├── scripts/                          ← Subdirectory for scripts ONLY
+│   ├── mcnp_output_reader.py
+│   └── README.md
+├── templates/                        ← DIRECTLY at root (NOT in assets/)
+│   └── [template files]
+└── example_inputs/                   ← DIRECTLY at root (NOT in assets/)
+    └── [example files]
+```
+
+### WRONG Structures (NEVER CREATE THESE)
+```
+❌ WRONG #1: references/ subdirectory
+.claude/skills/[skill-name]/
+└── references/                       ← WRONG - No subdirectory!
+    └── [reference files]             ← Should be at root level
+
+❌ WRONG #2: assets/ subdirectory (MOST COMMON ERROR)
+.claude/skills/[skill-name]/
+└── assets/                           ← WRONG - assets/ NEVER EXISTS!
+    ├── templates/                    ← Should be at root level
+    └── example_inputs/               ← Should be at root level
+```
+
+**Reference:** CLAUDE-SESSION-REQUIREMENTS.md lines 495-540, LESSONS-LEARNED.md Lesson #16
+
+---
+
 ## 📚 DOCUMENTATION TO READ (ONCE AT PHASE START)
 
 ### Required Reading List
@@ -240,17 +279,17 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 2. **Cross-Reference with Documentation** (0k - already read)
 3. **Identify Discrepancies and Gaps** (1k tokens)
 4. **Create Skill Revamp Plan** (1k tokens)
-5. **Extract Content to references/** (2k tokens)
-6. **Add Example Files to assets/** (1k tokens)
+5. **Extract Content to Root Skill Directory** (2k tokens) - Reference .md files at ROOT level
+6. **Add Example Files to example_inputs/ at ROOT Level** (1k tokens) - DIRECTLY at root, NO assets/
 7. **Create/Bundle Scripts** (1k tokens)
 8. **Streamline SKILL.md** (3k tokens)
-9. **Validate Quality - 25-Item Checklist** (1k tokens)
+9. **Validate Quality - 26-Item Checklist** (1k tokens)
 10. **Test Skill** (minimal tokens)
-11. **Update REVAMP-PROJECT-STATUS.md** (minimal tokens)
+11. **Update PHASE-2-PROJECT-STATUS.md** (minimal tokens)
 
 **Total per skill:** ~10k tokens
 
-See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
+See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure requirements (NO assets/ subdirectory).
 
 ---
 
@@ -289,8 +328,10 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
 ### Skill Processing (6 iterations)
 **For each skill:**
 - [ ] Follow 11-step workflow from PHASE-1-MASTER-PLAN.md
+- [ ] Extract reference .md files to ROOT level (NOT in subdirectories)
+- [ ] Create example_inputs/ and templates/ DIRECTLY at root (NO assets/ parent)
 - [ ] Update STATUS continuously
-- [ ] Complete 25-item quality checklist
+- [ ] Complete 26-item quality checklist (includes NO assets/ check)
 - [ ] Test before marking complete
 
 **Skills (in order):**
@@ -317,6 +358,11 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
 - Multiple file format support (OUTP, MCTAL, HDF5, XDMF, PTRAC)
 - Format detection and selection
 - Error handling for malformed files
+**Structure requirements:**
+- Reference .md files (output_formats.md, mctal_format.md, hdf5_structure.md) at ROOT level
+- scripts/ with Python modules (mcnp_output_reader.py, mctal_extractor.py, hdf5_mesh_reader.py)
+- example_inputs/ DIRECTLY at root (NO assets/)
+- **VERIFY:** NO assets/ or references/ subdirectories exist
 **Python scripts essential:**
 - This skill MUST have bundled scripts (mentioned but not bundled originally)
 - Create comprehensive Python module for output parsing
@@ -330,6 +376,11 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
 - FMESH vs unstructured mesh decision
 - External mesh generation (GMSH, ABAQUS, etc.)
 - EMBED command for UM
+**Structure requirements:**
+- Reference .md files (mesh_types.md, mesh_generation.md, mesh_optimization.md) at ROOT level
+- scripts/ with fmesh_generator.py and mesh_converter.py
+- example_inputs/ DIRECTLY at root with mesh examples (NO assets/)
+- **VERIFY:** NO assets/ or references/ subdirectories exist
 **References critical:**
 - Chapter 8 extraction (UM geometry specification)
 - Appendix A (external mesh formats)
@@ -378,7 +429,7 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
 
 **Actions:**
 1. Create simplified example scripts
-2. Extensive documentation in references/
+2. Extensive documentation in reference .md files at root level
 3. Point to external libraries (h5py, PyTables)
 4. Include installation instructions
 5. Test scripts with example data if available
@@ -390,20 +441,21 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions.
 ### Phase Complete When:
 - ✅ All 10 documentation files read and comprehended
 - ✅ All 6 skills processed through 11-step workflow
-- ✅ Every skill passes 25-item quality checklist
+- ✅ Every skill passes 26-item quality checklist (includes NO assets/ check)
 - ✅ All skills tested and validated
 - ✅ Partial skills (tally-analyzer, statistics-checker) clearly marked
 - ✅ Integration with Phase 1 skills documented
-- ✅ REVAMP-PROJECT-STATUS.md reflects accurate completion
+- ✅ PHASE-2-PROJECT-STATUS.md reflects accurate completion
 - ✅ Token budget within estimates (~100k)
 - ✅ Ready to proceed to Phase 3
 
 ### Per-Skill Success:
 - ✅ SKILL.md streamlined to <5k words (ideally <3k)
-- ✅ references/ created with format specifications
-- ✅ assets/ populated with relevant examples
+- ✅ Reference .md files created at ROOT level (NOT in subdirectories)
+- ✅ example_inputs/ populated with relevant examples (DIRECTLY at root, NO assets/)
+- ✅ templates/ created at ROOT level (if applicable, NO assets/)
 - ✅ scripts/ created (ESSENTIAL for output parsing skills)
-- ✅ 25-item checklist passed
+- ✅ 26-item checklist passed (includes NO assets/ directory check)
 - ✅ Tested with Claude Code
 - ✅ STATUS updated with completion entry
 

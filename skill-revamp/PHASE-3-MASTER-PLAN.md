@@ -26,6 +26,42 @@ Complete variance reduction and advanced analysis skills by adding variance redu
 
 ---
 
+## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
+
+**MANDATORY for ALL Phase 3 skills - NO EXCEPTIONS:**
+
+### Correct Directory Structure
+```
+.claude/skills/[skill-name]/
+├── SKILL.md                          ← Main skill file
+├── vr_effectiveness_analysis.md      ← Reference files at ROOT level
+├── convergence_diagnostics.md        ← NOT in subdirectories
+├── advanced_vr_theory.md             ← Same level as SKILL.md
+├── [other-reference].md              ← Root skill directory
+├── scripts/                          ← Subdirectory for scripts ONLY
+│   ├── analyze_vr_effectiveness.py
+│   └── README.md
+└── example_inputs/                   ← DIRECTLY at root (NOT in assets/)
+    └── [VR example files]
+```
+
+### WRONG Structures (NEVER CREATE THESE)
+```
+❌ WRONG #1: references/ subdirectory
+.claude/skills/[skill-name]/
+└── references/                       ← WRONG - No subdirectory!
+    └── [reference files]             ← Should be at root level
+
+❌ WRONG #2: assets/ subdirectory (MOST COMMON ERROR)
+.claude/skills/[skill-name]/
+└── assets/                           ← WRONG - assets/ NEVER EXISTS!
+    └── example_inputs/               ← Should be at root level
+```
+
+**Reference:** CLAUDE-SESSION-REQUIREMENTS.md lines 495-540, LESSONS-LEARNED.md Lesson #16
+
+---
+
 ## 📚 DOCUMENTATION TO READ (ONCE AT PHASE START)
 
 ### Required Reading List
@@ -187,13 +223,13 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 2. **Cross-Reference with Documentation** (0k - already read)
 3. **Identify Discrepancies and Gaps** (1k tokens)
 4. **Create Skill Revamp Plan** (1k tokens)
-5. **Extract Content to references/** (2k tokens)
-6. **Add Example Files to assets/** (1k tokens)
+5. **Extract Content to Root Skill Directory** (2k tokens) - Reference .md files at ROOT level
+6. **Add Example Files to example_inputs/ at ROOT Level** (1k tokens) - DIRECTLY at root, NO assets/
 7. **Create/Bundle Scripts** (1k tokens)
 8. **Streamline SKILL.md** (3k tokens)
-9. **Validate Quality - 25-Item Checklist** (1k tokens)
+9. **Validate Quality - 26-Item Checklist** (1k tokens)
 10. **Test Skill** (minimal tokens)
-11. **Update REVAMP-PROJECT-STATUS.md** (minimal tokens)
+11. **Update PHASE-3-PROJECT-STATUS.md** (minimal tokens)
 
 **Total per skill:** ~10k tokens
 
@@ -206,14 +242,14 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 - Identify what Phase 3 needs to add
 - Ensure seamless integration
 
-**Step 5 modification:** ADD to references/ (don't replace)
-- Keep Phase 2 references
-- Add new Phase 3 references
+**Step 5 modification:** ADD to root-level reference .md files (don't replace)
+- Keep Phase 2 reference .md files at root
+- Add new Phase 3 reference .md files at root
 - Cross-reference between basic and advanced
 
-**Step 6 modification:** ADD to assets/
-- Keep Phase 2 examples
-- Add variance reduction examples
+**Step 6 modification:** ADD to example_inputs/ at root (don't replace)
+- Keep Phase 2 examples in example_inputs/
+- Add variance reduction examples to example_inputs/
 - Organize by basic vs advanced
 
 **Step 7 modification:** ADD to scripts/
@@ -224,7 +260,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 **Step 8 modification:** ENHANCE SKILL.md (careful not to balloon size)
 - Add advanced use cases
 - Add VR-specific sections
-- Maintain <5k word limit (may need to extract more to references/)
+- Maintain <5k word limit (may need to extract more to root-level .md files)
 
 **For mcnp-variance-reducer:**
 - Same approach as above (completing from Phase 1)
@@ -263,7 +299,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 ### Before Starting Phase 3
 - [ ] Phase 2 complete (6 skills revamped)
 - [ ] Check if Phase 2 docs still in context
-- [ ] REVAMP-PROJECT-STATUS.md updated with Phase 3 start
+- [ ] PHASE-3-PROJECT-STATUS.md updated with Phase 3 start
 - [ ] Token budget noted (~55k-90k depending on cache)
 
 ### Documentation Reading
@@ -279,8 +315,10 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 **For each skill:**
 - [ ] Follow 11-step workflow
 - [ ] For partial skills: INTEGRATE new content, don't replace
+- [ ] Extract reference .md files to ROOT level (NOT in subdirectories)
+- [ ] Add to example_inputs/ DIRECTLY at root (NO assets/)
 - [ ] Update STATUS continuously
-- [ ] Complete 25-item quality checklist
+- [ ] Complete 26-item quality checklist (includes NO assets/ check)
 - [ ] Test before marking complete
 
 **Skills (in order):**
@@ -293,7 +331,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 - [ ] All 4 skills completed and validated
 - [ ] Partial skills now fully complete
 - [ ] Integration between VR skills documented
-- [ ] REVAMP-PROJECT-STATUS.md reflects Phase 3 complete
+- [ ] PHASE-3-PROJECT-STATUS.md reflects Phase 3 complete
 - [ ] Prepare for Phase 4
 
 ---
@@ -372,10 +410,10 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 **Issue:** 02_07_Variance_Reduction.md theory is advanced
 
 **Actions:**
-1. Extract ALL theory to references/
+1. Extract ALL theory to root-level reference .md files
 2. Keep SKILL.md focused on practical application
 3. Simplify use cases to show "how" not "why"
-4. Link to references/ for theoretical background
+4. Link to root-level reference .md files for theoretical background
 5. Ensure examples demonstrate concepts clearly
 
 ### If variance-reduction_examples/ Limited
@@ -396,11 +434,11 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 - ✅ VR theory documentation read and understood
 - ✅ All 4 skills processed through 11-step workflow
 - ✅ Partial skills (from Phases 1&2) now COMPLETE
-- ✅ Every skill passes 25-item quality checklist
+- ✅ Every skill passes 26-item quality checklist (includes NO assets/ check)
 - ✅ Integration between VR skills documented
-- ✅ Theoretical foundation properly extracted to references/
-- ✅ variance-reduction_examples/ incorporated
-- ✅ REVAMP-PROJECT-STATUS.md reflects accurate completion
+- ✅ Theoretical foundation properly extracted to root-level .md files
+- ✅ variance-reduction_examples/ incorporated into example_inputs/
+- ✅ PHASE-3-PROJECT-STATUS.md reflects accurate completion
 - ✅ Token budget within estimates (~55k-90k)
 - ✅ Ready to proceed to Phase 4
 
@@ -408,10 +446,10 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 - ✅ Phase 2/1 content preserved and integrated
 - ✅ New Phase 3 content seamlessly added
 - ✅ SKILL.md still <5k words (may require extraction)
-- ✅ references/ includes both basic and advanced content
-- ✅ assets/ has VR examples
+- ✅ Reference .md files at ROOT level include both basic and advanced content
+- ✅ example_inputs/ at root has VR examples (NO assets/)
 - ✅ scripts/ includes VR analysis tools
-- ✅ 25-item checklist passed
+- ✅ 26-item checklist passed (includes NO assets/ directory check)
 - ✅ Tested with Claude Code
 - ✅ STATUS updated with completion entry
 
@@ -419,7 +457,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 
 ## 📈 PROGRESS TRACKING
 
-**Monitor in REVAMP-PROJECT-STATUS.md:**
+**Monitor in PHASE-3-PROJECT-STATUS.md:**
 
 ```markdown
 ## PHASE 3 PROGRESS
