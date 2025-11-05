@@ -768,9 +768,9 @@ See **root skill direcroy** for comprehensive specifications:
   - FQ print hierarchy: F D U S M C E T bin types
 
 **Templates and Examples:**
-See `assets/` subdirectory:
+See `` subdirectory:
 
-- **Example Tallies** (`assets/example_tallies/`)
+- **Example Tallies** (`example_tallies/`)
   - 01_basic_flux_spectrum.i (F4 + E + SD)
   - 02_point_detector_dose.i (F5 + DE/DF)
   - 03_reaction_rates.i (F4 + FM)

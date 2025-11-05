@@ -383,16 +383,16 @@ See **root skill directory** for additional comprehensive information:
   - Large simulation best practices
 
 ### Templates and Examples
-See `assets/` subdirectory:
+Example files and templates:
 
-- **Templates** (`assets/templates/`)
+- **Templates** (`templates/`)
   - basic_fixed_source_template.i
   - kcode_criticality_template.i
   - shielding_template.i
   - detector_template.i
   - README.md (template usage guide)
 
-- **Example Inputs** (`assets/example_inputs/`)
+- **Example Inputs** (`example_inputs/`)
   - 10 validated examples (basic → advanced)
   - Each with description file
   - Source files from basic_examples/ and reactor-model_examples/

@@ -155,7 +155,7 @@ NPS  10000
 **Key Points:**
 - Spherical symmetry simplifies modeling
 - Volume = (4/3)π(R_outer³ - R_inner³)
-- See `assets/example_geometries/01_nested_spheres.i`
+- See `example_geometries/01_nested_spheres.i`
 
 ### 2. Rectangular Pin Lattice (LAT=1)
 **Application:** PWR fuel assembly, detector array
@@ -187,7 +187,7 @@ c Surfaces
 **Key Points:**
 - **LAT=1 indexing:** i (X) fastest, j (Y) middle, k (Z) slowest
 - FILL array lists universes by (k, j, i)
-- See `lattice_geometry_reference.md` and `assets/templates/cylinder_array_template.i`
+- See `lattice_geometry_reference.md` and `templates/cylinder_array_template.i`
 
 ### 3. Coordinate Transformations
 **Application:** Rotated assemblies, positioned detectors
@@ -211,7 +211,7 @@ c Data Cards
 **Key Points:**
 - ***TR** uses angles in degrees (easier than direction cosines)
 - Surface TR: `j n type params` where n references *TRn card
-- See `transformations_reference.md` and `assets/templates/transformed_geometry_template.i`
+- See `transformations_reference.md` and `templates/transformed_geometry_template.i`
 
 ### 4. Macrobody Example
 **Application:** Complex shapes with fewer cards
@@ -240,7 +240,7 @@ NPS  10000
 - RPP creates 6 plane facets (j.1 through j.6)
 - RCC creates 3 facets (j.1=side, j.2=bottom, j.3=top)
 - **Facet restrictions:** Cannot use with SSR/SSW/PTRAC
-- See `macrobodies_reference.md` and `assets/example_geometries/07_macrobody_example.i`
+- See `macrobodies_reference.md` and `example_geometries/07_macrobody_example.i`
 
 ---
 
@@ -300,8 +300,8 @@ Before running MCNP:
 - `geometry_debugging.md` - VOID card, lost particles, 10 error patterns, validation workflow
 
 **Assets:**
-- `assets/example_geometries/` - 10 working examples with documentation
-- `assets/templates/` - 4 templates (nested spheres, rectangular array, hexagonal lattice, transformations)
+- `example_geometries/` - 10 working examples with documentation
+- `templates/` - 4 templates (nested spheres, rectangular array, hexagonal lattice, transformations)
 - `scripts/` - 2 Python helpers (validator, plotter)
 
 ---
@@ -372,7 +372,7 @@ Before running MCNP:
 - geometry_validator.py - Pre-MCNP validation
 - geometry_plotter_helper.py - Automated plot generation
 
-**See** `assets/templates/README.md` and `scripts/README.md` for complete usage guides.
+**See** `templates/README.md` and `scripts/README.md` for complete usage guides.
 
 ---
 

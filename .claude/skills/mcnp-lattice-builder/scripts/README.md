@@ -288,8 +288,8 @@ Planned features (contributions welcome):
 ## Support
 
 For issues or questions:
-1. Check example files in `../assets/example_inputs/`
-2. Review reference documentation in `../references/`
+1. Check example files in `../example_inputs/`
+2. Review reference documentation in `../`
 3. Consult MCNP6 Manual Chapter 5 (Cell and Surface Cards)
 4. See SKILL.md for integration with other tools
 

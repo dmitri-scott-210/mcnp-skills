@@ -318,7 +318,7 @@ M2  92235.80c  0.032  92238.80c  0.968  $ Was: 0.030 / 0.970
 - `large_file_indexer.py` - Efficient editing for files >5,000 lines
 - `README.md` - Script usage, workflows, examples
 
-**Example Files** (`assets/` directory):
+**Example Files** (`` directory):
 - Examples demonstrating before/after editing operations
 - Editing workflows and techniques
 

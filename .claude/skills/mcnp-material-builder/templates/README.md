@@ -251,9 +251,9 @@ Before using any template:
 ## Additional Resources
 
 **Material Specifications:**
-- See `../references/material_card_specifications.md` for M card syntax
-- See `../references/thermal_scattering_reference.md` for complete S(α,β) tables
-- See `../references/advanced_material_cards.md` for OTFDB, NONU, AWTAB
+- See `../material_card_specifications.md` for M card syntax
+- See `../thermal_scattering_reference.md` for complete S(α,β) tables
+- See `../advanced_material_cards.md` for OTFDB, NONU, AWTAB
 
 **Calculation Tools:**
 - Use `../scripts/material_density_calculator.py` for density conversions

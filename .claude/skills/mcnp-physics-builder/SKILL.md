@@ -726,11 +726,11 @@ THTME  0  1e2  1e3  1e4         $ Time points (shakes)
 - Magnetic field tracking: `magnetic_field_tracking.md`
 
 **Example Files:**
-- Basic neutron physics: `assets/example_physics/01_basic_neutron_physics.i`
-- Photon-electron coupled: `assets/example_physics/02_photon_electron_coupled.i`
-- Proton physics: `assets/example_physics/03_proton_physics.i`
-- Temperature-dependent: `assets/example_physics/04_temperature_dependent.i`
-- Activation example: `assets/example_physics/05_activation_example.i`
+- Basic neutron physics: `example_physics/01_basic_neutron_physics.i`
+- Photon-electron coupled: `example_physics/02_photon_electron_coupled.i`
+- Proton physics: `example_physics/03_proton_physics.i`
+- Temperature-dependent: `example_physics/04_temperature_dependent.i`
+- Activation example: `example_physics/05_activation_example.i`
 
 **MCNP6 User Manual:**
 - Chapter 5.2: Data Cards Overview

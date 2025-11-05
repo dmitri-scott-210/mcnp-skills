@@ -416,10 +416,10 @@ complete_validation('input.inp')
 
 ```bash
 # Test with invalid input (should fail)
-python mcnp_input_validator.py ../assets/example_inputs/01_missing_blank_line_INVALID.i
+python mcnp_input_validator.py ../example_inputs/01_missing_blank_line_INVALID.i
 
 # Test with fixed input (should pass)
-python mcnp_input_validator.py ../assets/example_inputs/01_missing_blank_line_FIXED.i
+python mcnp_input_validator.py ../example_inputs/01_missing_blank_line_FIXED.i
 ```
 
 **Expected output for INVALID file:**

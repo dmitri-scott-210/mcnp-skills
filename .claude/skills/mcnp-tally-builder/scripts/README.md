@@ -193,7 +193,7 @@ Plot saved to: dose_response.png
 
 ```bash
 # Test validator
-python tally_validator.py ../assets/example_tallies/01_basic_flux_spectrum.i
+python tally_validator.py ../example_tallies/01_basic_flux_spectrum.i
 
 # Test plotter
 python dose_function_plotter.py --builtin ICRP74_AP

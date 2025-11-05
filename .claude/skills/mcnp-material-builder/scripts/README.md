@@ -307,8 +307,8 @@ from material_density_calculator import *
 
 ## See Also
 
-- **Material References:** `../references/` for detailed M card specifications
-- **Templates:** `../assets/templates/` for material definition examples
+- **Material References:** `../` for detailed M card specifications
+- **Templates:** `../templates/` for material definition examples
 - **SKILL.md:** Main skill documentation for mcnp-material-builder
 
 ---

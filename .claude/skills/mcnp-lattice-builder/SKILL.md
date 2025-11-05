@@ -340,7 +340,7 @@ Result: Full core model ready for multi-cycle depletion
 - `lattice_verification_methods.md` (1,000 words): Geometry plotting, volume checks
 - `common_lattice_errors.md` (1,500 words): Surface ordering, FILL mismatches, lost particles
 
-**Templates and Examples (assets/ directory):**
+**Templates and Examples ("" directory):**
 - 4 templates: Rectangular, hexagonal, nested, reactor core
 - 10 example inputs: Simple (1-3), intermediate (4-6), advanced reactor modeling (7-10)
 
