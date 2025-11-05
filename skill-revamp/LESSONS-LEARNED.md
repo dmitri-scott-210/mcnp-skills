@@ -859,6 +859,9 @@
 - DIRECTORY ERRORS: 2 consecutive sessions (Sessions 12, 13)
 
 **Sessions With Lessons:**
+- Session 18: 0 major lessons (directory structure corrected same-session per user feedback - no violations)
+- Session 17: 0 major lessons (successful execution of 5 skills with proper structure)
+- Session 16: 0 major lessons (successful execution of mcnp-lattice-builder)
 - Session 13: 1 lesson (wrong directory AGAIN - repeated from Session 12)
 - Session 11: 1 lesson (failed to use completed skills - fifth format violation)
 - Session 10: 2 lessons (REPEATED blank line violation - fourth occurrence, context verification)
