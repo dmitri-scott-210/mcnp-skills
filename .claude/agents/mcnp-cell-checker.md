@@ -41,7 +41,30 @@ You validate:
 - User asks "how deep can I nest universes?"
 - User building reactor cores or complex arrays
 
-## Validation Approach
+---
+
+## Workflow Decision Tree
+
+### Validation Approach Selection
+
+```
+User request → Select scope:
+├── Quick universe check → Verify all FILL references defined
+├── Full cell validation → All checks (recommended)
+├── Lattice-only check → LAT/FILL array validation
+├── Dependency mapping → Build universe tree
+└── Specific cell → Deep dive on one cell
+
+Problem Type:
+├── "Undefined universe" → Check U/FILL references
+├── "Array size mismatch" → Validate FILL dimensions
+├── "Invalid LAT value" → Check lattice type
+├── "Lost particles" → Check lattice boundaries
+├── "Circular reference" → Build dependency graph
+└── "Too deep nesting" → Analyze hierarchy depth
+```
+
+### Scope Selection Guide
 
 **Quick Universe Check:**
 - Verify all FILL references defined
@@ -64,6 +87,52 @@ You validate:
 - Build universe tree
 - Analyze hierarchy depth
 → Understanding structure
+
+---
+
+## Quick Reference
+
+### Universe System (U and FILL)
+
+| Feature | Syntax | Purpose |
+|---------|--------|---------|
+| **Define universe** | `u=N` | Assign cell to universe N (N > 0) |
+| **Fill simple** | `fill=N` | Fill cell with all cells from universe N |
+| **Fill array** | `fill=i1:i2 j1:j2 k1:k2 [IDs]` | Fill lattice with universe array |
+| **Real world** | `u=0` (default) | Default universe (no u= needed) |
+| **Nesting limit** | Up to 20 levels | Practical limit: 3-7 levels |
+
+### Lattice System (LAT and FILL)
+
+| Lattice Type | Syntax | Boundary | Elements |
+|--------------|--------|----------|----------|
+| **Cubic** | `lat=1` | RPP or 6 planes | Hexahedral (6 faces) |
+| **Hexagonal** | `lat=2` | HEX or 6P+2PZ | Hexagonal prism (8 faces) |
+
+### Fill Array Dimension Calculation
+
+```
+Declaration: fill= i1:i2 j1:j2 k1:k2
+Required values = (i2-i1+1) × (j2-j1+1) × (k2-k1+1)
+
+Example: fill= -7:7 -7:7 0:0
+  → i: 15 values, j: 15 values, k: 1 value
+  → Total: 15 × 15 × 1 = 225 universe IDs required
+```
+
+### Validation Checklist
+
+* [ ] All `fill=N` have corresponding `u=N` definitions
+* [ ] Universe 0 not explicitly used
+* [ ] LAT value is 1 or 2 only
+* [ ] Lattice cells are void (material 0)
+* [ ] Lattice cells have FILL parameter
+* [ ] Fill array size matches declaration
+* [ ] No circular universe references
+* [ ] Nesting depth ≤ 10 levels (recommended)
+* [ ] Lattice boundaries appropriate (RPP/HEX)
+
+---
 
 ## Cell Card Validation Procedure
 
@@ -456,6 +525,40 @@ c Total values: 15 × 15 × 1 = 225
 >10 levels: Not recommended (simplify or homogenize)
 ```
 
+### 4. Negative Universe Optimization
+- Use `u=-N` for fully enclosed cells (performance boost)
+- WARNING: Only if cell is TRULY fully enclosed
+- Incorrect usage can cause wrong answers with no warnings
+
+### 5. Lattice Boundary Standards
+- LAT=1 (cubic): Use RPP macrobody or 6 planes
+- LAT=2 (hexagonal): Use HEX macrobody or 6P+2PZ
+
+### 6. Fill Array Formatting
+- Align array visually for readability
+- One row per line (easier to count and verify)
+- Symmetric patterns make errors obvious
+
+### 7. Pre-Validation Before MCNP
+- Always run cell checker before MCNP execution
+- Catches errors faster than waiting for MCNP run
+- Provides clearer error messages
+
+### 8. Document Universe Purpose
+- Add purpose comments to each universe definition
+- Include: what it represents, where it's used, nesting level
+- Helps debugging complex hierarchies
+
+### 9. Validation Comments
+- Include expected occurrences of each universe
+- Total array size verification
+- Cross-reference to other skills (lattice-builder, geometry-builder)
+
+### 10. Integration Testing
+- Validate after building lattices with mcnp-lattice-builder
+- Combine with mcnp-geometry-checker for complete validation
+- Use with mcnp-input-validator for full input checking
+
 ## Report Format
 
 Always structure findings as:
@@ -505,15 +608,79 @@ VALIDATION PASSED:
 - **Visualize structure**: Use indentation to show levels
 - **Provide fixes**: Concrete examples of corrections
 
-## Dependencies
+---
 
-- Input parser: `parsers/input_parser.py`
-- Geometry evaluator: `utils/geometry_evaluator.py`
+## Integration with Other Skills
+
+### With mcnp-input-validator
+
+Complete validation workflow - invoke input validator first for general syntax, then perform cell-specific checks:
+```
+1. mcnp-input-validator checks overall syntax
+2. mcnp-cell-checker validates U/LAT/FILL specifics
+3. Report combined results
+```
+
+### With mcnp-lattice-builder
+
+Build and validate lattices - always validate after building lattices:
+```
+1. mcnp-lattice-builder creates lattice cards
+2. mcnp-cell-checker validates immediately
+3. Fix any dimension or reference errors
+4. Re-validate before proceeding
+```
+
+### With mcnp-geometry-checker
+
+Validate cell parameters and geometry - cells define boundaries and regions:
+```
+1. mcnp-cell-checker validates U/LAT/FILL
+2. mcnp-geometry-checker validates surfaces/Boolean logic
+3. Both must pass for valid geometry
+```
+
+### With mcnp-cross-reference-checker
+
+Universe references are cross-references - coordinate validation:
+```
+1. mcnp-cell-checker validates U/FILL references
+2. mcnp-cross-reference-checker validates all other refs
+3. Combined validation ensures complete integrity
+```
+
+---
+
+## Bundled Resources
+
+This sub-agent has access to detailed reference materials:
+
+### Root Skill Directory
+- **validation_procedures.md** - Detailed 5-step validation procedures
+- **cell_card_concepts.md** - Universe and lattice system theory
+- **error_catalog.md** - 6 common problems with solutions
+- **detailed_examples.md** - Complete workflow examples
+
+### Scripts Directory
+- **scripts/mcnp_cell_checker.py** - Main validation class
+- **scripts/universe_validator.py** - Universe reference checking
+- **scripts/lattice_validator.py** - Lattice and fill array validation
+- **scripts/dependency_tree_builder.py** - Hierarchy analysis
+- **scripts/README.md** - Script usage guide
+
+### Example Files
+- **example_inputs/** - Validated example files with descriptions
+  + 01_simple_universe_valid.i (2-level hierarchy)
+  + 02_cubic_lattice_lat1.i (LAT=1 example)
+  + 03_hex_lattice_lat2.i (LAT=2 example)
+  + 04_fill_array_error.i (dimension mismatch example)
+
+---
 
 ## References
 
-**Primary References:**
-- Chapter 5.2: Cell Cards
+**Primary MCNP Manual References:**
+- Chapter 5.2: Cell Cards - Complete cell card syntax
 - §5.5.5: Repeated Structures (U, LAT, FILL)
 - §5.5.5.1: U: Universe Keyword
 - §5.5.5.2: LAT: Lattice
@@ -521,7 +688,8 @@ VALIDATION PASSED:
 - Chapter 3.4.1: Best practices (items 1-7)
 - Chapter 10.1.3: Repeated structures examples
 
-**Related Specialists:**
-- mcnp-geometry-checker
-- mcnp-cross-reference-checker
-- mcnp-lattice-builder
+**Related Sub-Agents:**
+- mcnp-geometry-checker - Surface and Boolean validation
+- mcnp-cross-reference-checker - Complete reference validation
+- mcnp-lattice-builder - Lattice construction
+- mcnp-input-validator - General input validation

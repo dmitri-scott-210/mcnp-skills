@@ -49,6 +49,37 @@ Physics settings control how MCNP simulates particle interactions. Wrong setting
 - DBRC (enhanced Doppler)
 - 30-60 minutes
 
+## Decision Tree
+
+```
+START: Need to configure physics
+  |
+  +--> What particles?
+       |
+       +--[Neutrons only]-----------> MODE N
+       +--[Neutrons + photons]------> MODE N P (coupled)
+       +--[Photons + electrons]-----> MODE P E (coupled)
+       +--[All three]---------------> MODE N P E
+  |
+  +--> Default physics OK?
+       |
+       +--[YES]--> Omit PHYS/CUT (use defaults)
+       +--[NO]---> Specify PHYS and/or CUT cards
+  |
+  +--> Need energy cutoffs?
+       |
+       +--[YES]--> Add CUT card (E_min, E_max, T_max)
+       +--[NO]---> Use defaults (E_min=0 for neutrons, 0.001 for photons)
+  |
+  +--> Temperature-dependent?
+       |
+       +--[YES]--> Add TMP card for each material
+       |           └─> Optional: DBRC for enhanced accuracy
+       +--[NO]---> Omit TMP (use 293K default)
+```
+
+---
+
 ## Physics Configuration Procedure
 
 ### Step 1: Determine Particle Types
@@ -433,41 +464,62 @@ DBRC1  92238.80c                            $ DBRC for U-238
 
 ---
 
-## Common Physics Configurations
+## Use Case Examples
 
-### Configuration 1: Simple Neutron Shielding
+### Use Case 1: Neutron-Only Transport (Default Physics)
 
-**Use defaults (no PHYS/CUT needed)**:
+**Scenario**: Simple neutron shielding problem
+
+**Goal**: Transport neutrons through shielding materials with default physics settings
+
+**Implementation**:
 ```
 c =================================================================
-c Simple Neutron Shielding (Defaults)
+c Neutron-Only Transport (Default Physics)
 c =================================================================
 
-MODE  N                                     $ Neutron only
-c No PHYS/CUT needed (defaults fine)
+MODE  N                                     $ Neutron transport only
 
+c --- No PHYS/CUT cards needed (defaults are fine) ---
+c Default: E_max=100 MeV, E_min=0, T_max=1e33 shakes
+
+c --- Materials ---
 M1   1001  2  8016  1                       $ Water
 MT1  LWTR.01T
-M2   1001  -0.01  8016  -0.53  ...         $ Concrete
+M2   1001  -0.01  8016  -0.53  11023  -0.016  14000  -0.337  20000  -0.044
+c    ^Concrete (mass fractions)
 
+c --- Source, Geometry, Tallies ---
 SDEF  POS=0 0 0  ERG=14.1
-F4:N  1 2
+F4:N  1
 NPS  1000000
 ```
 
-### Configuration 2: Coupled Neutron-Photon
+**Key Points**:
+- MODE N: Neutron transport only
+- No PHYS/CUT: Use MCNP defaults (good for most cases)
+- Defaults: E_max=100 MeV, no energy cutoff, no time cutoff
+- Simplest configuration for standard problems
 
-**Implicit photon production for efficiency**:
+---
+
+### Use Case 2: Coupled Neutron-Photon Transport
+
+**Scenario**: Neutron transport with photon production (capture gammas, fission gammas)
+
+**Goal**: Track both neutrons and secondary photons with optimized physics settings
+
+**Implementation**:
 ```
 c =================================================================
 c Coupled Neutron-Photon Transport
 c =================================================================
 
-MODE  N P                                   $ Neutron + photon
+MODE  N P                                   $ Neutron + photon transport
 
 c --- Neutron Physics ---
 PHYS:N  100  J  J  1  J  J  J  J
-c       ^emax     ^iphot=1 (implicit photons)
+c       ^emax     ^iphot=1 (implicit photon production)
 
 c --- Photon Physics ---
 PHYS:P  100  1  1  0  J  J
@@ -475,55 +527,92 @@ c       ^emax ^simple-e ^no-coherent ^no-photonuclear
 
 c --- Energy Cutoffs ---
 CUT:N  J  0.001  100  1e5
+c      ^E_min=1 keV, E_max=100 MeV, T_max=1 ms
 CUT:P  J  0.01   100  1e5
+c      ^E_min=10 keV
 
+c --- Materials ---
 M1   92235  1.0                             $ U-235
 M2   1001  2  8016  1                       $ Water
+MT2  LWTR.01T
 
+c --- Source ---
 SDEF  CEL=1  ERG=D1
 SI1   0  20
-SP1   -3  0.988  2.249
+SP1   -3  0.988  2.249                      $ Fission spectrum
 
-F4:N  2
-F14:P  2
+c --- Tallies ---
+F4:N  2                                     $ Neutron flux in water
+F14:P  2                                    $ Photon flux in water
+
 NPS  10000000
 ```
 
-### Configuration 3: Photon-Electron Transport
+**Key Points**:
+- MODE N P: Coupled transport (neutrons produce photons)
+- PHYS:N with iphot=1: Implicit photon production (efficient)
+- PHYS:P: Photon physics with simple electron production
+- CUT cards: Energy cutoffs for efficiency
+- Captures both primary and secondary radiation
 
-**Detailed electron production**:
+---
+
+### Use Case 3: Photon-Electron Transport
+
+**Scenario**: Gamma-ray shielding with electron transport
+
+**Goal**: Track photons and secondary electrons for accurate dose calculations
+
+**Implementation**:
 ```
 c =================================================================
 c Photon-Electron Transport
 c =================================================================
 
-MODE  P E                                   $ Photon + electron
+MODE  P E                                   $ Photon + electron (no neutrons)
 
 c --- Photon Physics ---
 PHYS:P  100  2  1  0  J  J
-c       ^emax ^detailed-e ^no-coherent
+c       ^emax ^ides=2 (detailed electron production)
+c            ^nocoh=1 (coherent off)
 
 c --- Electron Physics ---
 PHYS:E  100  J  J  1  0
-c       ^emax     ^detailed-brems
+c       ^emax     ^detailed-brems ^thick-target
 
 c --- Energy Cutoffs ---
-CUT:P  J  0.01   100  1e5
-CUT:E  J  0.001  100  1e5
+CUT:P  J  0.01   100  1e5                   $ Photon: E_min=10 keV
+CUT:E  J  0.001  100  1e5                   $ Electron: E_min=1 keV
 
+c --- Materials ---
 M1   82000  1.0                             $ Lead
 
-SDEF  POS=0 0 0  ERG=1.25  PAR=P            $ Co-60
+c --- Source ---
+SDEF  POS=0 0 0  ERG=1.25  PAR=P            $ Co-60 gamma
 
-F4:P  1
-F14:E  1
+c --- Tallies ---
+F4:P  1                                     $ Photon flux
+F14:E  1                                    $ Electron flux
 F6:P,E  1                                   $ Energy deposition (both)
+
 NPS  1000000
 ```
 
-### Configuration 4: High-Temperature Criticality
+**Key Points**:
+- MODE P E: Photon-electron only (no neutrons)
+- PHYS:P ides=2: Detailed electron production
+- CUT:E: Electron energy cutoff
+- F6:P,E: Combined energy deposition tally
 
-**TMP + DBRC for accurate keff**:
+---
+
+### Use Case 4: High-Temperature Criticality
+
+**Scenario**: High-temperature fuel (900K) with accurate Doppler broadening
+
+**Goal**: Accurate keff calculation with temperature-dependent cross sections
+
+**Implementation**:
 ```
 c =================================================================
 c High-Temperature Criticality (TMP + DBRC)
@@ -553,9 +642,31 @@ KSRC   0 0 0
 PRINT
 ```
 
-### Configuration 5: Fast Neutron (No Thermalization)
+**Key Points**:
+- TMP card: Temperature in MeV (k*T, k=Boltzmann constant)
+- DBRC: Enhanced Doppler for U-238 resonances (~50-200 pcm improvement)
+- MT temperature must match TMP temperature
+- Critical for accurate criticality calculations
 
-**Energy cutoff to skip thermal**:
+**Temperature Conversion**:
+```
+T [MeV] = T [K] × 8.617e-11
+
+293 K  → 2.53e-8 MeV (room temperature)
+600 K  → 5.17e-8 MeV
+900 K  → 7.76e-8 MeV
+1200 K → 1.03e-7 MeV
+```
+
+---
+
+### Use Case 5: Fast Neutron Problem (No Thermalization)
+
+**Scenario**: Fast neutron problem where thermal energy range is not needed
+
+**Goal**: Improve efficiency by excluding thermal neutrons
+
+**Implementation**:
 ```
 c =================================================================
 c Fast Neutron Problem (Skip Thermal)
@@ -572,6 +683,30 @@ SDEF  POS=0 0 0  ERG=14.1
 F4:N  1
 NPS  1000000
 ```
+
+**Key Points**:
+- CUT:N with E_min=0.1 MeV: Skip thermal energy range
+- No MT cards needed: No thermal scattering below cutoff
+- Faster simulation: Particles killed before thermalization
+- Only appropriate when thermal physics not important
+
+---
+
+## Quick Reference: Default Values
+
+| Card    | Parameter | Default   | Notes                     |
+|---------|-----------|-----------|---------------------------|
+| PHYS:N  | emax      | 100 MeV   | Max neutron energy        |
+| PHYS:N  | iphot     | 0         | 0=analog, 1=implicit      |
+| PHYS:N  | nodop     | 0         | 0=Doppler on              |
+| PHYS:P  | emax      | 100 MeV   | Max photon energy         |
+| PHYS:P  | ides      | 0         | 0=no e⁻, 1=simple, 2=full |
+| PHYS:E  | emax      | 100 MeV   | Max electron energy       |
+| CUT:N   | emin      | 0         | Min neutron energy        |
+| CUT:P   | emin      | 0.001 MeV | Min photon energy (1 keV) |
+| CUT:E   | emin      | 0.001 MeV | Min electron energy       |
+| CUT:n   | tmax      | 1e33      | Max time (effectively ∞)  |
+| TMP     | T         | 2.53e-8   | Room temp (293K)          |
 
 ---
 
@@ -676,6 +811,129 @@ PHYS:N  100  J  J  J  J  J  J  J            $ emax=100 MeV (sufficient)
 
 ---
 
+## Validation Checklist
+
+Before running:
+
+- [ ] **MODE card first**:
+  - [ ] MODE is first data card in Block 3
+  - [ ] All transported particle types listed
+
+- [ ] **Particle consistency**:
+  - [ ] Tally particle types (`:N`, `:P`) in MODE
+  - [ ] Source particle type (PAR) in MODE
+  - [ ] PHYS cards match MODE particles
+
+- [ ] **Temperature consistency**:
+  - [ ] TMP temperature matches MT temperature
+  - [ ] TMP in MeV (not Kelvin!)
+  - [ ] DBRC for high-T fuel (>600K)
+
+- [ ] **Energy cutoffs appropriate**:
+  - [ ] CUT:N E_min=0 for thermal problems
+  - [ ] CUT:P E_min≥0.01 typical
+  - [ ] Cutoffs don't exclude source energy
+
+- [ ] **PHYS parameters**:
+  - [ ] emax ≥ source max energy
+  - [ ] iphot=1 for coupled n-γ (efficiency)
+  - [ ] ides≥1 for MODE P E
+
+---
+
+## Best Practices
+
+1. **MODE first**: Always first data card
+2. **Use defaults**: Omit PHYS/CUT unless specific need
+3. **Temperature matching**: TMP and MT must agree
+4. **DBRC for fuel**: High-temperature (>600K) criticality
+5. **Energy cutoffs**: Conservative (don't exclude physics)
+6. **Coupled transport**: iphot=1 for n-γ (efficient)
+7. **Comment choices**: Explain non-default physics settings
+
+---
+
+## Integration with Other Specialists
+
+### Typical Workflow
+
+1. **mcnp-input-builder** → Create basic three-block structure
+2. **mcnp-geometry-builder** → Define cells and surfaces
+3. **mcnp-material-builder** → Define materials (M/MT cards)
+4. **mcnp-physics-builder** (YOU) → Set MODE, PHYS, CUT, TMP
+5. **mcnp-source-builder** → Define source
+6. **mcnp-tally-builder** → Define tallies
+7. **mcnp-input-validator** → Validate before running
+
+### Complementary Specialists
+
+**mcnp-material-builder**:
+- TMP sets temperature for materials
+- DBRC references isotopes in M cards
+- MT temperature must match TMP
+
+**mcnp-source-builder**:
+- Source energy affects PHYS emax
+- CUT cutoffs affect source particle fate
+- Source particle type must be in MODE
+
+**mcnp-tally-builder**:
+- MODE determines allowed tally particles (:N, :P, :E)
+- CUT energy cutoffs affect tally energy range
+
+**mcnp-physics-validator**:
+- After configuration, use validator specialist
+- Check MODE, PHYS, CUT, TMP consistency
+
+---
+
+## References to Bundled Resources
+
+### Detailed Documentation
+
+See **skill root directory** (`.claude/skills/mcnp-physics-builder/`) for comprehensive references:
+
+- **PHYS Card Detailed Parameters** (`phys_card_detailed_parameters.md`)
+  - Complete PHYS:N/P/E/H parameter specifications
+  - All physics options and their interactions
+  - Performance implications of each setting
+  - Advanced physics model selection
+
+- **Model Physics Comprehensive** (`model_physics_comprehensive.md`)
+  - MPHYS, LCA, LCB, LCC, LEA, LEB cards
+  - Bertini vs. CEM vs. ISABEL models
+  - High-energy physics (>150 MeV)
+  - Model physics for protons, heavy ions
+
+- **Advanced Physics Cards** (`advanced_physics_cards.md`)
+  - FMULT (fission multiplicity)
+  - TROPT (transport options)
+  - UNC (unresolved resonances)
+  - Advanced physics control
+
+- **CUT Card Comprehensive** (`cut_card_comprehensive.md`)
+  - Detailed CUT card options and parameters
+  - Weight window cutoffs (wc1, wc2)
+  - Particle-specific cutoff strategies
+  - Time cutoffs for time-dependent problems
+
+- **ACT Card Comprehensive** (`act_card_comprehensive.md`)
+  - Analog capture options
+  - FISSION/NONFISS analog treatment
+  - Testing and verification uses
+
+- **Magnetic Field Tracking** (`magnetic_field_tracking.md`)
+  - BBREM (magnetic field bremsstrahlung)
+  - Charged particle transport in B fields
+  - Field specification and geometry
+
+### Automation Tools
+
+See `scripts/` subdirectory:
+- **validate_physics.py** - Automated physics configuration validation
+
+---
+
 ## Report Format
 
 When configuring physics, provide:
@@ -773,39 +1031,4 @@ MODE must be first data card.
 - **Trade-offs**: "Higher cutoff = faster but less accurate"
 - **DBRC value**: "50-200 pcm improvement for ~10-20% cost"
 - **iphot efficiency**: "iphot=1 speeds up coupled n-γ transport"
-
-## Integration Points
-
-**Materials (mcnp-material-builder)**:
-- TMP sets temperature for materials
-- DBRC references isotopes in M cards
-- MT temperature must match TMP
-
-**Source (mcnp-source-builder)**:
-- Source energy affects PHYS emax
-- CUT cutoffs affect source particle fate
-- Source particle type must be in MODE
-
-**Tallies (mcnp-tally-builder)**:
-- MODE determines allowed tally particles (:N, :P, :E)
-- CUT energy cutoffs affect tally energy range
-
-**Validation (mcnp-physics-validator)**:
-- After configuration, use validator specialist
-- Check MODE, PHYS, CUT, TMP consistency
-
-## References
-
-**Primary References**:
-- Chapter 5.3: Particle Type and Energy Data Cards
-- Section 5.3.1: MODE card
-- Section 5.3.2: PHYS cards
-- Section 5.3.3: CUT cards
-- Section 5.3.4: TMP cards
-- Section 5.3.5: DBRC cards
-
-**Related Specialists**:
-- mcnp-material-builder (TMP/MT integration)
-- mcnp-source-builder (particle type matching)
-- mcnp-tally-builder (MODE particle requirements)
-- mcnp-physics-validator (validation after configuration)
+- **Reference bundled resources**: Point user to detailed documentation when advanced topics arise
