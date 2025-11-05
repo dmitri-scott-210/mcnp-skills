@@ -15,3 +15,10 @@ example_files/unstructured-mesh_examples/um_10_cask_results_for_plotting/meshtal
 *.wwinp
 *.tar.xz
 *.pdf
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
