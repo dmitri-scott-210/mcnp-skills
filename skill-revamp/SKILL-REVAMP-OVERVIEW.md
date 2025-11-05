@@ -1,8 +1,8 @@
 # MCNP SKILLS REVAMP PROJECT - OVERVIEW & MASTER GUIDE
 
-**Version:** 1.1
+**Version:** 1.2
 **Created:** 2025-11-02 (Session 1)
-**Updated:** 2025-11-03 (Session 7 - Added MCNP format requirements & status splitting rule)
+**Updated:** 2025-11-05 (Session 18 - Phase 1: 81.25% complete, Tiers 1 & 2 done)
 **Purpose:** High-level project overview and execution roadmap
 
 ---
@@ -20,11 +20,13 @@ This project uses a **modular documentation approach** to prevent context overlo
 
 2. **Project Status Documents** (phase-specific, continuously updated)
    - **archive/REVAMP-PROJECT-STATUS.md** (ARCHIVED) - Phase 0 infrastructure (historical reference only)
-   - **PHASE-1-PROJECT-STATUS-PART-2.md** - Phase 1 execution tracking (16 skills, currently active)
-   - **PHASE-2-PROJECT-STATUS.md** - Phase 2 execution tracking (6 skills)
-   - **PHASE-3-PROJECT-STATUS.md** - Phase 3 execution tracking (4 skills)
-   - **PHASE-4-PROJECT-STATUS.md** - Phase 4 execution tracking (6 skills)
-   - **PHASE-5-PROJECT-STATUS.md** - Phase 5 execution tracking (8 skills)
+   - **PHASE-1-PROJECT-STATUS-PART-6.md** - Phase 1 execution tracking (16 skills, CURRENTLY ACTIVE)
+     - Parts 1-5 archived (exceeded 900-line threshold)
+     - Part 6: Sessions 17-18, Tier 2 & Tier 3 skills
+   - **PHASE-2-PROJECT-STATUS.md** - Phase 2 execution tracking (6 skills, not started)
+   - **PHASE-3-PROJECT-STATUS.md** - Phase 3 execution tracking (4 skills, not started)
+   - **PHASE-4-PROJECT-STATUS.md** - Phase 4 execution tracking (6 skills, not started)
+   - **PHASE-5-PROJECT-STATUS.md** - Phase 5 execution tracking (8 skills, not started)
    - **Structure:** Each phase status begins with previous phase summary
    - **Purpose:** Focused tracking per phase, prevents document bloat
    - **🚨 SPLITTING RULE:** When ANY status document exceeds 900 lines, create PART N
@@ -568,16 +570,20 @@ See CLAUDE-SESSION-REQUIREMENTS.md Section "QUALITY ASSURANCE CHECKLIST"
 ### High-Level Status
 See **CURRENT PROJECT STATE** section in CLAUDE-SESSION-REQUIREMENTS.md for active phase and status documents:
 ```
-Phase 0 (Infrastructure): [Status]
-Phase 1 (A&B - 16 skills): [Status]
-Phase 2 (D - 6 skills): [Status]
-Phase 3 (E - 4 skills): [Status]
-Phase 4 (F - 6 skills): [Status]
-Phase 5 (C+ - 8 skills): [Status]
+Phase 0 (Infrastructure): ✅ COMPLETE (Sessions 1-2)
+Phase 1 (A&B - 16 skills): 🚧 IN PROGRESS - 13/16 complete (81.25%)
+  - Tier 1 (Core Building): ✅ 7/7 complete (100%)
+  - Tier 2 (Input Editing): ✅ 5/5 complete (100%)
+  - Tier 3 (Validation): 🚧 1/4 complete (25%) - 3 skills remaining
+Phase 2 (D - 6 skills): ⏸️ NOT STARTED
+Phase 3 (E - 4 skills): ⏸️ NOT STARTED
+Phase 4 (F - 6 skills): ⏸️ NOT STARTED
+Phase 5 (C+ - 8 skills): ⏸️ NOT STARTED
 
-Total: X/36 skills complete (Y%)
-Current Phase: [N]
-Active Status Doc: PHASE-[N]-PROJECT-STATUS.md
+Total: 13/36 skills complete (36.11%)
+Current Phase: Phase 1 (Category A&B)
+Active Status Doc: PHASE-1-PROJECT-STATUS-PART-6.md
+Current Session: 19 (next)
 ```
 
 ### Detailed Phase Tracking
