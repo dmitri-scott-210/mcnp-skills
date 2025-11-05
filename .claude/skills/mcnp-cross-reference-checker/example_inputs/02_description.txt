@@ -1,0 +1,45 @@
+EXAMPLE 02: Undefined Material Reference
+
+SOURCE: Created for mcnp-cross-reference-checker skill
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Cell → Material cross-reference validation
+- FATAL error when cell uses undefined material
+- How to identify missing material definitions
+- Fix: Add M5 material card
+
+ERROR MESSAGE (from MCNP):
+"material 5 for cell 15 is not defined."
+
+KEY FEATURES:
+- Cell 15 specifies material 5: "15 5 -7.0 ..."
+- Material M5 is NOT defined in Data Cards block
+- MCNP terminates with FATAL error
+
+CROSS-REFERENCE ANALYSIS:
+Cell 1 → Material 1 ✓
+Cell 10 → Material 2 ✓
+Cell 15 → Material 5 ✗ (Material 5 missing!)
+Cell 20 → Material 0 (void) ✓
+
+DIAGNOSIS STEPS:
+1. Parse cell 15: material field = 5
+2. Search Data Cards for M5 card
+3. Find M5 is NOT defined → FATAL
+4. Only M1 and M2 are defined
+
+FIX OPTIONS:
+A. Add material 5 definition (02_undefined_material_fixed.i shows this)
+   M5 6000 1  $ Carbon
+B. Change cell 15 to use existing material
+   15 2 -8.0 ...  $ Change to material 2
+C. Change to void if appropriate
+   15 0 ...  $ Void
+
+RELATED SKILLS:
+- mcnp-material-builder: Create proper material definitions
+- mcnp-input-validator: Pre-run validation catches this
+
+USAGE NOTES:
+Always define materials before assigning to cells. Use systematic material numbering (M1, M2, M3...) to avoid gaps.

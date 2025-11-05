@@ -1,0 +1,52 @@
+EXAMPLE 03: Importance Card Count Mismatch
+
+SOURCE: Created for mcnp-cross-reference-checker skill
+COMPLEXITY: Intermediate
+
+DEMONSTRATES:
+- Importance card entry count must match cell count exactly
+- FATAL error when IMP entries > cell count
+- WARNING when IMP entries < cell count
+- Fix: Correct IMP card to have exactly 7 entries
+
+ERROR MESSAGE (from MCNP):
+"too many entries on imp:n card. 7 cells. 9 entries."
+
+KEY FEATURES:
+- 7 cells defined in Cell Cards block
+- IMP:N has 9 entries (too many by 2)
+- MCNP terminates with FATAL error
+- Common error after adding/deleting cells
+
+COUNT VALIDATION:
+Cells defined: 1, 2, 3, 4, 5, 6, 7 = 7 total
+IMP:N entries: 1 1 1 1 1 1 0 0 0 = 9 entries
+Mismatch: 9 > 7 → FATAL ERROR
+
+DIAGNOSIS STEPS:
+1. Count cells in Cell Cards block: 7 cells
+2. Parse IMP:N card entries (split by spaces): 9 values
+3. Compare: 9 ≠ 7 → MISMATCH
+4. Error type: Too many (FATAL)
+
+FIX:
+Remove 2 extra entries from IMP:N:
+IMP:N 1 1 1 1 1 1 0  ← Exactly 7 entries now
+
+IMPORTANT RULES:
+- IMP entries = cell count (EXACT match required)
+- Too many entries → FATAL (MCNP terminates)
+- Too few entries → WARNING (MCNP assumes 0 for missing, may kill particles)
+- Update IMP card whenever adding/deleting cells
+
+RELATED SKILLS:
+- mcnp-input-validator: Catches count mismatches
+- mcnp-variance-reducer: Proper importance card usage
+
+USAGE NOTES:
+This error commonly occurs when:
+1. Cells added/deleted but IMP not updated
+2. Copying IMP from different input with different cell count
+3. Using importance in cell cards and IMP card (double specification)
+
+Always count cells before writing IMP card!

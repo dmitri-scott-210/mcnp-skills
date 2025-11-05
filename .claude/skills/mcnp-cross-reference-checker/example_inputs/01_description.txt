@@ -1,0 +1,43 @@
+EXAMPLE 01: Undefined Surface Reference
+
+SOURCE: Created for mcnp-cross-reference-checker skill
+COMPLEXITY: Basic
+
+DEMONSTRATES:
+- Cell → Surface cross-reference validation
+- FATAL error when cell references undefined surface
+- How to identify missing surface definitions
+- Fix: Add surface 203 definition
+
+ERROR MESSAGE (from MCNP):
+"fatal error. surface 203 in cell 10 is not defined."
+
+KEY FEATURES:
+- Cell 10 geometry uses surface 203: "-1 2 -203 4"
+- Surface 203 is NOT defined in Surface Cards block
+- MCNP terminates with FATAL error before running
+
+CROSS-REFERENCE ANALYSIS:
+Cell 1 → Surfaces [1, 2, 3] ✓
+Cell 10 → Surfaces [1, 2, 203, 4] ✗ (Surface 203 missing!)
+Cell 15 → Surface [1] ✓
+
+DIAGNOSIS STEPS:
+1. Parse cell 10 geometry expression: "-1 2 -203 4"
+2. Extract surface numbers: 1, 2, 203, 4
+3. Check Surface Cards block for each surface
+4. Find surface 203 is NOT defined → FATAL
+
+FIX OPTIONS:
+A. Add surface 203 definition (01_undefined_surface_fixed.i shows this)
+   203 PZ 20.5
+B. Correct cell geometry if 203 was a typo
+   - Maybe meant surface 3 instead of 203?
+C. Remove reference if not needed
+
+RELATED SKILLS:
+- mcnp-input-validator: Detects this error during pre-run validation
+- mcnp-geometry-builder: Create correct surface definitions from start
+
+USAGE NOTES:
+This is the most common cross-reference error in MCNP. Always verify all referenced surfaces exist before running.
