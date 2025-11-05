@@ -1005,6 +1005,274 @@ Run through complete checklist from CLAUDE-SESSION-REQUIREMENTS.md:
 
 ---
 
+## 🧪 DEEP INTEGRATION TESTING (POST-PHASE 1 COMPLETION)
+
+**MANDATORY:** Execute comprehensive integration testing AFTER all 16 Phase 1 skills are complete and BEFORE proceeding to Phase 2.
+
+### Overview
+
+After completing the structural revamp of all 16 Phase 1 skills, perform deep integration testing to verify:
+1. Skills activate correctly with real invocations
+2. Multi-step workflows execute successfully
+3. Resources are accessible and functional
+4. Cross-skill references work properly
+5. Scripts execute with real data
+
+### Testing Methodology
+
+#### Test 1: Real Skill Invocation Testing
+**Objective:** Verify skills activate correctly using Skill() tool
+
+**Procedure:**
+1. For each of the 16 Phase 1 skills:
+   - Invoke skill using appropriate trigger phrase
+   - Verify SKILL.md content loads correctly
+   - Confirm skill activates without errors
+   - Test skill deactivation
+2. Document any activation failures
+3. Fix issues before proceeding
+
+**Success Criteria:**
+- ✅ All 16 skills activate on first attempt
+- ✅ No YAML parsing errors
+- ✅ Description text displays correctly
+- ✅ No missing dependency warnings
+
+#### Test 2: Example-to-Example Workflow Validation
+**Objective:** Verify example files work in real multi-step workflows
+
+**Workflows to Test:**
+
+**Workflow 1: PWR Pin Cell Creation (6 skills)**
+```
+1. mcnp-geometry-builder
+   - Use example_geometries/05_fuel_pin_cell.i as starting point
+   - Extract geometry section
+
+2. mcnp-material-builder
+   - Use example_materials/01_pwr_core_materials.txt
+   - Add UO2, Zircaloy, H2O materials
+   - Verify TMP cards for each material
+
+3. mcnp-physics-builder
+   - Apply neutron transport physics
+   - Set energy cutoffs
+   - Verify TMP card consistency with material-builder
+
+4. mcnp-source-builder
+   - Add KCODE criticality source
+   - Use spatial distribution within fuel pin
+
+5. mcnp-tally-builder
+   - Add F4 flux tally
+   - Add F7 heating tally
+   - Apply FM multiplier for reaction rates
+
+6. mcnp-input-builder
+   - Assemble complete input file
+   - Verify three-block structure
+   - Confirm EXACTLY 2 blank lines between blocks
+```
+
+**Workflow 2: Lattice-Based Reactor Core (4 skills)**
+```
+1. mcnp-geometry-builder
+   - Create unit cell geometry
+   - Use universe definition (U=1)
+
+2. mcnp-lattice-builder
+   - Create hexagonal lattice (LAT=2)
+   - Define FILL array for reactor core
+   - Implement 3-level universe hierarchy
+
+3. mcnp-cell-checker
+   - Validate universe references (U= and FILL=)
+   - Check LAT specification consistency
+   - Verify fill array dimensions match lattice
+
+4. mcnp-tally-builder
+   - Add FMESH for spatial flux distribution
+   - Apply energy bins
+   - Verify mesh covers lattice correctly
+```
+
+**Workflow 3: Validation Pipeline (3 skills)**
+```
+1. mcnp-input-validator
+   - Validate complete input file from Workflow 1
+   - Check block structure
+   - Verify cross-references
+   - Identify any syntax errors
+
+2. mcnp-geometry-checker
+   - Check geometry for overlaps/gaps
+   - Validate Boolean operations
+   - Verify surface definitions
+
+3. mcnp-cell-checker
+   - Validate universe/fill references
+   - Check for circular dependencies
+   - Verify lattice specifications
+```
+
+**Workflow 4: Geometry Editing (3 skills)**
+```
+1. mcnp-geometry-editor
+   - Load example from geometry-builder
+   - Modify cell dimensions
+   - Apply Boolean operation changes
+
+2. mcnp-transform-editor
+   - Add TR transformation to geometry
+   - Apply rotation matrix
+   - Compose multiple transformations
+
+3. mcnp-input-validator
+   - Validate edited geometry
+   - Verify transformations are valid
+   - Check for introduced errors
+```
+
+**Success Criteria:**
+- ✅ All 4 workflows execute without fatal errors
+- ✅ Example files load and are accessible
+- ✅ Resources (templates, examples, scripts) are found
+- ✅ Cross-skill references work correctly
+- ✅ Material-physics coupling maintains consistency
+- ✅ Lattice hierarchy validation catches errors
+- ✅ Transformation operations preserve geometry validity
+
+#### Test 3: Script Execution Testing
+**Objective:** Verify bundled Python scripts execute with real data
+
+**Procedure:**
+For skills with scripts/ directories:
+1. **mcnp-material-builder**
+   - Execute material_library_builder.py with sample materials
+   - Verify ZAID format output
+   - Check density calculations
+
+2. **mcnp-source-builder**
+   - Execute distribution_generator.py
+   - Verify SI/SP card generation
+   - Check energy distribution formatting
+
+3. **mcnp-tally-builder**
+   - Execute energy_bin_generator.py
+   - Verify logarithmic binning
+   - Check dose_function_builder.py output
+
+4. **mcnp-lattice-builder**
+   - Execute universe_tree_builder.py
+   - Verify hierarchy visualization
+   - Check fill_array_generator.py with real dimensions
+
+5. **mcnp-input-validator**
+   - Execute mcnp_input_validator.py on example files
+   - Verify cross_reference_checker.py catches errors
+   - Check physics_consistency_checker.py validation
+
+6. **mcnp-geometry-editor**
+   - Execute transformation_calculator.py
+   - Verify geometry_analyzer.py parsing
+   - Check surface_editor.py modifications
+
+7. **mcnp-cell-checker**
+   - Execute mcnp_cell_checker.py on lattice examples
+   - Verify universe_tree_visualizer.py output
+   - Check fill_array_validator.py detection
+
+**Success Criteria:**
+- ✅ All scripts execute without Python syntax errors
+- ✅ Scripts accept expected input formats
+- ✅ Output matches MCNP format specifications
+- ✅ Error handling works correctly
+- ✅ Script documentation matches actual usage
+
+#### Test 4: Live Skill Activation Verification
+**Objective:** Confirm skills load resources dynamically during activation
+
+**Procedure:**
+1. Activate each skill one by one
+2. Request to see:
+   - Reference .md file content (e.g., "Show me card_specifications.md")
+   - Template file (e.g., "Load basic_template.i")
+   - Example file (e.g., "Show example_01")
+   - Script usage (e.g., "Explain how to use [script].py")
+3. Verify resources load correctly from root-level paths
+4. Confirm NO assets/ or references/ path prefixes appear
+
+**Success Criteria:**
+- ✅ Reference .md files load from root level (NOT references/ subdirectory)
+- ✅ Templates load from templates/ at root (NOT assets/templates/)
+- ✅ Examples load from example_inputs/ at root (NOT assets/example_inputs/)
+- ✅ Scripts are found in scripts/ subdirectory
+- ✅ No "file not found" errors for any bundled resources
+- ✅ Cross-references between files work correctly
+
+### Test 5: Cross-Skill Dependency Verification
+**Objective:** Verify skill dependencies and integration points
+
+**Dependencies to Test:**
+
+**Tier 1 → Tier 2:**
+- mcnp-geometry-builder → mcnp-geometry-editor
+- mcnp-input-builder → mcnp-input-editor
+- mcnp-geometry-builder → mcnp-transform-editor
+- mcnp-input-builder + mcnp-tally-builder → mcnp-variance-reducer
+
+**Tier 1 → Tier 3:**
+- mcnp-input-builder → mcnp-input-validator
+- mcnp-geometry-builder → mcnp-geometry-checker
+- mcnp-geometry-builder → mcnp-cell-checker
+- mcnp-physics-builder → mcnp-physics-validator
+
+**Cross-Tier:**
+- mcnp-lattice-builder → mcnp-cell-checker
+- mcnp-material-builder → mcnp-physics-builder (TMP/MT consistency)
+- All builders → mcnp-input-validator
+
+**Success Criteria:**
+- ✅ Referenced skills exist and are complete
+- ✅ Integration documentation is accurate
+- ✅ Example workflows reference correct skills
+- ✅ No broken skill references in SKILL.md files
+
+### Documentation Requirements
+
+**Create:** `skill-revamp/PHASE-1-INTEGRATION-TEST-RESULTS.md`
+
+**Document:**
+1. Test execution date/session
+2. For each test (1-5):
+   - Test objective
+   - Test procedure summary
+   - Results (pass/fail for each criterion)
+   - Issues found
+   - Fixes applied
+3. Overall integration test status
+4. Sign-off for Phase 2 readiness
+
+### Acceptance Criteria for Phase 2 Progression
+
+**Phase 1 is COMPLETE and ready for Phase 2 when:**
+- ✅ All 16 Phase 1 skills structurally correct (no assets/, no references/)
+- ✅ Deep Integration Testing completed (all 5 tests executed)
+- ✅ Test results documented in PHASE-1-INTEGRATION-TEST-RESULTS.md
+- ✅ All critical issues resolved
+- ✅ All 4 multi-step workflows execute successfully
+- ✅ All bundled scripts execute without errors
+- ✅ All skills activate correctly with Skill() tool
+- ✅ Cross-skill dependencies verified and documented
+
+**If any test fails:**
+- Document failure in detail
+- Fix underlying issue
+- Re-run affected test
+- Do NOT proceed to Phase 2 until all tests pass
+
+---
+
 ## 🔗 INTEGRATION WITH OTHER PHASES
 
 ### Phase 1 → Phase 2 Handoff
