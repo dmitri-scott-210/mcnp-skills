@@ -1,0 +1,40 @@
+Example: 04_fill_array_error.i (BEFORE FIX)
+
+Purpose: Demonstrate fill array dimension mismatch error
+
+Problem:
+- Declaration: fill= -2:2 -2:2 0:0
+- Expected size: (2-(-2)+1) × (2-(-2)+1) × (0-0+1) = 5 × 5 × 1 = 25 values
+- Actual size: Only 20 values provided (4 rows of 5 values each)
+- Missing: 5 values (one complete row)
+
+Error Message (from MCNP):
+"FATAL ERROR: Cell 1 fill array size incorrect
+         Expected 25 values (5×5×1), found 20"
+
+Validation Check:
+✗ Fill array dimension mismatch detected
+✗ Cell 1: Expected 25, actual 20, missing 5 values
+
+Root Causes:
+1. Forgot to include last row (j=2)
+2. Copy-paste error
+3. Miscounted array dimensions
+
+Fix:
+Add the missing 5th row:
+```
+1    0       -1         lat=1  u=10  fill=-2:2 -2:2 0:0  imp:n=1
+            1 1 1 1 1    $ j=-2
+            1 2 2 2 1    $ j=-1
+            1 2 3 2 1    $ j=0
+            1 2 2 2 1    $ j=1
+            1 1 1 1 1    $ j=2 ← ADD THIS ROW
+```
+
+See: 05_fill_array_fixed.i for corrected version
+
+Use Case:
+- Testing fill dimension validator
+- Demonstrating common lattice error
+- Example for error catalog
