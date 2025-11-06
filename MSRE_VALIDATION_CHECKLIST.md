@@ -57,10 +57,12 @@
 
 ### Step 2.2: Core Lattice Construction
 - [ ] `mcnp-lattice-builder` executes build (hexahedral/square, LAT=1)
+- [ ] ~540-590 graphite stringers defined in lattice
+- [ ] Each stringer includes 4 machined grooves on sides
+- [ ] All 1,140 fuel channels formed by stringer grooves
 - [ ] `mcnp-geometry-builder` skill reviews syntax
 - [ ] `mcnp-cell-checker` validates references
 - [ ] Iteration complete (zero errors)
-- [ ] All 1,140 fuel channels defined
 - [ ] Infinite square lattice bounded by RCC core geometry
 - [ ] **Gate 2.2 PASSED** ✓
 
@@ -265,7 +267,8 @@
 - [ ] Lost particles < 0.01%
 - [ ] keff = 0.99-1.03
 - [ ] Shannon entropy converged
-- [ ] 1,140 fuel channels defined
+- [ ] ~540-590 graphite stringers defined in lattice
+- [ ] 1,140 fuel channels formed from stringer grooves
 - [ ] All validators pass
 
 ### Phase 2 Success (Benchmark)

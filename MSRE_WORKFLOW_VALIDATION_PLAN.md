@@ -157,7 +157,9 @@ Build working MSRE model with full geometry but simplified thermal/physics treat
 2. **Lattice Agent:** Plan lattice structure
    - Hexahedral (square) lattice for graphite stringers (LAT=1)
    - Universe hierarchy design
-   - Fill array structure for 1,140 channels
+   - Fill array structure for ~540-590 graphite stringers
+   - Each stringer has machined grooves on 4 sides that form fuel channels
+   - Stringers create 1,140 fuel channels total
    - Channel indexing scheme
    - Infinite square lattice bounded by RCC core geometry
 
@@ -192,9 +194,11 @@ mcnp-lattice-builder → mcnp-geometry-builder → mcnp-cell-checker
 **Tasks:**
 1. **Lattice Builder Agent:**
    - Create base graphite stringer universe (U=1)
-   - Define fuel channel cells within stringer
+   - Define fuel channel cells formed by machined grooves in stringer
+   - Each stringer has 4 grooved sides that form channels
    - Create hexahedral/square lattice (LAT=1)
-   - Build FILL array for 1,140 positions
+   - Build FILL array for ~540-590 graphite stringer positions
+   - Verify all 1,140 fuel channels are formed by stringer grooves
    - Assign universe numbers systematically
 
 2. **Geometry Builder Skill:**
@@ -212,10 +216,12 @@ mcnp-lattice-builder → mcnp-geometry-builder → mcnp-cell-checker
 **Integration Point:** Iterate until all validation passes
 
 **Validation Checkpoint 2.2:**
-- [ ] All 1,140 fuel channels defined
+- [ ] ~540-590 graphite stringers defined in lattice
+- [ ] All 1,140 fuel channels formed by stringer grooves
+- [ ] Each stringer geometry includes 4 machined grooves
 - [ ] Lattice structure correct (hexahedral/square, LAT=1)
 - [ ] Universe hierarchy validated
-- [ ] FILL array dimensions correct
+- [ ] FILL array dimensions correct (~540-590 positions)
 - [ ] Infinite lattice properly bounded by RCC core geometry
 - [ ] Cell checker reports zero errors
 
@@ -622,7 +628,7 @@ Demonstrate advanced skills/agents on production model.
 | mcnp-source-builder | 2.5 | KCODE setup | ⬜ |
 | mcnp-tally-builder | 4.2 | Flux/power tallies | ⬜ |
 | mcnp-physics-builder | 2.5, 3.4 | MODE/PHYS cards | ⬜ |
-| mcnp-lattice-builder | 2.2 | 1,140 channel lattice | ⬜ |
+| mcnp-lattice-builder | 2.2 | Stringer lattice (~540-590 stringers, 1,140 channels) | ⬜ |
 | mcnp-mesh-builder | 4.2 | 3D mesh tally | ⬜ |
 | mcnp-geometry-editor | 3.2 | Refinement edits | ⬜ |
 | mcnp-input-editor | 3.3 | Batch material updates | ⬜ |
@@ -778,7 +784,8 @@ For critical outputs (geometry, materials, physics):
 - ✓ Zero lost particles
 - ✓ keff = 0.99-1.03
 - ✓ Shannon entropy converges
-- ✓ All lattice cells defined (1,140 channels)
+- ✓ All graphite stringers defined (~540-590 in lattice)
+- ✓ All fuel channels formed (1,140 channels from stringer grooves)
 - ✓ All validators pass
 
 ### Phase 2 Success
