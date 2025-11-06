@@ -1,8 +1,15 @@
 ---
-name: "MCNP Statistics Checker"
-description: "Validates MCNP tally statistical quality using the 10 statistical checks. Ensures results are reliable before use. Use when verifying simulation convergence."
-version: "1.0.0"
-dependencies: "python>=3.8"
+name: mcnp-statistics-checker
+description: Validates MCNP tally statistical quality using the 10 statistical checks to ensure results are reliable (Phase 2 partial - complete in Phase 3)
+version: 1.5.0
+phase: 2-partial
+dependencies:
+  - python>=3.8
+  - numpy
+related_skills:
+  - mcnp-tally-analyzer
+  - mcnp-plotter
+  - mcnp-output-parser
 ---
 
 # MCNP Statistics Checker
@@ -1467,3 +1474,27 @@ When performing statistical validation:
 - mcnp-output-parser: Extract TFC data
 - mcnp-variance-reducer: Improve failed statistics
 - mcnp-plotter: Visualize convergence trends
+
+---
+
+## ⚠️ Phase 2 Partial Status
+
+**This skill is partially implemented in Phase 2 and will be completed in Phase 3.**
+
+**Phase 2 (Current):**
+- ✅ 10 statistical checks framework documented
+- ✅ Acceptance criteria defined
+- ✅ Manual validation procedures
+- ✅ Interpretation guidance
+
+**Phase 3 (To Be Added):**
+- Python validation modules (mcnp_stats_checker.py)
+- Bundled scripts for automated checking
+- TFC data extraction and analysis
+- Batch validation for multiple tallies
+- Statistical quality reports
+- Automated recommendations
+
+**For now:** Use the 10-check framework documented above for manual validation. Full automation coming in Phase 3.
+
+---

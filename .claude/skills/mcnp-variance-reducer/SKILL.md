@@ -38,20 +38,29 @@ What is the simulation challenge?
   |     +-> Simple geometry (<10 regions)
   |     |     └─> Cell importance (IMP) - manual setup
   |     |
-  |     +-> Complex geometry (>10 regions)
-  |     |     └─> Weight windows (WWG automatic)
+  |     +-> Complex geometry (10-100 regions)
+  |     |     └─> Weight windows (WWG cell-based)
   |     |
-  |     └-> Very thick shield (>10 MFP)
-  |           └─> WWG + exponential transform
+  |     +-> Very complex geometry (>100 regions)
+  |     |     └─> Mesh-based WW (MESH + WWG)
+  |     |
+  |     +-> Thick shield (5-15 MFP)
+  |     |     └─> WWG (automatic)
+  |     |
+  |     └-> Very thick shield (>15 MFP)
+  |           └─> WWG + exponential transform (EXT)
   |
   +-> Point detector (small volume)
   |     |
   |     +-> Not too far (<5 MFP)
   |     |     └─> Weight windows (WWG)
   |     |
-  |     └-> Very far (>5 MFP)
+  |     +-> Far (5-10 MFP)
+  |     |     └─> WWG with fine mesh near detector
+  |     |
+  |     └-> Very far (>10 MFP)
   |           ├─> DXTRAN (deterministic)
-  |           └─> WWG + DXTRAN (combined)
+  |           └─> WWG + DXTRAN (combined, best)
   |
   +-> Multiple detectors
   |     |
@@ -61,17 +70,25 @@ What is the simulation challenge?
   |     └-> Different patterns
   |           └─> Separate runs per detector
   |
+  +-> Repeated structures (lattices)
+  |     └─> Mesh-based WW (MESH overlays geometry)
+  |
   +-> Existing VR failing (FOM decreasing)
   |     ├─> Check weight statistics (min/max ratio)
   |     ├─> Widen WWP parameters (increase wupn)
   |     ├─> Regenerate WWG with more statistics
-  |     └─> Simplify (remove aggressive methods)
+  |     ├─> Coarsen mesh (if mesh-based)
+  |     └─> Simplify (remove aggressive methods like EXT)
   |
   +-> Low-density region issues
   |     └─> Forced collisions (FCL)
   |
   +-> Energy-dependent problem
-        └─> Energy-dependent WW (WWE)
+  |     ├─> Energy-dependent WW (WWE + WWGE)
+  |     └─> Energy splitting/roulette (ESPLT)
+  |
+  +-> Time-dependent problem
+        └─> Time splitting/roulette (TSPLT)
 ```
 
 ## Quick Reference
@@ -257,6 +274,139 @@ c Result: FOM ≈ 5000 (33× improvement, change <20% → converged)
 
 **Expected Results:** 30-50× FOM improvement, <5% relative error, reproducible results.
 
+---
+
+### Use Case 4: Mesh-Based Weight Windows
+
+**Scenario:** Complex geometry with 100+ cells makes cell-based WWN impractical. Use superimposed mesh for automatic importance generation.
+
+**Goal:** Generate weight windows independent of geometry complexity using rectangular or cylindrical mesh.
+
+**Implementation:**
+
+**Stage 1 - Mesh-Based WWG:**
+```
+c Complex geometry (many cells)
+[... cell cards ...]
+
+c Data Cards
+MODE  N
+c
+c Define rectangular mesh overlay
+MESH  GEOM=XYZ  REF=0 0 0  ORIGIN=-100 -100 -100
+      IMESH=100  IINTS=20      $ 20 bins in X (5 cm each)
+      JMESH=100  JINTS=20      $ 20 bins in Y
+      KMESH=100  KINTS=20      $ 20 bins in Z
+c     Total: 20×20×20 = 8,000 mesh cells
+c
+c Energy bins for importance
+WWGE:N  1e-10  1e-8  1e-6  1e-4  0.01  0.1  1  10  20
+c       8 energy groups → 8,000×8 = 64,000 WW entries
+c
+c Point detector
+F5:N  80 0 0  0.5
+c
+c Generate mesh-based weight windows
+WWG  5  0  1.0
+c
+SDEF  POS=0 0 0  ERG=14.1
+NPS  1e5
+```
+
+**Stage 2 - Production:**
+```
+c Same geometry and MESH definition (MUST match!)
+MESH  GEOM=XYZ  REF=0 0 0  ORIGIN=-100 -100 -100
+      IMESH=100  IINTS=20
+      JMESH=100  JINTS=20
+      KMESH=100  KINTS=20
+c
+c Same energy bins (MUST match!)
+WWGE:N  1e-10  1e-8  1e-6  1e-4  0.01  0.1  1  10  20
+c
+c Use mesh-based weight windows
+WWP:N  J  J  J  0  -1
+c
+F5:N  80 0 0  0.5
+SDEF  POS=0 0 0  ERG=14.1
+NPS  1e7
+```
+
+**Key Points:**
+- Mesh independent of geometry cells
+- Can refine mesh near detector, coarsen elsewhere
+- MESH and WWGE must be identical between stages
+- Rectangular (XYZ) for Cartesian problems
+- Cylindrical (CYL) for cylindrical problems
+- Mesh resolution: ~5-20 MFP per bin in penetration direction
+- FOM improvement: 50-500× for complex geometries
+
+**Expected Results:** Automatic importance for complex geometries, FOM = 50-500×.
+
+---
+
+### Use Case 5: Exponential Transform for Deep Penetration
+
+**Scenario:** Deep shielding penetration (>15 MFP), detector 500 cm from source through thick concrete/steel. Analog and basic WWG insufficient.
+
+**Goal:** Bias particle transport in preferred direction using exponential transform, combined with weight windows.
+
+**Implementation:**
+
+```
+c Geometry: thick shield, detector at x=500
+[... cells: source, shield layers, detector ...]
+
+c Data Cards
+MODE  N
+c
+c Exponential transform in shield cells
+EXT:N  0.75  2  3  4  5  6
+c      ^^p value (0.75 moderate for neutrons in concrete)
+c              ^^shield cells where EXT active
+c
+c Preferred direction toward detector
+VECT  1  0  0
+c     ^^+x direction
+c
+c Energy bins for WW
+WWGE:N  1e-10  1e-6  1e-4  0.01  0.1  1  10  20
+c
+c CRITICAL: Generate weight windows with EXT active
+WWG  5  0  1.0
+c
+c Detector tally
+F5:N  500 0 0  0.5
+c
+c Source
+SDEF  POS=0 0 0  ERG=14.1  VEC=1 0 0  DIR=D1
+SI1  -1  0.9999              $ Cone toward detector
+SP1   0  1
+c
+NPS  5e5
+```
+
+**Parameter Selection:**
+- **Neutrons in concrete/earth:** p = 0.6-0.8
+- **Neutrons in steel/lead:** p = 0.7-0.85
+- **Photons in high-Z:** p = 0.85-0.95
+- **Highly absorbing media:** Higher p (→ 0.9)
+- **Scattering media:** Lower p (→ 0.6)
+
+**Two-Stage Workflow:**
+1. **Stage 1:** EXT + WWG together (generate wwout)
+2. **Stage 2:** EXT + WWP (use wwout) for production
+
+**Key Points:**
+- NEVER use EXT without weight windows (causes high-weight pathology)
+- EXT works best in 1D or near-1D geometries
+- Test p values: start p=0.7, increase if penetration poor
+- Monitor weight statistics (max/min ratio should be <1000)
+- Iterate WWG 2-3 times with EXT active
+- FOM improvement: 100-5000× for deep penetration
+
+**Expected Results:** Deep penetration tractable, FOM = 100-5000×, relative error <5%.
+
 ## Integration with Other Skills
 
 ### mcnp-tally-builder
@@ -271,6 +421,9 @@ Essential for VR optimization. Extract FOM values, relative errors, weight stati
 ### mcnp-input-validator
 Validate VR configuration before running. Check all cells have importance defined, WWN entries match cells × energy groups, DXTRAN sphere location correct, WWP parameters sensible.
 
+### mcnp-ww-optimizer (Phase 3)
+Advanced weight window optimization and tuning. Automatic WWG setup, mesh generation, iterative refinement, and convergence analysis. Use for complex WWG workflows and parameter optimization.
+
 ### Typical Workflow
 ```
 1. input-builder: Create basic input (analog)
@@ -284,11 +437,27 @@ Validate VR configuration before running. Check all cells have importance define
 
 ## References
 
-**Detailed Technical Documentation:**
-- `variance_reduction_theory.md` - FOM theory, splitting/RR mechanics, WWG algorithm
-- `card_specifications.md` - Complete syntax for IMP, WWN, WWE, WWP, WWG, DXTRAN, FCL, EXT
-- `wwg_iteration_guide.md` - Step-by-step WWG workflows, convergence criteria
-- `error_catalog.md` - 6 common VR errors with diagnosis and fixes
+**Fundamental Theory:**
+- `variance_reduction_theory.md` - FOM definition, splitting/RR fundamentals, basic weight windows
+- `card_specifications.md` - Complete syntax for all VR cards (IMP, WWN, WWE, WWP, WWG, DXTRAN, FCL, EXT, MESH)
+
+**Advanced Theory (Phase 3):**
+- `advanced_vr_theory.md` - WWG algorithm, optimization strategies, erratic error diagnosis, overbiasing avoidance
+- `mesh_based_ww.md` - MESH card integration, rectangular/cylindrical meshes, resolution guidelines
+- `advanced_techniques.md` - Exponential transform (EXT), forced collisions (FCL), energy/time splitting, source biasing
+
+**Workflows and Troubleshooting:**
+- `wwg_iteration_guide.md` - Step-by-step WWG iteration workflows, convergence criteria
+- `error_catalog.md` - Common VR errors with diagnosis and solutions
+
+**Examples:**
+- `example_inputs/` - 6 representative VR problems with comprehensive README
+  - Duct streaming (cell importance, WWG)
+  - Room geometry (complex multi-region)
+  - Maze penetration (deep penetration, WWG essential)
+  - Iron detector (point detector, DXTRAN)
+  - Gamma lead shield (exponential transform)
+  - Dogleg geometry (bent duct)
 
 **Templates and Tools:**
 - `templates/` - 3 VR template input files (cell importance, WWG Stage 1/2)
@@ -296,8 +465,9 @@ Validate VR configuration before running. Check all cells have importance define
 - `scripts/README.md` - Comprehensive script usage guide
 
 **MCNP6 Manual:**
-- Chapter 5.12: Variance Reduction Cards
-- Chapter 2.7: Variance Reduction Theory
+- Chapter 2.7: Variance Reduction Theory (§2.7.1-2.7.2)
+- Chapter 5.11: MESH Card Specification
+- Chapter 5.12: Variance Reduction Cards (IMP, WWN, WWE, WWP, WWG, EXT, FCL, DXTRAN)
 - Chapter 10.6: Variance Reduction Examples
 
 ## Best Practices

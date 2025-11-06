@@ -1,8 +1,17 @@
 ---
-name: "MCNP Plotter"
-description: "Generates visualizations of MCNP geometry, tally results, and cross sections. Creates plots for verification, analysis, and publication. Use when visualizing simulation results."
-version: "1.0.0"
-dependencies: "python>=3.8, matplotlib, numpy, h5py"
+name: mcnp-plotter
+description: Generates visualizations of MCNP geometry, tally results, and cross sections for verification, analysis, and publication
+version: 2.0.0
+dependencies:
+  - python>=3.8
+  - matplotlib
+  - numpy
+  - h5py
+related_skills:
+  - mcnp-geometry-checker
+  - mcnp-tally-analyzer
+  - mcnp-statistics-checker
+  - mcnp-mesh-builder
 ---
 
 # MCNP Plotter
@@ -98,11 +107,12 @@ Custom requirements:
 - "Do you need interactive or static plots?"
 - "Any specific format requirements?" (PNG, PDF, EPS for publication)
 
-### Step 2: Read Reference Materials
+### Step 2: Review Plotting Procedures
 
-**MANDATORY - READ ENTIRE FILE**: Before plotting, read:
-- `.claude/commands/mcnp-plotter.md` - Complete plotting procedures for all types
-- If ParaView: Review Appendix D.4 (XDMF format)
+**Before plotting, consider:**
+- Geometry plots: PLOTG interactive or batch mode procedures (see Step 3 below)
+- Tally plots: MCPLOT or Python custom scripts (see Steps 4-7 below)
+- Mesh tallies: ParaView/VisIt workflow (see Step 5 below)
 
 ### Step 3: Geometry Plotting (PLOTG)
 
@@ -992,15 +1002,17 @@ When creating plots:
 - VisIt - Alternative 3D visualization (free)
 - Gnuplot - Alternative plotting tool
 
-**Required components:**
-- Reference: `.claude/commands/mcnp-plotter.md` (detailed procedures)
+**Bundled Scripts:**
+- `scripts/plot_convergence.py` - Statistical convergence plotting
+- `scripts/plot_spectrum.py` - Energy spectrum visualization
+- See `scripts/README.md` for usage
 
 ## References
 
 **Primary References:**
-- `.claude/commands/mcnp-plotter.md` - Complete plotting procedures
 - Chapter 6: Plotting (geometry, tallies, cross sections)
-- `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Plotting section
+- Bundled scripts: `scripts/plot_convergence.py`, `scripts/plot_spectrum.py`
+- ParaView Guide: https://www.paraview.org/documentation/
 
 **Geometry Plotting:**
 - §6.1: PLOTG geometry plotting
