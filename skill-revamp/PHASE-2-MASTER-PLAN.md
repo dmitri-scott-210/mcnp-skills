@@ -58,7 +58,7 @@ Revamp 6 output analysis and mesh-focused skills that share documentation about 
    - Include date, skills worked, progress
 
 3. **Update GLOBAL-SESSION-REQUIREMENTS.md:**
-   - Update "Phase 2 Progress and Summary" section (lines 81-104)
+   - Update "Phase 2 Progress and Summary" section
    - Record latest session ID
    - Update skill completion status
 
@@ -380,8 +380,10 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 ## 🎯 EXECUTION CHECKLIST
 
 ### Before Starting Phase 2
-- [ ] Phase 1 complete (16 skills revamped)
-- [ ] REVAMP-PROJECT-STATUS.md updated with Phase 2 start
+- [ ] Check GLOBAL-SESSION-REQUIREMENTS.md for overall project status
+- [ ] Phase 2 has NO dependencies - can start immediately
+- [ ] Determine which other phases are in progress
+- [ ] PHASE-2-PROJECT-STATUS.md created or updated with Phase 2 start
 - [ ] Token budget noted (~40k for docs, 60k for skills)
 
 ### Documentation Reading (Do ONCE)
@@ -411,9 +413,9 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 
 ### Phase Completion
 - [ ] All 6 skills completed and validated
-- [ ] Integration with Phase 1 skills documented
-- [ ] REVAMP-PROJECT-STATUS.md reflects Phase 2 complete
-- [ ] Prepare for Phase 3
+- [ ] Integration with other phases documented
+- [ ] PHASE-2-PROJECT-STATUS.md reflects Phase 2 complete
+- [ ] Phase 2 complete - other phases may continue in parallel
 
 ---
 
@@ -530,7 +532,7 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 
 ## 📈 PROGRESS TRACKING
 
-**Monitor in REVAMP-PROJECT-STATUS.md:**
+**Monitor in PHASE-2-PROJECT-STATUS.md:**
 
 ```markdown
 ## PHASE 2 PROGRESS
@@ -618,7 +620,7 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 
 ### Step 2: Update GLOBAL-SESSION-REQUIREMENTS.md
 
-**Update lines 81-104 (Phase 2 Progress and Summary):**
+**Update Phase 2 Progress and Summary section:**
 - Status, progress fractions
 - Latest session ID
 - Skill completion status (✅/🚧/⏸️)
@@ -640,4 +642,4 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 
 **END OF PHASE 2 MASTER PLAN**
 
-**Remember:** Phase 2 is streamlined (6 skills, 1 session). Focus on output format expertise and Python script bundling. Mark partial skills clearly for Phase 3 completion. Update GLOBAL-SESSION-REQUIREMENTS.md Phase 2 section at end of session.
+**Remember:** Phase 2 is streamlined (6 skills, 1 session). Focus on output format expertise and Python script bundling. Mark partial skills (tally-analyzer, statistics-checker) clearly for Phase 3 completion. Update GLOBAL-SESSION-REQUIREMENTS.md Phase 2 Progress section at end of session. Phase 2 can execute in parallel with Phases 1, 4, 5. Phase 3 skills 1-2 require Phase 2 completion.
