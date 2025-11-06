@@ -1,0 +1,280 @@
+# Common MCNP Cross-Section Library Error Messages
+# Use these examples with missing_library_diagnoser.py for practice
+
+# ============================================================================
+# ERROR TYPE 1: ZAID NOT FOUND
+# ============================================================================
+
+# Example 1a: Missing library version
+fatal error.  cross-section table 92235.80c not found.
+              table = 92235.80c
+
+# Example 1b: Missing isotope
+fatal error.  cross-section table 43099.80c not found.
+              table = 43099.80c
+
+# Example 1c: Missing thermal scattering
+fatal error.  cross-section table lwtr.80t not found.
+              table = lwtr.80t
+
+# Example 1d: Typo in ZAID
+fatal error.  cross-section table 9235.80c not found.
+              table = 9235.80c
+
+# Example 1e: Wrong library type
+fatal error.  cross-section table 92235.80d not found.
+              table = 92235.80d
+
+# ============================================================================
+# ERROR TYPE 2: CANNOT OPEN FILE
+# ============================================================================
+
+# Example 2a: File path issue
+bad trouble in subroutine rdcont
+opened library file /opt/mcnpdata/endf80/U/92235.800nc
+cannot open file /opt/mcnpdata/endf80/U/92235.800nc
+fatal error. program will terminate.
+
+# Example 2b: Network drive disconnected
+bad trouble in subroutine rdcont
+opened library file //server/mcnpdata/endf80/Pu/94239.800nc
+cannot open file //server/mcnpdata/endf80/Pu/94239.800nc
+fatal error. program will terminate.
+
+# Example 2c: Permission denied
+bad trouble in subroutine rdcont
+opened library file /opt/mcnpdata/endf80/Fe/26056.800nc
+cannot open file /opt/mcnpdata/endf80/Fe/26056.800nc
+fatal error. program will terminate.
+
+# ============================================================================
+# ERROR TYPE 3: ATOMIC WEIGHT RATIO ZERO
+# ============================================================================
+
+# Example 3a: Corrupted xsdir entry
+fatal error. atomic weight ratio (AWR) is zero.
+             zaid = 92235.80c  awr = 0.0000000
+             material =    1  nuclide =    1
+
+# Example 3b: Invalid AWR value
+fatal error. atomic weight ratio (AWR) is zero.
+             zaid = 94239.80c  awr = 0.0000000
+             material =    2  nuclide =    3
+
+# ============================================================================
+# ERROR TYPE 4: TEMPERATURE OUT OF RANGE
+# ============================================================================
+
+# Example 4a: Temperature too high
+warning. temperature 2000.0 K out of range for 92235.80c
+         using 293.6 K cross sections instead.
+         material =    1
+
+# Example 4b: Temperature not available
+warning. temperature 1500.0 K out of range for 1001.80c
+         available range: 293.6 to 1200.0 K
+         using nearest available temperature: 1200.0 K
+
+# Example 4c: Multiple materials with temp warnings
+warning. temperature 800.0 K out of range for 8016.80c
+         using 293.6 K cross sections instead.
+         material =    3
+
+warning. temperature 800.0 K out of range for 40090.80c
+         using 293.6 K cross sections instead.
+         material =    4
+
+# ============================================================================
+# ERROR TYPE 5: PHOTON PRODUCTION DATA MISSING
+# ============================================================================
+
+# Example 5a: Coupled n-p transport, missing photon data
+warning.  nuclide 43099 does not have photon production data.
+          material =    2  nuclide =    5
+
+# Example 5b: Multiple isotopes missing photon data
+warning.  nuclide 61147 does not have photon production data.
+          material =    1  nuclide =    8
+
+warning.  nuclide 61148 does not have photon production data.
+          material =    1  nuclide =    9
+
+# ============================================================================
+# ERROR TYPE 6: THERMAL SCATTERING ISSUES
+# ============================================================================
+
+# Example 6a: Missing S(α,β) library
+warning.  thermal treatment for nuclide  1001.80c not found.
+          free gas scattering will be used.
+          material =    1
+
+# Example 6b: Temperature mismatch for thermal scattering
+warning.  thermal library lwtr.80t at 293.6 K requested, but
+          material temperature is 600.0 K.
+          using lwtr.80t anyway - results may be inaccurate.
+
+# Example 6c: Wrong thermal library for isotope
+fatal error.  thermal library zrh.80t specified for 1001.80c
+              but zrh.80t is for zirconium-bound hydrogen.
+              check MT card specification.
+
+# ============================================================================
+# ERROR TYPE 7: LIBRARY VERSION MIXING
+# ============================================================================
+
+# Example 7a: Mixed ENDF versions (warning, not fatal)
+warning.  material    1 uses mixed library versions:
+          92235.80c (ENDF/B-VIII.0)
+          92238.70c (ENDF/B-VII.0)
+          this may cause inconsistent physics results.
+
+# Example 7b: Inconsistent evaluations
+warning.  material    2 mixes evaluations:
+          1001.80c  (ENDF/B-VIII.0, 2018)
+          8016.70c  (ENDF/B-VII.0, 2006)
+          consider using consistent library version.
+
+# ============================================================================
+# ERROR TYPE 8: DATAPATH ISSUES
+# ============================================================================
+
+# Example 8a: DATAPATH not set
+fatal error.  environment variable DATAPATH is not set.
+              cannot locate cross section data directory.
+              set DATAPATH to directory containing xsdir file.
+
+# Example 8b: DATAPATH incorrect
+fatal error.  xsdir file not found in DATAPATH.
+              DATAPATH = /wrong/path/to/mcnpdata
+              expected file: /wrong/path/to/mcnpdata/xsdir
+              verify DATAPATH points to correct directory.
+
+# ============================================================================
+# ERROR TYPE 9: XSDIR FORMAT ERRORS
+# ============================================================================
+
+# Example 9a: Corrupted xsdir line
+bad trouble in subroutine findxs
+invalid xsdir entry for 92235.80c
+cannot parse atomic weight ratio field
+
+# Example 9b: Missing fields in xsdir
+bad trouble in subroutine findxs
+xsdir entry for 1001.80c has insufficient fields
+expected at least 7 fields, found 4
+
+# ============================================================================
+# DIAGNOSTIC COMMANDS FOR EACH ERROR TYPE
+# ============================================================================
+
+# Error Type 1: ZAID NOT FOUND
+# Command: python missing_library_diagnoser.py --error "cross-section table 92235.80c not found"
+# Then:    python library_finder.py --recommend "92235.80c"
+
+# Error Type 2: CANNOT OPEN FILE
+# Command: python missing_library_diagnoser.py --verify-setup
+# Check:   File exists, permissions correct, DATAPATH set
+
+# Error Type 3: AWR ZERO
+# Command: python xsdir_parser.py --zaid "92235.80c"
+# Action:  Restore xsdir from backup or reinstall libraries
+
+# Error Type 4: TEMPERATURE OUT OF RANGE
+# Command: python xsdir_parser.py --search "92235.8[0-9]c"
+# Action:  Use higher temperature library (.81c, .82c, .83c)
+
+# Error Type 5: PHOTON PRODUCTION MISSING
+# Command: python library_finder.py --isotope "Tc-99"
+# Action:  Use different library version or MODE N only
+
+# Error Type 6: THERMAL SCATTERING
+# Command: python xsdir_parser.py --list-section thermal
+# Action:  Install thermal libraries or remove MT card
+
+# Error Type 7: MIXED VERSIONS
+# Command: python xsdir_parser.py --search "92235"
+# Action:  Standardize on single library version
+
+# Error Type 8: DATAPATH ISSUES
+# Command: python missing_library_diagnoser.py --verify-setup
+# Action:  Set DATAPATH correctly
+
+# Error Type 9: XSDIR CORRUPT
+# Command: python xsdir_parser.py --statistics
+# Action:  Restore from backup or regenerate xsdir
+
+# ============================================================================
+# QUICK DIAGNOSTIC WORKFLOW
+# ============================================================================
+
+# Step 1: Verify setup
+python missing_library_diagnoser.py --verify-setup
+
+# Step 2: Check input file
+python missing_library_diagnoser.py --input input.i
+
+# Step 3: If ZAID missing, get alternatives
+python library_finder.py --recommend "92235.80c"
+
+# Step 4: Verify alternative available
+python library_finder.py --check "92235.70c"
+
+# Step 5: Search for all versions
+python xsdir_parser.py --search "92235"
+
+# ============================================================================
+# COMMON CAUSES AND FIXES
+# ============================================================================
+
+# Cause 1: DATAPATH not set
+# Fix:     export DATAPATH=/opt/mcnpdata (Linux)
+#          set DATAPATH=C:\mcnpdata (Windows)
+
+# Cause 2: Wrong library version
+# Fix:     Change .80c to .70c or .66c in input file
+
+# Cause 3: Incomplete library installation
+# Fix:     Reinstall MCNP data libraries completely
+
+# Cause 4: Corrupted xsdir
+# Fix:     cp $DATAPATH/xsdir.backup $DATAPATH/xsdir
+
+# Cause 5: File permissions
+# Fix:     chmod +r $DATAPATH/xsdir
+#          chmod +r $DATAPATH/endf80/* -R
+
+# Cause 6: Network drive issues
+# Fix:     Copy libraries to local drive
+#          Check network connection
+
+# Cause 7: Temperature library missing
+# Fix:     Install temperature-dependent libraries
+#          Or accept default temperature
+
+# Cause 8: Thermal scattering missing
+# Fix:     Install S(α,β) libraries
+#          Or remove MT card (less accurate)
+
+# ============================================================================
+# TESTING DIAGNOSER WITH THESE EXAMPLES
+# ============================================================================
+
+# Test Error Type 1:
+python missing_library_diagnoser.py --error "fatal error.  cross-section table 92235.80c not found."
+
+# Test Error Type 2:
+python missing_library_diagnoser.py --error "cannot open file /opt/mcnpdata/endf80/U/92235.800nc"
+
+# Test Error Type 3:
+python missing_library_diagnoser.py --error "fatal error. atomic weight ratio (AWR) is zero."
+
+# Test Error Type 4:
+python missing_library_diagnoser.py --error "warning. temperature 2000.0 K out of range for 92235.80c"
+
+# Interactive mode for step-by-step diagnosis:
+python missing_library_diagnoser.py
+
+# Then use commands:
+# diagnose> verify
+# diagnose> diagnose cross-section table 92235.80c not found
+# diagnose> check input.i
