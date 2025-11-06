@@ -1,0 +1,48 @@
+Element,Symbol,Z,Isotope,A,ZAID,Atomic_Mass_amu,Half_Life,Use_Case
+Hydrogen,H,1,H-1,1,1001.80c,1.00783,Stable,Water moderator
+Hydrogen,H,1,H-2 (D),2,1002.80c,2.01410,Stable,Heavy water
+Hydrogen,H,1,H-3 (T),3,1003.80c,3.01605,12.3 yr,Fusion fuel
+Boron,B,5,B-10,10,5010.80c,10.01294,Stable,Neutron absorber
+Boron,B,5,B-11,11,5011.80c,11.00931,Stable,Boron carbide
+Carbon,C,6,C-12,12,6012.80c,12.00000,Stable,Graphite moderator
+Carbon,C,6,C-13,13,6013.80c,13.00335,Stable,Tracer
+Nitrogen,N,7,N-14,14,7014.80c,14.00307,Stable,Air
+Oxygen,O,8,O-16,16,8016.80c,15.99491,Stable,Water fuel oxide
+Fluorine,F,9,F-19,19,9019.80c,18.99840,Stable,Salt coolant
+Sodium,Na,11,Na-23,23,11023.80c,22.98977,Stable,Coolant
+Sodium,Na,11,Na-24,24,11024.80c,23.99096,15.0 hr,Activation product
+Aluminum,Al,13,Al-27,27,13027.80c,26.98154,Stable,Structural
+Chlorine,Cl,17,Cl-35,35,17035.80c,34.96885,Stable,NaCl
+Iron,Fe,26,Fe-56,56,26056.80c,55.93494,Stable,Steel structural
+Cobalt,Co,27,Co-59,59,27059.80c,58.93320,Stable,Reactor component
+Cobalt,Co,27,Co-60,60,27060.80c,59.93382,5.27 yr,Calibration source
+Nickel,Ni,28,Ni-58,58,28058.80c,57.93535,Stable,Stainless steel
+Copper,Cu,29,Cu-63,63,29063.80c,62.92960,Stable,Structural
+Zirconium,Zr,40,Zr-90,90,40090.80c,89.90470,Stable,Cladding
+Zirconium,Zr,40,Zr-91,91,40091.80c,90.90565,Stable,Cladding
+Strontium,Sr,38,Sr-90,90,38090.80c,89.90773,28.8 yr,Fission product
+Technetium,Tc,43,Tc-99,99,43099.80c,98.90625,211000 yr,Fission product
+Iodine,I,53,I-127,127,53127.80c,126.90447,Stable,Natural
+Iodine,I,53,I-129,129,53129.80c,128.90498,1.57e7 yr,Fission product
+Iodine,I,53,I-131,131,53131.80c,130.90612,8.02 d,Medical
+Xenon,Xe,54,Xe-135,135,54135.80c,134.90720,9.14 hr,Neutron poison
+Cesium,Cs,55,Cs-133,133,55133.80c,132.90545,Stable,Natural
+Cesium,Cs,55,Cs-137,137,55137.80c,136.90709,30.2 yr,Calibration
+Samarium,Sm,62,Sm-149,149,62149.80c,148.91719,Stable,Neutron poison
+Tungsten,W,74,W-184,184,74184.80c,183.95093,Stable,Shielding
+Lead,Pb,82,Pb-206,206,82206.80c,205.97447,Stable,Shielding
+Lead,Pb,82,Pb-207,207,82207.80c,206.97590,Stable,Shielding
+Lead,Pb,82,Pb-208,208,82208.80c,207.97666,Stable,Shielding
+Bismuth,Bi,83,Bi-209,209,83209.80c,208.98040,Stable,Shielding
+Uranium,U,92,U-233,233,92233.80c,233.03964,1.59e5 yr,Fissile
+Uranium,U,92,U-234,234,92234.80c,234.04095,2.46e5 yr,Decay chain
+Uranium,U,92,U-235,235,92235.80c,235.04393,7.04e8 yr,Fissile fuel
+Uranium,U,92,U-238,238,92238.80c,238.05079,4.47e9 yr,Fertile fuel
+Neptunium,Np,93,Np-237,237,93237.80c,237.04817,2.14e6 yr,Waste
+Plutonium,Pu,94,Pu-238,238,94238.80c,238.04956,87.7 yr,RTG fuel
+Plutonium,Pu,94,Pu-239,239,94239.80c,239.05216,24110 yr,Fissile fuel
+Plutonium,Pu,94,Pu-240,240,94240.80c,240.05381,6561 yr,Fertile
+Plutonium,Pu,94,Pu-241,241,94241.80c,241.05685,14.3 yr,Fissile
+Americium,Am,95,Am-241,241,95241.80c,241.05683,432 yr,Neutron source
+Curium,Cm,96,Cm-244,244,96244.80c,244.06275,18.1 yr,Decay heat
+Californium,Cf,98,Cf-252,252,98252.80c,252.08163,2.65 yr,Neutron source (SF)
