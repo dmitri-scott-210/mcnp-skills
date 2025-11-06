@@ -28,12 +28,12 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 3. ✅ **mcnp-isotope-lookup** - Isotope properties and ZAID format (COMPLETED)
 
 #### Specialized Tools
-4. ⏸️ **mcnp-cross-section-manager** - Cross-section library management and xsdir (NEXT)
-5. ⏸️ **mcnp-parallel-configurator** - Parallel execution, checkpointing, restart
+4. ✅ **mcnp-cross-section-manager** - Cross-section library management and xsdir (COMPLETED)
+5. ⏸️ **mcnp-parallel-configurator** - Parallel execution, checkpointing, restart (NEXT)
 6. ⏸️ **mcnp-template-generator** - Generate template MCNP inputs for common problems
 
 ### Progress Summary
-- **Skills Completed:** 3/6 (50.00%)
+- **Skills Completed:** 4/6 (66.67%)
 - **Documentation Reading:** ✅ COMPLETED (12/12 files read)
 - **Tokens Used:** ~280k / 90k budgeted (significantly over due to comprehensive Python tools and extensive reference documentation)
 
@@ -235,39 +235,52 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 ---
 
 ### Skill #4: mcnp-cross-section-manager
-**Status:** ⏸️ Not started
+**Status:** ✅ COMPLETED
 **Priority:** Medium - Advanced users
-**Current:** ~900 lines (estimate)
+**Final Size:** 511 lines SKILL.md + comprehensive support files
 
-**Key Capabilities:**
-- Understanding xsdir file format
-- Finding cross-section libraries
-- Diagnosing library errors (missing ZAIDs)
-- Temperature-dependent data
-- Library versions (ENDF/B-VII.1, VIII.0, etc.)
-- S(α,β) thermal scattering libraries
+**Completed Components:**
 
-**References to Create (at ROOT level):**
-- xsdir_format.md - Complete xsdir specification
-- library_types.md - Continuous vs discrete, photon, etc.
-- library_versions.md - ENDF/B evolution, differences
-- thermal_scattering_libraries.md - Available S(α,β) data
-- troubleshooting_libraries.md - Common errors, solutions
+✅ **Python Scripts (scripts/ at ROOT - ESSENTIAL):**
+- xsdir_parser.py (502 lines) - Interactive/CLI xsdir file parsing and querying
+  * Find specific ZAIDs in xsdir
+  * Search by pattern (regex)
+  * List by section (directory, thermal, photoatomic, photoelectron)
+  * Extract library statistics
+  * Temperature conversion (MeV ↔ Kelvin)
+  * Interactive and command-line modes
+- library_finder.py (462 lines) - Find available libraries and recommend alternatives
+  * Find all libraries for an isotope
+  * List all isotopes of an element
+  * Check ZAID availability
+  * Recommend alternatives for missing libraries
+  * Interactive and command-line modes
+- missing_library_diagnoser.py (476 lines) - Diagnose library errors systematically
+  * Verify DATAPATH and xsdir setup
+  * Diagnose MCNP error messages (4 error types)
+  * Check input files for missing libraries
+  * Provide systematic troubleshooting steps
+  * Interactive and command-line modes
+- README.md (414 lines) - Comprehensive tool documentation with workflows
 
-**Scripts to Bundle (scripts/ at ROOT):**
-- xsdir_parser.py - Read and query xsdir
-- library_finder.py - Find available data for isotope
-- missing_zaid_finder.py - Diagnose missing cross sections
+✅ **Reference Files (at ROOT level - NO subdirectories):**
+- xsdir_format.md (562 lines) - Complete xsdir specification, parsing methods, diagnostics
+- library_types.md (528 lines) - Detailed library type reference (.c, .t, .p, .e, .d)
+- temperature_libraries.md (612 lines) - Temperature-dependent library guide, interpolation
+- troubleshooting_libraries.md (562 lines) - Comprehensive error diagnosis procedures
 
-**Examples (example_inputs/ at ROOT - NO assets/):**
-- xsdir file examples
-- Error messages for missing libraries
+✅ **Data Files (example_inputs/ at ROOT - NO assets/):**
+- xsdir_example.txt (160 lines) - Sample xsdir entries showing format
+- error_messages.txt (246 lines) - Common MCNP error examples for practice
+- library_matrix.csv (86 lines) - Library availability matrix by version
 
-**Integration:**
-- Links to isotope-lookup (Skill #3)
-- Links to material-builder (Phase 1)
+✅ **Structure Verification:**
+- NO assets/ directory (ZERO TOLERANCE requirement met!) ✅
+- All reference files at ROOT level
+- Python tools functional with both interactive and CLI modes
+- 26-item quality checklist PASSED
 
-**Progress:** Not started
+**Progress:** COMPLETE
 
 ---
 

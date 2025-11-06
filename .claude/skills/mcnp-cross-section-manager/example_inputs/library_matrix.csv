@@ -1,0 +1,139 @@
+# MCNP Cross-Section Library Availability Matrix
+# Shows typical availability of libraries across different versions and types
+# Availability: Y = Yes, N = No, P = Partial (some isotopes only)
+#
+# Library versions:
+#   80 = ENDF/B-VIII.0 (2018, latest)
+#   70/71 = ENDF/B-VII.0/VII.1 (2006/2011)
+#   66 = ENDF/B-VI.8 (2001)
+#
+# Library types:
+#   c = Continuous energy neutron
+#   d = Discrete energy neutron
+#   t = Thermal scattering S(α,β)
+#   p = Photoatomic (photon)
+#   e = Photoelectron (electron)
+
+Element,Z,Isotope,A,.80c,.81c,.82c,.83c,.84c,.70c,.71c,.66c,.80d,.80t,.80p,.80e
+Hydrogen,1,H-1,1,Y,Y,Y,Y,N,Y,Y,Y,Y,N,Y,Y
+Hydrogen,1,H-2,2,Y,Y,Y,Y,N,Y,Y,Y,Y,N,Y,Y
+Hydrogen,1,H-3,3,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Helium,2,He-3,3,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Helium,2,He-4,4,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Lithium,3,Li-6,6,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Lithium,3,Li-7,7,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Beryllium,4,Be-9,9,Y,N,N,N,N,Y,Y,Y,N,Y,Y,Y
+Boron,5,B-10,10,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Boron,5,B-11,11,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Carbon,6,C-nat,0,Y,N,N,N,N,Y,Y,Y,Y,Y,Y,Y
+Carbon,6,C-12,12,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Carbon,6,C-13,13,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Nitrogen,7,N-14,14,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Nitrogen,7,N-15,15,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Oxygen,8,O-16,16,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Oxygen,8,O-17,17,Y,N,N,N,N,Y,Y,N,N,N,Y,Y
+Fluorine,9,F-19,19,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Sodium,11,Na-23,23,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Magnesium,12,Mg-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Aluminum,13,Al-27,27,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Silicon,14,Si-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Phosphorus,15,P-31,31,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Sulfur,16,S-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Chlorine,17,Cl-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Argon,18,Ar-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Potassium,19,K-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Calcium,20,Ca-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Titanium,22,Ti-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Chromium,24,Cr-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Manganese,25,Mn-55,55,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Iron,26,Fe-nat,0,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Iron,26,Fe-54,54,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Iron,26,Fe-56,56,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Iron,26,Fe-57,57,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Iron,26,Fe-58,58,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Cobalt,27,Co-59,59,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Nickel,28,Ni-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Copper,29,Cu-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Zirconium,40,Zr-nat,0,Y,Y,Y,Y,N,Y,Y,Y,Y,Y,Y,Y
+Zirconium,40,Zr-90,90,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Zirconium,40,Zr-91,91,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Niobium,41,Nb-93,93,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Molybdenum,42,Mo-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Technetium,43,Tc-99,99,Y,N,N,N,N,Y,Y,N,N,N,Y,Y
+Silver,47,Ag-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Cadmium,48,Cd-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Indium,49,In-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Tin,50,Sn-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Xenon,54,Xe-135,135,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Cesium,55,Cs-133,133,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Cesium,55,Cs-137,137,Y,N,N,N,N,Y,Y,N,N,N,Y,Y
+Gadolinium,64,Gd-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Gadolinium,64,Gd-155,155,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Gadolinium,64,Gd-157,157,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Hafnium,72,Hf-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Tantalum,73,Ta-181,181,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Tungsten,74,W-nat,0,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Lead,82,Pb-nat,0,Y,N,N,N,N,Y,Y,Y,Y,N,Y,Y
+Lead,82,Pb-206,206,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Lead,82,Pb-207,207,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Lead,82,Pb-208,208,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Bismuth,83,Bi-209,209,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+Thorium,90,Th-232,232,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Uranium,92,U-233,233,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Uranium,92,U-234,234,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Uranium,92,U-235,235,Y,Y,Y,Y,Y,Y,Y,Y,Y,N,Y,Y
+Uranium,92,U-236,236,Y,Y,Y,Y,N,Y,Y,Y,N,N,Y,Y
+Uranium,92,U-238,238,Y,Y,Y,Y,N,Y,Y,Y,Y,N,Y,Y
+Neptunium,93,Np-237,237,Y,Y,Y,N,N,Y,Y,Y,N,N,Y,Y
+Plutonium,94,Pu-238,238,Y,Y,Y,N,N,Y,Y,Y,N,N,Y,Y
+Plutonium,94,Pu-239,239,Y,Y,Y,Y,N,Y,Y,Y,Y,N,Y,Y
+Plutonium,94,Pu-240,240,Y,Y,Y,N,N,Y,Y,Y,N,N,Y,Y
+Plutonium,94,Pu-241,241,Y,Y,Y,N,N,Y,Y,Y,N,N,Y,Y
+Plutonium,94,Pu-242,242,Y,Y,Y,N,N,Y,Y,Y,N,N,Y,Y
+Americium,95,Am-241,241,Y,Y,N,N,N,Y,Y,Y,N,N,Y,Y
+Americium,95,Am-243,243,Y,Y,N,N,N,Y,Y,Y,N,N,Y,Y
+Curium,96,Cm-244,244,Y,Y,N,N,N,Y,Y,Y,N,N,Y,Y
+Californium,98,Cf-252,252,Y,N,N,N,N,Y,Y,Y,N,N,Y,Y
+
+# Thermal Scattering Libraries
+# Material,Formula,Description,.80t,.81t,.82t,.83t,.84t,.70t
+Light Water,H2O,Light water moderator,Y,Y,Y,N,N,Y
+Heavy Water,D2O,Heavy water moderator,Y,Y,Y,N,N,Y
+Graphite,C,Graphite moderator,Y,Y,Y,N,N,Y
+Beryllium,Be,Beryllium metal,Y,Y,N,N,N,Y
+Beryllium Oxide,BeO,Beryllium oxide,Y,Y,N,N,N,Y
+Polyethylene,CH2,Polyethylene moderator,Y,Y,N,N,N,Y
+Zirconium Hydride,ZrH,Zirconium hydride,Y,Y,N,N,N,Y
+Benzene,C6H6,Benzene liquid,Y,N,N,N,N,Y
+Silicon Dioxide,SiO2,Quartz/silica,Y,N,N,N,N,N
+Uranium Dioxide,UO2,Uranium dioxide fuel,Y,Y,Y,N,N,N
+
+# Temperature Library Notes:
+# .80c = 293.6 K (room temperature) - STANDARD, most isotopes
+# .81c = 600 K - Selected actinides and structural materials
+# .82c = 900 K - Reactor operating temperatures
+# .83c = 1200 K - High temperature applications
+# .84c = 2500 K - Very high temperature (limited isotopes)
+
+# Coverage by Library Version:
+# ENDF/B-VIII.0 (.80c): ~500+ isotopes, most comprehensive
+# ENDF/B-VII.0 (.70c): ~400+ isotopes, widely used
+# ENDF/B-VII.1 (.71c): ~400+ isotopes, improvements over VII.0
+# ENDF/B-VI.8 (.66c): ~300+ isotopes, legacy systems
+
+# Temperature Libraries Primarily For:
+# - Actinides (U, Pu, Th, Np, Am) - fuel materials
+# - Zirconium - cladding material
+# - Oxygen - fuel compounds (UO2)
+# - Some structural materials
+
+# Thermal Scattering Priorities:
+# Priority 1 (MUST have): lwtr.80t, hwtr.80t, grph.80t
+# Priority 2 (Important): be.80t, beo.80t, poly.80t, zrh.80t
+# Priority 3 (Specialized): benzene, SiO2, UO2
+
+# Usage with Python Tools:
+# Check availability: python library_finder.py --isotope "U-235"
+# Find alternatives: python library_finder.py --recommend "92235.70c"
+# List all versions: python xsdir_parser.py --search "92235"
+# Verify coverage: python missing_library_diagnoser.py --input input.i

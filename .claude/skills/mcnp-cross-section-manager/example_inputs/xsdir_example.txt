@@ -1,0 +1,176 @@
+# Example xsdir Entries
+# Format: ZAID  AWR  filename  access  filelength  recordlength  entries  temperature  [ptable]
+#
+# This file shows typical xsdir entries for different library types and sections.
+# Actual paths and values may differ in real installations.
+
+# ============================================================================
+# DIRECTORY SECTION - Continuous Energy Neutron Data
+# ============================================================================
+
+# Hydrogen isotopes (ENDF/B-VIII.0)
+1001.80c  0.999167  endf80/H/1001.800nc  0  1  1  4553  2.5301E-08
+1002.80c  1.996300  endf80/H/1002.800nc  0  1  1  2344  2.5301E-08
+1003.80c  2.990900  endf80/H/1003.800nc  0  1  1  683   2.5301E-08
+
+# Hydrogen temperature libraries
+1001.81c  0.999167  endf80/H/1001.810nc  0  1  1  4553  5.1697E-08
+1001.82c  0.999167  endf80/H/1001.820nc  0  1  1  4553  7.7534E-08
+1001.83c  0.999167  endf80/H/1001.830nc  0  1  1  4553  1.0337E-07
+
+# Helium
+2003.80c  3.014900  endf80/He/2003.800nc 0  1  1  227   2.5301E-08
+2004.80c  4.001500  endf80/He/2004.800nc 0  1  1  338   2.5301E-08
+
+# Carbon
+6000.80c  11.896900 endf80/C/6000.800nc  0  1  1  8421  2.5301E-08
+6012.80c  11.896890 endf80/C/6012.800nc  0  1  1  8395  2.5301E-08
+6013.80c  12.892660 endf80/C/6013.800nc  0  1  1  263   2.5301E-08
+
+# Oxygen
+8016.80c  15.857510 endf80/O/8016.800nc  0  1  1  12344 2.5301E-08
+8017.80c  16.852940 endf80/O/8017.800nc  0  1  1  2156  2.5301E-08
+
+# Iron (natural and isotopes)
+26000.80c 55.451000 endf80/Fe/26000.800nc 0  1  1  45234 2.5301E-08
+26054.80c 53.439610 endf80/Fe/26054.800nc 0  1  1  8234  2.5301E-08
+26056.80c 55.396380 endf80/Fe/26056.800nc 0  1  1  23456 2.5301E-08
+26057.80c 56.391210 endf80/Fe/26057.800nc 0  1  1  12345 2.5301E-08
+26058.80c 57.385770 endf80/Fe/26058.800nc 0  1  1  6789  2.5301E-08
+
+# Zirconium
+40000.80c 90.639900 endf80/Zr/40000.800nc 0  1  1  67890 2.5301E-08
+40090.80c 89.046820 endf80/Zr/40090.800nc 0  1  1  34567 2.5301E-08
+40091.80c 90.042950 endf80/Zr/40091.800nc 0  1  1  23456 2.5301E-08
+
+# Uranium isotopes (ENDF/B-VIII.0)
+92233.80c 231.024320 endf80/U/92233.800nc 0  1  1  45678 2.5301E-08
+92234.80c 232.034170 endf80/U/92234.800nc 0  1  1  34567 2.5301E-08
+92235.80c 235.043930 endf80/U/92235.800nc 0  1  1  78901 2.5301E-08
+92236.80c 234.039940 endf80/U/92236.800nc 0  1  1  23456 2.5301E-08
+92238.80c 236.045680 endf80/U/92238.800nc 0  1  1  56789 2.5301E-08
+
+# Uranium temperature libraries (for Doppler feedback)
+92235.81c 235.043930 endf80/U/92235.810nc 0  1  1  78901 5.1697E-08
+92235.82c 235.043930 endf80/U/92235.820nc 0  1  1  78901 7.7534E-08
+92235.83c 235.043930 endf80/U/92235.830nc 0  1  1  78901 1.0337E-07
+92235.84c 235.043930 endf80/U/92235.840nc 0  1  1  78901 2.1543E-07
+
+92238.81c 236.045680 endf80/U/92238.810nc 0  1  1  56789 5.1697E-08
+92238.82c 236.045680 endf80/U/92238.820nc 0  1  1  56789 7.7534E-08
+92238.83c 236.045680 endf80/U/92238.830nc 0  1  1  56789 1.0337E-07
+
+# Plutonium isotopes
+94238.80c 236.042640 endf80/Pu/94238.800nc 0  1  1  23456 2.5301E-08
+94239.80c 237.048410 endf80/Pu/94239.800nc 0  1  1  67890 2.5301E-08
+94240.80c 238.049490 endf80/Pu/94240.800nc 0  1  1  45678 2.5301E-08
+94241.80c 239.052160 endf80/Pu/94241.800nc 0  1  1  34567 2.5301E-08
+94242.80c 240.053810 endf80/Pu/94242.800nc 0  1  1  23456 2.5301E-08
+
+# Older library versions (ENDF/B-VII.0)
+1001.70c  0.999167  endf70/H/1001.700nc  0  1  1  4321  2.5301E-08
+92235.70c 235.043930 endf70/U/92235.700nc 0  1  1  76543 2.5301E-08
+92238.70c 236.045680 endf70/U/92238.700nc 0  1  1  54321 2.5301E-08
+
+# ENDF/B-VI.8
+92235.66c 235.043930 endf66/U/92235.660nc 0  1  1  65432 2.5301E-08
+
+# ============================================================================
+# THERMAL SECTION - Thermal Scattering S(α,β) Data
+# ============================================================================
+
+# Light water at different temperatures
+lwtr.80t  0.999170  endf80/thermal/lwtr.800t  0  1  1  3456  2.5301E-08
+lwtr.81t  0.999170  endf80/thermal/lwtr.810t  0  1  1  3456  5.1697E-08
+lwtr.82t  0.999170  endf80/thermal/lwtr.820t  0  1  1  3456  7.7534E-08
+
+# Heavy water (D2O)
+hwtr.80t  1.996300  endf80/thermal/hwtr.800t  0  1  1  2345  2.5301E-08
+hwtr.81t  1.996300  endf80/thermal/hwtr.810t  0  1  1  2345  5.1697E-08
+
+# Graphite
+grph.80t  11.898000 endf80/thermal/grph.800t  0  1  1  4567  2.5301E-08
+grph.81t  11.898000 endf80/thermal/grph.810t  0  1  1  4567  5.1697E-08
+
+# Beryllium
+be.80t    9.012000  endf80/thermal/be.800t    0  1  1  1234  2.5301E-08
+
+# Beryllium oxide
+beo.80t   12.506000 endf80/thermal/beo.800t   0  1  1  2345  2.5301E-08
+
+# Polyethylene
+poly.80t  12.253000 endf80/thermal/poly.800t  0  1  1  3456  2.5301E-08
+
+# Zirconium hydride
+zrh.80t   90.223000 endf80/thermal/zrh.800t   0  1  1  4567  2.5301E-08
+
+# ============================================================================
+# PHOTOATOMIC SECTION - Photon Interaction Data
+# ============================================================================
+
+# Common elements for photon transport
+1000.80p   1.000000  endf80/photo/1000.800p  0  1  1  234   0.0
+6000.80p  12.011000  endf80/photo/6000.800p  0  1  1  456   0.0
+8000.80p  15.999000  endf80/photo/8000.800p  0  1  1  567   0.0
+26000.80p 55.845000  endf80/photo/26000.800p 0  1  1  789   0.0
+82000.80p 207.200000 endf80/photo/82000.800p 0  1  1  890   0.0
+92000.80p 238.029000 endf80/photo/92000.800p 0  1  1  901   0.0
+
+# ============================================================================
+# PHOTOELECTRON SECTION - Electron Interaction Data
+# ============================================================================
+
+# Electron transport data
+1000.80e   1.000000  endf80/electron/1000.800e  0  1  1  123  0.0
+6000.80e  12.011000  endf80/electron/6000.800e  0  1  1  234  0.0
+8000.80e  15.999000  endf80/electron/8000.800e  0  1  1  345  0.0
+26000.80e 55.845000  endf80/electron/26000.800e 0  1  1  456  0.0
+
+# ============================================================================
+# DOSIMETRY SECTION - Dosimetry Cross Sections
+# ============================================================================
+
+# Dosimetry reactions
+27059.80y 58.933200  endf80/dosimetry/27059.800y 0  1  1  89  2.5301E-08
+49115.80y 114.818000 endf80/dosimetry/49115.800y 0  1  1  67  2.5301E-08
+
+# ============================================================================
+# NOTES
+# ============================================================================
+#
+# Temperature field (8th column):
+#   - In units of kT (MeV)
+#   - Convert to Kelvin: T(K) = kT(MeV) / 8.617333E-11
+#   - Common values:
+#       2.5301E-08 MeV → 293.6 K  (room temperature)
+#       5.1697E-08 MeV → 600 K    (moderate temperature)
+#       7.7534E-08 MeV → 900 K    (typical PWR/BWR)
+#       1.0337E-07 MeV → 1200 K   (high temperature)
+#       2.1543E-07 MeV → 2500 K   (very high temperature)
+#
+# ZAID format: ZZZAAA.nnX
+#   ZZZ = Atomic number (1-118)
+#   AAA = Mass number (0 for natural element mix)
+#   nn  = Library identifier (80, 81, 82, etc.)
+#   X   = Library type:
+#         c = Continuous energy neutron
+#         d = Discrete energy neutron
+#         t = Thermal scattering S(α,β)
+#         p = Photoatomic (photon)
+#         e = Photoelectron (electron)
+#         y = Dosimetry
+#         h = Proton
+#         u = Photonuclear
+#
+# Library versions:
+#   .80c = ENDF/B-VIII.0 (latest, released 2018)
+#   .70c = ENDF/B-VII.0 (2006)
+#   .71c = ENDF/B-VII.1 (2011)
+#   .66c = ENDF/B-VI.8 (2001)
+#
+# Section markers in xsdir:
+#   directory     - Neutron continuous energy data
+#   thermal       - Thermal scattering S(α,β)
+#   photoatomic   - Photon interaction data
+#   photoelectron - Electron interaction data
+#   dosimetry     - Dosimetry cross sections
