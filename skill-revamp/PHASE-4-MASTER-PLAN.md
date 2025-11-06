@@ -26,6 +26,57 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 
 ---
 
+## 🚨 PARALLEL EXECUTION SUPPORT 🚨
+
+**This phase has FULL parallel execution support - all skills independent.**
+
+### Parallel Execution Capabilities
+
+**Phase 4 Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
+
+**Can Execute in Parallel with:**
+- ✅ Phase 1 (different documentation)
+- ✅ Phase 2 (different documentation)
+- ✅ Phase 3 (independent)
+- ✅ Phase 5 (independent)
+
+**Dependencies:** NONE - All Phase 4 skills are fully independent
+
+### Skills - All Independent
+
+All 6 utility skills can start immediately and be done in any order:
+1. ⏸️ mcnp-unit-converter
+2. ⏸️ mcnp-physical-constants
+3. ⏸️ mcnp-isotope-lookup
+4. ⏸️ mcnp-cross-section-manager
+5. ⏸️ mcnp-parallel-configurator
+6. ⏸️ mcnp-template-generator
+
+**Parallelization Strategy:**
+- Can execute in parallel with ANY other phase
+- All 6 skills can be split across multiple sessions
+- Single session can complete all 6 (~90k tokens)
+- **HIGH PRIORITY** - These utility skills support all other skills
+
+### Session ID Tracking
+
+**Every session working on Phase 4 MUST:**
+
+1. **Generate unique session ID:** `Session-YYYYMMDD-HHMMSS-Phase4`
+2. **Record in PHASE-4-PROJECT-STATUS.md**
+3. **Update GLOBAL-SESSION-REQUIREMENTS.md lines 135-157 (Phase 4 section)**
+
+### Coordination with Global Requirements
+
+**Session startup reads:**
+1. GLOBAL-SESSION-REQUIREMENTS.md
+2. TOKEN-OPTIMIZATION-BEST-PRACTICES.md
+3. THIS FILE (PHASE-4-MASTER-PLAN.md)
+4. PHASE-4-PROJECT-STATUS.md
+5. LESSONS-LEARNED.md
+
+---
+
 ## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
 
 **MANDATORY for ALL Phase 4 skills - NO EXCEPTIONS:**
@@ -592,8 +643,23 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 
 ---
 
+## 🚨 END-OF-SESSION REQUIREMENTS (PARALLEL EXECUTION) 🚨
+
+**MANDATORY for every session working on Phase 4:**
+
+### Update Documents
+
+1. **PHASE-4-PROJECT-STATUS.md** - Add session summary with session ID
+2. **GLOBAL-SESSION-REQUIREMENTS.md lines 135-157** - Update Phase 4 Progress section
+3. Inform user of completion status
+
+**Emphasize:**
+- Phase 4 has NO dependencies - can execute with any other phase in parallel
+- Python scripts are ESSENTIAL (not optional) for these utility skills
+- These skills support ALL other phases
+
+---
+
 **END OF PHASE 4 MASTER PLAN**
 
-**Next Step:** Create PHASE-5-MASTER-PLAN.md
-
-**Remember:** Phase 4 focuses on utility skills where Python scripts are core functionality, not optional. Emphasize working code, data files, and practical usage examples. These skills support all others.
+**Remember:** Phase 4 utility skills are fully independent. Can execute in parallel with ALL other phases. Update GLOBAL-SESSION-REQUIREMENTS.md at session end. Python scripts are core functionality.
