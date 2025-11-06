@@ -81,7 +81,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
    - Key sections: §4.7 Input Error Messages, §4.8 Geometry Errors
    - Token estimate: ~20k (if not cached) or 0k (if cached from Phase 1)
 
-#### Optional/Skill-Specific Documentation
+#### Skill-Specific Documentation
 
 3. **markdown_docs/primers/source_primer/05_Known_Source_Errors.md**
    - Purpose: Common source definition errors
@@ -113,11 +113,11 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
 
 ---
 
-## 🛠️ SKILLS TO PROCESS (8 TOTAL)
+## 🛠️ SKILLS TO PROCESS (6 TOTAL)
 
 ### Processing Order
 
-#### Validation & Debugging (5 skills)
+#### Validation & Debugging (3 skills)
 
 1. **mcnp-fatal-error-debugger** (Category C)
    - **Priority:** HIGHEST - Critical for users
@@ -142,7 +142,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
    - **Scripts to bundle:**
      - error_parser.py (parse output for error patterns)
      - lost_particle_analyzer.py (analyze lost particle locations)
-   - **Examples needed:**
+   - **example_files/ needed:**
      - Problematic inputs with errors (from basic_examples/)
      - Error output examples with fixes
 
@@ -163,31 +163,11 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
    - **Scripts to bundle:**
      - warning_filter.py (parse and categorize warnings)
      - warning_prioritizer.py (identify critical warnings)
-   - **Examples needed:**
+   - **example_files/ needed:**
      - Output files with various warnings
      - Warning fixes demonstrated
 
-3. **mcnp-input-validator** (Category C - May be in Phase 1)
-   - **Priority:** High if not done in Phase 1
-   - **Current:** ~1,100 lines (estimate)
-   - **Status Check:** May have been done in Phase 1 (Tier 3)
-   - **If already done:** Skip
-   - **If not done:**
-     - Focus: Pre-simulation input validation
-     - Cross-reference checking, syntax validation
-     - Integration with cell-checker, cross-reference-checker
-
-4. **mcnp-geometry-checker** (Category C - May be in Phase 1)
-   - **Priority:** High if not done in Phase 1
-   - **Current:** ~900 lines (estimate)
-   - **Status Check:** May have been done in Phase 1 (Tier 3)
-   - **If already done:** Skip
-   - **If not done:**
-     - Focus: Geometry validation
-     - Overlap detection, gap identification
-     - Boolean logic checking
-
-5. **mcnp-best-practices-checker** (Bonus skill)
+3. **mcnp-best-practices-checker** (Bonus skill)
    - **Priority:** Medium
    - **Current:** ~800 lines (estimate)
    - **Focus:** Check inputs against 57-item best practices checklist
@@ -213,7 +193,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
 
 #### Meta/Navigation Skills (3 skills)
 
-6. **mcnp-example-finder** (Category F)
+4. **mcnp-example-finder** (Category F)
    - **Priority:** High - Help users navigate examples
    - **Current:** ~750 lines (estimate)
    - **Focus:** Find relevant MCNP examples from example_files/
@@ -237,7 +217,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
      - Example index database (JSON)
      - Quick reference to example categories
 
-7. **mcnp-knowledge-docs-finder** (Category F)
+5. **mcnp-knowledge-docs-finder** (Category F)
    - **Priority:** Medium - Help navigate documentation
    - **Current:** ~700 lines (estimate)
    - **Focus:** Find relevant sections in markdown_docs/
@@ -260,7 +240,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
      - Documentation index (JSON)
      - Card-to-file mapping
 
-8. **mcnp-criticality-analyzer** (Bonus skill)
+6. **mcnp-criticality-analyzer** (Bonus skill)
    - **Priority:** Medium - Specialized analysis
    - **Current:** ~850 lines (estimate)
    - **Focus:** Analyze KCODE criticality calculations
@@ -281,7 +261,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
    - **Scripts to bundle:**
      - kcode_analyzer.py (parse and analyze KCODE output)
      - entropy_plotter.py (visualize entropy convergence)
-   - **Examples needed:**
+   - **example_files/ needed:**
      - criticality_examples/ outputs
      - KCODE convergence examples
 
@@ -291,7 +271,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
 
 ### Same Core Workflow as Previous Phases
 
-For EACH of the 8 skills, follow the standard 11-step workflow:
+For EACH of the 6 skills, follow the standard 11-step workflow:
 
 1. **Read Current SKILL.md** (2k tokens)
 2. **Cross-Reference with Documentation** (0k if cached, or read specific docs as needed)
@@ -318,37 +298,6 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 - Extensive cross-referencing to other skills
 - Meta-skills help users navigate skill ecosystem
 - Validation skills use knowledge from all phases
-
-**Skill Status Checking (Before starting):**
-- Check if input-validator and geometry-checker were done in Phase 1
-- If yes: Skip in Phase 5
-- If no: Process in Phase 5
-
----
-
-## 📊 TOKEN BUDGET BREAKDOWN
-
-### Phase-Level Allocation
-- **Documentation reading:** 10-40k tokens (depending on cache and skill-specific needs)
-- **Skill processing:** 8 skills × 10k = 80k tokens
-- **Total Phase 5:** ~90-120k tokens
-
-### Best Case (Phase 1 Docs Cached)
-- Minimal new documentation: 10k tokens
-- Process 8 skills: 80k tokens
-- **Total:** ~90k tokens
-
-### Worst Case (No Cache)
-- Read Chapters 3-4: 35k tokens
-- Read primers: 5k tokens
-- Process 8 skills: 80k tokens
-- **Total:** ~120k tokens
-
-### Session Distribution
-**Single Session:**
-- Read documentation as needed: 10-40k tokens
-- Process all 8 skills (or 6 if 2 done in Phase 1): 60-80k tokens
-- **Total:** ~70-120k tokens (fits in one session even worst case)
 
 ---
 
@@ -383,15 +332,13 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 **Skills (in order):**
 1. [ ] mcnp-fatal-error-debugger
 2. [ ] mcnp-warning-analyzer
-3. [ ] mcnp-input-validator (if not done in Phase 1)
-4. [ ] mcnp-geometry-checker (if not done in Phase 1)
-5. [ ] mcnp-best-practices-checker
-6. [ ] mcnp-example-finder
-7. [ ] mcnp-knowledge-docs-finder
-8. [ ] mcnp-criticality-analyzer
+3. [ ] mcnp-best-practices-checker
+4. [ ] mcnp-example-finder
+5. [ ] mcnp-knowledge-docs-finder
+6. [ ] mcnp-criticality-analyzer
 
 ### Phase 5 Completion = PROJECT COMPLETION
-- [ ] All 8 Phase 5 skills completed
+- [ ] All 6 Phase 5 skills completed
 - [ ] **ALL 36 SKILLS REVAMPED** 🎉
 - [ ] Final integration check across all phases
 - [ ] Create skill ecosystem map (which skills connect to which)
@@ -415,7 +362,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 - fatal_error_catalog.md must be COMPREHENSIVE
 - Include every error message from Chapter 4
 
-### mcnp-example-finder (Skill #6 - HIGH VALUE)
+### mcnp-example-finder (Skill #4 - HIGH VALUE)
 **Why high value:** Helps users navigate 1,107 examples
 **Key focus:**
 - Searchable index of all examples
@@ -431,7 +378,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 - Reference which skills use which examples
 - Link from EVERY skill to relevant examples
 
-### mcnp-knowledge-docs-finder (Skill #7 - META)
+### mcnp-knowledge-docs-finder (Skill #5 - META)
 **Why meta:** Helps navigate knowledge base itself
 **Key focus:**
 - Map 72 documentation files
@@ -444,7 +391,7 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 - Reference from documentation sections of all skills
 - Help users find detailed info beyond SKILL.md
 
-### mcnp-best-practices-checker (Skill #5 - QUALITY)
+### mcnp-best-practices-checker (Skill #3 - QUALITY)
 **Why important:** Ensures good simulation practices
 **Key focus:**
 - 57-item checklist from Chapter 3.4
@@ -462,9 +409,6 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 ---
 
 ## 🚨 PHASE 5 CONTINGENCIES
-
-### If input-validator and geometry-checker Already Done
-**Issue:** These may have been completed in Phase 1 Tier 3
 
 **Actions:**
 1. Check REVAMP-PROJECT-STATUS.md carefully
@@ -491,14 +435,14 @@ For EACH of the 8 skills, follow the standard 11-step workflow:
 2. Interactive tools are key (Python scripts)
 3. Use cases showing how they help
 4. Integration examples with other skills
-5. Assets/scripts are more important than detailed SKILL.md
+5. Root-level supplemenental [reference-doc].md files and scripts/ are more important than detailed SKILL.md
 
 ---
 
 ## ✅ PHASE 5 SUCCESS CRITERIA
 
 ### Phase Complete When:
-- ✅ All required Phase 5 skills completed (6-8 depending on Phase 1)
+- ✅ All required Phase 5 skills completed
 - ✅ Every skill passes 26-item quality checklist (includes NO assets/ check)
 - ✅ Error catalogs comprehensive
 - ✅ Meta-skills have functional search tools

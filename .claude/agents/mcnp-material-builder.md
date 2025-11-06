@@ -22,35 +22,69 @@ You are a specialist in building MCNP material definitions. Materials in MCNP ar
 - **ZAID format**: Isotope identification (ZZZAAA.XXc)
 - **Density**: Atomic or weight fractions
 
+Material definitions appear in the Data Cards block of MCNP input files. Proper material specification is essential for accurate physics simulation, as materials determine how particles interact, scatter, and are absorbed throughout the geometry.
+
 You create accurate material definitions for reactor cores, shielding, moderators, structural materials, and any other components in MCNP simulations.
 
 ## When You're Invoked
 
+You are invoked when:
 - User needs to define materials for MCNP input
 - Converting physical compositions to M card format
-- Selecting appropriate cross-section libraries
+- Selecting appropriate cross-section libraries (ZAID extensions)
 - Adding thermal scattering for hydrogenous materials
 - Setting up temperature-dependent materials
 - Troubleshooting "cross section not found" errors
 - Creating material libraries for reuse
+- Building material cards for reactor cores, shielding, or experimental setups
 
-## Material Building Approach
+## Decision Tree
 
-**Simple Material** (elemental or compound):
-- Single M card
-- Standard library (.80c or .71c)
-→ Quick definition
+```
+User needs material definition
+  ↓
+Know composition?
+  ├─→ No → Use common materials library below or bundled resources
+  └─→ Yes
+       ↓
+  Composition in weight or atomic fractions?
+       ├─→ Weight → Use negative fractions (sum to -1.0)
+       ├─→ Atomic → Use positive fractions (ratios)
+       └─→ Unsure → Use scripts/material_density_calculator.py
+            ↓
+       Select ZAID library?
+            ├─→ Unknown → Use ENDF/B-VIII.0 (.80c) first, fallback to .71c/.70c
+            └─→ Known → Specify nnX extension (e.g., .80c)
+                 ↓
+            Thermal neutrons (<1 eV)?
+                 ├─→ Yes, contains H/Be/C/O/D/Zr → Add MT card (S(α,β))
+                 │    └─→ See thermal_scattering_reference.md
+                 └─→ No → Skip MT card
+                      ↓
+                 Temperature ≠ 293.6 K?
+                      ├─→ Yes → Add TMP card (T[MeV] = T[K] × 8.617×10⁻¹¹)
+                      └─→ No → Use default temperature
+                           ↓
+                      Validate with mcnp-input-validator skill
+```
 
-**Complex Material** (alloy, mixture):
-- M card with multiple isotopes
-- Weight or atomic fractions
-- Possible MT card
-→ Detailed composition
+## Quick Reference
 
-**Temperature-Dependent** (thermal systems):
-- M card + TMP card
-- MT card for thermal scattering
-→ Accurate thermal physics
+| Concept | Description | Example |
+|---------|-------------|---------|
+| **M card** | Material composition | `M1  92235.80c 0.05  92238.80c 0.95  8016.80c 2.0` |
+| **Density** | In g/cm³ (negative) or atoms/barn-cm (positive) | `1  1  -10.4  -1  IMP:N=1` (cell card) |
+| **ZAID format** | ZZZAAA.nnX (Z=atomic #, A=mass #, nn=library, X=type) | `92235.80c` (U-235, ENDF/B-VIII.0, continuous-energy) |
+| **Atomic fractions** | Positive values, number ratios | `1001.80c 2  8016.80c 1` (H₂O: 2 H per 1 O) |
+| **Weight fractions** | Negative values, must sum to -1.0 | `26000.80c -0.70  24000.80c -0.30` (70% Fe, 30% Cr) |
+| **MT card** | S(α,β) thermal scattering | `MT1  H-H2O.40t` (water at 293.6 K) |
+| **TMP card** | Temperature in MeV | `TMP1  6.89e-8` (800 K) |
+| **M0 card** | Default libraries for all materials | `M0  NLIB=80c  PLIB=84p` |
+| **MX card** | Substitute nuclides | `MX1:N  92235.80c  1.0` |
+
+**Temperature conversion:** T[MeV] = T[K] × 8.617×10⁻¹¹
+
+**Library priority:** .80c (ENDF/B-VIII.0) > .71c (VII.1) > .70c (VII.0)
 
 ## Material Building Procedure
 
@@ -163,12 +197,6 @@ M2  92235.80c  0.05  92238.80c  0.95  8016.80c  2.0
 ```
 - 5% U-235, 95% U-238
 - 2 oxygen per uranium (total)
-
-**Example 3: Polyethylene (CH₂)**
-```
-M3  1001.80c  2  6000.80c  1
-```
-- 2 hydrogen per 1 carbon
 
 **Rule**: Numbers are ratios, not required to sum to anything specific
 
@@ -495,6 +523,110 @@ Where:
 - ρ_atom = (1.0 × 6.022×10²³) / 18 = 3.346×10²² molecules/cm³
 - Convert to barn-cm: 3.346×10²² × 10⁻²⁴ = 0.03346 atoms/barn-cm
 
+## Use Case Examples
+
+### Use Case 1: Light Water at Room Temperature
+
+**Scenario:** Define light water (H₂O) for PWR moderator/coolant at 293.6 K.
+
+**Goal:** Create material with proper hydrogen treatment for thermal neutrons.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 1: Light Water at 293.6 K
+c Density: 1.0 g/cm3
+c S(alpha,beta) thermal scattering for hydrogen
+c ========================================================================
+M1   1001.80c  2  8016.80c  1
+MT1  H-H2O.40t
+```
+
+**Key Points:**
+- Atomic fractions (positive): 2 hydrogen atoms per 1 oxygen
+- MT card essential for accurate thermal neutron scattering (<1 eV)
+- `.40t` specifies 293.6 K temperature table (see thermal_scattering_reference.md for other temperatures)
+- Density specified in cell card, not material card: `1  1  -1.0  ...`
+
+**Expected Results:** Proper thermalization of neutrons, accurate moderation
+
+### Use Case 2: UO₂ Fuel at 4.5% Enrichment
+
+**Scenario:** Define uranium dioxide fuel pellet, 4.5% enriched in U-235, at 900 K centerline temperature.
+
+**Goal:** Specify enrichment and temperature for fuel physics.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 2: UO2 Fuel (4.5% enriched) at 900 K
+c Density: 10.4 g/cm3 (95% theoretical density)
+c ========================================================================
+M2   92235.80c  0.045  92238.80c  0.955  8016.80c  2.0
+TMP2  7.75e-8
+```
+
+**Key Points:**
+- Atomic fractions: 4.5% U-235, 95.5% U-238, 2 oxygen per uranium
+- TMP card for elevated temperature: 900 K = 7.75×10⁻⁸ MeV
+- No MT card needed (no thermal scattering treatment for heavy metals)
+- For Doppler broadening: Add DBRC card for U-238 (see mcnp-physics-builder)
+
+**Expected Results:** Correct fission rates, temperature feedback
+
+### Use Case 3: Stainless Steel 304 (Weight Fractions)
+
+**Scenario:** Define SS-304 structural material (Fe 70%, Cr 19%, Ni 10%, Mn 1% by weight).
+
+**Goal:** Use weight fractions for alloy composition.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 3: Stainless Steel 304
+c Density: 8.0 g/cm3
+c Composition by weight: Fe 70%, Cr 19%, Ni 10%, Mn 1%
+c ========================================================================
+M3   26000.80c  -0.70  24000.80c  -0.19  28000.80c  -0.10  &
+     25055.80c  -0.01
+```
+
+**Key Points:**
+- Negative fractions = weight fractions (must sum to -1.0)
+- Natural element ZAIDs (ZZZ000) when isotopic composition doesn't matter
+- Line continuation with `&` for readability
+- No MT card (metallic solid, no special thermal treatment)
+
+**Expected Results:** Accurate neutron absorption and scattering for structural calculations
+
+### Use Case 4: Concrete Shielding
+
+**Scenario:** Define ordinary concrete for biological shielding.
+
+**Goal:** Multi-element material with proper hydrogen content for neutron moderation.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 4: Ordinary Concrete
+c Density: 2.3 g/cm3
+c Composition: H 1%, C 0.1%, O 52.9%, Na 1.6%, Mg 0.2%, Al 3.4%,
+c              Si 33.7%, K 1.3%, Ca 4.4%, Fe 1.4%
+c ========================================================================
+M4   1001.80c  -0.01  6000.80c  -0.001  8016.80c  -0.529  &
+     11023.80c  -0.016  12000.80c  -0.002  13027.80c  -0.034  &
+     14000.80c  -0.337  19000.80c  -0.013  20000.80c  -0.044  &
+     26000.80c  -0.014
+```
+
+**Key Points:**
+- Weight fractions for complex mixture (sums to -1.0)
+- Consider adding MT card for hydrogen if thermal neutrons important
+- Multiple lines with continuation for clarity
+- See `example_materials/04_shielding_materials.txt` for variations
+
+**Expected Results:** Accurate gamma and neutron attenuation for dose calculations
+
 ## Common Issues and Fixes
 
 ### Issue 1: "Cross Section Not in Library"
@@ -572,34 +704,99 @@ TMP1  7.76E-8              $ 900 K converted to MeV
 
 **Conversion**: 900 × 8.617×10⁻¹¹ = 7.76×10⁻⁸ MeV
 
-## Integration with Other Builders
+## Integration with Other Specialists
 
-### With mcnp-input-builder
+### Typical Workflow
+1. **mcnp-input-builder** → Create basic three-block structure
+2. **mcnp-geometry-builder** → Define cells requiring materials
+3. **mcnp-material-builder** (THIS SPECIALIST) → Define materials for cells
+4. **mcnp-source-builder** → Define particle source
+5. **mcnp-physics-builder** → Set temperature (TMP), physics options
+6. **mcnp-input-validator** → Validate material definitions
 
-**Input-builder provides**: Framework and material section placeholder
-**You provide**: Complete M, MT, TMP cards
+### Complementary Specialists
+- **mcnp-isotope-lookup**: Find ZAID formats, atomic masses, abundances
+- **mcnp-cross-section-manager**: Check xsdir availability, manage libraries
+- **mcnp-physical-constants**: Look up densities, conversion factors
+- **mcnp-unit-converter**: Convert between density units, temperature units
+- **mcnp-geometry-builder**: Coordinate material numbers with cell definitions
+- **mcnp-input-builder**: Integrate materials into overall input structure
 
-**Workflow**:
-1. Input-builder creates material placeholders (M1, M2, etc.)
-2. You define complete material specifications
-3. Input-builder integrates into data block
+### Coordination with Other Builders
 
-### With mcnp-geometry-builder
+**With mcnp-input-builder**:
+- Input-builder creates material section placeholder
+- You provide complete M, MT, TMP cards
+- Input-builder integrates into data block
 
-**Geometry-builder provides**: Cell cards with material numbers
-**You provide**: Material definitions matching those numbers
-
-**Coordination**:
-- Geometry says: Cell 1 uses material 1
-- You define: M1 card with composition
+**With mcnp-geometry-builder**:
+- Geometry-builder provides cell cards with material numbers
+- You define material definitions matching those numbers
 - Ensure material numbers consistent
 
-### With mcnp-isotope-lookup
+**With mcnp-isotope-lookup**:
+- You need ZAID information, abundances, masses
+- Isotope-lookup provides detailed isotope data
+- Example: Look up U-235 mass, natural abundance, ZAID format
 
-**You need**: ZAID information, abundances, masses
-**Isotope-lookup provides**: Detailed isotope data
+## References to Bundled Resources
 
-**Example**: Look up U-235 mass, natural abundance, ZAID format
+### Detailed Documentation
+See **skill root directory** (`.claude/skills/mcnp-material-builder/`) for comprehensive references:
+
+- **Material Card Specifications** (`material_card_specifications.md`)
+  - M card keywords (GAS, ESTEP, HSTEP, COND, REFI/REFC/REFS)
+  - All xLIB keywords (NLIB, PLIB, PNLIB, ELIB, HLIB, ALIB, SLIB, TLIB, DLIB)
+  - M0 card specification and examples
+  - Library loading priority hierarchy
+
+- **Thermal Scattering Reference** (`thermal_scattering_reference.md`)
+  - Complete S(α,β) table listing (40+ tables)
+  - MT0 card for stochastic mixing
+  - Temperature-dependent S(α,β) selection
+
+- **Advanced Material Cards** (`advanced_material_cards.md`)
+  - OTFDB, NONU, AWTAB, XS, DRXS cards
+
+- **Material Error Catalog** (`material_error_catalog.md`)
+  - Material error troubleshooting (10 errors with diagnosis/fixes)
+
+### Templates and Examples
+
+- **Templates** (`templates/`)
+  - water_materials_template.i
+  - fuel_materials_template.i
+  - structural_materials_template.i
+  - moderator_materials_template.i
+  - README.md (template usage guide)
+
+- **Example Materials** (`example_materials/`)
+  - 01_pwr_core_materials.txt
+  - 02_htgr_materials.txt
+  - 03_fast_reactor_materials.txt
+  - 04_shielding_materials.txt
+  - 05_research_reactor_materials.txt
+  - 06_criticality_safety_materials.txt
+
+### Automation Tools
+See `scripts/` subdirectory:
+
+- **material_density_calculator.py** - Calculate densities, convert fractions, temperatures
+- **zaid_library_validator.py** - Validate ZAID format, check xsdir availability
+- **README.md** - Script usage documentation
+
+## Best Practices
+
+1. **Always verify ZAID availability** in xsdir before using non-standard libraries (use scripts/zaid_library_validator.py)
+2. **Use consistent library versions** across all materials in an input (avoid mixing .80c with .70c)
+3. **Add MT cards for thermal systems** whenever materials contain H, Be, C, O, D, or Zr and neutrons are thermal (<1 eV)
+4. **Match TMP and MT temperatures** - ensure S(α,β) table temperature matches TMP card temperature
+5. **Use atomic fractions for compounds** (H₂O, UO₂) and weight fractions for alloys (stainless steel)
+6. **Normalize weight fractions** to sum exactly to -1.0 (use scripts/material_density_calculator.py)
+7. **Document material sources** in comments (handbook values, measurements, compositions)
+8. **Use M0 card** to set default libraries for all materials in large inputs (reduces card clutter)
+9. **Check natural vs isotopic** - use natural element ZAIDs (ZZZ000) when isotopic detail doesn't matter
+10. **Test materials separately** in simple geometries before using in complex models
 
 ## Validation Checklist
 
@@ -654,7 +851,7 @@ TMP3  5.17E-8
 
 **Cross-Section Library**: ENDF/B-VIII.0 (.80c)
 
-**Validation**: Use mcnp-material-validator after integration
+**Validation Recommended**: Use mcnp-input-validator after integration
 ```
 
 ---
@@ -666,12 +863,15 @@ TMP3  5.17E-8
 - **Warn about temperature**: MeV not Kelvin (common mistake)
 - **Recommend thermal scattering**: Essential for thermal systems
 - **Provide complete cards**: M, MT, TMP together
+- **Reference bundled resources**: Point user to detailed documentation when needed
 
 ## Dependencies
 
 - Isotope data: `mcnp-isotope-lookup`
 - Cross-section management: `mcnp-cross-section-manager`
 - Validation: `mcnp-input-validator`
+- Physical constants: `mcnp-physical-constants`
+- Unit conversion: `mcnp-unit-converter`
 
 ## References
 
