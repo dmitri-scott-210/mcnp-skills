@@ -1,8 +1,8 @@
 ---
 category: E
 name: mcnp-mesh-builder
-description: Build TMESH and FMESH mesh tally specifications for spatial distribution analysis
-version: 1.0.0
+description: Build TMESH, FMESH, and unstructured mesh (UM) tally specifications for spatial distribution analysis
+version: 2.0.0
 auto_activate: true
 activation_keywords:
   - mesh tally
@@ -30,52 +30,57 @@ output_formats:
 
 # mcnp-mesh-builder
 
-**Purpose**: Build TMESH and FMESH mesh tally specifications for analyzing spatial distributions of neutron/photon flux, energy deposition, and reaction rates over regular grids independent of problem geometry.
+**Purpose**: Build TMESH, FMESH, and unstructured mesh (UM) tally specifications for analyzing spatial distributions of neutron/photon flux, energy deposition, and reaction rates over regular or irregular grids.
 
 ## What Are Mesh Tallies?
 
-**Mesh tallies** superimpose a regular grid over the problem geometry to calculate tallies in each mesh cell, providing spatial distribution data without requiring geometry to match the tally grid.
+**Mesh tallies** superimpose a grid over the problem geometry to calculate tallies in each mesh cell, providing spatial distribution data.
 
-### TMESH vs FMESH
+**Three types:**
+1. **FMESH** - Modern structured mesh (Cartesian or cylindrical grids)
+2. **TMESH** - Legacy structured mesh (backward compatibility)
+3. **Unstructured Mesh (UM)** - Irregular mesh from external tools (GMSH, ABAQUS, etc.)
 
-| Feature | TMESH | FMESH |
-|---------|-------|-------|
-| **Format** | Legacy format (pre-MCNP6) | Modern format (MCNP6+) |
-| **Output** | Text-based meshtal file | XDMF/HDF5 for visualization |
-| **Geometry** | Rectangular (CORA/CORB/CORC) | XYZ (Cartesian) or RZT (cylindrical) |
-| **Types** | 4 types (flux, source, energy, DXTRAN) | Track-averaged flux only |
-| **Energy bins** | ERGSH card | EMESH keyword |
-| **Time bins** | TMESH card | TMESH keyword |
-| **Visualization** | Manual plotting required | Direct ParaView/VisIt import |
+### TMESH vs FMESH vs UM
 
-**Recommendation**: Use **FMESH** for new work (better visualization, simpler syntax). Use TMESH only for legacy compatibility.
+| Feature | TMESH | FMESH | UM (Unstructured) |
+|---------|-------|-------|-------------------|
+| **Format** | Legacy (pre-MCNP6) | Modern (MCNP6+) | MCNP6+ with EMBED |
+| **Grid Type** | Regular | Regular (XYZ/RZT) | Irregular (CAD-based) |
+| **Output** | Text meshtal | XDMF/HDF5 | HDF5 or legacy EEOUT |
+| **Mesh Generation** | Built-in | Built-in | External (GMSH, etc.) |
+| **Geometry Matching** | No | No | Yes (conforms to geometry) |
+| **Visualization** | Manual | ParaView/VisIt | ParaView (via um_post_op) |
+| **Best For** | Legacy compatibility | Most work | Complex CAD geometry |
+
+**Recommendation**: Use **FMESH** for most work. Use **UM** for complex CAD-based geometry.
 
 ## Decision Tree: Which Mesh Type?
 
 ```
 START: Need spatial distribution of quantity?
 │
-├─→ YES: What quantity?
+├─→ YES: What geometry?
 │   │
-│   ├─→ Neutron/photon flux
-│   │   ├─→ FMESH (modern, XDMF output)
-│   │   └─→ TMESH Type 1 (legacy)
+│   ├─→ Simple rectangular/cylindrical
+│   │   │
+│   │   ├─→ What quantity?
+│   │   │   ├─→ Neutron/photon flux → FMESH (modern, XDMF)
+│   │   │   ├─→ Source distribution → TMESH Type 2 (legacy)
+│   │   │   ├─→ Energy deposition → FMESH with FM card
+│   │   │   ├─→ Isotopic reactions → FMESH with FM card
+│   │   │   └─→ DXTRAN contrib → TMESH Type 4 (legacy)
+│   │   │
+│   │   └─→ Use FMESH (XYZ or RZT)
 │   │
-│   ├─→ Source distribution (where particles born)
-│   │   └─→ TMESH Type 2
+│   ├─→ Complex CAD-based geometry
+│   │   └─→ Use Unstructured Mesh (UM)
+│   │       ├─→ Generate mesh in GMSH/ABAQUS
+│   │       ├─→ Import with EMBED command
+│   │       └─→ See unstructured_mesh_guide.md
 │   │
-│   ├─→ Energy deposition (heating)
-│   │   ├─→ FMESH with FM card (reaction rate)
-│   │   └─→ TMESH Type 3 (like +F6)
-│   │
-│   ├─→ DXTRAN contributions
-│   │   └─→ TMESH Type 4
-│   │
-│   ├─→ Isotopic reaction rates
-│   │   └─→ FMESH with FM card
-│   │
-│   └─→ Custom mesh with weight windows
-│       └─→ MESH card (for variance reduction)
+│   └─→ Variance reduction mesh
+│       └─→ MESH card (for weight windows)
 │
 └─→ NO: Use standard cell/surface tallies (see mcnp-tally-analyzer)
 ```
@@ -585,56 +590,53 @@ Example: 100×100×100 mesh × 10 E bins × 5 T bins
 
 ## Integration with Other Skills
 
+### With mcnp-output-parser
+
+**Parse mesh tally output files:**
+
+After running MCNP with FMESH:
+1. Use mcnp-output-parser to read `meshtal.xdmf` or `MCTAL` files
+2. Extract mesh tally data for analysis
+3. See mcnp-output-parser documentation for HDF5/XDMF parsing methods
+
+For UM output, use um_post_op utility (see `unstructured_mesh_guide.md`).
+
 ### With mcnp-tally-analyzer
 
-After running MCNP:
-```python
-from skills.output_analysis.mcnp_tally_analyzer import MCNPTallyAnalyzer
+**Analyze mesh tally results:**
 
-analyzer = MCNPTallyAnalyzer('meshtal.xdmf')
-flux = analyzer.get_mesh_tally(14)
+After parsing mesh output:
+- Interpret tally values (physical meaning)
+- Check statistical quality (relative errors)
+- Convert units (per source particle → absolute rates)
+- Identify peak flux locations
 
-# Get flux at specific location
-flux_at_point = analyzer.interpolate(x=5.0, y=5.0, z=10.0)
-print(f"Flux at (5,5,10): {flux_at_point:.3e} n/cm²")
-
-# Peak flux location
-peak_loc = analyzer.find_peak()
-print(f"Peak flux at: {peak_loc}")
-```
+See mcnp-tally-analyzer for detailed mesh data analysis workflows.
 
 ### With mcnp-plotter
 
-Visualize mesh overlaid on geometry:
-```python
-from skills.visualization.mcnp_plotter import MCNPPlotter
+**Visualize mesh geometry:**
 
-plotter = MCNPPlotter('input.i')
+Use mcnp-plotter to:
+- Verify mesh extent covers problem geometry
+- Check mesh alignment with geometry features
+- Overlay mesh on geometry plots for validation
 
-# Plot geometry with mesh overlay
-plotter.plot_geometry_with_mesh(
-    basis='XY',
-    origin=(0, 0, 0),
-    mesh_file='meshtal.xdmf',
-    tally_number=14
-)
-```
+Mesh visualization workflow:
+1. Plot geometry cross-section
+2. Overlay mesh boundaries
+3. Verify mesh positioning before running expensive simulation
 
 ### With mcnp-ww-optimizer
 
-Generate weight windows from mesh tally results:
-```python
-from skills.variance_reduction.mcnp_ww_optimizer import WWOptimizer
+**Generate weight windows from mesh results:**
 
-optimizer = WWOptimizer()
+After initial coarse mesh run:
+1. Analyze flux distribution from mesh tally
+2. Use mcnp-ww-optimizer to generate weight windows from mesh
+3. Re-run with fine mesh + weight windows for better statistics
 
-# Create weight windows from flux mesh
-optimizer.generate_from_mesh(
-    mesh_file='meshtal.xdmf',
-    tally_number=14,
-    output_wwinp='wwinp'
-)
-```
+See mcnp-ww-optimizer for mesh-to-weight-window workflows.
 
 ## Best Practices
 
@@ -649,13 +651,41 @@ optimizer.generate_from_mesh(
 9. **Cylindrical symmetry** - Use RZT mesh for cylindrical problems (faster, fewer bins)
 10. **Time-dependent** - Use TMESH bins for pulsed sources or transient analysis
 11. **Programmatic Mesh Generation**:
-    - For automated mesh tally creation and binning optimization, see: `mcnp_mesh_builder.py`
-    - Useful for adaptive mesh refinement, batch mesh generation, and parametric mesh studies
+    - Use `scripts/fmesh_generator.py` for automated FMESH card creation
+    - Use `scripts/mesh_visualizer.py` to verify mesh extent and positioning
+    - Use `scripts/mesh_converter.py` for UM format conversion (GMSH, ABAQUS, VTK)
+12. **Unstructured Mesh**:
+    - Use UM for complex CAD-based geometry (not regular grids)
+    - Generate meshes in GMSH (open-source, best compatibility)
+    - See `unstructured_mesh_guide.md` for complete UM workflow
 
 ## References
 
-- **User Manual**: Chapter 5.11 - Mesh Tallies
-- **Examples**: Chapter 10.2.3 - FMESH Isotopic Reaction Rate Tally Examples
-- **COMPLETE_MCNP6_KNOWLEDGE_BASE.md**: Mesh tally specification
-- **ParaView Guide**: https://www.paraview.org/documentation/
-- **Related skills**: mcnp-tally-analyzer, mcnp-plotter, mcnp-ww-optimizer
+**Bundled Documentation:**
+- `unstructured_mesh_guide.md` - Complete UM workflow (EMBED, external meshes, um_post_op)
+- `mesh_file_formats.md` - GMSH, ABAQUS, VTK, CGAL format specifications
+- `mesh_optimization_guide.md` - Resolution strategies, performance, statistical quality
+
+**Bundled Scripts:**
+- `scripts/fmesh_generator.py` - Programmatic FMESH card generation
+- `scripts/mesh_visualizer.py` - Mesh geometry visualization
+- `scripts/mesh_converter.py` - Format conversion (GMSH ↔ ABAQUS ↔ VTK)
+- `scripts/README.md` - Script usage and examples
+
+**Example Files:**
+- `example_inputs/01_simple_fmesh_cartesian.i` - Basic XYZ mesh
+- `example_inputs/07_unstructured_mesh_embed.i` - UM with EMBED command
+- See `example_inputs/` directory for complete examples
+
+**MCNP Manual:**
+- Chapter 5.11 - Mesh Tallies (FMESH, TMESH)
+- Chapter 8 - Unstructured Mesh
+- Appendix A - Mesh File Formats
+- Appendix D.4-D.9 - Mesh output formats
+- Appendix E.11 - um_post_op utility
+
+**Related Skills:**
+- mcnp-output-parser - Parse mesh output files
+- mcnp-tally-analyzer - Analyze mesh tally results
+- mcnp-plotter - Visualize mesh and geometry
+- mcnp-ww-optimizer - Generate weight windows from mesh
