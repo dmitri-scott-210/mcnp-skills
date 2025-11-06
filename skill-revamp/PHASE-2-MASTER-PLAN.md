@@ -26,6 +26,73 @@ Revamp 6 output analysis and mesh-focused skills that share documentation about 
 
 ---
 
+## 🚨 PARALLEL EXECUTION SUPPORT 🚨
+
+**This phase supports PARALLEL execution with other phases.**
+
+### Parallel Execution Capabilities
+
+**Phase 2 Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
+
+**Can Execute in Parallel with:**
+- ✅ Phase 1 (different documentation - Chapters 3-5)
+- ✅ Phase 4 (different documentation - Appendix E utilities)
+- ✅ Phase 5 (minimal documentation, independent skills)
+- ❌ Phase 3 (Phase 3 skills 1-2 require Phase 2 completion)
+
+**Dependencies:**
+- **Within Phase 2:** All 6 skills use same documentation - can batch read docs once
+- **External Dependencies:** None - Phase 2 is independent of other phases
+- **Phase 3 Impact:** Phase 3 skills #1-2 (tally-analyzer, statistics-checker completion) require Phase 2 skills to be done first
+
+### Session ID Tracking
+
+**Every session working on Phase 2 MUST:**
+
+1. **Generate unique session ID:**
+   - Format: `Session-YYYYMMDD-HHMMSS-Phase2`
+   - Example: `Session-20251106-150000-Phase2`
+
+2. **Record session ID in PHASE-2-PROJECT-STATUS.md:**
+   - Add session summary with ID at end of session
+   - Include date, skills worked, progress
+
+3. **Update GLOBAL-SESSION-REQUIREMENTS.md:**
+   - Update "Phase 2 Progress and Summary" section (lines 81-104)
+   - Record latest session ID
+   - Update skill completion status
+
+### Coordination with Global Requirements
+
+**This phase plan works in conjunction with:**
+- **GLOBAL-SESSION-REQUIREMENTS.md** - Global project coordination
+- **PHASE-2-PROJECT-STATUS.md** - Phase-specific progress tracking
+- **TOKEN-OPTIMIZATION-BEST-PRACTICES.md** - Universal optimization techniques
+
+**Session startup reads:**
+1. GLOBAL-SESSION-REQUIREMENTS.md (identify Phase 2 status)
+2. TOKEN-OPTIMIZATION-BEST-PRACTICES.md
+3. THIS FILE (PHASE-2-MASTER-PLAN.md)
+4. PHASE-2-PROJECT-STATUS.md
+5. LESSONS-LEARNED.md
+
+### Skills and Dependencies
+
+**All 6 skills in Phase 2 are independent of each other:**
+1. ⏸️ mcnp-output-parser (can start immediately)
+2. ⏸️ mcnp-mctal-processor (can start immediately)
+3. ⏸️ mcnp-mesh-builder (can start immediately)
+4. ⏸️ mcnp-plotter (can start immediately)
+5. ⏸️ mcnp-tally-analyzer (partial - will complete in Phase 3)
+6. ⏸️ mcnp-statistics-checker (partial - will complete in Phase 3)
+
+**Parallelization Strategy:**
+- All 6 skills can be worked on in parallel by different sessions
+- Recommended: Complete in listed order for logical flow
+- Single session can complete all 6 skills (~100k tokens)
+
+---
+
 ## 🚨 CRITICAL STRUCTURE REQUIREMENTS (ZERO TOLERANCE)
 
 **MANDATORY for ALL Phase 2 skills - NO EXCEPTIONS:**
@@ -522,8 +589,55 @@ See PHASE-1-MASTER-PLAN.md for detailed step descriptions and CRITICAL structure
 
 ---
 
+## 🚨 END-OF-SESSION REQUIREMENTS (PARALLEL EXECUTION) 🚨
+
+**MANDATORY for every session working on Phase 2:**
+
+### Step 1: Update PHASE-2-PROJECT-STATUS.md
+
+**Add session summary:**
+```markdown
+### Session [Session-ID] Summary
+
+**Date:** YYYY-MM-DD
+**Session ID:** Session-YYYYMMDD-HHMMSS-Phase2
+**Phase:** 2
+**Duration:** ~Xk tokens used
+
+**Skills Completed This Session:**
+1. [skill-name] - [status]
+
+**Phase 2 Overall:** X/6 skills complete (Y% complete)
+
+**Next Session Should:**
+[Specific guidance]
+
+**Critical Context:**
+[State of work]
+```
+
+### Step 2: Update GLOBAL-SESSION-REQUIREMENTS.md
+
+**Update lines 81-104 (Phase 2 Progress and Summary):**
+- Status, progress fractions
+- Latest session ID
+- Skill completion status (✅/🚧/⏸️)
+
+### Step 3: Inform User
+
+```
+✅ Phase 2 Session Complete
+
+**Session ID:** Session-YYYYMMDD-HHMMSS-Phase2
+**Skills Completed:** X/6
+**Global Progress:** A/36 total skills
+
+**Phase 2 can execute in parallel with Phases 1, 4, 5**
+**Phase 3 skills 1-2 require Phase 2 completion**
+```
+
+---
+
 **END OF PHASE 2 MASTER PLAN**
 
-**Next Step:** Create PHASE-3-MASTER-PLAN.md
-
-**Remember:** Phase 2 is streamlined (6 skills, 1 session). Focus on output format expertise and Python script bundling. Mark partial skills clearly for Phase 3 completion.
+**Remember:** Phase 2 is streamlined (6 skills, 1 session). Focus on output format expertise and Python script bundling. Mark partial skills clearly for Phase 3 completion. Update GLOBAL-SESSION-REQUIREMENTS.md Phase 2 section at end of session.

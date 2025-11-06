@@ -26,6 +26,86 @@ Revamp 16 input-focused skills (Categories A & B) that share the largest documen
 
 ---
 
+## 🚨 PARALLEL EXECUTION SUPPORT 🚨
+
+**This phase supports PARALLEL execution with other phases.**
+
+### Parallel Execution Capabilities
+
+**Phase 1 Status:** ✅ COMPLETE - 16/16 complete (100%)
+
+**Can Execute in Parallel with:**
+- ✅ Phase 2 (different documentation - Chapter 8, Appendix D)
+- ✅ Phase 4 (different documentation - Appendix E utilities)
+- ✅ Phase 5 (minimal documentation, independent skills)
+- ⚠️ Phase 3 (partial - some skills need Phase 1 completion)
+
+**Dependencies:**
+- **Within Phase 1:** Tier structure creates internal dependencies
+  - Tier 1 → Tier 2 → Tier 3 (skills within tiers can be parallel)
+- **External Dependencies:** None - Phase 1 is foundational but doesn't require other phases
+- **Phase 3 Impact:** Phase 3 skill #3 (mcnp-variance-reducer completion) benefits from Phase 1 docs being in context
+
+### Session ID Tracking
+
+**Every session working on Phase 1 MUST:**
+
+1. **Generate unique session ID:**
+   - Format: `Session-YYYYMMDD-HHMMSS-Phase1`
+   - Example: `Session-20251106-143022-Phase1`
+
+2. **Record session ID in PHASE-1-PROJECT-STATUS.md:**
+   - Add session summary with ID at end of session
+   - Include date, skills worked, progress
+
+3. **Update GLOBAL-SESSION-REQUIREMENTS.md:**
+   - Update "Phase 1 Progress and Summary" section
+   - Record latest session ID
+   - Update skill completion status
+
+### Coordination with Global Requirements
+
+**This phase plan works in conjunction with:**
+- **GLOBAL-SESSION-REQUIREMENTS.md** - Global project coordination
+- **PHASE-1-PROJECT-STATUS.md** (or PART-X) - Phase-specific progress tracking
+- **TOKEN-OPTIMIZATION-BEST-PRACTICES.md** - Universal optimization techniques
+
+**Session startup reads:**
+1. GLOBAL-SESSION-REQUIREMENTS.md (identify Phase 1 status)
+2. TOKEN-OPTIMIZATION-BEST-PRACTICES.md
+3. THIS FILE (PHASE-1-MASTER-PLAN.md)
+4. PHASE-1-PROJECT-STATUS.md (or latest PART-X)
+5. LESSONS-LEARNED.md
+
+### Dependencies Within Phase 1
+
+**Tier 1 (Core Building): 7 skills - FOUNDATIONAL**
+- ✅ All complete
+- **Dependencies:** None (can execute in any order or parallel)
+- **Provides foundation for:** Tier 2 and Tier 3
+
+**Tier 2 (Input Editing): 5 skills**
+- ✅ All complete
+- **Dependencies:** Requires Tier 1 skills exist (now satisfied)
+- **Skills depend on:**
+  - mcnp-geometry-editor → mcnp-geometry-builder (Tier 1)
+  - mcnp-input-editor → mcnp-input-builder (Tier 1)
+  - mcnp-transform-editor → mcnp-geometry-builder (Tier 1)
+  - mcnp-variance-reducer → mcnp-input-builder, mcnp-tally-builder (Tier 1)
+
+**Tier 3 (Validation): 4 skills - ALL COMPLETE ✅**
+- ✅ mcnp-cell-checker (complete)
+- ✅ mcnp-cross-reference-checker (complete)
+- ✅ mcnp-geometry-checker (complete)
+- ✅ mcnp-physics-validator (complete)
+- **Dependencies:** Required Tier 1 skills (all satisfied)
+
+**Phase 1 Completion:**
+- All 16 skills complete as of Session 20 (2025-11-05)
+- Phase 1 provides foundation for Phase 3 skills #3-4
+
+---
+
 ## 📚 DOCUMENTATION TO READ (ONCE AT PHASE START)
 
 ### Required Reading List
@@ -1295,8 +1375,126 @@ For skills with scripts/ directories:
 
 ---
 
+## 🚨 END-OF-SESSION REQUIREMENTS (PARALLEL EXECUTION) 🚨
+
+**MANDATORY for every session working on Phase 1:**
+
+### Step 1: Update PHASE-1-PROJECT-STATUS.md
+
+**Add session summary at end of status document:**
+
+```markdown
+### Session [Session-ID] Summary
+
+**Date:** YYYY-MM-DD
+**Session ID:** Session-YYYYMMDD-HHMMSS-Phase1
+**Phase:** 1
+**Duration:** ~Xk tokens used
+
+**Skills Completed This Session:**
+1. [skill-name] - [brief status]
+2. [skill-name] - [brief status]
+
+**Skills In Progress:**
+- [skill-name]: [% complete, current step of 11-step workflow]
+
+**Tier Progress:**
+- Tier 1: 7/7 complete ✅
+- Tier 2: 5/5 complete ✅
+- Tier 3: X/4 complete (Y% complete)
+
+**Phase 1 Overall:** X/16 skills complete (Y% complete)
+
+**Next Session Should:**
+1. [specific next action]
+2. [specific skill to work on]
+
+**Critical Context:**
+[Paragraph describing state of work, any blockers, considerations for next session]
+```
+
+### Step 2: Update GLOBAL-SESSION-REQUIREMENTS.md
+
+**Update lines 43-79 (Phase 1 Progress and Summary section):**
+
+1. **Status:** Update progress fraction (X/16 complete, Y%)
+2. **Latest Status Document:** Update if created new PART-X
+3. **Last Updated:** Current date
+4. **Latest Session ID:** Current session ID
+5. **Tier 3 Progress:** Update skill completion status (✅/🚧/⏸️)
+6. **Skills Remaining:** Update count
+
+**Example edit:**
+```markdown
+**Status:** 🚧 IN PROGRESS - 14/16 skills complete (87.5%)
+**Latest Status Document:** `PHASE-1-PROJECT-STATUS-PART-6.md`
+**Last Updated:** 2025-11-06
+**Latest Session ID:** Session-20251106-143022-Phase1
+
+- **Tier 3 (Validation):** 🚧 2/4 complete (50%)
+  - ✅ mcnp-cell-checker
+  - ✅ mcnp-cross-reference-checker
+  - 🚧 mcnp-geometry-checker (in progress)
+  - ⏸️ mcnp-physics-validator
+
+**Skills Remaining:** 2 skills
+```
+
+### Step 3: Verify Consistency
+
+**Check:**
+- [ ] Phase 1 progress in status document matches global document
+- [ ] Session ID recorded in both locations
+- [ ] Next session guidance is clear
+- [ ] If Phase 1 complete (16/16), mark accordingly
+
+### Step 4: Check for Status Document Split
+
+**If PHASE-1-PROJECT-STATUS current part > 900 lines:**
+```bash
+wc -l skill-revamp/PHASE-1-PROJECT-STATUS-PART-X.md
+```
+
+**If > 900:**
+1. Create PHASE-1-PROJECT-STATUS-PART-[X+1].md
+2. Move older sessions to previous part
+3. Keep current work in new part
+4. Update GLOBAL-SESSION-REQUIREMENTS.md with new filename
+
+### Step 5: Inform User
+
+**Output summary:**
+```
+✅ Phase 1 Session Complete
+
+**Session ID:** Session-YYYYMMDD-HHMMSS-Phase1
+**Skills Completed This Session:** X
+**Phase 1 Progress:** Y/16 skills (Z% complete)
+**Global Progress:** A/36 total skills (B% complete)
+
+**Status documents updated:**
+✅ PHASE-1-PROJECT-STATUS.md (or PART-X)
+✅ GLOBAL-SESSION-REQUIREMENTS.md (Phase 1 section)
+
+**Phase 1 Status:**
+- Tier 1: ✅ Complete (7/7)
+- Tier 2: ✅ Complete (5/5)
+- Tier 3: [X/4 complete]
+
+**Next session can:**
+- Continue Phase 1 ([N] skills remaining)
+- Work on Phase 2, 4, or 5 in parallel (see dependency matrix)
+```
+
+---
+
 **END OF PHASE 1 MASTER PLAN**
 
-**Next Step:** Create PHASE-2-MASTER-PLAN.md, then backup skills, then begin Phase 1 execution.
-
-**Remember:** Read documentation ONCE at phase start, process all 16 skills in batch, update STATUS continuously, use 25-item checklist for every skill.
+**Remember:**
+- Read documentation ONCE at phase start
+- Process skills following 11-step workflow
+- Update status documents continuously
+- Record session ID at end of session
+- Update GLOBAL-SESSION-REQUIREMENTS.md Phase 1 section
+- Phase 1 can execute in parallel with Phases 2, 4, 5
+- Remaining Tier 3 skills (3) can be done in parallel or sequentially
