@@ -150,9 +150,11 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
    - Purpose: Error message tables, debugging cards
    - Token estimate: Included in Phase 1 (0k if cached)
 
-5. **Skills Project Documentation** (existing in this project)
-   - Location: `C:\Users\dman0\Desktop\AI_Training_Docs\MCNP6\skills-project-docs\`
-   - Purpose: Meta information about skill ecosystem
+5. **Project Documentation Maps** (existing in this project)
+   - Locations:
+    * skill-revamp/planning-research/example-files-inventory.md
+    * skill-revamp/planning-research/knowledge-base-map.md
+   - Purpose: Meta information about source knowledge documentation ecosystem
    - Token estimate: ~5k
    - Needed for: example-finder, knowledge-docs-finder
 
@@ -261,7 +263,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
      - Recommend examples for skill learning
      - Index by complexity level
    - **Documentation needs:**
-     - skills-project-docs/ (example organization)
+     - planning-research/example-files-inventory.md
      - example_files/ directory structure
    - **References to create:**
      - example_catalog.md (all 1,107 files categorized)
@@ -285,7 +287,7 @@ Phase 5 skills have **minimal shared documentation** - mostly skill-specific nee
      - Locate examples in Chapter 10
      - Search by keyword or card name
    - **Documentation needs:**
-     - skills-project-docs/ (documentation organization)
+     - planning-research/knowledge-base-map.md
      - markdown_docs/ directory structure
    - **References to create:**
      - documentation_map.md (all 72 files organized)
