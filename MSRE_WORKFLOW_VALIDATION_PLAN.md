@@ -155,10 +155,11 @@ Build working MSRE model with full geometry but simplified thermal/physics treat
    - NO infinite surfaces allowed
 
 2. **Lattice Agent:** Plan lattice structure
-   - Hexagonal lattice for graphite stringers
+   - Hexahedral (square) lattice for graphite stringers (LAT=1)
    - Universe hierarchy design
    - Fill array structure for 1,140 channels
    - Channel indexing scheme
+   - Infinite square lattice bounded by RCC core geometry
 
 **Integration Point:** Claude reviews both plans, ensures compatibility, approves strategy
 
@@ -192,7 +193,7 @@ mcnp-lattice-builder → mcnp-geometry-builder → mcnp-cell-checker
 1. **Lattice Builder Agent:**
    - Create base graphite stringer universe (U=1)
    - Define fuel channel cells within stringer
-   - Create hexagonal lattice (LAT=2)
+   - Create hexahedral/square lattice (LAT=1)
    - Build FILL array for 1,140 positions
    - Assign universe numbers systematically
 
@@ -212,9 +213,10 @@ mcnp-lattice-builder → mcnp-geometry-builder → mcnp-cell-checker
 
 **Validation Checkpoint 2.2:**
 - [ ] All 1,140 fuel channels defined
-- [ ] Lattice structure correct (hexagonal)
+- [ ] Lattice structure correct (hexahedral/square, LAT=1)
 - [ ] Universe hierarchy validated
 - [ ] FILL array dimensions correct
+- [ ] Infinite lattice properly bounded by RCC core geometry
 - [ ] Cell checker reports zero errors
 
 ---

@@ -56,11 +56,12 @@
 - [ ] **Gate 2.1 PASSED** ✓
 
 ### Step 2.2: Core Lattice Construction
-- [ ] `mcnp-lattice-builder` executes build
+- [ ] `mcnp-lattice-builder` executes build (hexahedral/square, LAT=1)
 - [ ] `mcnp-geometry-builder` skill reviews syntax
 - [ ] `mcnp-cell-checker` validates references
 - [ ] Iteration complete (zero errors)
 - [ ] All 1,140 fuel channels defined
+- [ ] Infinite square lattice bounded by RCC core geometry
 - [ ] **Gate 2.2 PASSED** ✓
 
 ### Step 2.3: Reflector/Vessel (PARALLEL)
