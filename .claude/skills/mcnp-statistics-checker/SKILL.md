@@ -1,8 +1,15 @@
 ---
-name: "MCNP Statistics Checker"
-description: "Validates MCNP tally statistical quality using the 10 statistical checks. Ensures results are reliable before use. Use when verifying simulation convergence."
-version: "1.0.0"
-dependencies: "python>=3.8"
+name: mcnp-statistics-checker
+description: Validates MCNP tally statistical quality using the 10 statistical checks to ensure results are reliable (Phase 2 partial - complete in Phase 3)
+version: 1.5.0
+phase: 2-partial
+dependencies:
+  - python>=3.8
+  - numpy
+related_skills:
+  - mcnp-tally-analyzer
+  - mcnp-plotter
+  - mcnp-output-parser
 ---
 
 # MCNP Statistics Checker

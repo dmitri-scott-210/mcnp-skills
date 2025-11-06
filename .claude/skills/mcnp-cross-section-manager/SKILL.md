@@ -2,6 +2,7 @@
 category: F
 name: mcnp-cross-section-manager
 description: Manage and verify MCNP cross-section libraries including checking xsdir availability, diagnosing library errors, finding alternatives for missing data, and understanding library versions and types
+version: 2.0.0
 activation_keywords:
   - cross section library
   - xsdir
@@ -29,8 +30,6 @@ This utility skill helps Claude manage MCNP cross-section libraries by verifying
 - Managing multiple ENDF/B versions (.80c, .70c, .66c)
 - Troubleshooting DATAPATH environment variable issues
 - Identifying temperature-dependent library availability
-- Recommending natural element mix when isotope unavailable
-- Optimizing library selection for performance
 
 ## Prerequisites
 
@@ -41,613 +40,404 @@ This utility skill helps Claude manage MCNP cross-section libraries by verifying
 - Basic knowledge of ENDF/B library versions
 - Familiarity with MCNP error messages
 
-## Core Concepts
+## Core Concepts - Quick Reference
 
-### xsdir File Structure
+### xsdir File
 
 **Purpose**: Index file listing all available cross-section libraries
 
-**Location**:
-```
-Environment variable: $DATAPATH or %DATAPATH%
-Typical paths:
-  Linux: /path/to/mcnpdata/xsdir
-  Windows: C:\mcnp\data\xsdir
+**Location**: `$DATAPATH/xsdir` or `%DATAPATH%\xsdir`
 
-MCNP searches for xsdir in:
-  1. Path specified by DATAPATH environment variable
-  2. Current working directory
-  3. Default installation directory
+**Entry Format**:
 ```
-
-**xsdir Entry Format**:
-```
-ZAID  AWR  filename  access  file_length  record_length  entries  temperature  ...
+ZAID  AWR  filename  access  file_length  record_length  entries  temperature
 
 Example:
-1001.80c  0.999167  endf80/H/1001.800c  0  1  1  4553  2.5301E-08
+92235.80c  235.043930  endf80/U/92235.800nc  0  1  1  78901  2.5301E-08
 
-Fields:
-  ZAID: 1001.80c (H-1 with ENDF/B-VIII.0)
-  AWR: 0.999167 (atomic weight ratio relative to neutron)
-  filename: endf80/H/1001.800c (relative to DATAPATH)
-  access: 0 (direct access)
-  file_length: 1 (number of records)
-  record_length: 1 (length of each record)
-  entries: 4553 (number of entries in table)
-  temperature: 2.5301E-08 MeV (= 293.6 K)
+Components:
+  ZAID: 92235.80c (U-235, ENDF/B-VIII.0)
+  AWR: Atomic weight ratio (235.04393)
+  filename: Path relative to DATAPATH
+  temperature: 2.5301E-08 MeV = 293.6 K
 ```
 
-### Library Type Suffixes
+**Detailed Reference**: See `xsdir_format.md` for complete specification.
 
-**Continuous Energy (.c)**:
-```
-.80c → ENDF/B-VIII.0 (most recent, recommended)
-.70c → ENDF/B-VII.0
-.66c → ENDF/B-VI.6
-.60c → ENDF/B-VI.0
+### Library Types
 
-Coverage: Neutron cross sections with full energy resolution
-Use for: All general-purpose calculations
-```
+| Type | Extension | Use Case | Example |
+|------|-----------|----------|---------|
+| Continuous Energy | .nnc | General neutron transport | 92235.80c |
+| Thermal Scattering | .nnT | Bound thermal neutrons (E < 4 eV) | lwtr.80t |
+| Photoatomic | .nnP | Photon transport (MODE P) | 82000.80p |
+| Photoelectron | .nnE | Electron transport (MODE E) | 6000.80e |
+| Discrete Reaction | .nnD | Legacy format (rarely used) | 92235.80d |
 
-**Thermal Scattering (.t)**:
-```
-lwtr.80t → Light water (H₂O) thermal scattering
-hwtr.80t → Heavy water (D₂O)
-grph.80t → Graphite
-poly.80t → Polyethylene
-be.80t   → Beryllium metal
-beo.80t  → Beryllium oxide
+**Detailed Reference**: See `library_types.md` for complete guide.
 
-Use: With MT card for bound thermal scattering (E < 4 eV)
-Required: Accurate thermal neutron transport in moderators
-```
+### Library Versions
 
-**Photoatomic (.p)**:
-```
-1000.80p → Hydrogen photoatomic
-6000.80p → Carbon photoatomic
-82000.80p → Lead photoatomic
+| Version | ENDF/B | Year | Availability |
+|---------|--------|------|--------------|
+| .80c/.80t/.80p | VIII.0 | 2018 | Latest, recommended |
+| .70c/.70t/.70p | VII.0 | 2006 | Widely available |
+| .71c | VII.1 | 2011 | Moderate coverage |
+| .66c | VI.8 | 2001 | Legacy systems |
 
-Coverage: Photon interaction cross sections
-Use for: MODE P or MODE N P calculations
-```
+**Best Practice**: Use .80c when available; keep versions consistent within materials.
 
-**Electron (.e)**:
-```
-1000.80e → Hydrogen electron
-6000.80e → Carbon electron
-82000.80e → Lead electron
+### Temperature Libraries
 
-Coverage: Electron interaction cross sections
-Use for: MODE E calculations (coupled electron-photon)
+**Common Temperatures**:
 ```
-
-**Discrete Reaction (.d)**:
-```
-Not commonly used in modern MCNP
-Legacy format for specific reactions
-```
-
-### Temperature-Dependent Libraries
-
-**Neutron Library Temperatures**:
-```
-.80c → 293.6 K (20.45°C, room temperature)
+.80c → 293.6 K (20°C, room temperature)
 .81c → 600 K (327°C)
 .82c → 900 K (627°C)
 .83c → 1200 K (927°C)
 .84c → 2500 K (2227°C)
-
-Not all isotopes available at all temperatures!
-
-Common availability:
-  - Structural materials: .80c to .84c
-  - Fissile isotopes (U-235, Pu-239): Full temperature range
-  - Minor actinides: Often only .80c available
-  - Fission products: Limited temperature coverage
 ```
 
-**Interpolation with TMP Card**:
-```
-When exact temperature library unavailable:
-  - Use closest library (e.g., .80c for 400 K)
-  - Add TMP card for interpolation
-  - MCNP interpolates cross sections to specified temp
+**Availability**: Not all isotopes have all temperatures. Actinides and structural materials have best coverage.
 
-Example:
-  M1  92235.80c  1.0    $ Use 293.6 K library
-  TMP  600               $ MCNP interpolates to 600 K
+**Detailed Reference**: See `temperature_libraries.md` for interpolation guidelines.
 
-Limitation: Interpolation less accurate than native library
-```
+## Python Tools
 
-### Common Library Errors
+This skill includes three command-line tools for library management:
 
-**Error 1: "cross-section table (ZAID) not found"**
-```
-Cause: Library not in xsdir or file missing
-Solution: Check xsdir, verify DATAPATH, use alternative
-```
+### 1. xsdir_parser.py - Query xsdir Files
+```bash
+# Find specific ZAID
+python xsdir_parser.py --zaid "92235.80c"
 
-**Error 2: "cannot open file (filename)"**
-```
-Cause: Data file missing or incorrect path
-Solution: Verify file exists, check file permissions
+# Search for isotopes
+python xsdir_parser.py --search "^92"
+
+# Show statistics
+python xsdir_parser.py --statistics
+
+# Interactive mode
+python xsdir_parser.py
 ```
 
-**Error 3: "atomic weight ratio (AWR) is zero"**
-```
-Cause: Corrupted xsdir entry
-Solution: Regenerate xsdir or repair entry
+### 2. library_finder.py - Find Available Libraries
+```bash
+# Find all libraries for isotope
+python library_finder.py --isotope "U-235"
+
+# Check if ZAID available
+python library_finder.py --check "92235.80c"
+
+# Get recommendations for missing library
+python library_finder.py --recommend "92235.70c"
+
+# Interactive mode
+python library_finder.py
 ```
 
-**Error 4: "temperature (T) out of range"**
-```
-Cause: TMP value incompatible with available libraries
-Solution: Use appropriate library or adjust TMP
+### 3. missing_library_diagnoser.py - Troubleshoot Errors
+```bash
+# Verify DATAPATH setup
+python missing_library_diagnoser.py --verify-setup
+
+# Diagnose MCNP error message
+python missing_library_diagnoser.py --error "cross-section table 92235.80c not found"
+
+# Check input file for missing libraries
+python missing_library_diagnoser.py --input input.i
+
+# Interactive mode
+python missing_library_diagnoser.py
 ```
 
-## Decision Tree: Cross-Section Library Selection
+**Detailed Documentation**: See `scripts/README.md` for complete usage guide.
+
+## Decision Tree: Library Selection
 
 ```
-START: Need cross-section library for isotope
+START: Need cross-section library
   |
-  +--> Check if library available
-  |      ├─> Search xsdir: grep "ZAID" xsdir
-  |      ├─> Found?
-  |      │   ├─> Yes: Verify file exists → Use library
-  |      │   └─> No: Go to alternatives
-  |      |
-  |      └─> Alternatives when not found:
-  |            ├─> Use natural element (ZZZ000.nnc)
-  |            ├─> Use different ENDF version (.70c vs .80c)
-  |            ├─> Use similar isotope (e.g., Np-238 → Np-237)
-  |            └─> Request library if critical
+  +--> Is ZAID in xsdir?
+  |      ├─> Yes: Verify file exists → Use library
+  |      └─> No: Try alternatives:
+  |            ├─> Different version (.70c instead of .80c)
+  |            ├─> Natural element (ZZZ000.nnc)
+  |            └─> Similar isotope (if appropriate)
   |
   +--> Select library version
-  |      ├─> .80c available? → Use (most recent)
-  |      ├─> Not available? → Try .70c
-  |      └─> Still not available? → Try .66c, .60c
+  |      ├─> .80c available? → Prefer (most recent)
+  |      ├─> .70c available? → Use if .80c missing
+  |      └─> .66c available? → Last resort
   |
   +--> Check temperature requirements
-  |      ├─> System temp < 400 K? → .80c + TMP OK
-  |      ├─> System temp 400-800 K? → .81c or .82c
-  |      ├─> System temp > 800 K? → .82c or higher
-  |      └─> Exact temp not available? → Use closest + TMP
+  |      ├─> T < 400 K? → .80c + TMP acceptable
+  |      ├─> 400-800 K? → .81c or .82c preferred
+  |      ├─> T > 800 K? → .82c, .83c, or .84c
+  |      └─> Exact T unavailable? → Use closest + TMP
   |
   +--> Verify special libraries
-  |      ├─> Thermal moderator? → Check .nnT libraries
-  |      ├─> Photon transport? → Check .nnP libraries
-  |      └─> Electron transport? → Check .nnE libraries
+  |      ├─> Moderator? → Check .nnT (thermal scattering)
+  |      ├─> MODE P? → Check .nnP (photoatomic)
+  |      └─> MODE E? → Check .nnE (photoelectron)
   |
-  +--> Verify DATAPATH
-  |      ├─> echo $DATAPATH (Linux) or %DATAPATH% (Windows)
-  |      ├─> Path correct?
-  |      └─> xsdir file present?
-  |
-  └─> Document library choice
-         └─> Comment in input file with library source
+  └─> Verify DATAPATH
+         └─> echo $DATAPATH (Linux) or %DATAPATH% (Windows)
 ```
 
-## Tool Invocation
+## Use Cases
 
-This skill includes a Python implementation for automated cross-section library management.
+### Use Case 1: Verify Libraries Before Running
 
-### Importing the Tool
+**Objective**: Check all materials have cross sections before expensive simulation
 
-```python
-from mcnp_cross_section_manager import MCNPCrossSectionManager
-
-# Initialize the manager
-manager = MCNPCrossSectionManager()
-```
-
-### Basic Usage
-
-**Check if Specific ZAID Available**:
-```python
-# Check single ZAID availability
-available = manager.check_availability('92235.80c')
-if available:
-    print("U-235 (.80c) library available")
-else:
-    print("U-235 (.80c) NOT available - check alternatives")
-```
-
-**List Available Library Types**:
-```python
-# Get all library types
-libraries = manager.list_available_libraries()
-
-print("Available library types:")
-for lib_id, description in libraries.items():
-    print(f"  {lib_id}: {description}")
-
-# Example output:
-# Available library types:
-#   80c: ENDF/B-VIII.0 continuous energy
-#   70c: ENDF/B-VII.0 continuous energy
-#   80t: ENDF/B-VIII.0 thermal scattering
-#   80p: ENDF/B-VIII.0 photoatomic
-```
-
-**Get Library Information**:
-```python
-# Get description of specific library
-info = manager.get_library_info('80c')
-print(f"Library 80c: {info}")
-
-# Output: Library 80c: ENDF/B-VIII.0 continuous energy neutron data
-```
-
-**Suggest Temperature Library**:
-```python
-# Get recommended library based on temperature
-temp_kelvin = 900
-suggested = manager.suggest_temperature_library('U-235', temp_kelvin)
-print(f"For {temp_kelvin} K, use library: {suggested}")
-
-# Output: For 900 K, use library: 82c
-```
-
-**Parse and Check xsdir File**:
-```python
-# Parse xsdir file (if needed for detailed analysis)
-xsdir_path = '/path/to/mcnpdata/xsdir'
-manager.parse_xsdir(xsdir_path)
-
-# Then check availability
-print("Checking ZAIDs...")
-zaids_to_check = ['1001.80c', '8016.80c', '92235.80c', '95243.80c']
-
-for zaid in zaids_to_check:
-    if manager.check_availability(zaid):
-        print(f"  ✓ {zaid}: Available")
-    else:
-        print(f"  ✗ {zaid}: NOT AVAILABLE")
-```
-
-### Integration with MCNP Workflow
-
-```python
-from mcnp_cross_section_manager import MCNPCrossSectionManager
-
-def validate_material_libraries(material_zaids, temperature_k=None):
-    """Validate that all ZAIDs in materials have available libraries"""
-    print("Validating cross-section libraries...")
-    print("=" * 60)
-
-    manager = MCNPCrossSectionManager()
-
-    # Check each ZAID
-    missing = []
-    available = []
-
-    for zaid in material_zaids:
-        if manager.check_availability(zaid):
-            available.append(zaid)
-            print(f"✓ {zaid}: Available")
-        else:
-            missing.append(zaid)
-            print(f"✗ {zaid}: NOT AVAILABLE")
-
-    # Recommend temperature libraries if needed
-    if temperature_k and temperature_k > 400:
-        print(f"\n💡 TEMPERATURE RECOMMENDATIONS (System at {temperature_k} K):")
-        for zaid in available:
-            isotope = zaid.split('.')[0]
-            suggested_lib = manager.suggest_temperature_library(isotope, temperature_k)
-            current_lib = zaid.split('.')[1]
-
-            if suggested_lib != current_lib:
-                print(f"  • {zaid}: Consider using .{suggested_lib} instead")
-
-    # Report summary
-    print("\n" + "=" * 60)
-    print(f"Summary: {len(available)} available, {len(missing)} missing")
-
-    if missing:
-        print("\n❌ MISSING LIBRARIES:")
-        for zaid in missing:
-            print(f"  {zaid}")
-            # Suggest alternatives
-            base_zaid = zaid.split('.')[0]
-            lib = zaid.split('.')[1]
-            alt_lib = '70c' if lib == '80c' else '80c'
-            alt_zaid = f"{base_zaid}.{alt_lib}"
-
-            print(f"    Try alternative: {alt_zaid}")
-            if manager.check_availability(alt_zaid):
-                print(f"      ✓ {alt_zaid} is available!")
-
-        return False
-    else:
-        print("\n✓ All cross-section libraries available")
-        return True
-
-# Example usage
-if __name__ == "__main__":
-    # Define materials needed for input file
-    materials = [
-        '1001.80c',   # H-1
-        '8016.80c',   # O-16
-        '92235.80c',  # U-235
-        '92238.80c',  # U-238
-        '95243.80c',  # Am-243 (might not be available)
-    ]
-
-    # Validate at reactor temperature
-    if validate_material_libraries(materials, temperature_k=900):
-        print("\nReady to run MCNP simulation")
-    else:
-        print("\nFix library issues before running")
-```
-
----
-
-## Use Case 1: Check Library Availability Before Running
-
-**Problem**: Want to verify all materials have cross sections before expensive run
-
-**Check Process**:
+**Quick Check Using Python Tools**:
 ```bash
-# Extract ZAIDs from input file
-grep "\.80c\|\.70c\|\.66c" input.inp | awk '{print $2}' > zaids_needed.txt
-
-# Check each ZAID in xsdir
-while read zaid; do
-  if grep -q "^$zaid " xsdir; then
-    echo "$zaid: Found"
-  else
-    echo "$zaid: MISSING - CHECK REQUIRED"
-  fi
-done < zaids_needed.txt
+# Check input file for missing libraries
+python missing_library_diagnoser.py --input input.i
 ```
 
-**Example Output**:
+**Output**:
 ```
-1001.80c: Found
-8016.80c: Found
-26000.80c: Found
-95243.80c: MISSING - CHECK REQUIRED
-```
+Input file: input.i
+Total ZAIDs: 15
+Available: 12
+Missing: 3
 
-**Resolution for Missing (Am-243)**:
-```
-Option 1: Check if different version available
-  grep "95243" xsdir
-  Result: 95243.70c available
-  Action: Use 95243.70c instead
-
-Option 2: Use natural americium (if exists)
-  grep "95000" xsdir
-  Result: Not typically available
-
-Option 3: Request library or modify problem
+Missing ZAIDs:
+  ✗ 92235.70c
+  ✗ 94239.70c
+  ✗ 43099.80c
 ```
 
-## Use Case 2: Diagnose "Cross-Section Table Not Found" Error
-
-**MCNP Error Message**:
-```
-fatal error.  cross-section table 92237.80c not found.
-              table = 92237.80c
-```
-
-**Diagnostic Steps**:
-
-**Step 1: Verify ZAID in xsdir**
+**Resolution**:
 ```bash
-grep "92237.80c" $DATAPATH/xsdir
-# Result: No output (not found)
+# Get alternatives for each missing ZAID
+python library_finder.py --recommend "92235.70c"
+# → Suggests: 92235.80c (alternative version)
+
+python library_finder.py --recommend "43099.80c"
+# → Suggests: 43099.70c (older ENDF version)
 ```
 
-**Step 2: Check if isotope exists in other versions**
+**Manual Check (Bash)**:
 ```bash
-grep "92237" $DATAPATH/xsdir
-# Result:
-# 92237.70c  235.005  endf70/U/92237.700c  ...
-# 92237.66c  235.005  endf66/U/92237.700c  ...
+# Extract ZAIDs and check xsdir
+grep "\.80c\|\.70c" input.i | awk '{print $2}' | while read zaid; do
+  grep -q "^$zaid " $DATAPATH/xsdir && echo "$zaid: OK" || echo "$zaid: MISSING"
+done
 ```
 
-**Step 3: Solution options**
-```
-1. Use available version:
-   Change: 92237.80c → 92237.70c
-
-2. Use natural uranium (usually not appropriate for U-237):
-   92237 is radioactive, natural won't work
-
-3. Check if really needed:
-   U-237 has 6.75 day half-life, often not in steady-state fuel
-   May be able to omit from material definition
-```
-
-**Fix**:
-```
-c U-237 not available in ENDF/B-VIII.0
-c Using ENDF/B-VII.0 library instead
-M1  92235.80c  ...
-    92237.70c  ...    $ Changed from .80c to .70c
-    92238.80c  ...
-```
-
-## Use Case 3: Select Temperature-Dependent Library
-
-**Problem**: Reactor core at 900 K, need appropriate cross sections
-
-**Selection Process**:
-```
-Target temperature: 900 K
-
-Check available temperature libraries:
-  grep "92235.*c" xsdir | grep -v "#"
-
-Results:
-  92235.80c  ...  2.5301E-08  $ 293.6 K
-  92235.81c  ...  5.1704E-08  $ 600 K
-  92235.82c  ...  7.7559E-08  $ 900 K ✓
-  92235.83c  ...  1.0341E-07  $ 1200 K
-
-Best match: .82c (exactly 900 K)
-```
-
-**MCNP Input**:
-```
-c Core at 900 K - using .82c libraries at native temperature
-M1  92235.82c  0.045       $ U-235 at 900 K
-    92238.82c  0.955       $ U-238 at 900 K
-    8016.82c   2.0         $ O-16 at 900 K
-c
-c No TMP card needed - using native 900 K libraries
-```
-
-**If .82c Not Available** (e.g., for minor isotope):
-```
-c Gd-155 only available at room temperature
-c Core at 900 K - must interpolate
-M2  64155.80c  1.0         $ Gd-155 (only .80c available)
-TMP  900                    $ MCNP interpolates to 900 K
-c
-c Note: Less accurate than native library
-c Consider if Gd-155 critical to results
-```
-
-## Use Case 4: Find Alternative When Primary Unavailable
-
-**Problem**: Want Tc-99 (.80c) but not in library
-
-**Search Process**:
-```bash
-# Search for Tc-99
-grep "43099" xsdir
-# Result: No .80c, but found:
-# 43099.70c  98.871  endf70/Tc/43099.700c  ...
-```
-
-**Alternative Selection Tree**:
-```
-1. Try older ENDF version: 43099.70c ✓ Available
-   Pros: Official evaluation, validated
-   Cons: Slightly older data
-
-2. Try natural technetium: 43000.nnc
-   Check: grep "43000" xsdir
-   Result: Not available (Tc has no stable isotopes)
-
-3. Use similar isotope: Tc-98 or Tc-100
-   Check: grep "43098\|43100" xsdir
-   Result: Not typically available
-
-4. Omit if not critical:
-   Tc-99 is fission product, long-lived (211,000 yr)
-   For short-term calculations: May be negligible
-   For long-term waste: Must include
-
-Decision: Use 43099.70c (ENDF/B-VII.0)
-```
-
-**Implementation**:
-```
-c Tc-99 (fission product)
-c .80c not available, using .70c
-M10 43099.70c  1.0         $ Tc-99 (ENDF/B-VII.0)
-```
-
-## Use Case 5: Verify Thermal Scattering Library
-
-**Problem**: Light water reactor, verify lwtr library available
-
-**Check Process**:
-```bash
-# Search for light water thermal scattering
-grep "lwtr" xsdir
-
-# Expected results:
-lwtr.80t  ...  $ ENDF/B-VIII.0, 293.6 K
-lwtr.81t  ...  $ 323.6 K
-lwtr.82t  ...  $ 373.6 K
-lwtr.83t  ...  $ 423.6 K
-...
-```
-
-**Verify Temperature Match**:
-```
-System: PWR at 580 K (307°C)
-
-Available lwtr temperatures:
-  lwtr.80t → 293.6 K
-  lwtr.81t → 323.6 K
-  lwtr.82t → 373.6 K
-  lwtr.83t → 423.6 K
-  lwtr.84t → 473.6 K
-  lwtr.85t → 523.6 K
-  lwtr.86t → 573.6 K ✓ (closest)
-  lwtr.87t → 623.6 K
-
-Best: lwtr.86t (573.6 K, ~7 K difference)
-Alternative: lwtr.87t (623.6 K)
-```
-
-**MCNP Input**:
-```
-c PWR water at 580 K (~307°C)
-c Using lwtr.86t (573.6 K, closest available)
-M1  1001.80c  2.0          $ H-1
-    8016.80c  1.0          $ O-16
-MT1  lwtr.86t              $ Thermal scattering at ~580 K
-```
-
-## Use Case 6: Fix DATAPATH Configuration
-
-**Problem**: MCNP can't find any cross sections
+### Use Case 2: Diagnose "Table Not Found" Error
 
 **MCNP Error**:
 ```
-bad trouble in subroutine rdcont
-          opened library file C:\mcnp\data\endf80\H\1001.800c
-          cannot open file C:\mcnp\data\endf80\H\1001.800c
+fatal error.  cross-section table 92235.80c not found.
+              table = 92235.80c
 ```
 
-**Diagnosis**:
-```
-Issue: MCNP trying to open files but path incorrect
-
-Check 1: Is DATAPATH set?
-  Windows: echo %DATAPATH%
-  Linux: echo $DATAPATH
-
-  Result: Empty or points to wrong location
-
-Check 2: Where is xsdir actually located?
-  Windows: dir /s xsdir (from likely root)
-  Linux: find /path -name xsdir
-
-  Result: C:\mcnpdata\xsdir (actual location)
-```
-
-**Fix**:
-
-**Windows**:
-```cmd
-REM Set temporarily for current session
-set DATAPATH=C:\mcnpdata
-
-REM Set permanently (system-wide)
-setx DATAPATH "C:\mcnpdata" /M
-
-REM Or add to user environment variables via GUI
-```
-
-**Linux**:
+**Diagnosis Using Python Tool**:
 ```bash
-# Set temporarily
+python missing_library_diagnoser.py --error "cross-section table 92235.80c not found"
+```
+
+**Output**:
+```
+Error type: ZAID_NOT_FOUND
+ZAID: 92235.80c
+Problem: Cross-section table 92235.80c not found in xsdir
+
+Recommended fixes:
+  1. Check if DATAPATH set: echo $DATAPATH
+  2. Search xsdir for 92235.80c: grep '92235.80c' $DATAPATH/xsdir
+  3. Try alternative library version (e.g., .70c instead of .80c)
+  4. Use natural element (e.g., 92000.80c for natural uranium)
+  5. Verify library installation is complete
+```
+
+**Find Alternative**:
+```bash
+# Search for any U-235 libraries
+python xsdir_parser.py --search "92235"
+
+# Get specific recommendation
+python library_finder.py --recommend "92235.80c"
+```
+
+**Manual Diagnostic Steps**:
+```bash
+# Step 1: Check DATAPATH
+echo $DATAPATH
+ls $DATAPATH/xsdir
+
+# Step 2: Search for ZAID
+grep "92235" $DATAPATH/xsdir
+
+# Step 3: Check file exists
+# (from xsdir entry)
+ls $DATAPATH/endf80/U/92235.800nc
+```
+
+### Use Case 3: Select Temperature Library
+
+**Problem**: Reactor core at 900 K, need appropriate cross sections
+
+**Selection Using Python Tool**:
+```bash
+# Find all U-235 temperature libraries
+python xsdir_parser.py --search "92235\.8[0-9]c"
+```
+
+**Results**:
+```
+92235.80c  (293.6 K)
+92235.81c  (600 K)
+92235.82c  (900 K) ← Best match
+92235.83c  (1200 K)
+92235.84c  (2500 K)
+```
+
+**MCNP Input**:
+```
+c Core at 900 K - using native .82c libraries
+M1  92235.82c  0.045       $ U-235 at 900 K
+    92238.82c  0.955       $ U-238 at 900 K
+    8016.82c   2.0         $ O-16 at 900 K
+c No TMP card needed - using native temperature
+```
+
+**If Temperature Unavailable** (e.g., for minor isotope):
+```
+c Gd-155 only available at 293.6 K
+M2  64155.80c  1.0         $ Gd-155 (only .80c exists)
+TMP  900                    $ MCNP interpolates to 900 K
+c Note: Less accurate than native library
+```
+
+**Detailed Reference**: See `temperature_libraries.md` for interpolation effects.
+
+### Use Case 4: Verify Thermal Scattering Library
+
+**Problem**: Light water reactor, need lwtr.80t library
+
+**Check Using Python Tool**:
+```bash
+# List all thermal scattering libraries
+python xsdir_parser.py --list-section thermal
+```
+
+**Manual Check**:
+```bash
+# Search for light water thermal libraries
+grep "lwtr" $DATAPATH/xsdir
+
+# Expected:
+# lwtr.80t  (293.6 K)
+# lwtr.81t  (323.6 K)
+# lwtr.82t  (373.6 K)
+# ...
+```
+
+**Temperature Matching**:
+```
+System: PWR at 580 K (307°C)
+
+Available:
+  lwtr.85t → 523.6 K
+  lwtr.86t → 573.6 K ← Closest (Δ = 7 K)
+  lwtr.87t → 623.6 K
+
+Best choice: lwtr.86t
+```
+
+**MCNP Input**:
+```
+c PWR water at 580 K
+M1  1001.80c  2.0          $ H-1
+    8016.80c  1.0          $ O-16
+MT1  lwtr.86t              $ S(α,β) at ~580 K
+```
+
+**Important**: TMP card does NOT affect S(α,β) data. Must use correct .nnT library.
+
+## Common Errors - Quick Reference
+
+### Error 1: ZAID Not Found
+**Symptom**: `fatal error. cross-section table ZAID not found`
+**Causes**: Library missing, DATAPATH wrong, wrong version
+**Fixes**: Check xsdir, try .70c/.66c, use natural element
+**Tool**: `python missing_library_diagnoser.py --error "<message>"`
+**Reference**: See `troubleshooting_libraries.md` sections 1-4
+
+### Error 2: Cannot Open File
+**Symptom**: `cannot open file /path/to/file`
+**Causes**: File missing, permissions, path wrong
+**Fixes**: Verify file exists, check permissions, fix DATAPATH
+**Tool**: `python missing_library_diagnoser.py --verify-setup`
+**Reference**: See `troubleshooting_libraries.md` sections 5-8
+
+### Error 3: AWR is Zero
+**Symptom**: `atomic weight ratio (AWR) is zero`
+**Causes**: Corrupted xsdir
+**Fixes**: Restore xsdir backup, regenerate
+**Reference**: See `troubleshooting_libraries.md` sections 9-10
+
+### Error 4: Temperature Out of Range
+**Symptom**: `temperature T K out of range for ZAID`
+**Causes**: TMP too high, temp library missing
+**Fixes**: Use .81c/.82c/.83c, accept default
+**Tool**: `python xsdir_parser.py --search "ZZZAAA.8[0-9]c"`
+**Reference**: See `temperature_libraries.md`
+
+### Error 5: Mixed Library Versions
+**Symptom**: Inconsistent results, physics warnings
+**Problem**: Mixing .80c and .70c in same material
+**Fix**: Standardize on single version (.80c preferred)
+**Best Practice**: Use same ENDF/B version for all isotopes
+
+## Integration with Other Skills
+
+- **mcnp-isotope-lookup**: Provides ZAIDs → cross-section-manager verifies availability
+- **mcnp-material-builder**: Checks libraries before creating M cards
+- **mcnp-input-validator**: Validates all ZAIDs have available cross sections
+- **mcnp-fatal-error-debugger**: Diagnoses library-related fatal errors
+- **mcnp-physics-builder**: Verifies thermal scattering and special libraries
+
+## Validation Checklist
+
+- [ ] DATAPATH environment variable set correctly
+- [ ] xsdir file exists and readable at `$DATAPATH/xsdir`
+- [ ] All material ZAIDs found in xsdir
+- [ ] Library version consistent across isotopes (.80c preferred)
+- [ ] Temperature libraries appropriate for system conditions
+- [ ] Thermal scattering (.nnT) available for moderators (lwtr, grph, etc.)
+- [ ] Photoatomic (.nnP) available if using MODE P
+- [ ] Cross-section files exist at paths specified in xsdir
+- [ ] File permissions allow MCNP to read data files
+- [ ] Any library version mixing documented with justification
+
+## Best Practices
+
+1. **Use Latest ENDF/B Version**: Prefer .80c (ENDF/B-VIII.0) when available
+2. **Check Before Running**: Verify libraries to avoid expensive failed runs
+3. **Keep Versions Consistent**: All .80c or all .70c when possible
+4. **Match Temperatures**: Use .nnc library close to system temperature
+5. **Include Thermal Scattering**: Always use MT card for moderators (lwtr, grph, etc.)
+6. **Document Alternatives**: Comment why using non-standard library
+7. **Maintain DATAPATH**: Set permanently in environment (`~/.bashrc` or system variables)
+8. **Verify New Installations**: Run test case to verify library access
+9. **Keep Backups**: Save working xsdir when libraries functional
+10. **Use Python Tools**: Automate checking with provided scripts
+
+## DATAPATH Configuration
+
+### Linux/Mac Setup
+```bash
+# Temporary (current session)
 export DATAPATH=/opt/mcnpdata
 
-# Set permanently in ~/.bashrc or ~/.bash_profile
-echo "export DATAPATH=/opt/mcnpdata" >> ~/.bashrc
+# Permanent (user)
+echo 'export DATAPATH=/opt/mcnpdata' >> ~/.bashrc
 source ~/.bashrc
 
 # Verify
@@ -655,231 +445,65 @@ echo $DATAPATH
 ls $DATAPATH/xsdir
 ```
 
-**Verification**:
-```bash
-# Test MCNP can find libraries
-mcnp6 i=test.inp tasks 1
+### Windows Setup
+```cmd
+REM Temporary (current session)
+set DATAPATH=C:\mcnpdata
 
-# Should see:
-# "establishing xsdir file: /opt/mcnpdata/xsdir"
-# No "cannot open file" errors
+REM Permanent (user)
+setx DATAPATH "C:\mcnpdata"
+
+REM Permanent (system-wide, requires admin)
+setx DATAPATH "C:\mcnpdata" /M
+
+REM Verify
+echo %DATAPATH%
+dir %DATAPATH%\xsdir
 ```
 
-## Use Case 7: Check Photon Library for Coupled Transport
+**GUI Method (Windows)**:
+1. Right-click "This PC" → Properties
+2. Advanced system settings → Environment Variables
+3. New → Variable: `DATAPATH`, Value: `C:\mcnpdata`
+4. OK, Apply, Restart terminal
 
-**Problem**: MODE N P calculation, verify photon libraries available
+## Resources and References
 
-**Requirements**:
-```
-For MODE N P (coupled neutron-photon):
-  - Neutron libraries (.nnc) for all isotopes
-  - Photoatomic libraries (.nnp) for all elements
-  - Photon production data in neutron libraries
-```
+### Reference Files (Detailed Guides)
+- `xsdir_format.md` - Complete xsdir file specification, parsing methods, format details
+- `library_types.md` - Detailed library type reference (.c, .t, .p, .e, .d) with use cases
+- `temperature_libraries.md` - Temperature-dependent library guide, interpolation effects
+- `troubleshooting_libraries.md` - Comprehensive error diagnosis procedures and fixes
 
-**Check Process**:
-```bash
-# Extract elements from material cards
-# Example: Material has H, O, Fe
+### Python Tools
+- `scripts/xsdir_parser.py` - Query and analyze xsdir files
+- `scripts/library_finder.py` - Find available libraries and alternatives
+- `scripts/missing_library_diagnoser.py` - Diagnose library errors systematically
+- `scripts/README.md` - Complete tool documentation and workflows
 
-# Check photon libraries
-for Z in 1 8 26; do
-  zaid="${Z}000.80p"
-  if grep -q "^$zaid " xsdir; then
-    echo "$zaid: Available"
-  else
-    echo "$zaid: MISSING"
-  fi
-done
+### Example Data
+- `example_inputs/xsdir_example.txt` - Sample xsdir entries showing format
+- `example_inputs/error_messages.txt` - Common MCNP error examples for practice
+- `example_inputs/library_matrix.csv` - Library availability matrix by version
 
-Results:
-  1000.80p: Available  ✓
-  8000.80p: Available  ✓
-  26000.80p: Available ✓
-```
+### Related MCNP Skills
+- **mcnp-isotope-lookup**: ZAID format and isotope identification
+- **mcnp-material-builder**: Material definition with verified libraries
+- **mcnp-physics-builder**: Physics configuration including thermal scattering
+- **mcnp-input-validator**: Input file validation including library checks
+- **mcnp-fatal-error-debugger**: Fatal error diagnosis and resolution
 
-**MCNP Input**:
-```
-c Coupled neutron-photon transport
-MODE N P
-c
-c Materials (neutron cross sections)
-M1  1001.80c  2.0          $ H-1
-    8016.80c  1.0          $ O-16
-M2  26000.80c  1.0         $ Natural iron
-c
-c Photon physics uses .80p automatically if available
-c No explicit .80p needed in M cards
-c MCNP finds photoatomic data based on Z
-```
-
-**If Photon Library Missing**:
-```
-Warning: If .nnp not available for element:
-  - MCNP may use default photon cross sections
-  - Results less accurate for that element
-  - Consider using available data library version
-  - Or omit element if minor contributor
-```
-
-## Common Errors and Troubleshooting
-
-### Error 1: Mixed Library Versions
-
-**Symptom**: Some isotopes .80c, others .70c, inconsistent results
-
-**Problem**: Mixing ENDF/B versions can cause physics inconsistencies
-
-**Example (Bad)**:
-```
-M1  92235.80c  0.045       $ ENDF/B-VIII.0
-    92238.70c  0.955       $ ENDF/B-VII.0 (INCONSISTENT!)
-    8016.80c   2.0         $ ENDF/B-VIII.0
-```
-
-**Fix (Good)**:
-```
-M1  92235.80c  0.045       $ All ENDF/B-VIII.0
-    92238.80c  0.955       $ Consistent version
-    8016.80c   2.0         $ Same library version
-```
-
-**Best Practice**: Use same ENDF/B version for all isotopes when possible
-
-### Error 2: Thermal Scattering Temperature Mismatch
-
-**Symptom**: Incorrect keff or spectrum in thermal system
-
-**Problem**: Thermal library temperature doesn't match material temperature
-
-**Example (Bad)**:
-```
-c Water at 573 K (300°C)
-M1  1001.80c  2.0
-    8016.80c  1.0
-MT1  lwtr.80t              $ WRONG! This is 293.6 K
-TMP  573                    $ TMP doesn't affect S(α,β)!
-```
-
-**Fix (Good)**:
-```
-c Water at 573 K (300°C)
-M1  1001.80c  2.0
-    8016.80c  1.0
-MT1  lwtr.86t              $ Correct: 573.6 K thermal library
-```
-
-**Important**: TMP card does NOT affect thermal scattering (S(α,β))
-Must use correct .nnT library for temperature
-
-### Error 3: Missing Thermal Scattering Data
-
-**Symptom**: keff significantly off for thermal system
-
-**Problem**: No MT card for moderator material
-
-**Example (Bad)**:
-```
-c Light water reactor (MISSING MT card!)
-M1  1001.80c  2.0          $ H-1
-    8016.80c  1.0          $ O-16
-c No MT1 lwtr.80t !        $ ERROR: Required for accuracy
-```
-
-**Fix (Good)**:
-```
-c Light water reactor
-M1  1001.80c  2.0          $ H-1
-    8016.80c  1.0          $ O-16
-MT1  lwtr.80t              $ Thermal scattering (REQUIRED)
-```
-
-**Impact**: Missing S(α,β) can cause ~1-5% error in keff for thermal systems
-
-### Error 4: Photon Production Not Available
-
-**Symptom**: Warning about missing photon production data
-
-**MCNP Warning**:
-```
-warning.  nuclide 43099 does not have photon production data.
-```
-
-**Explanation**: Some isotopes lack coupled neutron-photon data
-
-**Options**:
-```
-1. Accept warning if photon yield from that isotope negligible
-2. Use different library version (may have photon production)
-3. Remove MODE P if photons not critical to problem
-4. Model neutron and photon transport separately
-```
-
-**Example**:
-```
-c Tc-99 doesn't have photon production in .70c
-c For shielding dominated by other isotopes:
-c → Accept warning, photon contribution from Tc-99 minimal
-c
-c For detailed gamma spectroscopy:
-c → Consider omitting Tc-99 or using different approach
-```
-
-## Integration with Other Skills
-
-### 1. **mcnp-isotope-lookup**
-Provides ZAIDs, cross-section-manager verifies availability.
-
-### 2. **mcnp-material-builder**
-Checks library availability before creating M cards.
-
-### 3. **mcnp-input-validator**
-Validates all ZAIDs have available cross sections.
-
-### 4. **mcnp-fatal-error-debugger**
-Diagnoses library-related fatal errors.
-
-### 5. **mcnp-physics-builder**
-Verifies thermal scattering and special libraries.
-
-## Validation Checklist
-
-- [ ] DATAPATH environment variable set correctly
-- [ ] xsdir file exists and readable at DATAPATH
-- [ ] All material ZAIDs found in xsdir
-- [ ] Library version consistent across isotopes (.80c preferred)
-- [ ] Temperature libraries appropriate for system
-- [ ] Thermal scattering (.nnT) available for moderators
-- [ ] Photoatomic (.nnP) available for MODE P calculations
-- [ ] Cross-section files exist at paths specified in xsdir
-- [ ] File permissions allow MCNP to read data files
-- [ ] Documented any library version mixing with justification
-
-## Best Practices
-
-1. **Use Latest ENDF/B Version**: Prefer .80c when available
-2. **Check Before Running**: Verify libraries to avoid expensive failed runs
-3. **Keep Versions Consistent**: All .80c or all .70c when possible
-4. **Match Temperatures**: Use .nnc library close to system temperature
-5. **Include Thermal Scattering**: Always use MT card for moderators
-6. **Document Alternatives**: Comment why using non-standard library
-7. **Maintain DATAPATH**: Set permanently in environment
-8. **Update xsdir Carefully**: Regenerate rather than hand-edit
-9. **Test New Installations**: Run test case to verify library access
-10. **Keep Backups**: Save working xsdir when libraries functional
-
-## References
-
+### External Resources
 - **MCNP Manual**: Appendix G (Cross-Section Libraries)
-- **Related Skills**:
-  - mcnp-isotope-lookup
-  - mcnp-material-builder
-  - mcnp-physics-builder
-  - mcnp-fatal-error-debugger
-- **External Resources**:
-  - ENDF/B-VIII.0 documentation
-  - MCNP installation guides
-  - NEA Data Bank
+- **ENDF/B-VIII.0 Documentation**: Latest evaluation details
+- **MCNP Installation Guides**: Library setup procedures
+- **NEA Data Bank**: Nuclear data resources
+
+---
+
+**Version**: 2.0.0
+**Last Updated**: 2025-11-06
+**Status**: Production-ready with comprehensive Python tooling
 
 ---
 

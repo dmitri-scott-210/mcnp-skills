@@ -1,0 +1,31 @@
+# Common PRDMP Configurations
+
+# Hourly checkpoint (single node)
+PRDMP  60
+
+# Hourly with mctal
+PRDMP  60  J  0  1
+
+# 2-hour checkpoint (MPI cluster)
+PRDMP  120  J  0  1  1  1  0
+
+# Debugging (10-min, max 10 dumps, verbose)
+PRDMP  10  J  10  1  1  2
+
+# mctal at end only (reduce I/O)
+PRDMP  60  J  0  2
+
+# Every 1000 particles
+PRDMP  J  1000
+
+# No time dumps, only at end
+PRDMP  0  J  0  1
+
+# 3-hour dumps (long runs)
+PRDMP  180  J  0  1  1  1  0
+
+# KCODE with source file
+PRDMP  60  J  0  1  1
+
+# Minimal output
+PRDMP  120  J  0  1  1  0  0

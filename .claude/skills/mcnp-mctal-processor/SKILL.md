@@ -92,13 +92,36 @@ Complex processing:
 
 This skill includes a Python implementation for automated MCTAL file processing and extraction.
 
-### Importing the Tool
+### Implementation Note
 
+**The `MCTALProcessor` class provided inline (lines 389-740) IS the complete implementation.**
+
+For your use, choose one of these approaches:
+
+**Approach 1: Copy the inline class to your script**
 ```python
-from mcnp_mctal_parser import MCNPMCTALParser
+# Copy the MCTALProcessor class (lines 389-740) to your script
+# Then use it:
+c
+processor = MCTALProcessor()
+processor.parse_file('mctal')
+```
 
-# Initialize the parser
-parser = MCNPMCTALParser()
+**Approach 2: Use mcnp-output-parser for basic read-only access**
+```python
+# For simple MCTAL reading (no merging/export)
+# Use scripts/mctal_basic_parser.py from mcnp-output-parser skill
+c
+from scripts.mctal_basic_parser import parse_mctal_header, extract_tally_basic
+c
+header = parse_mctal_header('mctal')
+tally = extract_tally_basic('mctal', 4)
+```
+
+**Approach 3: Full MCTAL processing (use inline class)**
+```python
+# For merging, export, and advanced processing
+# Use the complete MCTALProcessor class below
 ```
 
 ### Basic Usage
@@ -154,15 +177,18 @@ print("MCTAL data exported to tally_data.json")
 ### Integration with MCNP Workflow
 
 ```python
-from mcnp_mctal_parser import MCNPMCTALParser
+# Note: Use the MCTALProcessor class defined inline in this skill (lines 389-740)
+# Copy that class to your script, then use this workflow
+c
 import json
-
+c
 def extract_and_analyze_tallies(mctal_file, output_csv='tally_results.csv'):
     """Extract tally data and export for analysis"""
     print(f"Processing MCTAL file: {mctal_file}")
     print("=" * 60)
-
-    parser = MCNPMCTALParser()
+c
+    # Requires MCTALProcessor class (copy from lines 389-740)
+    parser = MCTALProcessor()
 
     # Parse MCTAL file
     data = parser.parse_mctal(mctal_file)
@@ -372,11 +398,12 @@ tfc     8
 - "Which tallies?" (specific numbers or all)
 - "Any specific binning?" (energy bins, time bins, all bins)
 
-### Step 2: Read Reference Materials
+### Step 2: Review Implementation
 
-**MANDATORY - READ ENTIRE FILE**: Before processing, read:
-- `.claude/commands/mcnp-mctal-processor.md` - Complete processing procedures
-- If needed: Review MCTAL format in knowledge base
+**Before processing:**
+- Review the `MCTALProcessor` class implementation (lines 389-740 in this skill)
+- Understand MCTAL format structure (lines 280-362)
+- For basic parsing only, see mcnp-output-parser's `scripts/mctal_basic_parser.py`
 
 ### Step 3: Parse MCTAL File
 
@@ -781,14 +808,58 @@ merged = processor.merge_mctal_files(
 merged.export_to_csv(4, 'averaged_tally4.csv')
 ```
 
+## Skill Boundaries
+
+**What mcnp-mctal-processor DOES:**
+✓ Parse MCTAL files completely (all tallies, TFC data, metadata)
+✓ Export to multiple formats (CSV, Excel, JSON, HDF5)
+✓ Merge multiple MCTAL files with proper statistics
+✓ Statistical combination (history-weighted averaging, variance propagation)
+✓ Custom data transformations and batch processing
+✓ Advanced MCTAL manipulation
+
+**What mcnp-mctal-processor does NOT do:**
+✗ Simple read-only MCTAL parsing → **Use mcnp-output-parser** (`scripts/mctal_basic_parser.py`)
+✗ Parse OUTP files → **Use mcnp-output-parser**
+✗ Parse HDF5/PTRAC files → **Use mcnp-output-parser**
+✗ Create visualizations → **Use mcnp-plotter**
+✗ Statistical quality validation → **Use mcnp-statistics-checker**
+✗ Interpret tally physics/units → **Use mcnp-tally-analyzer**
+
+**When to use mcnp-output-parser instead:**
+- Only need to read MCTAL values (no merging/export)
+- Parsing multiple output formats (OUTP + MCTAL + HDF5)
+- Lightweight data extraction
+
+**When to use mcnp-mctal-processor:**
+- Need to merge multiple MCTAL files
+- Export to analysis formats (CSV, Excel, JSON)
+- Statistical combinations required
+- Batch processing multiple runs
+- Custom MCTAL transformations
+
 ## Integration with Other Skills
 
-After MCTAL processing:
+**Complementary Skills:**
 
-- **mcnp-tally-analyzer**: Analyze/interpret extracted tally data
+- **mcnp-output-parser**: Use for basic MCTAL reading, OUTP parsing, HDF5 extraction
+  - Basic MCTAL: `scripts/mctal_basic_parser.py`
+  - When you don't need merging/export, use output-parser instead
+
+- **mcnp-tally-analyzer**: Analyze/interpret extracted tally data, unit conversions
+
 - **mcnp-plotter**: Create plots from exported CSV/DataFrame
-- **mcnp-statistics-checker**: Validate TFC data from MCTAL
-- **mcnp-output-parser**: Cross-check with OUTP file for validation
+
+- **mcnp-statistics-checker**: Validate TFC data and statistical quality
+
+**Workflow Integration:**
+1. Use **mcnp-output-parser** for quick data extraction
+2. Use **mcnp-mctal-processor** when you need:
+   - Merging multiple runs
+   - Export to analysis formats
+   - Statistical combinations
+3. Feed results to **mcnp-tally-analyzer** for interpretation
+4. Use **mcnp-plotter** for visualization
 
 ## Important Processing Principles
 
@@ -834,11 +905,11 @@ User: "I need to get my F4 tally data into Excel"
 
 Claude: I'll parse your MCTAL file and export tally 4 to Excel format.
 
-[Uses MCTALProcessor]
+[Uses MCTALProcessor - copy class from lines 389-740 to your script]
 
 ```python
-from mcnp_mctal_processor import MCTALProcessor
-
+# MCTALProcessor class (lines 389-740) copied to script
+c
 # Parse MCTAL
 processor = MCTALProcessor()
 data = processor.parse_file('mctal')
@@ -883,16 +954,16 @@ User: "I ran 10 cases varying shield thickness. Merge the results."
 
 Claude: I'll merge your 10 MCTAL files using history-weighted averaging.
 
-[Uses MCTALProcessor]
+[Uses MCTALProcessor - copy class from lines 389-740 to your script]
 
 ```python
-from mcnp_mctal_processor import MCTALProcessor
+# MCTALProcessor class (lines 389-740) copied to script
 import glob
-
+c
 # Find all MCTAL files
 mctal_files = glob.glob('case_*/mctal')  # Assumes case_1/, case_2/, ... directories
 print(f"Found {len(mctal_files)} MCTAL files")
-
+c
 # Merge with history-weighted averaging
 processor = MCTALProcessor()
 merged = processor.merge_mctal_files(
@@ -970,15 +1041,19 @@ When processing MCTAL files:
 - `openpyxl` - Excel file format support
 - `h5py` - HDF5 export for large datasets
 
-**Required components:**
-- Reference: `.claude/commands/mcnp-mctal-processor.md` (detailed procedures)
+**Implementation:**
+- Complete Python code provided inline in this skill (`MCTALProcessor` class, lines 389-740)
+- For basic read-only MCTAL access: See **mcnp-output-parser** skill (`scripts/mctal_basic_parser.py`)
 
 ## References
 
-**Primary References:**
-- `.claude/commands/mcnp-mctal-processor.md` - Complete processing procedures
-- `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - MCTAL format section
-- Chapter 5.9: Tally specification (defines MCTAL contents)
+**Primary Implementation:**
+- This skill's inline `MCTALProcessor` class (lines 389-740) - Complete MCTAL processing
+- mcnp-output-parser's `scripts/mctal_basic_parser.py` - Basic read-only parsing
+
+**Format Documentation:**
+- MCTAL format structure documented in this skill (lines 280-362)
+- MCNP6 Manual Chapter 5.9: Tally specification (defines MCTAL contents)
 
 **MCTAL Format:**
 - MCNP manual appendix: MCTAL file format specification

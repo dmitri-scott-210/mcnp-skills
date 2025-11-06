@@ -1,0 +1,11 @@
+Library_Suffix,Temperature_K,Temperature_C,Temperature_F,ENDF_Version,Use_Case,Examples
+.80c,293.6,20.44,68.8,VIII.0,Room temperature standard,PWR cold zero power
+.81c,600,326.9,620.4,VIII.0,Moderate temperature,Hot standby
+.82c,900,626.9,1160.4,VIII.0,High temperature reactors,PWR operating
+.83c,1200,926.9,1700.4,VIII.0,Very high temperature,HTGR gas reactor
+.84c,2500,2226.9,4040.4,VIII.0,Ultra-high temperature,Gas-cooled fast reactor
+.85c,523.6,250.5,482.9,VIII.0,Extended temperature,Special applications
+.86c,573.6,300.5,572.9,VIII.0,Extended temperature,Special applications
+.87c,623.6,350.5,662.9,VIII.0,Extended temperature,BWR operating
+.70c,293.6,20.44,68.8,VII.0,Legacy calculations,Benchmarks
+.66c,293.6,20.44,68.8,VI.6,Historical,Old validations

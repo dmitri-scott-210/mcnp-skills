@@ -1,8 +1,17 @@
 ---
-name: "MCNP Tally Analyzer"
-description: "Analyzes MCNP tally results to extract physics information, validate statistical quality, convert units, and interpret physical meaning. Use when analyzing simulation results."
-version: "1.0.0"
-dependencies: "python>=3.8, numpy, pandas"
+name: mcnp-tally-analyzer
+description: Analyzes MCNP tally results to extract physics information, validate statistical quality, convert units, and interpret physical meaning (Phase 2 partial - complete in Phase 3)
+version: 1.5.0
+phase: 2-partial
+dependencies:
+  - python>=3.8
+  - numpy
+  - pandas
+related_skills:
+  - mcnp-output-parser
+  - mcnp-statistics-checker
+  - mcnp-plotter
+  - mcnp-tally-builder
 ---
 
 # MCNP Tally Analyzer
@@ -155,11 +164,12 @@ for tally_num, data in results.items():
 - "Are you comparing multiple runs or tallies?"
 - "Do you need results in specific units?"
 
-### Step 2: Read Reference Materials
+### Step 2: Understand Tally Types
 
-**MANDATORY - READ ENTIRE FILE**: Before performing analysis, read:
-- `.claude/commands/mcnp-tally-analyzer.md` - Complete analysis procedures
-- If needed: `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Tally types and units
+**Before performing analysis, review:**
+- Tally type definitions (F1-F8, FMESH) - see Step 2 in "Select Tally Type" above
+- MCNP Manual Chapter 5: Tally specifications and units
+- **Note:** Advanced analysis procedures will be added in Phase 3 completion
 
 ### Step 3: Extract Tally Data
 
@@ -1247,7 +1257,7 @@ When using tally analysis:
 
 ## References
 
-**Primary References (Phase 2):**
+**Primary References:**
 - `.claude/commands/mcnp-tally-analyzer.md` - Complete analysis procedures
 - `COMPLETE_MCNP6_KNOWLEDGE_BASE.md` - Tally types, units, FM cards
 - Chapter 5.9: Tally Specification (F cards)
@@ -1269,7 +1279,7 @@ When using tally analysis:
 - §5.9.10: FM card (tally multipliers)
 - Cross-section libraries: ENDF/B-VIII.0
 
-**Phase 3 - VR Integration:**
+**VR Integration:**
 - `vr_effectiveness_analysis.md` - FOM analysis, under-sampling detection, VR artifacts
 - `convergence_diagnostics.md` - CLT validation, trend analysis, required histories prediction
 - `tally_vr_optimization.md` - VR selection from tally analysis, tuning guidance
@@ -1280,5 +1290,7 @@ When using tally analysis:
 - mcnp-statistics-checker: Detailed statistical validation
 - mcnp-plotter: Automated spectrum/distribution plots
 - mcnp-unit-converter: Additional unit conversions
-- **Phase 3:** mcnp-variance-reducer: Implement VR recommendations
-- **Phase 3:** mcnp-ww-optimizer: Refine weight windows based on tally feedback
+- mcnp-variance-reducer: Implement VR recommendations
+- mcnp-ww-optimizer: Refine weight windows based on tally feedback
+
+---
