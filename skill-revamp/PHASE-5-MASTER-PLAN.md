@@ -1,7 +1,7 @@
-# PHASE 5 MASTER PLAN - CATEGORY C & SPECIALIZED SKILLS (8 SKILLS)
+# PHASE 5 MASTER PLAN - CATEGORY C & SPECIALIZED SKILLS (6 SKILLS)
 
 **Phase:** 5 of 5 (FINAL PHASE)
-**Skills:** 8 (Category C: Validation + Specialized/Meta Skills)
+**Skills:** 6 (Category C: Validation + Specialized/Meta Skills)
 **Estimated Sessions:** 1
 **Estimated Tokens:** ~80k tokens
 **Created:** 2025-11-02 (Session 2)
@@ -32,7 +32,7 @@ Complete the final 8 skills: validation/debugging tools and specialized meta-ski
 
 ### Parallel Execution Capabilities
 
-**Phase 5 Status:** ⏸️ NOT STARTED - 0/8 skills complete (0%)
+**Phase 5 Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
 
 **Can Execute in Parallel with:**
 - ✅ Phase 1 (different documentation)
@@ -43,29 +43,27 @@ Complete the final 8 skills: validation/debugging tools and specialized meta-ski
 **Dependencies:** NONE - All Phase 5 skills are fully independent
 
 **🚨 CRITICAL: HIGHEST PRIORITY PHASE 🚨**
-- These are validation/debugging skills that should have been done first
+- These are validation/debugging skills that should have been prioritized earlier
 - mcnp-fatal-error-debugger and mcnp-warning-analyzer are ESSENTIAL
 - mcnp-best-practices-checker ensures quality across all skills
 - mcnp-example-finder and knowledge-docs-finder help navigate ecosystem
 
 ### Skills - All Independent and HIGH PRIORITY
 
-All 8 skills can start immediately:
+All 6 skills can start immediately:
 1. ⏸️ mcnp-fatal-error-debugger (CRITICAL)
 2. ⏸️ mcnp-warning-analyzer (CRITICAL)
 3. ⏸️ mcnp-best-practices-checker (HIGH VALUE)
 4. ⏸️ mcnp-example-finder (HIGH VALUE)
 5. ⏸️ mcnp-knowledge-docs-finder (HIGH VALUE)
 6. ⏸️ mcnp-criticality-analyzer
-7. ⏸️ mcnp-burnup-builder
-8. ⏸️ mcnp-input-updater
 
 **Parallelization Strategy:**
 - **HIGHEST PRIORITY** - Start Phase 5 ASAP, don't wait for other phases
 - Can execute in parallel with ALL other phases
-- All 8 skills can be split across multiple sessions
-- Recommend: Start with skills 1-5 (most critical)
-- Single session can complete 4-6 skills
+- All 6 skills can be completed in 1-2 sessions
+- Recommend: Start with skills 1-3 (most critical)
+- Single session can complete all 6 skills
 
 ### Session ID Tracking
 
@@ -73,7 +71,7 @@ All 8 skills can start immediately:
 
 1. **Generate unique session ID:** `Session-YYYYMMDD-HHMMSS-Phase5`
 2. **Record in PHASE-5-PROJECT-STATUS.md**
-3. **Update GLOBAL-SESSION-REQUIREMENTS.md lines 159-182 (Phase 5 section)**
+3. **Update GLOBAL-SESSION-REQUIREMENTS.md Phase 5 Progress and Summary section**
 
 ### Coordination with Global Requirements
 
@@ -364,13 +362,10 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 ## 🎯 EXECUTION CHECKLIST
 
 ### Before Starting Phase 5
-- [ ] Phases 1-4 complete (32 skills revamped)
-- [ ] Check which skills were completed in Phase 1:
-  - [ ] mcnp-input-validator - done in Phase 1? [Yes/No]
-  - [ ] mcnp-geometry-checker - done in Phase 1? [Yes/No]
-  - If done, count as 6 skills in Phase 5, not 8
-- [ ] PHASE-5-PROJECT-STATUS.md updated with Phase 5 start
-- [ ] Token budget noted (~90-120k depending on cache)
+- [ ] Check GLOBAL-SESSION-REQUIREMENTS.md for overall project status
+- [ ] Determine which other phases are in progress or complete (Phase 5 has NO dependencies)
+- [ ] PHASE-5-PROJECT-STATUS.md created or updated with Phase 5 start
+- [ ] Token budget noted (~80-100k for all 6 skills)
 
 ### Documentation Reading (As Needed Per Skill)
 - [ ] Check Phase 1 cache (Chapters 3-4)
@@ -646,7 +641,7 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 ### Update Documents
 
 1. **PHASE-5-PROJECT-STATUS.md** - Add session summary with session ID
-2. **GLOBAL-SESSION-REQUIREMENTS.md lines 159-182** - Update Phase 5 Progress section
+2. **GLOBAL-SESSION-REQUIREMENTS.md Phase 5 Progress and Summary section** - Update completion status
 3. Inform user of completion status
 
 **Emphasize:**
@@ -658,6 +653,6 @@ For EACH of the 6 skills, follow the standard 11-step workflow:
 
 **END OF PHASE 5 MASTER PLAN**
 
-**This is the FINAL phase!** 🎉
+**Phase 5:** 6 skills - Validation, Debugging, and Meta-Navigation 🎉
 
-**Remember:** Phase 5 is HIGHEST PRIORITY. These validation/debugging skills should be started ASAP, not saved for last. Can execute in parallel with ALL other phases. Update GLOBAL-SESSION-REQUIREMENTS.md at session end. When all 5 phases complete, entire project is complete!
+**Remember:** Phase 5 is HIGHEST PRIORITY. These validation/debugging skills should be started ASAP, not saved for last. Can execute in parallel with ALL other phases. Has NO dependencies - start immediately. Update GLOBAL-SESSION-REQUIREMENTS.md Phase 5 Progress section at session end. When Phase 5 complete, validation skills benefit all other phase work!

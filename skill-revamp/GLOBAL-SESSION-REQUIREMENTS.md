@@ -153,7 +153,7 @@
 
 ### Phase 5 Progress and Summary
 
-**Status:** ⏸️ NOT STARTED - 0/8 skills complete (0%)
+**Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
 **Category:** C & Specialized - Validation, Debugging, Meta-navigation
 **Latest Status Document:** `PHASE-5-PROJECT-STATUS.md`
 **Last Updated:** Not started
@@ -166,10 +166,8 @@
 4. ⏸️ mcnp-example-finder (CAN start now)
 5. ⏸️ mcnp-knowledge-docs-finder (CAN start now)
 6. ⏸️ mcnp-criticality-analyzer (CAN start now)
-7. ⏸️ mcnp-burnup-builder (CAN start now)
-8. ⏸️ mcnp-input-updater (CAN start now)
 
-**Skills Remaining:** 8 skills
+**Skills Remaining:** 6 skills
 **Can Execute in Parallel:** YES - Most skills independent
 **Documentation Requirements:** Minimal (error catalogs, project docs)
 **PRIORITY:** HIGH - These are critical validation/debugging skills that should have been done earlier
