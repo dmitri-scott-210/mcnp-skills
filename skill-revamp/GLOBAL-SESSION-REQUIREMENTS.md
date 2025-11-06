@@ -196,25 +196,7 @@ pwd
 
 ---
 
-### Step 1: Read GLOBAL-SESSION-REQUIREMENTS.md (THIS FILE)
-
-**File:** `skill-revamp/GLOBAL-SESSION-REQUIREMENTS.md`
-**Purpose:** Understand global project state and assigned phase status
-**Tokens:** ~20k
-**Action:** Read entire document, focus on assigned Phase N Progress section
-
----
-
-### Step 2: Read TOKEN-OPTIMIZATION-BEST-PRACTICES.md
-
-**File:** `skill-revamp/TOKEN-OPTIMIZATION-BEST-PRACTICES.md`
-**Purpose:** Apply proven token optimization techniques
-**Tokens:** ~5k
-**Action:** Read entire document, internalize techniques
-
----
-
-### Step 3: Read Assigned Phase Master Plan
+### Step 1: Read Assigned Phase Master Plan
 
 **File:** `skill-revamp/PHASE-N-MASTER-PLAN.md` (where N = assigned phase)
 **Purpose:** Understand phase-specific workflow and requirements
@@ -230,7 +212,7 @@ pwd
 
 ---
 
-### Step 4: Read Assigned Phase Status Document
+### Step 2: Read Assigned Phase Status Document
 
 **File:** `skill-revamp/PHASE-N-PROJECT-STATUS.md` (or PART-X if split)
 **Purpose:** Understand where previous session ended in THIS phase
@@ -246,7 +228,7 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 
 ---
 
-### Step 5: Read LESSONS-LEARNED.md
+### Step 3: Read LESSONS-LEARNED.md
 
 **File:** `skill-revamp/LESSONS-LEARNED.md`
 **Purpose:** Avoid repeating documented mistakes
@@ -255,7 +237,7 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 
 ---
 
-### Step 6: Generate Unique Session ID
+### Step 4: Generate Unique Session ID
 
 **Format:** `Session-YYYYMMDD-HHMMSS-PhaseN`
 **Example:** `Session-20251106-143022-Phase5`
@@ -264,7 +246,7 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 
 ---
 
-### Step 7: Verify Phase-Specific Dependencies
+### Step 5: Verify Phase-Specific Dependencies
 
 **Before starting work on assigned phase, verify:**
 
@@ -272,13 +254,12 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 **Phase 2:** ✅ No dependencies on Phase 1 (different docs), can start immediately
 **Phase 3:**
 - ⚠️ Skills 1-2 (tally-analyzer, statistics-checker): Require Phase 2 completion
-- ✅ Skills 3-4 (variance-reducer completion, ww-optimizer): Can start if Phase 1 docs cached
+- ✅ Skills 3-4 (variance-reducer completion, ww-optimizer), Can start immediately (may need to read Phase 1 docs if not cached)
 **Phase 4:** ✅ No dependencies, can start immediately
 **Phase 5:** ✅ No dependencies, can start immediately (PRIORITY)
 
-**If dependencies not met:**
-1. Inform user of dependency requirement
-2. Suggest alternative phase or wait for dependency completion
+**If skill(s)' dependencies not met:**
+1. Inform user of dependency requirement(s) and proceed executing Phase for skills with no unresolved dependencies 
 3. Update THIS document if dependency discovered
 
 ---
@@ -311,7 +292,7 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 |-------|----------------|--------------|-------|
 | Phase 1 | ✅ YES | None | Tier 3 skills remain |
 | Phase 2 | ✅ YES | None | Independent docs (Chapter 8, Appendix D) |
-| Phase 3 (partial) | ✅ YES | Phase 1 docs for skills 3-4 | Skills 1-2 need Phase 2 complete |
+| Phase 3 (partial) | ✅ YES | Skills 3-4 | Skills 1-2 need Phase 2 complete |
 | Phase 4 | ✅ YES | None | All utility skills independent |
 | Phase 5 | ✅ YES | None | PRIORITY - Critical validation skills |
 
