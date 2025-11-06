@@ -1,0 +1,30 @@
+Constant,Symbol,Value,Unit,Alternative_Value,Alternative_Unit,Description
+Speed of light,c,2.99792458E+10,cm/s,2.99792458E+08,m/s,Exact by definition
+Planck constant,h,6.62607015E-34,J·s,4.135667696E-15,eV·s,Exact by definition since 2019
+Reduced Planck,ℏ,1.054571817E-34,J·s,197.3269804,MeV·fm,h-bar = h/2π
+Boltzmann,k_B,1.380649E-23,J/K,8.617333262E-05,eV/K,Exact by definition since 2019
+Elementary charge,e,1.602176634E-19,C,,,Exact by definition since 2019
+Avogadro,N_A,6.02214076E+23,1/mol,,,Exact by definition since 2019
+AMU,u,1.66053906660E-27,kg,931.49410242,MeV/c²,1/12 of C-12 mass
+Electron volt,eV,1.602176634E-19,J,,,Energy unit
+Electron mass,m_e,9.1093837015E-31,kg,0.51099895000,MeV/c²,Lepton
+Proton mass,m_p,1.67262192369E-27,kg,938.27208816,MeV/c²,Nucleon
+Neutron mass,m_n,1.67492749804E-27,kg,939.56542052,MeV/c²,Unstable when free
+Deuteron mass,m_d,3.3435837724E-27,kg,1875.61294257,MeV/c²,Deuterium nucleus
+Alpha mass,m_α,6.6446573357E-27,kg,3727.3794066,MeV/c²,Helium-4 nucleus
+Fine structure,α,7.2973525693E-03,dimensionless,137.035999084,inverse,~1/137
+Barn,b,1.0E-24,cm²,,,Cross section unit
+Curie,Ci,3.7E+10,Bq,,,Activity unit
+Thermal neutron E,,0.0253,eV,2.53E-08,MeV,At 293.6 K
+Thermal neutron v,,2200,m/s,,,At 20°C
+Neutron half-life,t_1/2,879.4,s,14.66,min,Free neutron decay
+U-235 σ_fission,,585.1,barn,,,Thermal cross section
+U-235 ν,,2.43,,,,Neutrons per fission
+Pu-239 σ_fission,,747.4,barn,,,Thermal cross section
+Pu-239 ν,,2.87,,,,Neutrons per fission
+Energy per fission,,200,MeV,,,U-235 total
+Temperature (STP),,273.15,K,0,°C,Standard conditions
+Room temperature,,293.6,K,20.44,°C,Thermal energy reference
+k_B × 293.6 K,,0.0253,eV,,,Thermal neutron energy
+Speed of light fraction,0.1c,2.998E+07,m/s,,,Relativistic threshold
+Gravitational constant,G,6.67430E-11,m³/(kg·s²),,,Least precise constant

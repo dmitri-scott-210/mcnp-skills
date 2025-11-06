@@ -24,8 +24,8 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 
 #### Reference & Lookup Tools (High Priority)
 1. ✅ **mcnp-unit-converter** - Converting between unit systems for MCNP (COMPLETED)
-2. ⏸️ **mcnp-physical-constants** - Physical constants for MCNP calculations (NEXT)
-3. ⏸️ **mcnp-isotope-lookup** - Isotope properties and ZAID format
+2. ✅ **mcnp-physical-constants** - Physical constants for MCNP calculations (COMPLETED)
+3. ⏸️ **mcnp-isotope-lookup** - Isotope properties and ZAID format (NEXT)
 
 #### Specialized Tools
 4. ⏸️ **mcnp-cross-section-manager** - Cross-section library management and xsdir
@@ -33,9 +33,9 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 6. ⏸️ **mcnp-template-generator** - Generate template MCNP inputs for common problems
 
 ### Progress Summary
-- **Skills Completed:** 1/6 (16.67%)
+- **Skills Completed:** 2/6 (33.33%)
 - **Documentation Reading:** ✅ COMPLETED (12/12 files read)
-- **Tokens Used:** ~118k / 90k budgeted (over budget due to comprehensive Python tools)
+- **Tokens Used:** ~205k / 90k budgeted (significantly over due to comprehensive Python tools and extensive reference documentation)
 
 ---
 
@@ -150,33 +150,41 @@ Revamp 6 utility and reference skills that provide supporting tools, unit conver
 ---
 
 ### Skill #2: mcnp-physical-constants (HIGH PRIORITY)
-**Status:** ⏸️ Not started
+**Status:** ✅ COMPLETED
 **Priority:** High - Core reference
-**Current:** ~750 lines (estimate)
+**Final Size:** 380 lines SKILL.md + comprehensive support files
 
-**Key Capabilities:**
-- Fundamental constants (c, h, k_B, N_A, etc.)
-- Particle properties (masses, charges, spins)
-- Nuclear constants (atomic mass unit, MeV/amu)
-- Reaction Q-values
-- Standard conditions (STP, NTP)
-- Cross-section benchmarks
+**Completed Components:**
 
-**References to Create (at ROOT level):**
-- fundamental_constants.md - CODATA values
-- particle_properties.md - Comprehensive particle data
-- nuclear_constants.md - Nuclear physics constants
-- benchmark_cross_sections.md - Standard reactions
+✅ **Python Scripts (scripts/ at ROOT - ESSENTIAL):**
+- constants_lookup.py (438 lines) - Interactive/CLI constant and particle lookup
+  * Search physical constants and particle properties
+  * CODATA 2018 and PDG 2020 values
+  * Interactive and command-line modes
+  * No external dependencies (pure stdlib)
+- unit_aware_calculator.py (528 lines) - Scientific calculator with unit handling
+  * 8 calculation types (atom density, thermal energy, neutron speed, Q-value, binding energy, fission rate, decay constant, specific activity)
+  * Automatic unit conversions
+  * Interactive and command-line modes
+  * Pure stdlib implementation
+- README.md (comprehensive) - Complete tool documentation with examples
 
-**Scripts to Bundle (scripts/ at ROOT):**
-- constants_lookup.py - Search and retrieve constants
-- unit_aware_calculator.py - Calculations with units
+✅ **Reference Files (at ROOT level - NO subdirectories):**
+- fundamental_constants.md (412 lines) - CODATA 2018 universal, EM, gravitational constants
+- particle_properties.md (440 lines) - Leptons, nucleons, light nuclei detailed properties
+- nuclear_constants.md (577 lines) - Fission, fusion, decay data, nuclear energy scales
+- benchmark_cross_sections.md (584 lines) - Thermal cross sections, typical values for validation
 
-**Data Files (example_inputs/ at ROOT - NO assets/):**
-- Constants database (JSON/CSV)
-- Quick reference tables
+✅ **Data Files (example_inputs/ at ROOT - NO assets/):**
+- quick_reference.csv - 30 most common constants with multiple unit systems
 
-**Progress:** Not started
+✅ **Structure Verification:**
+- NO assets/ directory (ZERO TOLERANCE requirement met!) ✅
+- All reference files at ROOT level
+- Python tools functional and tested
+- 26-item quality checklist PASSED
+
+**Progress:** COMPLETE
 
 ---
 
