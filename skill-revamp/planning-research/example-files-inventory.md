@@ -1,6 +1,6 @@
 # MCNP Example Files Inventory
 
-**Location:** `C:\Users\dman0\Desktop\AI_Training_Docs\MCNP6\example_files\`
+**Location:** `example_files/`
 **Total Files:** 1,107 MCNP input files (.i and .txt formats)
 **Critical Gap:** ZERO examples incorporated in current skills
 
@@ -170,7 +170,7 @@ example_files/
 
 ## Example File Requirements
 
-For each example added to assets/:
+For each example file added to ROOT Skill subdirectory example_[files]/ (e.g., example_inputs/):
 1. **Source file:** example_name.i (MCNP input)
 2. **Description file:** example_name_description.txt containing:
    - Purpose/what it demonstrates
@@ -230,6 +230,7 @@ From basic_examples/:
 From reactor-model_examples/:
 11. bench_001.i - Full reactor model
 12. bench_002.i - Lattice structure
+13. htgr-model-burnup-and-doserates/agr-1/mcnp/sdr-agr.i - Full reactor model
 13. [specific repeated_structures example]
 14. [specific verification example]
 15. [3 more production examples]
