@@ -123,9 +123,140 @@ Given dependency constraints:
 
 ## 🚧 CURRENTLY ACTIVE SKILL
 
-**None yet - Session just starting**
+### Skill 3: mcnp-variance-reducer (Complete from Phase 1)
 
-**Next Action:** Begin with mcnp-variance-reducer (Skill 3)
+**Status:** 🚧 IN PROGRESS - Step 3: Identifying gaps
+
+**Progress:**
+- ✅ Step 1: Read current SKILL.md (328 lines, well-structured from Phase 1)
+- ✅ Step 2: Read VR theory documentation (02_07_Variance_Reduction.md, ~26k tokens)
+- ✅ Step 3: Identified discrepancies and gaps
+- ✅ Step 4: Created skill revamp plan
+- ✅ Step 5a: Created 3 new reference files at root level:
+  - advanced_vr_theory.md (WWG algorithm, optimization, erratic errors)
+  - mesh_based_ww.md (MESH integration, resolution guidelines)
+  - advanced_techniques.md (EXT, FCL, energy/time splitting)
+- 🚧 Step 6: Adding example files to example_inputs/ (IN PROGRESS)
+
+**Phase 1 Content Found:**
+- SKILL.md: 328 lines with overview, decision tree, 3 use cases, integration, best practices
+- Reference files at root (correct structure ✓):
+  - variance_reduction_theory.md (FOM, splitting/RR basics)
+  - card_specifications.md (IMP, WWN, WWE, WWP, WWG syntax)
+  - error_catalog.md
+  - wwg_iteration_guide.md
+- scripts/ directory with 4 Python tools + README.md
+- templates/ directory with 3 template files
+- ❌ NO example_inputs/ directory (needs to be added)
+- ✅ NO assets/ directory (correct per Lesson #16)
+
+**Gap Analysis (Phase 1 vs. Phase 3):**
+
+**✅ Phase 1 Covered (Basic VR):**
+- Cell importance (IMP) - manual setup
+- Basic weight windows (WWN/WWE/WWP)
+- Basic WWG generation (simple workflow)
+- FOM theory and calculation
+- Splitting and Russian roulette fundamentals
+- Iterative WWG (basic 3-iteration example)
+- DXTRAN (mentioned but basic)
+
+**❌ Phase 3 Gaps (Advanced VR from Theory Doc 02_07):**
+1. **Advanced WWG Theory:**
+   - Weight window generator algorithm details (§2.7.2.12.2)
+   - Stochastic importance estimation
+   - Generator limitations and convergence criteria
+   - Mesh-based vs. cell-based generation
+
+2. **Mesh-Based Weight Windows:**
+   - MESH card integration with WWG
+   - Rectangular vs. cylindrical mesh
+   - Mesh resolution optimization
+   - Superimposed importance mesh grids
+
+3. **Advanced VR Techniques:**
+   - Exponential transform (EXT card) - §2.7.2.13
+   - Forced collisions (FCL card) - §2.7.2.15
+   - Energy/time splitting and roulette - §2.7.2.8, §2.7.2.10
+   - Weight cutoff advanced usage - §2.7.2.11
+
+4. **Optimization Strategies:**
+   - VR strategy development (§2.7.1.4)
+   - Erratic error diagnosis (§2.7.1.5)
+   - Avoiding overbiasing (§2.7.1.6)
+   - Combining multiple VR methods
+   - Troubleshooting pathological cases
+
+5. **DXTRAN Advanced:**
+   - Full DXTRAN theory (§2.7.2.18)
+   - Inner/outer sphere optimization
+   - DXC and DD auxiliary games
+   - DXTRAN weight cutoffs
+
+6. **Examples:**
+   - variance-reduction_examples/ from example_files/
+   - Complex shielding with WWG
+   - Mesh-based WW examples
+   - Combined VR techniques (WWG + EXT, WWG + DXTRAN)
+
+**Skill Revamp Plan for Phase 3:**
+
+**Priority 1 - New Reference Files (at root level):**
+1. ✅ KEEP: variance_reduction_theory.md (Phase 1 - basic theory)
+2. ✅ KEEP: card_specifications.md (Phase 1 - basic cards)
+3. ✅ KEEP: wwg_iteration_guide.md (Phase 1 - basic iteration)
+4. ✅ KEEP: error_catalog.md (Phase 1)
+5. ⏸️ CREATE: advanced_vr_theory.md (NEW - from 02_07 §2.7.1.4-2.7.1.6, §2.7.2.12.2)
+   - WWG algorithm and convergence
+   - Optimization strategies
+   - Erratic error diagnosis
+   - Overbiasing avoidance
+6. ⏸️ CREATE: mesh_based_ww.md (NEW - MESH integration)
+   - MESH card syntax with WWG
+   - Rectangular vs. cylindrical mesh
+   - Mesh resolution guidelines
+7. ⏸️ CREATE: advanced_techniques.md (NEW - EXT, FCL, advanced methods)
+   - Exponential transform comprehensive
+   - Forced collisions
+   - Energy/time splitting
+   - Combining methods
+8. ⏸️ UPDATE: card_specifications.md (ADD advanced cards: EXT, FCL, MESH)
+
+**Priority 2 - Example Files (create example_inputs/ at root):**
+1. ⏸️ CREATE: example_inputs/ directory (DIRECTLY at root, NOT in assets/)
+2. ⏸️ ADD: 5-10 variance reduction examples from example_files/variance-reduction_examples/
+   - Complex shielding with WWG + mesh
+   - DXTRAN sphere examples
+   - Exponential transform examples
+   - Combined VR methods
+
+**Priority 3 - New Scripts:**
+1. ⏸️ CREATE: scripts/wwg_mesh_generator.py (mesh-based WWG automation)
+2. ⏸️ CREATE: scripts/vr_optimizer.py (multi-method VR optimization)
+3. ⏸️ KEEP: Existing 4 scripts from Phase 1
+
+**Priority 4 - SKILL.md Enhancements:**
+1. ⏸️ ADD: Use Case 4 - Mesh-based weight windows
+2. ⏸️ ADD: Use Case 5 - Exponential transform for deep penetration
+3. ⏸️ ADD: Integration with mcnp-ww-optimizer (new Phase 3 skill)
+4. ⏸️ UPDATE: Decision tree (add mesh-based and EXT paths)
+5. ⏸️ UPDATE: References section (point to new reference files)
+6. ⏸️ VERIFY: Keep SKILL.md <5k words (may need to extract more to references)
+
+**Priority 5 - Quality Assurance:**
+1. ⏸️ Verify NO assets/ directory (Lesson #16)
+2. ⏸️ Verify all reference .md files at root level
+3. ⏸️ Verify example_inputs/ at root level
+4. ⏸️ Run 26-item quality checklist
+5. ⏸️ Test skill invocation
+
+**Token Estimate for Skill 3:**
+- Reading/analysis: ~5k tokens (completed)
+- Reference file creation: ~10k tokens (3 new files)
+- Example file addition: ~3k tokens
+- Script creation: ~4k tokens
+- SKILL.md updates: ~3k tokens
+- **Total: ~25k tokens for Skill 3**
 
 ---
 
