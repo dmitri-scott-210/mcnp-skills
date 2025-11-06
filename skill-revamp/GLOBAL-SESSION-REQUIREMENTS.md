@@ -6,6 +6,166 @@
 
 ---
 
+## 🚨 CRITICAL: Token Optimization Best Practices - MANDATORY FOR ALL SESSIONS🚨 
+
+### MANDATORY TECHNIQUE 1: Parallel Tool Calls
+
+#### The Rule
+
+**When multiple operations are INDEPENDENT (no dependencies), call ALL tools in a SINGLE message.**
+
+**Parallel approach:**
+```
+Message 1: Tool calls A, B, C (in single message)
+Response 1: Results A, B, C (single overhead ~4k tokens)
+
+Total: 1 × 4k overhead = 4k tokens
+Savings: 8k tokens (for 3 operations)
+```
+
+#### When to Use
+
+✅ **Use parallel calls for:**
+- Reading multiple files that don't depend on each other
+- Creating multiple files in one step
+- Running multiple bash commands (if independent)
+- Checking multiple file locations simultaneously
+
+❌ **DO NOT use parallel calls when:**
+- Operation B needs result from Operation A
+- Order matters (e.g., mkdir before writing file)
+- One operation's parameter depends on another's result
+
+#### Example: Reading Documentation
+
+**Session 14 success:**
+- Read Chapter 5.09 in 4 chunks: offset 1-800, 801-1600, 1601-2400, 2401-3396
+- All 4 Read calls in SINGLE message
+- **Saved:** 12k tokens (avoided 3 extra request/response cycles)
+
+#### Example: Creating Reference Files
+
+**If creating files with NO dependencies:**
+```
+Single message with:
+- Write file 1
+- Write file 2
+- Write file 3
+(All independent, no dependencies)
+
+Saves: 8k tokens vs sequential
+```
+
+**If files have dependencies:**
+```
+Sequential required:
+- Read existing file → Process → Write new file
+(Next file depends on previous result)
+```
+
+### MANDATORY TECHNIQUE 2: Direct File Creation
+
+#### The Rule
+
+**Create files directly with Write tool. Do NOT draft content in response text first.**
+
+#### Why it Matters
+
+Maintain comprehensive and detailed doucment creation without outputting it in respone text and wasting significant amounts of session tokens
+
+**Optimized approach:**
+```
+Minimal response text: "Creating file1.md..."
+
+Write tool with full comprehensive, detailed content in parameter
+
+Result: Content tokenized ONCE (only in write parameter)
+Cost: 1,000 tokens per file
+Savings: 1,000 tokens per file
+```
+
+#### When to Use
+
+✅ **Use direct Write when:**
+- Creating reference documents
+- Creating template files
+- Creating example files
+- Content is >500 words
+
+✅ **Show content to user when:**
+- User explicitly asks to see it
+- Content is <200 words
+- User needs to approve before writing
+
+### MANDATORY TECHNIQUE 3: Structured Extraction
+
+#### The Rule
+
+**Read large documentation ONCE, then immediately extract into multiple organized files. Avoid repetitive explanations.**
+
+#### When to Use
+
+✅ **Use structured extraction when:**
+- Reading documentation >2,000 lines
+- Creating multiple reference files
+- Information needs to be organized into categories
+- Future sessions will need this information
+
+✅ **Create summary documents:**
+- HIGH-level (yet still comprehensive) overview (what's in each file)
+- Detailed Key concepts and organization
+- Quick reference for future sessions
+- Saves future Claudes from re-reading original source
+
+---
+
+### MANDATORY TECHNIQUE 4: Strategic Document Management
+
+### The Rule
+
+**Split documents BEFORE they become unwieldy. Use efficient edit tools. Update only what changed.**
+
+### Why It Matters
+
+**Poor approach:**
+```
+Status document reaches 1,400 lines
+Reading full document: 8k tokens
+Editing full document: 8k tokens
+Writing full document: 8k tokens
+Total per update: 24k tokens
+```
+
+**Optimized approach:**
+```
+Split at 900 lines → PART-4 created
+PART-1: Historical (rarely accessed)
+PART-2: Active work (frequently updated)
+
+Reading PART-3: 3k tokens
+Editing with MCP tool: 1k tokens (precise changes only)
+Total per update: 4k tokens
+Savings: 20k tokens per update cycle
+```
+
+### When to Use
+
+✅ **Split documents when:**
+- Status document exceeds 900 lines
+- Document has clearly separable sections (historical vs active)
+- Frequent updates to only one section
+
+✅ **Use MCP edit tool when:**
+- Making targeted changes to large files
+- Updating specific sections only
+- Correcting small errors
+
+✅ **Use Write tool when:**
+- Creating new files
+- Complete file replacement needed
+
+---
+
 ## 🚨 CRITICAL: PARALLEL EXECUTION OVERVIEW 🚨
 
 **This document enables PARALLEL and ASYNCHRONOUS execution of skill revamps across ALL 5 phases simultaneously.**
@@ -23,15 +183,14 @@
 - Phase-specific status tracking with session IDs
 - Global coordination through this document
 
-### How Parallel Execution Works
+### How Parallel Execution Works - CRITICAL REQUIREMENTS
 
 **Session Startup:**
 1. User directs Claude to specific phase: "Work on PHASE 5" or "Continue PHASE 2"
 2. Claude reads THIS document (GLOBAL-SESSION-REQUIREMENTS.md)
-3. Claude reads TOKEN-OPTIMIZATION-BEST-PRACTICES.md
-4. Claude reads specific PHASE-N-MASTER-PLAN.md for assigned phase
-5. Claude reads specific PHASE-N-PROJECT-STATUS.md (or PART-N) for assigned phase
-6. Claude begins work on assigned phase ONLY
+3. Claude reads specific PHASE-N-MASTER-PLAN.md for assigned phase
+4. Claude reads specific PHASE-N-PROJECT-STATUS.md (or PART-N) for assigned phase
+5. Claude begins work on assigned phase ONLY
 
 **Session Completion:**
 1. Claude updates PHASE-N-PROJECT-STATUS.md with session ID
@@ -44,7 +203,6 @@
 
 ## 🚨 CURRENT GLOBAL PROJECT STATE 🚨
 
-**Last Global Update:** Session 20 - 2025-11-05
 **Total Progress:** 16/36 skills complete (44.44%)
 
 ---
@@ -60,27 +218,8 @@
 
 **Tier Progress:**
 - **Tier 1 (Core Building):** ✅ 7/7 complete (100%)
-  - ✅ mcnp-input-builder
-  - ✅ mcnp-geometry-builder
-  - ✅ mcnp-material-builder
-  - ✅ mcnp-source-builder
-  - ✅ mcnp-tally-builder
-  - ✅ mcnp-physics-builder
-  - ✅ mcnp-lattice-builder
-
 - **Tier 2 (Input Editing):** ✅ 5/5 complete (100%)
-  - ✅ mcnp-input-validator
-  - ✅ mcnp-geometry-editor
-  - ✅ mcnp-input-editor
-  - ✅ mcnp-transform-editor
-  - ✅ mcnp-variance-reducer
-
 - **Tier 3 (Validation):** ✅ 4/4 complete (100%)
-  - ✅ mcnp-cell-checker
-  - ✅ mcnp-cross-reference-checker
-  - ✅ mcnp-geometry-checker
-  - ✅ mcnp-physics-validator
-
 **Skills Remaining:** 0 skills - PHASE 1 COMPLETE ✅
 
 ---
@@ -89,7 +228,7 @@
 
 **Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
 **Category:** D - Output Analysis & Mesh
-**Latest Status Document:** `PHASE-2-PROJECT-STATUS.md`
+**Latest Status Document:** `PHASE-2-PROJECT-STATUS.md` (Needs Creation, remove this tag after creating when updating document at end of session)
 **Last Updated:** Not started
 **Latest Session ID:** N/A
 
@@ -111,7 +250,7 @@
 
 **Status:** ⏸️ NOT STARTED - 0/4 skills complete (0%)
 **Category:** E - Advanced Operations (VR & Analysis)
-**Latest Status Document:** `PHASE-3-PROJECT-STATUS.md`
+**Latest Status Document:** `PHASE-3-PROJECT-STATUS.md` (Needs Creation, remove this tag after creating when updating document at end of session)
 **Last Updated:** Not started
 **Latest Session ID:** N/A
 
@@ -133,7 +272,7 @@
 
 **Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
 **Category:** F - Utilities & Reference Tools
-**Latest Status Document:** `PHASE-4-PROJECT-STATUS.md`
+**Latest Status Document:** `PHASE-4-PROJECT-STATUS.md` (Needs Creation, remove this tag after creating when updating document at end of session)
 **Last Updated:** Not started
 **Latest Session ID:** N/A
 
@@ -155,7 +294,7 @@
 
 **Status:** ⏸️ NOT STARTED - 0/6 skills complete (0%)
 **Category:** C & Specialized - Validation, Debugging, Meta-navigation
-**Latest Status Document:** `PHASE-5-PROJECT-STATUS.md`
+**Latest Status Document:** `PHASE-5-PROJECT-STATUS.md` (Needs Creation, remove this tag after creating when updating document at end of session)
 **Last Updated:** Not started
 **Latest Session ID:** N/A
 
@@ -262,7 +401,7 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 
 ---
 
-### Step 8: Confirm and Begin Work
+### Step 6: Confirm and Begin Work
 
 **Output to user:**
 ```
@@ -288,20 +427,13 @@ wc -l skill-revamp/PHASE-N-PROJECT-STATUS.md
 
 | Phase | Can Start Now? | Dependencies | Notes |
 |-------|----------------|--------------|-------|
-| Phase 1 | ✅ YES | None | Tier 3 skills remain |
+| Phase 1 | COMLPETED  |
 | Phase 2 | ✅ YES | None | Independent docs (Chapter 8, Appendix D) |
 | Phase 3 (partial) | ✅ YES | Skills 3-4 | Skills 1-2 need Phase 2 complete |
 | Phase 4 | ✅ YES | None | All utility skills independent |
 | Phase 5 | ✅ YES | None | PRIORITY - Critical validation skills |
 
-**Optimal Parallel Execution Strategy:**
-- **Session A:** Complete Phase 1 (3 skills remaining)
-- **Session B:** Execute Phase 2 (6 skills, independent)
-- **Session C:** Execute Phase 4 (6 skills, independent)
-- **Session D:** Execute Phase 5 (8 skills, independent, HIGH PRIORITY)
-- **Session E:** Execute Phase 3 after Phase 2 complete (4 skills)
-
-**Total: 4-5 concurrent sessions possible, completing project much faster**
+**Total: 4 concurrent sessions possible, completing project much faster**
 
 ---
 
@@ -498,7 +630,7 @@ Create these subdirectories at `.claude/skills/[skill-name]/` (root level):
 - `example_inputs/` or `example_geometries/` - 5-10 relevant examples (DIRECTLY at root, NOT in assets/)
 
 **Selection criteria:**
-- Relevant to skill's purpose
+- Relevant to skill's purpose (see `planning-research/example-files-inventory.md` for explicit guidance)
 - Properly formatted and validated
 - Range of complexity (basic → advanced)
 - Include description/explanation file (.md) for each example
@@ -779,16 +911,16 @@ c ======================
        - This is the ONLY location that should have explicit part number
      - Continue updating Part N until phase N complete or until Part N reaches the 900 line limit.
 
-3. **Phase-Specific Master Plans** (Read for current active phase)
-   - **PHASE-1-MASTER-PLAN.md** - Category A&B (16 skills) detailed execution
+3. **Phase-Specific Master Plans** (Read for current active phase in session)
+   - **PHASE-1-MASTER-PLAN.md** - Category A&B (16 skills) detailed execution (COMPLETED)
    - **PHASE-2-MASTER-PLAN.md** - Category D (6 skills) detailed execution
    - **PHASE-3-MASTER-PLAN.md** - Category E (4 skills) detailed execution
    - **PHASE-4-MASTER-PLAN.md** - Category F (6 skills) detailed execution
-   - **PHASE-5-MASTER-PLAN.md** - Category C & Specialized (8 skills) detailed execution
+   - **PHASE-5-MASTER-PLAN.md** - Category C & Specialized (6 skills) detailed execution
    - Location: `skill-revamp/PHASE-N-MASTER-PLAN.md`
    - When: After reading status document (read plan for CURRENT phase only)
    - Why: Phase-specific workflows, documentation requirements, skill ordering
-   - **Note:** Each phase has its own master plan - only read the one for current active phase
+   - **Note:** Each phase has its own master plan - only read the one for current active phase in session
 
 4. **LESSONS-LEARNED.md**
    - Location: `skill-revamp/LESSONS-LEARNED.md`
@@ -931,21 +1063,15 @@ c ======================
 
 ## TOKEN MANAGEMENT GUIDELINES
 
-### Session Budget
-- **Total:** 200,000 tokens per session
-- **Reserve:** 15,000-20,000 tokens for session handoff
-- **Usable:** ~180,000 tokens per session
-
-### Token Tracking Requirements
 Monitor token usage via system messages throughout session:
 - Check every 30 minutes of work
-- If tokens < 30,000: Begin session handoff procedure
+- If tokens < 18,000: Begin session handoff procedure
 
 ---
 
 ## 🚨 EMERGENCY PROCEDURES (ALL PHASES) 🚨
 
-### If Running Out of Tokens (< 30,000 remaining)
+### If Running Out of Tokens (< 18,000 remaining)
 
 **STOP ALL WORK IMMEDIATELY**
 
@@ -1047,88 +1173,9 @@ Add to top of active phase status document:
 
 ---
 
-## 📈 LESSONS-LEARNED UPDATE PROTOCOL
-
-**MANDATORY:** Every time you make a mistake or identify an improvement opportunity, you MUST update LESSONS-LEARNED.md.
-
-### When to Update LESSONS-LEARNED.md
-
-**Trigger events:**
-- Any error you made that had to be corrected
-- User points out a mistake or oversight
-- You identify a pattern that could be prevented
-- A requirement was unclear and caused confusion
-- An opportunity for process improvement is discovered
-
-### How to Update
-
-1. **STOP current work immediately**
-2. **Read LESSONS-LEARNED.md** to understand existing lessons
-3. **Identify the appropriate category:**
-   - Session Startup Failures
-   - Planning and Thinking Ahead
-   - MCNP Format Errors
-   - Project Management
-   - Quality Control
-   - Session Startup Protocol
-   - MCNP Format Errors (Repeated Violations)
-   - Context and Knowledge Management
-4. **Add new lesson at top of category** using the template format:
-   ```
-   #### Lesson #X: [Title] (Session N, Date)
-   **What happened:** [Description]
-   **Why it was wrong:** [Impact]
-   **Root cause:** [Why]
-   **How to prevent:** [Actions]
-   **Verification:** [Checklist]
-   **Status:** [ ] Applied in this session
-   ```
-5. **Update statistics section** at bottom of LESSONS-LEARNED.md
-6. **Increment version number** at top of file
-7. **CONTINUE work** with lesson applied
-
-### Lesson Numbering
-
-- Lessons are numbered sequentially across all categories
-- Current count documented in LESSONS-LEARNED.md
-- Next lesson increments from current max
-- Do NOT renumber existing lessons
-
-### Quality Standards for Lessons
-
-**Prevention steps must be:**
-- Actionable (specific actions to take)
-- Verifiable (can check if done)
-- Enforceable (documented in workflow)
-
-### Integration with Project Documents
-
-**After adding a lesson:**
-- If it affects startup procedure → Update THIS document's startup section
-- If it affects skill workflow → Update relevant PHASE-N-MASTER-PLAN.md
-- If it affects format requirements → Emphasize in MCNP format section
-- If critical → Add to "Most Critical" list
-
-### Most Critical Lessons for Parallel Execution
-
-**All lessons from LESSONS-LEARNED.md apply to parallel execution:**
-
-**Most Critical for Parallel Execution:**
-- **Lesson #12:** Documentation must be in YOUR context before gap analysis (FUNDAMENTAL)
-- **Lesson #11:** MCNP format applies to ALL content types (4 violations - MOST VIOLATED)
-- **Lesson #15:** Verify working directory FIRST (2 consecutive failures)
-
-**When working in parallel:**
-- Each session is independent - cannot rely on other sessions' context
-- Each session must load required documentation fresh
-- Session IDs prevent confusion about which session did what
-
----
-
 ## PHASE-SPECIFIC PROJECT STATUS UPDATE REQUIREMENTS
 
 ### When to Update
-**CONTINUOUSLY throughout session for Key Milestones** - NOT just at end
 - After reading each documentation file with notes about key information and guidance
 - After identifying each discrepancy and developing "skill revamp plan"
 - After completing each step (TODOs) of skill revamp plan (skill revamp workflow)
@@ -1211,12 +1258,9 @@ When a phase is complete:
 ## 🔗 INTEGRATION WITH ORIGINAL DOCUMENTS
 
 **Relationship to other project documents:**
-
-- **CLAUDE-SESSION-REQUIREMENTS.md:** Original sequential requirements (reference only)
 - **THIS DOCUMENT:** Supersedes for parallel execution coordination
 - **PHASE-N-MASTER-PLAN.md:** Phase-specific workflows (read per phase)
 - **PHASE-N-PROJECT-STATUS.md:** Phase-specific progress (update per session)
-- **TOKEN-OPTIMIZATION-BEST-PRACTICES.md:** Universal optimization techniques
 - **LESSONS-LEARNED.md:** Universal lessons and mistakes to avoid
 
 **For parallel execution: Read THIS document + assigned phase documents only.**
@@ -1306,14 +1350,13 @@ mcnp-skills/
 │   ├── GLOBAL-SESSION-REQUIREMENTS.md     ← THIS FILE (mandatory first read)
 │   ├── CLAUDE-SESSION-REQUIREMENTS.md     ← Original sequential requirements (reference)
 │   ├── LESSONS-LEARNED.md                 ← Documented lessons
-│   ├── TOKEN-OPTIMIZATION-BEST-PRACTICES.md ← Token optimization techniques
 │   ├── SKILL-REVAMP-OVERVIEW.md           ← High-level guide
 │   ├── PHASE-1-MASTER-PLAN.md             ← Phase 1 execution plan
 │   ├── PHASE-2-MASTER-PLAN.md             ← Phase 2 execution plan
 │   ├── PHASE-3-MASTER-PLAN.md             ← Phase 3 execution plan
 │   ├── PHASE-4-MASTER-PLAN.md             ← Phase 4 execution plan
 │   ├── PHASE-5-MASTER-PLAN.md             ← Phase 5 execution plan
-│   ├── PHASE-1-PROJECT-STATUS.md          ← Phase 1 status (may be split into PART-N)
+│   ├── PHASE-1-PROJECT-STATUS.md          ← Phase 1 status (ARCHIVED)
 │   ├── PHASE-2-PROJECT-STATUS.md          ← Phase 2 status
 │   ├── PHASE-3-PROJECT-STATUS.md          ← Phase 3 status
 │   ├── PHASE-4-PROJECT-STATUS.md          ← Phase 4 status
@@ -1345,7 +1388,7 @@ mcnp-skills/
 │   ├── reactor-model_examples/
 │   └── [... more categories ...]
 ├── mcnp-skills-requirements.md            ← Original requirements
-└── must-read-docs.md                      ← Documentation map by category
+└── must-read-docs.md                      ← Documentation map by skill category (reference only)
 ```
 
 ---
@@ -1416,38 +1459,13 @@ mcnp-skills/
 
 ## VERSION HISTORY
 
-**v1.0 (CLAUDE-SESSION-REQUIREMENTS.md - 2025-11-02 - Session 1):**
+**v1.0 (CLAUDE-SESSION-REQUIREMENTS.md - 2025-11-02 ):**
 - Initial creation during infrastructure setup phase
 - Established mandatory session startup procedure
 - Defined batched processing strategy
 - Created comprehensive quality standards
 - Implemented emergency procedures for token limits
 - Set up continuous status update requirements
-
-**v2.5 (CLAUDE-SESSION-REQUIREMENTS.md - 2025-11-05 - Session 20):**
-- Updated for Phase 1 completion
-- Phase 2 started
-
-**v3.0 (GLOBAL-SESSION-REQUIREMENTS.md - 2025-11-06):**
-- Restructured for parallel/asynchronous execution across all 5 phases
-- Added parallel execution overview and session coordination
-- Added phase dependency matrix
-- Added session ID tracking system
-- Added phase-specific progress tracking sections
-- Added end-of-session requirements for parallel execution
-- Integrated all critical content from CLAUDE-SESSION-REQUIREMENTS.md
-- Comprehensive restoration of MCNP format requirements
-- Full documentation requirements, batched processing strategy
-- Complete skill revamp workflow with detailed steps
-- Full lessons-learned update protocol
-- Phase-specific status update requirements
-- Token management guidelines
-- Expanded emergency procedures
-- Integration with global skills
-- Best practices for this project
-- File structure reference
-- Common pitfalls & key practices
-- Current/post session checklist
 
 ---
 
@@ -1466,7 +1484,5 @@ mcnp-skills/
 ---
 
 **END OF GLOBAL-SESSION-REQUIREMENTS.MD**
-
-**Philosophy:** "Parallel Execution with Zero Context Loss Through Phase-Specific Coordination"
 
 **Remember:** Each session works on ONE phase. Update phase status document, then update THIS document. Next session can continue same phase or work on different phase. Dependencies managed through dependency matrix.

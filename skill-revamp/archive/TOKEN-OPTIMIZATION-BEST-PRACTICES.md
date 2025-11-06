@@ -118,7 +118,7 @@ Cost: 2,000 tokens per file
 ```
 Minimal response text: "Creating file1.md..."
 
-Write tool with full content in parameter
+Write tool with full comprehensive content in parameter
 
 Result: Content tokenized ONCE (only in write parameter)
 Cost: 1,000 tokens per file
