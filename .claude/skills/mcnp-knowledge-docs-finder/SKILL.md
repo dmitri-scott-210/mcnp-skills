@@ -10,232 +10,251 @@ activation_keywords:
   - find example
   - error help
   - knowledge base
+version: "2.0.0"
 ---
 
 # MCNP Knowledge Documentation Finder Skill
 
 ## Purpose
 
-This utility skill teaches Claude how to use the existing knowledge_base Python tools to search and retrieve MCNP documentation, example files, and error solutions. Instead of guessing or creating content, Claude should use these tools to access the authoritative 72 markdown documentation files and 1,147+ example files.
+Use existing Python knowledge base tools to search and retrieve MCNP documentation, examples, and error solutions. Instead of guessing or inventing content, access the authoritative sources: 72 markdown documentation files and 1,147+ example files.
 
 ## When to Use This Skill
 
 - Need detailed theory or physics explanation from documentation
 - Looking for specific card syntax reference
-- Searching for working example files
+- Searching for working example files by features
 - Need to understand error messages and fixes
 - Want to find documentation by keyword or topic
-- Need to locate specific manual chapters or sections
-- Looking for examples with specific features (criticality, VR, etc.)
 - Need context from primers or appendices
+- Looking for validation benchmarks
 
 ## Prerequisites
 
-- Python 3.x available in environment
+- **knowledge_base_guide.md**: Comprehensive guide to all three Python tools
+- **scripts/README.md**: Quick reference and integration examples
+- Python 3.x in environment
 - knowledge_base/ directory with helper scripts
-- markdown_docs/ directory with 72 documentation files
-- example_files/ directory with 1,147+ MCNP examples
-- Basic Python execution capability
+- markdown_docs/ (72 files) and example_files/ (1,147+ files)
 
 ## Core Concepts
 
-### Available Knowledge Base Tools
+### Three Knowledge Base Tools
 
 **1. doc_indexer.py** - Documentation Search
 ```
-Purpose: Index and search 72 markdown documentation files
-Coverage:
-  - Theory manual (13 files)
-  - User manual (21 files)
-  - Examples (6 files)
-  - Primers (6 files)
-  - Appendices (25 files)
-
-Features:
-  - Keyword search across all docs
-  - Search by category (theory, user, primers, appendices)
-  - Search by card type (SDEF, F4, M, etc.)
-  - Returns relevant sections with file paths
+Purpose: Search 72 markdown documentation files
+Coverage: Theory manual (13), User manual (21), Primers (6), Appendices (25)
+Use for: Theory, card syntax, procedures, best practices
 ```
 
 **2. example_finder.py** - Example File Search
 ```
-Purpose: Index and search 1,147+ MCNP example input files
-Coverage:
-  - Basic examples (100+)
-  - Criticality examples
-  - Intermediate examples
-  - V&V benchmarks (120+)
-  - Radiation protection examples
-  - Reactor models
-  - Safeguards examples
-  - Unstructured mesh examples (15+)
-  - Variance reduction examples (19)
-
-Features:
-  - Search by keyword
-  - Filter by category
-  - Filter by complexity (basic, intermediate, advanced)
-  - Filter by features (criticality, tallies, VR)
-  - Find simplest examples for beginners
+Purpose: Search 1,147+ MCNP example input files
+Coverage: Basic (100+), Criticality, V&V (120+), Reactor, VR (19), etc.
+Use for: Working code, templates, validation benchmarks
 ```
 
 **3. error_patterns.py** - Error Database
 ```
-Purpose: Database of known MCNP errors with solutions
-Coverage:
-  - Fatal errors (geometry, source, data, physics)
-  - Warnings (unused cells, overlaps, statistics)
-  - Statistical quality failures
-
-Features:
-  - Match error message to known patterns
-  - Get suggested fixes
-  - Filter by category or severity
-  - Get error cause and explanation
+Purpose: Match error messages to known patterns with fixes
+Coverage: Fatal errors, warnings, BAD TROUBLE messages
+Use for: Quick error diagnosis and fix suggestions
 ```
 
-### Documentation Structure (markdown_docs/)
+**See knowledge_base_guide.md** for detailed documentation of all three tools.
+
+### Documentation Structure
+
+| Source | Files | Content |
+|--------|-------|---------|
+| theory_manual/ | 13 | Physics, algorithms, Monte Carlo theory |
+| user_manual/ | 21 | Card syntax, input reference, procedures |
+| primers/ | 6 | Tutorials (Criticality, Source, Shielding) |
+| appendices/ | 25 | Cross sections, ZAIDs, data tables |
+| examples/ | 6 | Worked example walkthroughs |
+
+### Example File Categories
+
+| Category | Count | Content |
+|----------|-------|---------|
+| basic/ | 100+ | Simple demonstration problems |
+| criticality/ | Many | KCODE problems (Godiva, Jezebel, etc.) |
+| vnv/ | 120+ | Validation & verification benchmarks |
+| variance_reduction/ | 19 | VR technique demonstrations |
+| reactor/ | Many | Reactor models (PWR, BWR, etc.) |
+| unstructured_mesh/ | 15+ | UM geometry examples |
+
+## Decision Tree: Which Tool to Use
 
 ```
-markdown_docs/
-├── theory_manual/       (13 files - physics, algorithms)
-├── user_manual/         (21 files - input reference, syntax)
-├── primers/             (6 files - tutorials)
-├── appendices/          (25 files - cross sections, data tables)
-└── examples/            (6 files - worked examples)
+START: Need information from knowledge base
+  |
+  +--> What type of information?
+  |      |
+  |      +--> Theory or explanation
+  |      |      → Use doc_indexer
+  |      |      → Search: "theory keywords"
+  |      |      → Get: Theory manual sections
+  |      |
+  |      +--> Card syntax reference
+  |      |      → Use doc_indexer
+  |      |      → Method: get_card_documentation("CARD")
+  |      |      → Get: User manual syntax sections
+  |      |
+  |      +--> Working example code
+  |      |      → Use example_finder
+  |      |      → Search: "problem type keywords"
+  |      |      → Get: .i input files
+  |      |
+  |      +--> Error diagnosis
+  |      |      → Use error_patterns
+  |      |      → Method: match_error("error message")
+  |      |      → Get: Cause, fix, example
+  |      |
+  |      └─> Learning tutorial
+  |             → Use doc_indexer for primers
+  |             → Use example_finder for simple examples
+  |             → Get: Step-by-step guides + basic examples
+  |
+  +--> Execute Python tool
+  |      ├─> Initialize tool
+  |      ├─> Call index_all() (first time)
+  |      └─> Execute search method
+  |
+  └─> Process results
+         ├─> Read relevant files
+         ├─> Extract needed information
+         └─> Provide to user with file paths
 ```
 
-### Example Files Structure (example_files/)
-
-```
-example_files/
-├── basic/              (Simple demonstration problems)
-├── criticality/        (KCODE problems)
-├── intermediate/       (Multi-feature problems)
-├── vnv/                (Validation & verification)
-├── rad-protection/     (Shielding calculations)
-├── reactor/            (Reactor models)
-├── safeguards/         (Safeguards applications)
-├── unstructured_mesh/  (UM examples)
-└── variance_reduction/ (VR demonstrations)
-```
-
-## How to Use the Knowledge Base Tools
+## Tool Invocation
 
 ### Using doc_indexer.py
 
-**Basic Usage**:
 ```python
 from knowledge_base.doc_indexer import DocumentationIndexer
 
-# Initialize
+# Initialize and index
 indexer = DocumentationIndexer("markdown_docs")
 indexer.index_all()
 
 # Search by keyword
-results = indexer.search("weight window", max_results=5)
+results = indexer.search("weight window theory", max_results=5)
 
-# Each result has:
-#   - file_path: Location of documentation
-#   - title: Section title
-#   - content: Section content
-#   - keywords: Extracted keywords
-#   - line_number: Where section starts
-
-# Access specific category
-theory_sections = indexer.get_by_category("theory")
-user_sections = indexer.get_by_category("user")
-
-# Get card documentation
+# Get card syntax
 sdef_docs = indexer.get_card_documentation("SDEF")
-```
 
-**Example Query** - "Find weight window theory":
-```python
-results = indexer.search("weight window theory")
-# Returns sections from:
-#   - theory_manual/05_Monte_Carlo_Statistics.md
-#   - user_manual/chapter_05_input_cards/05_08_Variance_Reduction_Cards.md
+# Get by category
+theory = indexer.get_by_category("theory")
+primers = indexer.get_by_category("primers")
 ```
 
 ### Using example_finder.py
 
-**Basic Usage**:
 ```python
 from knowledge_base.example_finder import ExampleFinder
 
-# Initialize
+# Initialize and index
 finder = ExampleFinder("example_files")
 finder.index_all()
 
-# Search examples
-results = finder.search("lattice fuel", max_results=10)
-
-# Each result has:
-#   - file_path: Location of example file
-#   - filename: File name
-#   - category: Example category
-#   - description: Title line description
-#   - has_criticality: Boolean
-#   - has_tallies: Boolean
-#   - has_variance_reduction: Boolean
-#   - complexity: basic/intermediate/advanced
-
-# Get by category
-crit_examples = finder.get_by_category("criticality")
-
-# Get by complexity
-simple_examples = finder.get_by_complexity("basic")
+# Search by keyword
+results = finder.search("fuel lattice", max_results=10)
 
 # Get by features
-vr_examples = finder.get_by_feature(variance_reduction=True)
+crit_vr = finder.get_by_feature(criticality=True, variance_reduction=True)
 
-# Get simplest examples for learning
-beginner = finder.get_simple_examples(count=5)
-```
+# Get simple examples
+simple = finder.get_simple_examples(count=5)
 
-**Example Query** - "Find criticality examples with lattices":
-```python
-crit = finder.get_by_feature(criticality=True)
-lattice_crit = [ex for ex in crit if 'lattice' in ex.description.lower()]
+# Get by category
+vnv = finder.get_by_category("vnv")
 ```
 
 ### Using error_patterns.py
 
-**Basic Usage**:
 ```python
 from knowledge_base.error_patterns import ErrorPatternDatabase
 
 # Initialize
 db = ErrorPatternDatabase()
 
-# Match error message
-error_msg = "bad trouble in subroutine sourcc"
-matches = db.match_error(error_msg)
+# Match error
+matches = db.match_error("bad trouble in subroutine sourcc")
 
-# Each match has:
-#   - pattern: Regex pattern
-#   - category: Error category (source, geometry, material, etc.)
-#   - severity: fatal/warning/info
-#   - description: What the error means
-#   - cause: Why it happens
-#   - fix: How to fix it
-#   - example: Code example of fix
+# Get quick fix
+fix = db.suggest_fix("material not defined")
 
-# Get suggested fix
-fix = db.suggest_fix(error_msg)
-
-# Get all fatal errors
-fatal_errors = db.get_all_fatal_errors()
-
-# Get by category
+# Browse errors
+fatal = db.get_all_fatal_errors()
 geometry_errors = db.get_by_category("geometry")
 ```
 
-**Example Query** - "Diagnose lost particle error":
+**See scripts/README.md** for detailed API documentation and integration examples.
+
+---
+
+## Use Case 1: Find Theory Documentation
+
+**Problem**: Need to understand weight window theory before implementing
+
+**Solution**:
 ```python
-error_msg = "lost particle in cell 10"
+from knowledge_base.doc_indexer import DocumentationIndexer
+
+indexer = DocumentationIndexer("markdown_docs")
+indexer.index_all()
+
+# Search for theory
+results = indexer.search("weight window variance reduction theory")
+
+for r in results:
+    print(f"File: {r.file_path}")
+    print(f"Section: {r.title}")
+```
+
+**Expected Results:**
+- theory_manual/05_Monte_Carlo_Statistics.md § Variance Reduction
+- user_manual/.../05_08_Variance_Reduction_Cards.md § WWG Card
+- primers/shielding_primer/05_Variance_Reduction.md
+
+## Use Case 2: Find Working Example
+
+**Problem**: Need example of fuel assembly with lattice
+
+**Solution**:
+```python
+from knowledge_base.example_finder import ExampleFinder
+
+finder = ExampleFinder("example_files")
+finder.index_all()
+
+# Search for lattice examples
+lattice = finder.search("fuel lattice assembly")
+
+# Filter for criticality + intermediate complexity
+crit_lattice = [ex for ex in lattice
+                if ex.has_criticality and
+                ex.complexity in ['intermediate', 'advanced']]
+
+for ex in crit_lattice[:3]:
+    print(f"File: {ex.filename}")
+    print(f"Description: {ex.description}")
+    print(f"Path: {ex.file_path}")
+```
+
+## Use Case 3: Diagnose Error
+
+**Problem**: MCNP gives "bad trouble in subroutine sourcc"
+
+**Solution**:
+```python
+from knowledge_base.error_patterns import ErrorPatternDatabase
+
+db = ErrorPatternDatabase()
+
+error_msg = "bad trouble in subroutine sourcc"
 matches = db.match_error(error_msg)
 
 if matches:
@@ -245,258 +264,103 @@ if matches:
     print(f"Fix: {pattern.fix}")
 ```
 
-## Use Cases
+## Use Case 4: Complete Implementation Workflow
 
-### Use Case 1: Find Theory Documentation for Feature
+**Problem**: Implement weight windows for shielding calculation
 
-**Problem**: Need to understand weight window theory before implementing
-
-**Solution using doc_indexer**:
+**Solution** (multi-tool workflow):
 ```python
+# Step 1: Get theory (doc_indexer)
 from knowledge_base.doc_indexer import DocumentationIndexer
-
 indexer = DocumentationIndexer("markdown_docs")
 indexer.index_all()
+theory = indexer.search("weight window theory")
 
-# Search for weight window theory
-results = indexer.search("weight window theory", max_results=5)
+# Step 2: Get card syntax (doc_indexer)
+ww_syntax = indexer.get_card_documentation("WWG")
 
-for result in results:
-    print(f"Found in: {result.file_path}")
-    print(f"Section: {result.title}")
-    print(f"Content preview: {result.content[:200]}...")
-
-# Read full section from file_path for complete context
-```
-
-**Expected Results**:
-- theory_manual/05_Monte_Carlo_Statistics.md § Variance Reduction
-- user_manual/.../05_08_Variance_Reduction_Cards.md § WWG card
-
-### Use Case 2: Find Example File for Problem Type
-
-**Problem**: Need example of fuel assembly with lattice
-
-**Solution using example_finder**:
-```python
+# Step 3: Find working examples (example_finder)
 from knowledge_base.example_finder import ExampleFinder
-
 finder = ExampleFinder("example_files")
 finder.index_all()
+examples = finder.search("weight window")
 
-# Search for lattice examples
-lattice_examples = finder.search("lattice fuel assembly")
-
-# Filter for criticality + intermediate complexity
-crit_lattice = [ex for ex in lattice_examples
-                if ex.has_criticality and
-                ex.complexity in ['intermediate', 'advanced']]
-
-# Show results
-for ex in crit_lattice[:5]:
-    print(f"File: {ex.filename}")
-    print(f"Description: {ex.description}")
-    print(f"Path: {ex.file_path}")
-    print()
-
-# Can then read the file to see implementation
-```
-
-### Use Case 3: Diagnose Error Message
-
-**Problem**: MCNP gives "bad trouble in subroutine sourcc"
-
-**Solution using error_patterns**:
-```python
-from knowledge_base.error_patterns import ErrorPatternDatabase
-
-db = ErrorPatternDatabase()
-
-error_msg = "bad trouble in subroutine sourcc"
-matches = db.match_error(error_msg)
-
-if matches:
-    pattern = matches[0]
-    print(f"Error Type: {pattern.category}")
-    print(f"Severity: {pattern.severity}")
-    print(f"\nWhat it means:")
-    print(f"  {pattern.description}")
-    print(f"\nWhy it happens:")
-    print(f"  {pattern.cause}")
-    print(f"\nHow to fix:")
-    print(f"  {pattern.fix}")
-    if pattern.example:
-        print(f"\nExample fix:")
-        print(f"  {pattern.example}")
-else:
-    print("Error not in database - check MCNP manual")
-```
-
-### Use Case 4: Find Card Syntax Documentation
-
-**Problem**: Need detailed SDEF card syntax reference
-
-**Solution using doc_indexer**:
-```python
-from knowledge_base.doc_indexer import DocumentationIndexer
-
-indexer = DocumentationIndexer("markdown_docs")
-indexer.index_all()
-
-# Get SDEF card documentation
-sdef_docs = indexer.get_card_documentation("SDEF")
-
-for doc in sdef_docs:
-    if "user_manual" in doc.file_path:
-        print(f"Found SDEF reference:")
-        print(f"  File: {doc.file_path}")
-        print(f"  Section: {doc.title}")
-        # Can then read the file for full syntax details
-```
-
-### Use Case 5: Find Simple Examples for Learning
-
-**Problem**: New user needs simple examples to learn MCNP basics
-
-**Solution using example_finder**:
-```python
-from knowledge_base.example_finder import ExampleFinder
-
-finder = ExampleFinder("example_files")
-finder.index_all()
-
-# Get 5 simplest examples
-simple = finder.get_simple_examples(count=5)
-
-print("Recommended starting examples:")
-for i, ex in enumerate(simple, 1):
-    print(f"{i}. {ex.filename}")
-    print(f"   {ex.description}")
-    print(f"   Path: {ex.file_path}")
-    print()
+# Now have: theory, syntax, and working examples
 ```
 
 ## Integration with Other Skills
 
 ### All MCNP Skills Use This
 
-**Typical Workflow**:
+**Typical Workflow:**
 ```
-1. User asks: "Implement weight windows for shielding"
+1. User asks: "Implement weight windows"
 2. mcnp-variance-reducer: Needs WW context
 3. knowledge-docs-finder: Executes doc_indexer search
-   → Finds theory and card reference
 4. Claude reads: Relevant documentation sections
 5. mcnp-variance-reducer: Implements with full understanding
-
 6. User wants: "Show me example"
 7. knowledge-docs-finder: Executes example_finder search
-   → Finds VR examples
-8. Claude: Presents example file locations
-9. User can examine actual working examples
+8. Claude presents: Working example file locations
 ```
 
-### Works With Error Debugging
+### Error Debugging Integration
 
-**Error Resolution Workflow**:
 ```
 1. MCNP fails with error message
 2. mcnp-fatal-error-debugger: Needs error context
 3. knowledge-docs-finder: Uses error_patterns database
-   → Matches error, provides fix
-4. mcnp-fatal-error-debugger: Applies fix
-```
-
-## Best Practices
-
-1. **Always Use Tools for Context**: Don't guess, search the knowledge base
-2. **Check Documentation First**: Use doc_indexer before answering theory questions
-3. **Find Examples, Don't Invent**: Use example_finder for real working code
-4. **Leverage Error Database**: Check error_patterns before debugging
-5. **Read Multiple Sources**: Cross-reference theory, user manual, examples
-6. **Provide File Paths**: Tell user exactly where to find information
-7. **Show Tool Usage**: Demonstrate how to use Python tools
-8. **Keep Tools Updated**: Note if knowledge base seems incomplete
-
-## When NOT to Use
-
-- Don't use Python tools for simple unit conversions (use unit-converter skill)
-- Don't search docs for isotope data (use isotope-lookup skill)
-- Don't search docs for physical constants (use physical-constants skill)
-- Use these tools specifically for:
-  - Documentation content search
-  - Example file location
-  - Error pattern matching
-
-## Tool Invocation Template
-
-**For Documentation Search**:
-```python
-# Template for finding documentation
-from knowledge_base.doc_indexer import DocumentationIndexer
-indexer = DocumentationIndexer("markdown_docs")
-indexer.index_all()
-results = indexer.search("your search query", max_results=10)
-
-# Access results
-for r in results:
-    print(f"{r.file_path} - {r.title}")
-```
-
-**For Example Search**:
-```python
-# Template for finding examples
-from knowledge_base.example_finder import ExampleFinder
-finder = ExampleFinder("example_files")
-finder.index_all()
-
-# Method 1: Keyword search
-results = finder.search("lattice criticality")
-
-# Method 2: Feature filter
-results = finder.get_by_feature(
-    criticality=True,
-    variance_reduction=True
-)
-
-# Method 3: Category
-results = finder.get_by_category("criticality")
-```
-
-**For Error Diagnosis**:
-```python
-# Template for error diagnosis
-from knowledge_base.error_patterns import ErrorPatternDatabase
-db = ErrorPatternDatabase()
-
-# Match error message
-matches = db.match_error("your error message")
-
-# Get suggested fix
-fix = db.suggest_fix("your error message")
+4. Claude provides: Error cause, fix, example
+5. mcnp-fatal-error-debugger: Applies fix
 ```
 
 ## Quick Reference
 
-| Need | Tool | Method |
-|------|------|--------|
-| Theory explanation | doc_indexer | search("theory topic") |
-| Card syntax | doc_indexer | get_card_documentation("CARD") |
-| User manual section | doc_indexer | get_by_category("user") |
-| Working example | example_finder | search("problem type") |
-| Simple example | example_finder | get_simple_examples(5) |
-| Criticality example | example_finder | get_by_feature(criticality=True) |
-| Error diagnosis | error_patterns | match_error("error msg") |
-| Error fix | error_patterns | suggest_fix("error msg") |
+| Need | Tool | Method | Example |
+|------|------|--------|---------|
+| Theory | doc_indexer | search() | `search("monte carlo theory")` |
+| Card syntax | doc_indexer | get_card_documentation() | `get_card_documentation("F4")` |
+| Primer tutorial | doc_indexer | search() | `search("criticality primer")` |
+| Working example | example_finder | search() | `search("lattice fuel")` |
+| Simple examples | example_finder | get_simple_examples() | `get_simple_examples(5)` |
+| Benchmarks | example_finder | get_by_category() | `get_by_category("vnv")` |
+| Error diagnosis | error_patterns | match_error() | `match_error("lost particle")` |
+| Error fix | error_patterns | suggest_fix() | `suggest_fix(error_msg)` |
+
+**Always consult knowledge_base_guide.md for comprehensive tool documentation.**
+
+## Best Practices
+
+1. **Use Tools, Don't Guess**: Always search knowledge base for authoritative information
+2. **Check Documentation First**: Use doc_indexer before answering theory questions
+3. **Find Examples, Don't Invent**: Use example_finder for real working code
+4. **Leverage Error Database**: Check error_patterns before manual debugging
+5. **Read Multiple Sources**: Cross-reference theory, user manual, examples
+6. **Provide File Paths**: Tell user exactly where to find information
+7. **Index Once**: Call `index_all()` once per session, then search fast
+8. **Use Result Limits**: Set `max_results` to avoid overwhelming output
+
+## When NOT to Use
+
+- Simple unit conversions → Use **mcnp-unit-converter**
+- Isotope data lookup → Use **mcnp-isotope-lookup**
+- Physical constants → Use **mcnp-physical-constants**
+- Example catalogs → Use **mcnp-example-finder** (for cataloged examples)
+
+Use knowledge-docs-finder specifically for:
+- Searching indexed documentation content
+- Finding specific example files by features
+- Matching error messages to known patterns
 
 ## References
 
-- **knowledge_base/doc_indexer.py**: Documentation search tool
-- **knowledge_base/example_finder.py**: Example file search tool
-- **knowledge_base/error_patterns.py**: Error pattern database
-- **markdown_docs/**: 72 documentation markdown files
-- **example_files/**: 1,147+ MCNP example files
-- **Related Skills**: All MCNP skills benefit from this utility
+- **knowledge_base_guide.md**: Comprehensive guide to all three Python tools
+- **scripts/README.md**: API reference and integration examples
+- **knowledge_base/doc_indexer.py**: Documentation search implementation
+- **knowledge_base/example_finder.py**: Example file search implementation
+- **knowledge_base/error_patterns.py**: Error pattern database implementation
+- **markdown_docs/**: 72 documentation files (theory, user, primers, appendices)
+- **example_files/**: 1,147+ MCNP example files (basic, criticality, vnv, etc.)
 
 ---
 
