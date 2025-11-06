@@ -198,7 +198,7 @@ markdown_docs/
 4. Chapter 10 files - Examples for context
 
 **Time estimate:** 2-3 hours to read all docs
-**Take notes:** Capture key concepts in REVAMP-PROJECT-STATUS.md
+**Take notes:** Capture key concepts in PHASE-1-PROJECT-STATUS.md (or current phase status document)
 **Purpose:** Deep understanding for 16 skills
 
 ### Phase 2 (Category D) - Read Order:
@@ -253,17 +253,23 @@ markdown_docs/
 
 ### For Skill Revamp:
 
-**Before starting a category:**
+**Before starting a category/phase:**
 1. Check must-read-docs.md for required files
 2. Read ALL files for that category ONCE at phase start
-3. Take comprehensive notes in REVAMP-PROJECT-STATUS.md
+3. Take comprehensive notes in phase-specific status document (e.g., PHASE-1-PROJECT-STATUS.md)
 4. Reference notes during skill processing (don't re-read)
 
 **During skill processing:**
 1. Cross-reference current SKILL.md against doc notes
 2. Identify gaps/discrepancies
-3. Extract appropriate content to references/
+3. Extract appropriate content to root-level reference .md files (NOT in subdirectories)
 4. Link to documentation in References section
+
+**CRITICAL STRUCTURE (Lesson #16):**
+- Reference .md files go DIRECTLY at root level of skill directory
+- NO `references/` subdirectory
+- NO `assets/` subdirectory
+- Use `example_inputs/` and `templates/` DIRECTLY at root level
 
 **Documentation citations:**
 ```markdown
@@ -293,4 +299,10 @@ The markdown_docs/ knowledge base is:
 **Token Savings:** 1,845k tokens (85% vs sequential)
 **Reference:** must-read-docs.md is authoritative mapping
 
-**Next Steps:** Follow must-read-docs.md strictly during phase execution.
+**Critical Structure Requirements:**
+- Extract content to root-level reference .md files (NOT references/ subdirectory)
+- Use phase-specific status documents (PHASE-1-PROJECT-STATUS.md, etc.)
+- NO assets/ subdirectory per Lesson #16
+- All subdirectories (example_inputs/, templates/, scripts/) DIRECTLY at root level
+
+**Next Steps:** Follow must-read-docs.md strictly during phase execution and maintain zero tolerance for assets/ subdirectory.

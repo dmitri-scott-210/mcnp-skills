@@ -43,7 +43,7 @@ example_files/
 - Category C (validation) - Test cases
 - Learning and quick validation
 
-**Recommendation:** Extract 10-15 files for assets/templates/
+**Recommendation:** Extract 10-15 files for templates/ at root level
 
 ### 2. intermediate_examples/
 **Complexity:** Multi-component problems
@@ -89,7 +89,7 @@ example_files/
 
 **Recommendation:** HIGHEST PRIORITY for incorporation
 - Extract 5-10 representative examples
-- Include in assets/ with detailed descriptions
+- Include in example_inputs/ at root with detailed descriptions
 - Reference in multiple skills
 
 ### 5. rad-protection_examples/
@@ -135,7 +135,7 @@ example_files/
 - reactor-model_examples/agr-1/mcnp/ (3-5 files) - Complex examples
 - reactor-model_examples/repeated_structures/ (2-3 files) - Lattice demos
 
-**Per skill:** 5-10 examples in assets/example_inputs/
+**Per skill:** 5-10 examples in example_inputs/ at root level
 **Total:** ~80-160 example files
 
 ### Phase 2: Category D (6 skills)
@@ -170,7 +170,9 @@ example_files/
 
 ## Example File Requirements
 
-For each example file added to ROOT Skill subdirectory example_[files]/ (e.g., example_inputs/):
+**CRITICAL STRUCTURE:** All examples must go in `example_inputs/` DIRECTLY at root level of skill directory - NO `assets/` subdirectory!
+
+For each example added to example_inputs/:
 1. **Source file:** example_name.i (MCNP input)
 2. **Description file:** example_name_description.txt containing:
    - Purpose/what it demonstrates
@@ -250,7 +252,7 @@ From variance-reduction_examples/:
 ## Token Cost Estimate
 
 **Per example incorporation:**
-- Copy file to assets/: minimal tokens
+- Copy file to example_inputs/ at root: minimal tokens
 - Write description file: ~0.5k tokens
 - Reference in SKILL.md: minimal
 
@@ -268,7 +270,7 @@ The example_files/ directory contains a **treasure trove** of 1,107 validated MC
 
 1. **CRITICAL** for skill quality
 2. **HIGH VALUE** for users (real-world examples)
-3. **REQUIRED** by Anthropic standards (assets/ subdirectory)
+3. **REQUIRED** by Lesson #16 (example_inputs/ at root level, NO assets/ subdirectory)
 4. **EFFICIENT** token-wise (~0.5k per example)
 
 **Priority Order:**
@@ -277,4 +279,4 @@ The example_files/ directory contains a **treasure trove** of 1,107 validated MC
 3. unstructured-mesh_examples/ - For Category D skills
 4. basic_examples/ - For templates and learning
 
-**Next Steps:** During each skill revamp, systematically incorporate 5-10 relevant examples from appropriate directories.
+**Next Steps:** During each skill revamp, systematically incorporate 5-10 relevant examples from appropriate directories into example_inputs/ at root level.
