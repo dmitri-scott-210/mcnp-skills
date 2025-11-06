@@ -1,0 +1,36 @@
+Category,From_Value,From_Unit,To_Value,To_Unit,Notes
+Energy,1,MeV,1000000,eV,Million electron volts
+Energy,1,keV,0.001,MeV,Kilo to mega
+Energy,0.0253,eV,2.53E-08,MeV,Thermal neutron (room temp)
+Energy,14.1,keV,0.0141,MeV,D-T fusion neutron
+Energy,662,keV,0.662,MeV,Cs-137 gamma
+Energy,1,MeV,1.60218E-13,J,Nuclear to SI
+Length,1,m,100,cm,Meter to centimeter
+Length,1,inch,2.54,cm,Imperial to MCNP
+Length,1,Angstrom,1.00E-08,cm,Atomic scale
+Length,250,cm,2.5,m,Typical reactor dimension
+Density,1000,kg/m3,1,g/cm3,Water density
+Density,7850,kg/m3,7.85,g/cm3,Steel density
+Density,2.7,g/cm3,0.0602646,atom/b-cm,"Aluminum (A=26.982)"
+Density,1,g/cm3,0.0334426,atom/b-cm,"Water molecules (A=18.015)"
+Temperature,273.15,K,0,C,Water freezing
+Temperature,293.15,K,20,C,Room temperature
+Temperature,373.15,K,100,C,Water boiling
+Temperature,300,K,2.58517E-08,MeV,Thermal energy equivalent
+Temperature,500,C,773.15,K,Reactor operating temp
+CrossSection,1,barn,1.00E-24,cm2,Nuclear cross section
+CrossSection,1000,millibarn,1,barn,Milli to barn
+CrossSection,585,barn,5.85E-22,cm2,U-235 thermal fission
+Activity,1,Ci,3.70E+10,Bq,Curie to Becquerel
+Activity,1,mCi,3.70E+07,Bq,Millicurie to Becquerel
+Activity,1,microCi,3.70E+04,Bq,Microcurie to Becquerel
+Mass,1,amu,931.494,MeV/c2,Atomic mass unit
+Mass,1,amu,1.66054E-24,g,Atomic to grams
+Mass,235.044,amu,3.90E-22,g,U-235 mass
+Time,1,s,100000000,shake,"1 second = 10^8 shakes"
+Time,1,microsecond,100,shake,Microsecond to shake
+Time,1,ns,0.1,shake,Nanosecond to shake
+Angle,45,deg,0.785398,rad,45 degrees
+Angle,90,deg,1.5708,rad,Right angle
+Angle,180,deg,3.14159,rad,Straight angle
+Angle,30,deg,0.866025,cosine,For direction vectors
