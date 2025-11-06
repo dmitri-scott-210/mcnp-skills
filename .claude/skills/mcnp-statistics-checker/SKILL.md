@@ -42,6 +42,9 @@ And provides:
 - User asks about "VOV", "FOM", or "figure of merit"
 - User is preparing for production runs
 - User mentions "the 10 checks" or "10/10"
+- **Phase 3:** User asks about VR quality or effectiveness
+- **Phase 3:** User wants to validate weight windows
+- **Phase 3:** User mentions overbiasing concerns
 
 **Context Clues:**
 - "Can I use these results?"
@@ -49,6 +52,9 @@ And provides:
 - "Why is my error so high?"
 - "The checks aren't all passing..."
 - "Is my variance reduction working?"
+- **Phase 3:** "Are my weight windows causing problems?"
+- **Phase 3:** "Low error but checks fail - why?"
+- **Phase 3:** "Is my WWG converged?"
 
 ### Validation Approach Decision Tree
 
@@ -85,6 +91,14 @@ Diagnostic analysis (persistent problems):
 ├── Check for systematic issues
 ├── Compare to benchmark
 └── Review variance reduction setup
+
+Phase 3 - VR quality validation:
+├── FOM stability assessment (±10% threshold)
+├── Weight distribution analysis (ratio, top-N contrib)
+├── Mean vs analog comparison (bias detection)
+├── WWG iteration convergence tracking
+├── VR-specific quality score (0-100)
+└── Overbiasing artifact detection
 ```
 
 ## Tool Invocation
@@ -1462,8 +1476,15 @@ When performing statistical validation:
 - Figure 2.6: Tally fluctuation chart example
 - Table 3.1: Statistical quality requirements by problem type
 
+**Phase 3 - VR Integration:**
+- `vr_quality_metrics.md` - VR-specific quality indicators and assessment
+- `advanced_convergence_theory.md` - Statistical theory with VR context
+- `example_inputs/` - VR quality examples (overbiasing, WWG convergence)
+
 **Related Skills:**
 - mcnp-tally-analyzer: Interpret validated results
 - mcnp-output-parser: Extract TFC data
 - mcnp-variance-reducer: Improve failed statistics
 - mcnp-plotter: Visualize convergence trends
+- **Phase 3:** mcnp-ww-optimizer: Refine weight windows based on quality feedback
+- **Phase 3:** mcnp-tally-analyzer (VR): Joint tally + statistics VR validation
