@@ -784,8 +784,27 @@ plotter.plot_weight_windows(
 
 ## References
 
-- **Theory Manual**: Chapter 2.7 - Variance Reduction
-- **User Manual**: Chapter 5.12 - Variance Reduction Cards
+### MCNP6 Manual
+- **Theory Manual**: Chapter 2.7 - Variance Reduction (§2.7.2.12 Weight Windows, §2.7.2.12.2 WWG Algorithm)
+- **User Manual**: Chapter 5.11 - MESH Card, Chapter 5.12 - Variance Reduction Cards (WWN/WWE/WWT/WWP/WWG)
 - **Examples**: Chapter 10.6 - Variance Reduction Examples
-- **COMPLETE_MCNP6_KNOWLEDGE_BASE.md**: Weight window specification
-- **Related skills**: mcnp-mesh-builder, mcnp-statistics-checker, mcnp-tally-analyzer
+
+### Related Skills (Phase 3 Integration)
+- **mcnp-variance-reducer** - Parent skill covering full VR spectrum (IMP, WWG, EXT, DXTRAN, FCL)
+  - `../mcnp-variance-reducer/advanced_vr_theory.md` - WWG algorithm details, convergence theory, optimization strategies
+  - `../mcnp-variance-reducer/mesh_based_ww.md` - Comprehensive MESH card guide, resolution optimization
+  - `../mcnp-variance-reducer/wwg_iteration_guide.md` - Step-by-step iteration workflows
+  - `../mcnp-variance-reducer/advanced_techniques.md` - Combining WW with EXT, FCL, other methods
+  - `../mcnp-variance-reducer/example_inputs/` - Full VR problem examples (6 representative cases)
+
+### Other Related Skills
+- **mcnp-mesh-builder** - MESH card creation, spatial binning
+- **mcnp-statistics-checker** - FOM validation, convergence assessment
+- **mcnp-tally-analyzer** - Tally result extraction, WWG target selection
+
+### Example Files
+- `example_inputs/` - 3-iteration WWG workflow templates
+  - 01_wwg_iteration_1_generate.i - Initial WW generation
+  - 02_wwg_iteration_2_refine.i - WW refinement
+  - 03_wwg_production.i - Production with converged WW
+  - README.md - Complete iteration workflow guide
