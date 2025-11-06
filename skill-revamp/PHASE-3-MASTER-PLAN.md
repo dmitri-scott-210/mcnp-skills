@@ -63,7 +63,7 @@ Complete variance reduction and advanced analysis skills by adding variance redu
 
 1. **Generate unique session ID:** `Session-YYYYMMDD-HHMMSS-Phase3`
 2. **Record in PHASE-3-PROJECT-STATUS.md**
-3. **Update GLOBAL-SESSION-REQUIREMENTS.md lines 106-133 (Phase 3 section)**
+3. **Update GLOBAL-SESSION-REQUIREMENTS.md Phase 3 Progress and Summary section**
 
 ### Coordination with Global Requirements
 
@@ -347,9 +347,11 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 ## 🎯 EXECUTION CHECKLIST
 
 ### Before Starting Phase 3
-- [ ] Phase 2 complete (6 skills revamped)
+- [ ] Check GLOBAL-SESSION-REQUIREMENTS.md for Phase 2 status
+- [ ] Skills 1-2 (tally-analyzer, statistics-checker) REQUIRE Phase 2 complete
+- [ ] Skills 3-4 (variance-reducer, ww-optimizer) can start immediately
 - [ ] Check if Phase 2 docs still in context
-- [ ] PHASE-3-PROJECT-STATUS.md updated with Phase 3 start
+- [ ] PHASE-3-PROJECT-STATUS.md created or updated with Phase 3 start
 - [ ] Token budget noted (~55k-90k depending on cache)
 
 ### Documentation Reading
@@ -382,7 +384,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 - [ ] Partial skills now fully complete
 - [ ] Integration between VR skills documented
 - [ ] PHASE-3-PROJECT-STATUS.md reflects Phase 3 complete
-- [ ] Prepare for Phase 4
+- [ ] Phase 3 complete - other phases may continue in parallel
 
 ---
 
@@ -572,7 +574,7 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 ### Update Documents
 
 1. **PHASE-3-PROJECT-STATUS.md** - Add session summary with session ID
-2. **GLOBAL-SESSION-REQUIREMENTS.md lines 106-133** - Update Phase 3 Progress section
+2. **GLOBAL-SESSION-REQUIREMENTS.md Phase 3 Progress and Summary section** - Update completion status
 3. Inform user of completion status and dependencies
 
 **Remember to note:**
@@ -584,4 +586,4 @@ For EACH of the 4 skills, follow the standard 11-step workflow:
 
 **END OF PHASE 3 MASTER PLAN**
 
-**Remember:** Phase 3 completes partial skills from previous phases. Check dependencies before starting. Update GLOBAL-SESSION-REQUIREMENTS.md at session end. Skills 1-2 require Phase 2 complete. Skills 3-4 can start independently.
+**Remember:** Phase 3 completes partial skills from Phases 1-2. Check GLOBAL-SESSION-REQUIREMENTS.md for Phase 2 status before starting. Skills 1-2 (tally-analyzer, statistics-checker) REQUIRE Phase 2 complete. Skills 3-4 (variance-reducer, ww-optimizer) can start immediately. Update GLOBAL-SESSION-REQUIREMENTS.md Phase 3 Progress section at session end.
