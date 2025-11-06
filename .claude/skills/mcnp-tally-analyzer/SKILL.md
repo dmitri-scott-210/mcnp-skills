@@ -44,6 +44,9 @@ This skill bridges raw simulation output and meaningful physical insights, helpi
 - User asks if results are "reliable" or "converged"
 - User needs to compare tallies or validate calculations
 - User mentions energy spectrum, spatial distribution
+- **Phase 3:** User asks about variance reduction effectiveness
+- **Phase 3:** User wants to compare analog vs VR results
+- **Phase 3:** User asks "is my VR working?"
 
 **Context Clues:**
 - "Is my flux result reasonable?"
@@ -52,6 +55,8 @@ This skill bridges raw simulation output and meaningful physical insights, helpi
 - "Compare F2 and F4..."
 - "Can I trust these results?"
 - "How many fissions per second?"
+- **Phase 3:** "Did my weight windows help?"
+- **Phase 3:** "Why is FOM not improving?"
 
 ### Analysis Approach Decision Tree
 
@@ -105,6 +110,14 @@ Specialized analysis:
 ├── Perturbation analysis
 ├── Sensitivity studies
 └── Benchmark comparisons
+
+Phase 3 - VR effectiveness analysis:
+├── FOM improvement measurement (analog vs VR)
+├── Convergence diagnostics (CLT compliance)
+├── Under-sampling identification
+├── VR artifact detection (overbiasing)
+├── WWG iteration convergence tracking
+└── VR optimization recommendations
 ```
 
 ## Tool Invocation
@@ -939,6 +952,12 @@ After tally analysis, recommend:
 - **mcnp-output-parser**: If need to extract raw data for custom analysis
 - **mcnp-mesh-builder**: If spatial resolution insufficient, add mesh tallies
 
+**Phase 3 - VR Integration:**
+- **mcnp-variance-reducer**: Implement VR based on tally analysis findings
+- **mcnp-ww-optimizer**: Iteratively refine weight windows to improve tally statistics
+- **mcnp-statistics-checker**: Validate VR effectiveness using advanced convergence theory
+- Use tally feedback to guide VR optimization (see `tally_vr_optimization.md`)
+
 ## Important Analysis Principles
 
 1. **Statistical quality first, always**
@@ -1260,33 +1279,18 @@ When using tally analysis:
 - §5.9.10: FM card (tally multipliers)
 - Cross-section libraries: ENDF/B-VIII.0
 
+**VR Integration:**
+- `vr_effectiveness_analysis.md` - FOM analysis, under-sampling detection, VR artifacts
+- `convergence_diagnostics.md` - CLT validation, trend analysis, required histories prediction
+- `tally_vr_optimization.md` - VR selection from tally analysis, tuning guidance
+- `example_inputs/` - VR effectiveness examples (analog vs VR comparisons)
+
 **Related Skills:**
 - mcnp-output-parser: Extracting raw tally data
 - mcnp-statistics-checker: Detailed statistical validation
 - mcnp-plotter: Automated spectrum/distribution plots
 - mcnp-unit-converter: Additional unit conversions
-
----
-
-## ⚠️ Phase 2 Partial Status
-
-**This skill is partially implemented in Phase 2 and will be completed in Phase 3.**
-
-**Phase 2 (Current):**
-- ✅ Basic tally type identification
-- ✅ Statistical quality assessment framework
-- ✅ Unit conversion guidance
-- ✅ Physical interpretation concepts
-
-**Phase 3 (To Be Added):**
-- Python analysis modules (mcnp_tally_analyzer.py)
-- Bundled scripts for automated analysis
-- Advanced statistical validation
-- Energy spectrum analysis tools
-- Spatial distribution analysis
-- Tally comparison utilities
-- Benchmark validation procedures
-
-**For now:** Use the procedures documented above for manual tally analysis. Full automation and advanced features coming in Phase 3.
+- mcnp-variance-reducer: Implement VR recommendations
+- mcnp-ww-optimizer: Refine weight windows based on tally feedback
 
 ---
