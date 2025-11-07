@@ -1,0 +1,394 @@
+c =================================================================
+c MSRE CORE LATTICE CONSTRUCTION
+c First Criticality Benchmark (June 1, 1965)
+c =================================================================
+c Version: 1.0
+c Date: 2025-11-07
+c Status: READY FOR INTEGRATION
+c
+c Design: LAT=1 (hexahedral/square lattice)
+c Array: 29×29×1 (i,j,k = -14:14, -14:14, 0:0)
+c Pitch: 5.084 cm (hot dimensions at 911 K)
+c Height: 170.311 cm
+c Origin: (0,0,0) at bottom of lattice
+c
+c Universe Hierarchy:
+c   U=0:  Base universe (reactor vessel, reflector, thermal shield)
+c   U=1:  Standard graphite stringer (589 positions)
+c   U=2:  Control rod thimble - withdrawn (2 positions)
+c   U=3:  Regulating rod - 3% inserted (1 position)
+c   U=4:  Sample basket (1 position)
+c   U=10: Lattice container universe
+c
+c Central Pattern (USER CONFIRMED):
+c   (0,0):   Graphite stringer (U=1)
+c   (-1,+1): Control Rod 1, withdrawn (U=2)
+c   (+1,+1): Control Rod 2, withdrawn (U=2)
+c   (+1,-1): Sample Basket (U=4) ✓
+c   (-1,-1): Regulating Rod, 3% inserted (U=3)
+c
+c Statistics:
+c   Total array positions: 841
+c   Positions in core (r≤70.285 cm): 593
+c   Graphite stringers (U=1): 589
+c   Special positions: 4 (2×U2 + 1×U3 + 1×U4)
+c   Outside boundary (U=0): 248
+c
+c =================================================================
+
+c =================================================================
+c UNIVERSE 10: LATTICE CONTAINER
+c =================================================================
+c This universe contains the LAT=1 cell that defines the infinite
+c square lattice. It will be FILLed into the base universe.
+
+c Cell 100: LAT=1 lattice definition
+c Surface ordering: -X +X -Y +Y -Z +Z defines (i,j,k) indexing
+100  0  -50 51 -52 53 -54 55  U=10  LAT=1  IMP:N=1  &
+        FILL=-14:14 -14:14 0:0  &
+             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  &  $ j=+14
+             0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0  &  $ j=+13
+             0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0  &  $ j=+12
+             0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0  &  $ j=+11
+             0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0  &  $ j=+10
+             0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0  &  $ j= +9
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= +8
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= +7
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= +6
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= +5
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +4
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +3
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +2
+             0 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +1
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +0
+             0 1 1 1 1 1 1 1 1 1 1 1 1 3 1 4 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -1
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -2
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -3
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -4
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= -5
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= -6
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= -7
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= -8
+             0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0  &  $ j= -9
+             0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0  &  $ j=-10
+             0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0  &  $ j=-11
+             0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0  &  $ j=-12
+             0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0  &  $ j=-13
+             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     $ j=-14
+c            i: -14-13-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1 +0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12+13+14
+
+c Surface 50-55: Lattice element boundaries (5.084 cm pitch)
+50  PX  -2.542                  $ -X boundary (i-direction min)
+51  PX   2.542                  $ +X boundary (i-direction max)
+52  PY  -2.542                  $ -Y boundary (j-direction min)
+53  PY   2.542                  $ +Y boundary (j-direction max)
+54  PZ   0.0                    $ Bottom (k=0)
+55  PZ  170.311                 $ Top (core height)
+
+c =================================================================
+c UNIVERSE 1: STANDARD GRAPHITE STRINGER UNIT CELL
+c =================================================================
+c Geometry: 5.084 cm × 5.084 cm square cross-section
+c          4 machined grooves on sides (N, E, S, W)
+c          Each groove: 1.018 cm wide × 1.5265 cm deep
+c          Height: 170.311 cm (full core height)
+c
+c Fuel channels formed by adjacent stringer grooves:
+c   - Each stringer has 4 half-channels (1.5265 cm deep)
+c   - Adjacent stringers combine to form full channels (3.053 cm deep)
+c   - Channel cross-section: 1.018 cm × 3.053 cm
+c
+c Materials:
+c   - m1: Fuel salt (LiF-BeF₂-ZrF₄-UF₄), ρ = 2.3275 g/cm³
+c   - m2: Graphite (nuclear grade), ρ = 1.86 g/cm³
+c
+c Volume per unit cell:
+c   - Total: 5.084² × 170.311 = 4,400.1 cm³
+c   - 4 grooves: 4 × (1.018 × 1.5265 × 170.311) = 1,062.8 cm³
+c   - Graphite: 4,400.1 - 1,062.8 = 3,337.3 cm³
+c   - Fuel fraction: 24.15%
+c =================================================================
+
+c Cell 1: North groove (on +Y face, fuel salt)
+1   1  -2.3275  -10 11 -12 13 -54 55  U=1  IMP:N=1  VOL=265.7
+c                 ^X range ^Y range ^Z range
+c   Groove: x ∈ [-0.509, +0.509] cm (width 1.018)
+c           y ∈ [+1.0155, +2.542] cm (depth 1.5265 from face)
+c           z ∈ [0, 170.311] cm
+
+c Cell 2: East groove (on +X face, fuel salt)
+2   1  -2.3275  -16 17 -18 19 -54 55  U=1  IMP:N=1  VOL=265.7
+c   Groove: x ∈ [+1.0155, +2.542] cm
+c           y ∈ [-0.509, +0.509] cm
+c           z ∈ [0, 170.311] cm
+
+c Cell 3: South groove (on -Y face, fuel salt)
+3   1  -2.3275  -20 21 -22 23 -54 55  U=1  IMP:N=1  VOL=265.7
+c   Groove: x ∈ [-0.509, +0.509] cm
+c           y ∈ [-2.542, -1.0155] cm
+c           z ∈ [0, 170.311] cm
+
+c Cell 4: West groove (on -X face, fuel salt)
+4   1  -2.3275  -24 25 -26 27 -54 55  U=1  IMP:N=1  VOL=265.7
+c   Groove: x ∈ [-2.542, -1.0155] cm
+c           y ∈ [-0.509, +0.509] cm
+c           z ∈ [0, 170.311] cm
+
+c Cell 5: Central graphite body (after grooves removed)
+5   2  -1.86    50 -51 52 -53 -54 55      &  $ Unit cell boundaries
+               10 -11 -12 13               &  $ Exclude north groove
+               16 -17 -18 19               &  $ Exclude east groove
+               20 -21 -22 23               &  $ Exclude south groove
+               24 -25 -26 27               &  $ Exclude west groove
+               U=1  IMP:N=1  VOL=3337.3
+c   Central graphite region = unit cell complement of all 4 grooves
+
+c Surfaces 10-13: North groove boundaries
+10  PX  -0.509                  $ North groove -X
+11  PX   0.509                  $ North groove +X (width = 1.018 cm)
+12  PY   1.0155                 $ North groove -Y (depth from face)
+13  PY   2.542                  $ North groove +Y (at +Y face)
+
+c Surfaces 16-19: East groove boundaries
+16  PX   1.0155                 $ East groove -X (depth from face)
+17  PX   2.542                  $ East groove +X (at +X face)
+18  PY  -0.509                  $ East groove -Y
+19  PY   0.509                  $ East groove +Y (width = 1.018 cm)
+
+c Surfaces 20-23: South groove boundaries
+20  PX  -0.509                  $ South groove -X
+21  PX   0.509                  $ South groove +X (width = 1.018 cm)
+22  PY  -2.542                  $ South groove -Y (at -Y face)
+23  PY  -1.0155                 $ South groove +Y (depth from face)
+
+c Surfaces 24-27: West groove boundaries
+24  PX  -2.542                  $ West groove -X (at -X face)
+25  PX  -1.0155                 $ West groove +X (depth from face)
+26  PY  -0.509                  $ West groove -Y
+27  PY   0.509                  $ West groove +Y (width = 1.018 cm)
+
+c =================================================================
+c UNIVERSE 2: CONTROL ROD THIMBLE (WITHDRAWN POSITION)
+c =================================================================
+c Geometry: INOR-8 thimble, OD = 5.08 cm, wall = 0.1651 cm
+c          Inner radius: 2.54 - 0.1651 = 2.3749 cm
+c          Height: 170.311 cm (full core height)
+c          Rods 1 & 2 withdrawn to 129.54 cm (above core)
+c
+c Regions:
+c   - Inner: Fuel salt (no poison - rods withdrawn)
+c   - Wall: INOR-8 thimble
+c   - Outer: Fuel salt (surrounds thimble)
+c
+c Materials:
+c   - m1: Fuel salt, ρ = 2.3275 g/cm³
+c   - m3: INOR-8, ρ = 8.7745 g/cm³
+c
+c Volumes:
+c   - Inner: π × 2.3749² × 170.311 = 3,011.3 cm³
+c   - Wall: π × (2.54² - 2.3749²) × 170.311 = 263.4 cm³
+c   - Outer: 5.084² × 170.311 - π × 2.54² × 170.311 = 944.4 cm³
+c =================================================================
+
+c Cell 11: Inner fuel salt (inside thimble)
+11  1  -2.3275  -30  -54 55  U=2  IMP:N=1  VOL=3011.3
+c              ^Inside inner radius
+
+c Cell 12: INOR-8 thimble wall
+12  3  -8.7745  30 -31  -54 55  U=2  IMP:N=1  VOL=263.4
+c              ^Between inner and outer radius
+
+c Cell 13: Outer fuel salt (outside thimble, within unit cell)
+13  1  -2.3275  31 50 -51 52 -53  -54 55  U=2  IMP:N=1  VOL=944.4
+c              ^Outside outer radius, inside unit cell boundaries
+
+c Surfaces 30-31: Control rod thimble (centered at unit cell origin)
+30  RCC  0 0 0  0 0 170.311  2.3749    $ Inner thimble (r = 2.3749 cm)
+31  RCC  0 0 0  0 0 170.311  2.54      $ Outer thimble (r = 2.54 cm, OD/2 = 5.08/2)
+
+c =================================================================
+c UNIVERSE 3: REGULATING ROD THIMBLE (3% INSERTED)
+c =================================================================
+c Geometry: Same thimble as Universe 2
+c          Regulating rod position: 118.364 cm from bottom (3% insertion)
+c          Poison length: 77.077 cm
+c          Poison bottom: 118.364 - 77.077 = 41.287 cm
+c
+c Regions:
+c   - Lower inner (z = 0 to 41.287): Fuel salt below poison
+c   - Middle inner (z = 41.287 to 118.364): Gd₂O₃-Al₂O₃ poison
+c   - Upper inner (z = 118.364 to 170.311): Fuel salt above poison
+c   - Wall: INOR-8 thimble
+c   - Outer: Fuel salt
+c
+c Materials:
+c   - m1: Fuel salt, ρ = 2.3275 g/cm³
+c   - m3: INOR-8, ρ = 8.7745 g/cm³
+c   - m4: Gd₂O₃-Al₂O₃ poison, ρ = 5.873 g/cm³
+c
+c Critical position: 118.364 ± 0.127 cm (46.6 inches)
+c =================================================================
+
+c Cell 21: Fuel salt below poison (z = 0 to 41.287 cm)
+21  1  -2.3275  -40  -54 42  U=3  IMP:N=1  VOL=731.0
+c              ^Inside inner radius, below poison
+
+c Cell 22: Control rod poison (z = 41.287 to 118.364 cm)
+22  4  -5.873   -40  -42 43  U=3  IMP:N=1  VOL=1364.5
+c              ^Inside inner radius, poison region
+
+c Cell 23: Fuel salt above poison (z = 118.364 to 170.311 cm)
+23  1  -2.3275  -40  -43 55  U=3  IMP:N=1  VOL=916.2
+c              ^Inside inner radius, above poison
+
+c Cell 24: INOR-8 thimble wall
+24  3  -8.7745  40 -41  -54 55  U=3  IMP:N=1  VOL=263.4
+c              ^Between inner and outer radius, full height
+
+c Cell 25: Outer fuel salt (outside thimble)
+25  1  -2.3275  41 50 -51 52 -53  -54 55  U=3  IMP:N=1  VOL=944.4
+c              ^Outside outer radius, inside unit cell
+
+c Surfaces 40-43: Regulating rod thimble and poison boundaries
+40  RCC  0 0 0  0 0 170.311  2.3749    $ Inner thimble
+41  RCC  0 0 0  0 0 170.311  2.54      $ Outer thimble
+42  PZ  41.287                         $ Poison bottom (118.364 - 77.077)
+43  PZ  118.364                        $ Poison top (critical position)
+
+c =================================================================
+c UNIVERSE 4: SAMPLE BASKET UNIT CELL
+c =================================================================
+c Geometry: INOR-8 basket, OD = 5.4287 cm, wall = 0.079 cm
+c          Inner radius: 2.71435 - 0.079 = 2.63535 cm
+c          Height: 170.311 cm
+c          Contents: 5 graphite samples + 4 INOR-8 samples
+c
+c Simplified model (recommended for benchmark):
+c   - Homogenized basket interior
+c   - Bias: -37 pcm (acceptable)
+c
+c Materials:
+c   - m1: Fuel salt, ρ = 2.3275 g/cm³
+c   - m3: INOR-8, ρ = 8.7745 g/cm³
+c   - m5: Homogenized basket interior (to be calculated)
+c
+c Volumes:
+c   - Inner: π × 2.63535² × 170.311 = 3,717.6 cm³
+c   - Wall: π × (2.71435² - 2.63535²) × 170.311 = 131.9 cm³
+c   - Outer: 5.084² × 170.311 - π × 2.71435² × 170.311 = 531.6 cm³
+c
+c NOTE: Material m5 requires homogenization calculation:
+c   - 5 graphite samples: 0.635 × 1.1938 cm × 167.64 cm each
+c   - 4 INOR-8 samples: 0.635 cm dia × 167.64 cm each
+c   - Fuel salt fills remainder
+c   - Calculate volume fractions and weighted average density
+c =================================================================
+
+c Cell 31: Homogenized basket interior (PLACEHOLDER)
+31  5  -3.500  -60  -54 55  U=4  IMP:N=1  VOL=3717.6
+c   ^Material m5 density is PLACEHOLDER - requires homogenization
+c   Recommend calculation: graphite + INOR-8 + fuel salt fractions
+
+c Cell 32: INOR-8 basket wall
+32  3  -8.7745  60 -61  -54 55  U=4  IMP:N=1  VOL=131.9
+c              ^Between inner and outer radius
+
+c Cell 33: Outer fuel salt (outside basket)
+33  1  -2.3275  61 50 -51 52 -53  -54 55  U=4  IMP:N=1  VOL=531.6
+c              ^Outside basket, inside unit cell
+
+c Surfaces 60-61: Sample basket
+60  RCC  0 0 0  0 0 170.311  2.63535   $ Inner basket (r = OD/2 - wall)
+61  RCC  0 0 0  0 0 170.311  2.71435   $ Outer basket (r = OD/2 = 5.4287/2)
+
+c =================================================================
+c INTEGRATION NOTES
+c =================================================================
+c
+c 1. BOUNDING GEOMETRY (in base Universe 0):
+c    - Core lattice region must FILL with Universe 10
+c    - Lattice bounded by RCC with R = 70.285 cm, H = 170.311 cm
+c
+c    Example base geometry cells:
+c    1000  0  -1000  FILL=10  IMP:N=1     $ Core filled with lattice U=10
+c
+c    Surface 1000:
+c    1000  RCC  0 0 0  0 0 170.311  70.285  $ Lattice boundary
+c
+c 2. MATERIAL DEFINITIONS REQUIRED:
+c    M1: Fuel salt (LiF-BeF₂-ZrF₄-UF₄)
+c        - ρ = 2.3275 g/cm³
+c        - Li enrichment: 0.005% ⁶Li (CRITICAL - NOT natural)
+c        - U enrichment: 1.409 wt% ²³⁵U
+c        - TMP 911 K
+c
+c    M2: Graphite (nuclear grade)
+c        - ρ = 1.86 g/cm³
+c        - Natural carbon OR explicit ¹²C/¹³C
+c        - Boron impurity: 0.8 ppm (CRITICAL)
+c        - MT2 grph.87t (thermal scattering at 923 K)
+c        - TMP 911 K
+c
+c    M3: INOR-8 (Hastelloy-N)
+c        - ρ = 8.7745 g/cm³
+c        - ~70% Ni, 17% Mo, 7% Cr, 5% Fe, 0.07% C (balance)
+c        - TMP 911 K
+c
+c    M4: Control rod poison (Gd₂O₃-Al₂O₃)
+c        - ρ = 5.873 g/cm³
+c        - 70 wt% Gd₂O₃, 30 wt% Al₂O₃
+c        - TMP 911 K
+c
+c    M5: Homogenized sample basket (TO BE CALCULATED)
+c        - Calculate from 5 graphite + 4 INOR-8 samples + fuel salt
+c        - Volume fractions determine final composition
+c        - TMP 911 K
+c
+c 3. LATTICE VALIDATION CHECKLIST:
+c    [ ] Surface order on LAT cell: -50 51 -52 53 -54 55 (correct X,Y,Z)
+c    [ ] FILL array size: 29×29×1 = 841 values (correct)
+c    [ ] Central pattern matches user confirmation:
+c        - (0,0): U=1 (graphite)
+c        - (-1,+1): U=2 (control rod 1)
+c        - (+1,+1): U=2 (control rod 2)
+c        - (+1,-1): U=4 (sample basket) ✓
+c        - (-1,-1): U=3 (regulating rod)
+c    [ ] VOL specifications are per-instance (NOT total)
+c    [ ] No circular universe references
+c    [ ] All surfaces defined
+c    [ ] Materials m1-m5 defined (m5 requires calculation)
+c
+c 4. GEOMETRY PLOTTING VERIFICATION:
+c    mcnp6 inp=file.i ip
+c    - XY plane at z=85 cm (mid-height)
+c    - Enable LAT=1 index display
+c    - Verify:
+c      * ~593 positions within R=70.285 cm
+c      * Central pattern correct
+c      * Edge boundary matches specification
+c      * No overlaps or gaps
+c
+c 5. EXPECTED RESULTS:
+c    - Total graphite stringers: 589 (matches spec range 540-590)
+c    - Fuel volume fraction: ~24% (from groove geometry)
+c    - Zero lost particles (MUST BE ZERO)
+c    - keff ≈ 1.019-1.024 (benchmark target)
+c
+c =================================================================
+c END OF LATTICE CONSTRUCTION
+c =================================================================
+c
+c Status: COMPLETE - Ready for integration
+c Next steps:
+c   1. Define materials m1-m5 (invoke mcnp-material-builder)
+c   2. Calculate homogenized sample basket composition (m5)
+c   3. Integrate lattice into base geometry (Universe 0)
+c   4. Add KCODE source definition
+c   5. Validate geometry with plotter
+c   6. Run VOID test (zero lost particles)
+c
+c Author: mcnp-lattice-builder (specialist agent)
+c Date: 2025-11-07
+c Version: 1.0
+c =================================================================
+

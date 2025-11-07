@@ -1,0 +1,250 @@
+c =================================================================
+c MSRE BASE GEOMETRY - UNIVERSE 0
+c First Criticality Benchmark (June 1, 1965)
+c =================================================================
+c
+c Design: Molten salt reactor with graphite-moderated core
+c Configuration: Zero-power criticality, 911 K, stationary salt
+c Coordinate System: z=0 at bottom of graphite lattice
+c All dimensions: HOT (911 K)
+c
+c Universe Hierarchy:
+c   Universe 0:  Base geometry (this file)
+c   Universe 10: Lattice universe (FILL array with stringers)
+c   Universe 1:  Graphite stringer unit cells
+c   Universe 2:  Control rod thimbles (withdrawn)
+c   Universe 3:  Regulating rod thimble (3% inserted)
+c   Universe 4:  Sample basket
+c
+c =================================================================
+c CELL CARDS - UNIVERSE 0
+c =================================================================
+c
+c --- Core Region ---
+c
+c Cell 1000: Core lattice region (filled with Universe 10)
+1000  0          -1000          FILL=10  IMP:N=1
+     $ Core lattice (R=70.285 cm, H=170.311 cm)
+     $ Contains LAT=1 lattice with graphite stringers
+c
+c --- Core Can (INOR-8 Structural Shell) ---
+c
+c Cell 1010: Core can wall (INOR-8)
+1010  3  -8.7745  1000 -1001    IMP:N=1
+     $ INOR-8 core can
+     $ Inner R=70.285 cm, Outer R=71.737 cm
+     $ Thickness = 1.452 cm (includes lattice boundary)
+c
+c --- Downcomer Annulus (Void at Zero-Power) ---
+c
+c Cell 1020: Downcomer annulus (void, no salt flow at criticality)
+1020  0          1001 -1002    IMP:N=1
+     $ Void annulus between core can and vessel
+     $ Width = 74.299 - 71.737 = 2.562 cm
+c
+c --- Reactor Vessel (INOR-8) ---
+c
+c Cell 1100: Vessel wall (INOR-8)
+1100  3  -8.7745  1002 -1003  -1051  IMP:N=1
+     $ Reactor vessel wall
+     $ Inner R=74.299 cm, Outer R=76.862 cm
+     $ Wall thickness = 2.563 cm
+     $ Height: z = -51 to 220 cm (total 271 cm)
+c
+c --- Lower Plenum (Below Core) ---
+c
+c Cell 1200: Lower plenum fuel salt
+1200  1  -2.3275  -1002  1050 -1010  IMP:N=1
+     $ Fuel salt below lattice
+     $ z = -51 to 0 cm (51 cm depth)
+     $ R < 74.299 cm (vessel inner)
+c
+c Cell 1201: Lower plenum bottom head (INOR-8, simplified flat)
+1201  3  -8.7745  -1003  1050  IMP:N=1
+     $ Vessel bottom head (flat, simplified)
+     $ z = -51 cm plane
+c
+c --- Upper Plenum (Above Core) ---
+c
+c Cell 1300: Upper plenum fuel salt
+1300  1  -2.3275  -1002  1011 -1012  IMP:N=1
+     $ Fuel salt above lattice
+     $ z = 170.311 to 220 cm
+     $ R < 74.299 cm (vessel inner)
+c
+c Cell 1301: Upper plenum top head (INOR-8, simplified flat)
+1301  3  -8.7745  -1003  1012 -1051  IMP:N=1
+     $ Vessel top head (flat, simplified)
+     $ z = 220 cm plane
+c
+c --- Outer Void and Graveyard ---
+c
+c Cell 1900: Outer void region (air/vacuum)
+1900  0          1003 -1999    IMP:N=1
+     $ Void outside vessel, inside graveyard
+c
+c Cell 1999: Graveyard (particle termination)
+1999  0          1999           IMP:N=0
+     $ Graveyard boundary
+     $ All particles entering are killed
+c
+c =================================================================
+c SURFACE CARDS
+c =================================================================
+c
+c --- Core Geometry (1000-1099) ---
+c
+c Surface 1000: Graphite lattice boundary
+1000  RCC  0 0 0  0 0 170.311  70.285
+     $ Lattice cylinder (R=70.285 cm, H=170.311 cm)
+     $ Vertex: (0, 0, 0) at lattice bottom
+     $ Height vector: (0, 0, 170.311) upward
+     $ Radius: 70.285 cm
+c
+c Surface 1001: Core can outer wall
+1001  RCC  0 0 0  0 0 170.311  71.737
+     $ Core can outer boundary (R=71.737 cm)
+     $ Thickness from lattice = 71.737 - 70.285 = 1.452 cm
+     $ (Note: Actual core can inner is 71.097 cm, but lattice
+     $  boundary defines effective inner radius)
+c
+c --- Vessel System (1002-1099) ---
+c
+c Surface 1002: Vessel inner wall
+1002  RCC  0 0 -51  0 0 271  74.299
+     $ Vessel inner surface (R=74.299 cm)
+     $ Vertex: (0, 0, -51) at vessel bottom
+     $ Height vector: (0, 0, 271) - total height
+     $ z = -51 to 220 cm
+c
+c Surface 1003: Vessel outer wall
+1003  RCC  0 0 -51  0 0 271  76.862
+     $ Vessel outer surface (R=76.862 cm)
+     $ Wall thickness = 76.862 - 74.299 = 2.563 cm
+c
+c --- Axial Planes (Plenums) ---
+c
+1010  PZ  0.0
+     $ Lattice bottom / lower plenum top
+c
+1011  PZ  170.311
+     $ Lattice top / upper plenum bottom
+c
+1012  PZ  220.0
+     $ Upper plenum top
+c
+1050  PZ  -51.0
+     $ Lower plenum bottom / vessel bottom
+c
+1051  PZ  220.0
+     $ Vessel top (same as upper plenum top)
+c
+c --- Outer Boundary (1999) ---
+c
+c Surface 1999: Graveyard boundary (large cylinder)
+1999  RCC  0 0 -100  0 0 400  150
+     $ Outer boundary cylinder
+     $ R=150 cm (larger than vessel outer R=76.862 cm)
+     $ z = -100 to 300 cm (encompasses all geometry)
+c
+c =================================================================
+c GEOMETRY SUMMARY
+c =================================================================
+c
+c Radial Structure (r, cm):
+c   0.0 - 70.285:  Core lattice (FILL=10, Universe 10)
+c   70.285 - 71.737:  Core can (INOR-8)
+c   71.737 - 74.299:  Downcomer annulus (void)
+c   74.299 - 76.862:  Vessel wall (INOR-8)
+c   76.862 - 150:  Outer void
+c   150+:  Graveyard (IMP:N=0)
+c
+c Axial Structure (z, cm):
+c   -100 to -51:  Graveyard region
+c   -51 to 0:  Lower plenum (fuel salt)
+c   0 to 170.311:  Active core (lattice)
+c   170.311 to 220:  Upper plenum (fuel salt)
+c   220 to 300:  Graveyard region
+c
+c Volumes (approximate):
+c   Core lattice: π × 70.285² × 170.311 = 2,642,600 cm³
+c   Downcomer annulus: π × (74.299² - 71.737²) × 170.311 = 152,400 cm³
+c   Lower plenum: π × 74.299² × 51 = 885,700 cm³
+c   Upper plenum: π × 74.299² × 49.689 = 862,500 cm³
+c
+c =================================================================
+c MATERIAL CROSS-REFERENCES
+c =================================================================
+c
+c Materials required (to be defined in data block):
+c   M1:  Fuel salt (LiF-BeF₂-ZrF₄-UF₄, ρ = 2.3275 g/cm³, 911 K)
+c   M3:  INOR-8 (Hastelloy-N, ρ = 8.7745 g/cm³, 911 K)
+c
+c Materials in lattice universes (Universe 1-4):
+c   M2:  Graphite (nuclear grade, ρ = 1.86 g/cm³, 911 K)
+c   M4:  Control rod poison (Gd₂O₃-Al₂O₃, ρ = 5.873 g/cm³, 911 K)
+c
+c =================================================================
+c INTEGRATION NOTES
+c =================================================================
+c
+c 1. LATTICE INTEGRATION:
+c    - Cell 1000 uses FILL=10 to load Universe 10
+c    - Universe 10 must contain LAT=1 lattice definition
+c    - Lattice bounded by surface 1000 (RCC, R=70.285 cm)
+c
+c 2. COORDINATE SYSTEM:
+c    - Origin (0,0,0) at bottom center of graphite lattice
+c    - z=0 is bottom of active fuel region
+c    - All hot dimensions (911 K) used directly
+c
+c 3. SIMPLIFICATIONS:
+c    - Vessel heads: Flat planes (vs torispherical, +243 pcm bias)
+c    - Plenums: Uniform fuel salt (vs detailed piping)
+c    - Thermal shield: Omitted (will add in Phase 3)
+c    - Insulation: Omitted (will add in Phase 3)
+c
+c 4. DOWNCOMER ANNULUS:
+c    - Modeled as VOID (m=0) at zero-power criticality
+c    - No salt circulation during criticality experiment
+c    - Width = 2.562 cm (matches specification)
+c
+c 5. NEXT STEPS:
+c    - Define Universe 10 (lattice universe with LAT=1)
+c    - Define Universe 1 (graphite stringer unit cell)
+c    - Define Universe 2, 3 (control rod thimbles)
+c    - Define Universe 4 (sample basket)
+c    - Define materials M1-M4 in data block
+c    - Add KCODE, source definition, tallies
+c
+c =================================================================
+c VALIDATION CHECKLIST
+c =================================================================
+c
+c Pre-execution checks:
+c   [ ] All surfaces referenced in cells are defined
+c   [ ] All cells have IMP:N set (0 for graveyard, >0 otherwise)
+c   [ ] Graveyard cell exists with IMP:N=0
+c   [ ] No duplicate cell or surface numbers
+c   [ ] RCC format: j RCC vx vy vz hx hy hz R (7 values)
+c   [ ] All dimensions in cm (MCNP standard)
+c
+c Geometry validation (plot mode):
+c   [ ] XY plot at z=85 cm shows circular core, annulus, vessel
+c   [ ] XZ plot at y=0 shows plenums, core, vessel height
+c   [ ] No dashed lines (geometry errors)
+c   [ ] Lattice appears inside core boundary
+c   [ ] Core can radius: 71.737 cm
+c   [ ] Vessel inner radius: 74.299 cm
+c   [ ] Vessel outer radius: 76.862 cm
+c
+c VOID test:
+c   [ ] Add "VOID" card to data block
+c   [ ] Run NPS 10000
+c   [ ] Verify zero lost particles
+c   [ ] Check for overlaps or gaps
+c   [ ] Remove VOID after validation
+c
+c =================================================================
+c END OF BASE GEOMETRY
+c =================================================================

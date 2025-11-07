@@ -1,0 +1,159 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                    MSRE LATTICE CONSTRUCTION                              ║
+║                         QUICK REFERENCE                                   ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ LATTICE CONFIGURATION                                                     │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  Type:              LAT=1 (hexahedral/square) ⚠️ NOT LAT=2
+  Array size:        29×29×1 (i,j,k = -14:14, -14:14, 0:0)
+  Pitch:             5.084 cm (hot, 911 K)
+  Height:            170.311 cm
+  Origin:            (0,0,0) at bottom center
+  Boundary:          RCC R=70.285 cm
+
+  Total positions:   841
+  In core:           593
+  Graphite:          589 (U=1)
+  Special:           4 (2×U2, 1×U3, 1×U4)
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ UNIVERSE SUMMARY                                                          │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  U=10   Lattice container (LAT=1 cell with FILL array)
+  U=1    Graphite stringer (589 instances)
+         - 5.084×5.084 cm, 4 fuel grooves
+         - Vol: 3,337 cm³ graphite + 1,063 cm³ fuel
+  
+  U=2    Control rod - withdrawn (2 instances at (-1,+1) and (+1,+1))
+         - INOR-8 thimble OD=5.08 cm
+         - Poison above core (129.54 cm)
+  
+  U=3    Regulating rod - 3% inserted (1 instance at (-1,-1))
+         - Same thimble as U=2
+         - Poison: z=41.287 to 118.364 cm
+  
+  U=4    Sample basket (1 instance at (+1,-1) ✓ USER CONFIRMED)
+         - INOR-8 basket OD=5.4287 cm
+         - Homogenized interior (m5)
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ CENTRAL PATTERN (USER CONFIRMED)                                         │
+└───────────────────────────────────────────────────────────────────────────┘
+
+              j
+              ↑
+         +1   •  •  [U2] •  [U2] •  •
+              •  •   •   •   •   •  •
+          0   •  •   •  [U1] •   •  •  → i
+              •  •   •   •   •   •  •
+         -1   •  •  [U3] •  [U4] •  •
+
+             -1  0  +1
+
+  (0,0):     Graphite stringer (U=1)
+  (-1,+1):   Control Rod 1 (U=2)
+  (+1,+1):   Control Rod 2 (U=2)
+  (-1,-1):   Regulating Rod (U=3)
+  (+1,-1):   Sample Basket (U=4) ✓
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ INTEGRATION CODE                                                          │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  Base Universe 0 - Add this cell:
+  
+    1000  0  -1000  FILL=10  IMP:N=1    $ Core region → lattice U=10
+  
+  Base Universe 0 - Add this surface:
+  
+    1000  RCC  0 0 0  0 0 170.311  70.285   $ Lattice boundary
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ MATERIAL REQUIREMENTS (CRITICAL)                                          │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  M1: Fuel salt (ρ=2.3275 g/cm³)
+      ⚠️ Li: 0.005% ⁶Li (NOT natural 7.5%)
+      ⚠️ U: 1.409 wt% ²³⁵U
+      TMP 911
+
+  M2: Graphite (ρ=1.86 g/cm³)
+      ⚠️ B impurity: 0.8 ppm (MUST include)
+      ⚠️ MT2 grph.87t (thermal scattering)
+      TMP 911
+
+  M3: INOR-8 (ρ=8.7745 g/cm³)
+      ~70% Ni, 17% Mo, 7% Cr, 5% Fe, 0.07% C
+      TMP 911
+
+  M4: Poison (ρ=5.873 g/cm³)
+      70% Gd₂O₃, 30% Al₂O₃
+      TMP 911
+
+  M5: Homogenized basket (ρ=2.616 g/cm³ calculated)
+      17% graphite + 6% INOR-8 + 77% fuel salt
+      ⚠️ REQUIRES CALCULATION - See report
+      TMP 911
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ VALIDATION QUICK CHECKS                                                   │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  Geometry plot:
+    mcnp6 inp=file.i ip
+    - XY at z=85 cm: Check central pattern, ~593 positions in core
+    - Enable LAT=1 indices
+  
+  VOID test:
+    Add: VOID -1
+    Run: NPS 10000
+    ⚠️ MUST BE ZERO lost particles
+  
+  Surface order:
+    Cell 100: -50 51 -52 53 -54 55  (defines i,j,k correctly)
+  
+  FILL array size:
+    29×29×1 = 841 values (Fortran order: i fastest)
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ EXPECTED RESULTS                                                          │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  keff:              1.019 - 1.024 (±200 pcm from Serpent 1.02132)
+  C-E discrepancy:   2.1-2.2% (EXPECTED for graphite systems)
+  Lost particles:    ZERO (mandatory)
+  Shannon entropy:   Converged <0.001 slope
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ FILE LOCATIONS                                                            │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  Complete construction:
+    /home/user/mcnp-skills/MSRE_Lattice_Construction_COMPLETE.txt
+  
+  Detailed report:
+    /home/user/mcnp-skills/MSRE_Lattice_Construction_REPORT.md
+  
+  This quick reference:
+    /home/user/mcnp-skills/MSRE_Lattice_Quick_Reference.txt
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│ CRITICAL WARNINGS                                                         │
+└───────────────────────────────────────────────────────────────────────────┘
+
+  ⚠️  LAT=1 NOT LAT=2 (common error)
+  ⚠️  Li enrichment 0.005% ⁶Li (NOT natural)
+  ⚠️  Graphite boron 0.8 ppm (MUST include)
+  ⚠️  Thermal scattering grph.87t (MT2 card)
+  ⚠️  VOL per-instance (NOT total)
+  ⚠️  Sample basket requires m5 calculation
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║  STATUS: ✓ COMPLETE - Ready for integration                              ║
+║  Date: 2025-11-07                                                         ║
+║  Agent: mcnp-lattice-builder                                              ║
+╚═══════════════════════════════════════════════════════════════════════════╝

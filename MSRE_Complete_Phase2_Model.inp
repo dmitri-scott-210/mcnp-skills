@@ -1,0 +1,395 @@
+MSRE First Criticality Benchmark - Phase 2 Initial Model
+c =================================================================
+c MSRE (Molten Salt Reactor Experiment) Zero-Power Critical
+c Experiment: June 1, 1965 @ 911 K
+c
+c Model Type: Phase 2 Initial Model (simplified)
+c Target keff: 1.014-1.016 (before Phase 3 refinements)
+c Benchmark keff: 1.02132 ± 0.00003 (Phase 3 target)
+c
+c Physics: Graphite-moderated thermal reactor
+c Fuel: FLiBe-UF4 molten salt (Li-6 depleted to 0.005%)
+c Control: 3 rods (2 withdrawn, 1 at 3% insertion)
+c
+c Date: 2025-11-07
+c Status: Ready for geometry validation
+c =================================================================
+
+c =================================================================
+c BLOCK 1: CELL CARDS
+c =================================================================
+c
+c Universe 0: Base Geometry (vessel, reflector, plenums)
+c Universe 10: Lattice Container (LAT=1)
+c Universe 1: Graphite Stringer (589 positions)
+c Universe 2: Control Rod - Withdrawn (2 positions)
+c Universe 3: Regulating Rod - 3% Inserted (1 position)
+c Universe 4: Sample Basket (1 position)
+c
+c =================================================================
+
+c -----------------------------------------------------------------
+c UNIVERSE 0: BASE GEOMETRY
+c -----------------------------------------------------------------
+
+c --- Core Region ---
+1000  0          -1000          FILL=10  IMP:N=1
+     $ Core lattice (R=70.285 cm, H=170.311 cm) filled with Universe 10
+
+c --- Core Can (INOR-8) ---
+1010  3  -8.7745  1000 -1001    IMP:N=1
+     $ INOR-8 core can (thickness = 1.452 cm)
+
+c --- Downcomer Annulus (Void at criticality) ---
+1020  0          1001 -1002  1010 -1011  IMP:N=1
+     $ Void annulus (no salt flow at criticality, width = 2.562 cm)
+
+c --- Reactor Vessel (INOR-8) ---
+1100  3  -8.7745  1002 -1003  1010 -1051  IMP:N=1
+     $ Vessel wall (thickness = 2.563 cm)
+
+c --- Lower Plenum ---
+1200  1  -2.3275  -1002  1050 -1010  IMP:N=1
+     $ Fuel salt below lattice (z = -51 to 0 cm)
+
+1201  3  -8.7745  -1003  1050 -1010  IMP:N=1
+     $ Vessel bottom head (simplified flat)
+
+c --- Upper Plenum ---
+1300  1  -2.3275  -1002  1011 -1012  IMP:N=1
+     $ Fuel salt above lattice (z = 170.311 to 220 cm)
+
+1301  3  -8.7745  -1003  1012 -1051  IMP:N=1
+     $ Vessel top head (simplified flat)
+
+c --- Outer Boundaries ---
+1900  0          1003 -1999  1050 -1051  IMP:N=1
+     $ Void outside vessel
+
+1999  0          1999           IMP:N=0
+     $ Graveyard (particle termination)
+
+c -----------------------------------------------------------------
+c UNIVERSE 10: LATTICE CONTAINER
+c -----------------------------------------------------------------
+
+c Cell 100: LAT=1 lattice definition
+c Surface ordering: -X +X -Y +Y -Z +Z defines (i,j,k) indexing
+100  0  -50 51 -52 53 -54 55  U=10  LAT=1  IMP:N=1  &
+        FILL=-14:14 -14:14 0:0  &
+             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  &  $ j=+14
+             0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0  &  $ j=+13
+             0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0  &  $ j=+12
+             0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0  &  $ j=+11
+             0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0  &  $ j=+10
+             0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0  &  $ j= +9
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= +8
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= +7
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= +6
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= +5
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +4
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +3
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +2
+             0 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +1
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= +0
+             0 1 1 1 1 1 1 1 1 1 1 1 1 3 1 4 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -1
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -2
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -3
+             0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0  &  $ j= -4
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= -5
+             0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0  &  $ j= -6
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= -7
+             0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0  &  $ j= -8
+             0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0  &  $ j= -9
+             0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0  &  $ j=-10
+             0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0  &  $ j=-11
+             0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0  &  $ j=-12
+             0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0  &  $ j=-13
+             0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0     $ j=-14
+c            i: -14-13-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1 +0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12+13+14
+
+c -----------------------------------------------------------------
+c UNIVERSE 1: STANDARD GRAPHITE STRINGER (589 positions)
+c -----------------------------------------------------------------
+
+c Cell 1: North groove (on +Y face, fuel salt)
+1   1  -2.3275  -10 11 -12 13 -54 55  U=1  IMP:N=1  VOL=265.7
+
+c Cell 2: East groove (on +X face, fuel salt)
+2   1  -2.3275  -16 17 -18 19 -54 55  U=1  IMP:N=1  VOL=265.7
+
+c Cell 3: South groove (on -Y face, fuel salt)
+3   1  -2.3275  -20 21 -22 23 -54 55  U=1  IMP:N=1  VOL=265.7
+
+c Cell 4: West groove (on -X face, fuel salt)
+4   1  -2.3275  -24 25 -26 27 -54 55  U=1  IMP:N=1  VOL=265.7
+
+c Cell 5: Central graphite body (CORRECTED - using complement operator)
+5   2  -1.86    50 -51 52 -53 -54 55  #1 #2 #3 #4  U=1  IMP:N=1  VOL=3337.3
+c   Unit cell MINUS 4 fuel grooves (using # complement operator)
+
+c -----------------------------------------------------------------
+c UNIVERSE 2: CONTROL ROD THIMBLE - WITHDRAWN (2 positions)
+c -----------------------------------------------------------------
+
+c Cell 11: Inner fuel salt (inside thimble)
+11  1  -2.3275  -30  -54 55  U=2  IMP:N=1  VOL=3011.3
+
+c Cell 12: INOR-8 thimble wall
+12  3  -8.7745  30 -31  -54 55  U=2  IMP:N=1  VOL=263.4
+
+c Cell 13: Outer fuel salt (outside thimble, within unit cell)
+13  1  -2.3275  31 50 -51 52 -53  -54 55  U=2  IMP:N=1  VOL=944.4
+
+c -----------------------------------------------------------------
+c UNIVERSE 3: REGULATING ROD - 3% INSERTED (1 position at -1,-1)
+c -----------------------------------------------------------------
+
+c Cell 21: Fuel salt below poison (z = 0 to 41.287 cm)
+21  1  -2.3275  -40  -54 42  U=3  IMP:N=1  VOL=731.0
+
+c Cell 22: Control rod poison (z = 41.287 to 118.364 cm)
+22  4  -5.873   -40  -42 43  U=3  IMP:N=1  VOL=1364.5
+
+c Cell 23: Fuel salt above poison (z = 118.364 to 170.311 cm)
+23  1  -2.3275  -40  -43 55  U=3  IMP:N=1  VOL=916.2
+
+c Cell 24: INOR-8 thimble wall
+24  3  -8.7745  40 -41  -54 55  U=3  IMP:N=1  VOL=263.4
+
+c Cell 25: Outer fuel salt (outside thimble)
+25  1  -2.3275  41 50 -51 52 -53  -54 55  U=3  IMP:N=1  VOL=944.4
+
+c -----------------------------------------------------------------
+c UNIVERSE 4: SAMPLE BASKET (1 position at +1,-1) - USER CONFIRMED
+c -----------------------------------------------------------------
+
+c Cell 31: Homogenized basket interior
+31  5  -2.6206  -60  -54 55  U=4  IMP:N=1  VOL=3717.6
+c   Homogenized: 17.4% graphite + 5.8% INOR-8 + 76.8% fuel salt
+
+c Cell 32: INOR-8 basket wall
+32  3  -8.7745  60 -61  -54 55  U=4  IMP:N=1  VOL=131.9
+
+c Cell 33: Outer fuel salt (outside basket)
+33  1  -2.3275  61 50 -51 52 -53  -54 55  U=4  IMP:N=1  VOL=531.6
+
+c =================================================================
+c BLOCK 2: SURFACE CARDS
+c =================================================================
+
+c -----------------------------------------------------------------
+c UNIVERSE 0 SURFACES: BASE GEOMETRY
+c -----------------------------------------------------------------
+
+c --- Core Geometry ---
+1000  RCC  0 0 0  0 0 170.311  70.285
+     $ Lattice boundary (R=70.285 cm, H=170.311 cm)
+
+1001  RCC  0 0 0  0 0 170.311  71.737
+     $ Core can outer (R=71.737 cm)
+
+c --- Vessel System ---
+1002  RCC  0 0 -51  0 0 271  74.299
+     $ Vessel inner (R=74.299 cm, z = -51 to 220 cm)
+
+1003  RCC  0 0 -51  0 0 271  76.862
+     $ Vessel outer (R=76.862 cm)
+
+c --- Axial Planes ---
+1010  PZ  0.0        $ Lattice bottom
+1011  PZ  170.311    $ Lattice top
+1012  PZ  220.0      $ Upper plenum top
+1050  PZ  -51.0      $ Lower plenum bottom
+1051  PZ  220.0      $ Vessel top
+
+c --- Graveyard ---
+1999  RCC  0 0 -100  0 0 400  150
+     $ Outer boundary (R=150 cm)
+
+c -----------------------------------------------------------------
+c UNIVERSE 10 SURFACES: LATTICE ELEMENT BOUNDARIES
+c -----------------------------------------------------------------
+
+c Surface 50-55: Lattice element boundaries (5.084 cm pitch)
+50  PX  -2.542                  $ -X boundary (i-direction min)
+51  PX   2.542                  $ +X boundary (i-direction max)
+52  PY  -2.542                  $ -Y boundary (j-direction min)
+53  PY   2.542                  $ +Y boundary (j-direction max)
+54  PZ   0.0                    $ Bottom (k=0)
+55  PZ  170.311                 $ Top (core height)
+
+c -----------------------------------------------------------------
+c UNIVERSE 1 SURFACES: GRAPHITE STRINGER GROOVES
+c -----------------------------------------------------------------
+
+c Surfaces 10-13: North groove boundaries
+10  PX  -0.509                  $ North groove -X
+11  PX   0.509                  $ North groove +X (width = 1.018 cm)
+12  PY   1.0155                 $ North groove -Y (depth from face)
+13  PY   2.542                  $ North groove +Y (at +Y face)
+
+c Surfaces 16-19: East groove boundaries
+16  PX   1.0155                 $ East groove -X (depth from face)
+17  PX   2.542                  $ East groove +X (at +X face)
+18  PY  -0.509                  $ East groove -Y
+19  PY   0.509                  $ East groove +Y (width = 1.018 cm)
+
+c Surfaces 20-23: South groove boundaries
+20  PX  -0.509                  $ South groove -X
+21  PX   0.509                  $ South groove +X (width = 1.018 cm)
+22  PY  -2.542                  $ South groove -Y (at -Y face)
+23  PY  -1.0155                 $ South groove +Y (depth from face)
+
+c Surfaces 24-27: West groove boundaries
+24  PX  -2.542                  $ West groove -X (at -X face)
+25  PX  -1.0155                 $ West groove +X (depth from face)
+26  PY  -0.509                  $ West groove -Y
+27  PY   0.509                  $ West groove +Y (width = 1.018 cm)
+
+c -----------------------------------------------------------------
+c UNIVERSE 2 & 3 SURFACES: CONTROL ROD THIMBLES
+c -----------------------------------------------------------------
+
+c Surfaces 30-31: Control rod thimble (Universe 2 - withdrawn)
+30  RCC  0 0 0  0 0 170.311  2.3749    $ Inner thimble (r = 2.3749 cm)
+31  RCC  0 0 0  0 0 170.311  2.54      $ Outer thimble (r = 2.54 cm)
+
+c Surfaces 40-43: Regulating rod thimble (Universe 3 - 3% inserted)
+40  RCC  0 0 0  0 0 170.311  2.3749    $ Inner thimble
+41  RCC  0 0 0  0 0 170.311  2.54      $ Outer thimble
+42  PZ  41.287                         $ Poison bottom
+43  PZ  118.364                        $ Poison top (critical position)
+
+c -----------------------------------------------------------------
+c UNIVERSE 4 SURFACES: SAMPLE BASKET
+c -----------------------------------------------------------------
+
+c Surfaces 60-61: Sample basket
+60  RCC  0 0 0  0 0 170.311  2.63535   $ Inner basket
+61  RCC  0 0 0  0 0 170.311  2.71435   $ Outer basket
+
+c =================================================================
+c BLOCK 3: DATA CARDS
+c =================================================================
+
+MODE N
+c
+c Criticality Source Definition
+KCODE  10000  1.0  50  200
+c      NPS   k-guess  skip  total cycles
+c      10000 per cycle, initial guess k=1.0, skip 50, run 200 active
+c
+c Initial Source Position (center of core, mid-height)
+KSRC   0 0 85
+c      x y z (cm)
+
+c -----------------------------------------------------------------
+c MATERIAL 1: FUEL SALT (LiF-BeF2-ZrF4-UF4)
+c -----------------------------------------------------------------
+c Density: 2.3275 g/cm³
+c Temperature: 911 K
+c CRITICAL: Li-6 depleted to 0.005% (NOT natural 7.5%)
+c
+M1   3006.80c  1.367E-08    $ Li-6  (0.005% enrichment - CRITICAL)
+     3007.80c  2.733E-05    $ Li-7  (99.995%)
+     4009.80c  5.219E-05    $ Be-9
+     9019.80c  1.734E-04    $ F-19
+     40000.80c 8.556E-06    $ Zr (natural)
+     92234.80c 4.436E-09    $ U-234
+     92235.80c 6.397E-08    $ U-235 (1.409 wt% enrichment)
+     92236.80c 2.923E-09    $ U-236
+     92238.80c 4.465E-07    $ U-238
+c
+c -----------------------------------------------------------------
+c MATERIAL 2: GRAPHITE MODERATOR
+c -----------------------------------------------------------------
+c Density: 1.86 g/cm³
+c Temperature: 911 K
+c CRITICAL: Boron impurity 0.8 ppm (MUST include)
+c CRITICAL: Thermal scattering S(α,β) required
+c
+M2   6000.80c  0.09321      $ Natural carbon
+     5010.80c  6.457E-9     $ B-10 (19.9% of boron)
+     5011.80c  2.598E-8     $ B-11 (80.1% of boron)
+MT2  grph.87t               $ Graphite thermal scattering @ 923 K
+c
+c -----------------------------------------------------------------
+c MATERIAL 3: INOR-8 (Hastelloy-N)
+c -----------------------------------------------------------------
+c Density: 8.7745 g/cm³
+c Temperature: 911 K
+c
+M3   28000.80c -0.69951     $ Ni (70%)
+     42000.80c -0.16988     $ Mo (17%)
+     24000.80c -0.06995     $ Cr (7%)
+     26000.80c -0.04997     $ Fe (5%)
+     6000.80c  -0.00070     $ C  (0.07%)
+     25055.80c -0.00500     $ Mn (0.5%)
+     14000.80c -0.00499     $ Si (0.5%)
+c
+c -----------------------------------------------------------------
+c MATERIAL 4: CONTROL ROD POISON (Gd2O3-Al2O3)
+c -----------------------------------------------------------------
+c Density: 5.873 g/cm³
+c Temperature: 911 K
+c Composition: 70 wt% Gd2O3, 30 wt% Al2O3
+c
+M4   64000.80c  0.158498    $ Gd (natural, strong absorber)
+     13027.80c  0.241502    $ Al-27
+     8016.80c   0.600000    $ O-16
+c
+c -----------------------------------------------------------------
+c MATERIAL 5: HOMOGENIZED SAMPLE BASKET
+c -----------------------------------------------------------------
+c Density: 2.6206 g/cm³ (calculated from 17.4% graphite +
+c                         5.8% INOR-8 + 76.8% fuel salt)
+c Temperature: 911 K
+c Simplified homogenization for zero-power criticality
+c
+c Option 1: Volume-weighted mixture (atom fractions)
+c PLACEHOLDER - Requires detailed calculation
+c For now, use fuel salt composition at homogenized density
+M5   3006.80c  1.367E-08    $ Li-6  (from fuel salt)
+     3007.80c  2.733E-05    $ Li-7
+     4009.80c  5.219E-05    $ Be-9
+     9019.80c  1.734E-04    $ F-19
+     40000.80c 8.556E-06    $ Zr
+     92234.80c 4.436E-09    $ U-234
+     92235.80c 6.397E-08    $ U-235
+     92236.80c 2.923E-09    $ U-236
+     92238.80c 4.465E-07    $ U-238
+     6000.80c  0.01621      $ C (from graphite samples)
+     28000.80c 5.114E-04    $ Ni (from INOR-8 samples)
+c
+c Note: This is a simplified homogenization. For Phase 3 refinement,
+c calculate exact atom fractions from volume/mass mixing.
+c
+c -----------------------------------------------------------------
+c TEMPERATURE CARDS
+c -----------------------------------------------------------------
+c Temperature: 911 K = 7.8501E-08 MeV
+c
+TMP1  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08
+c     M1 (fuel)  M2 (graph)  M3 (INOR)   M4 (poison) M5 (basket)
+
+c =================================================================
+c END OF INPUT FILE
+c =================================================================
+c
+c VALIDATION CHECKLIST:
+c [ ] Geometry plots (XY at z=85, XZ at y=0, YZ at x=0)
+c [ ] VOID test (zero lost particles)
+c [ ] Central pattern verified (0,0)=U1, diagonals=U2/U3/U4
+c [ ] Li-6 enrichment confirmed (0.005%, not 7.5%)
+c [ ] Graphite boron included (0.8 ppm)
+c [ ] Thermal scattering MT2 grph.87t present
+c [ ] All temperatures at 911 K
+c
+c EXPECTED RESULTS (Phase 2):
+c keff: 1.014-1.016 (before thermal shield)
+c C-E discrepancy: ~2.1-2.2% (expected for graphite systems)
+c Lost particles: ZERO (mandatory)
+c Shannon entropy: Converged (slope < 0.001)
+c
+c =================================================================

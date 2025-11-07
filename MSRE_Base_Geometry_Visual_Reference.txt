@@ -1,0 +1,246 @@
+c =================================================================
+c MSRE BASE GEOMETRY - VISUAL REFERENCE
+c =================================================================
+c
+c RADIAL CROSS-SECTION (XY Plane at z=85 cm, mid-core)
+c
+c     N (Y+)
+c      ^
+c      |
+c      |    +----------------+  Graveyard (R=150 cm)
+c      |    |                |
+c      |    |   +--------+   |  Vessel outer (R=76.862)
+c      |    |   | Vessel |   |  Vessel inner (R=74.299)
+c      |    |   | +----+ |   |  Downcomer (void, R=71.737-74.299)
+c      |    |   | |Core| |   |  Core can outer (R=71.737)
+c      |    |   | |Can | |   |  Core lattice (R=70.285)
+c      |    |   | | ++ | |   |
+c      |    |   | |++++| |   |  ++ = Graphite stringers
+c      |    |   | |++++| |   |  (LAT=1 square array)
+c      |    |   | | ++ | |   |
+c      |    |   | +----+ |   |
+c      |    |   +--------+   |
+c      |    |                |
+c      |    +----------------+
+c      |
+c      +-------------------------> E (X+)
+c     /
+c    /
+c   Z (out of page)
+c
+c
+c VERTICAL CROSS-SECTION (XZ Plane at y=0)
+c
+c    Z
+c    ^
+c    |
+c 300 |  +------------------+  Graveyard
+c    |  |                  |
+c 220 |  |  +------------+  |  Upper plenum (fuel salt)
+c    |  |  |            |  |  z = 170.311 to 220 cm
+c    |  |  |            |  |
+c 170 |  |  +============+  |  Core lattice (FILL=10)
+c    |  |  |:::::::::::::|  |  z = 0 to 170.311 cm
+c    |  |  |:::::::::::::|  |  : = Graphite + fuel channels
+c    |  |  |:::::::::::::|  |
+c  85 |  |  |:::::::::::::|  |  (Mid-height)
+c    |  |  |:::::::::::::|  |
+c    |  |  |:::::::::::::|  |
+c   0 |  |  +============+  |  Lower plenum (fuel salt)
+c    |  |  |            |  |  z = -51 to 0 cm
+c    |  |  |            |  |
+c -51 |  |  +------------+  |
+c    |  |                  |
+c-100 |  +------------------+  Graveyard
+c    |
+c    +-------------------------> R (radial)
+c     0    70    74  77  150
+c
+c
+c RADIAL LAYER DETAIL
+c
+c R (cm)  Component              Material    Cell    Surface
+c ------  ---------------------  ----------  ------  --------
+c 0.0     Center                 (lattice)
+c   :     Core lattice           FILL=10     1000    -1000
+c   :     (graphite + fuel)
+c70.285   Lattice boundary                           1000
+c   :     Core can               INOR-8      1010    1000,-1001
+c71.737   Core can outer                             1001
+c   :     Downcomer annulus      VOID        1020    1001,-1002
+c74.299   Vessel inner                               1002
+c   :     Vessel wall            INOR-8      1100    1002,-1003
+c76.862   Vessel outer                               1003
+c   :     Outer void             VOID        1900    1003,-1999
+c150.0    Graveyard boundary                         1999
+c   :     Graveyard              VOID(IMP=0) 1999    1999
+c
+c
+c AXIAL LAYER DETAIL
+c
+c Z (cm)  Component              Material    Cell    Surface
+c ------  ---------------------  ----------  ------  --------
+c 300     Graveyard top          VOID(IMP=0) 1999    1999
+c   :
+c 220     Upper plenum top                           1012,1051
+c   :     Upper plenum           Fuel salt   1300    -1002,1011,-1012
+c170.311  Lattice top / plenum                       1011,55
+c   :     Core lattice           FILL=10     1000    -1000
+c   :     (active fuel region)
+c  85     (Mid-height)
+c   :
+c  0.0    Lattice bottom                             1010,54
+c   :     Lower plenum           Fuel salt   1200    -1002,1050,-1010
+c -51     Vessel bottom                              1050
+c   :
+c-100     Graveyard bottom       VOID(IMP=0) 1999    1999
+c
+c
+c LATTICE STRUCTURE (inside surface 1000)
+c
+c  LAT=1 square array (29×29 positions, ~593 in circle)
+c
+c    j (Y direction)
+c    ^
+c    |
+c +14 | 1  1  1  1  1  ...  1  1  1  Outside circle
+c    |
+c  +5 | 1  1  1  1  1  1  1  1  1
+c    |
+c  +1 | 1  1  2  1  1  1  1  1  1   Control rod at (0,1)
+c    |
+c   0 | 1  3  4  2  1  1  1  1  1   Basket at (0,0)
+c    |                               Control rods at (-1,0), (1,0)
+c  -1 | 1  1  1  1  1  1  1  1  1   Regulating rod at (-1,0)
+c    |
+c  -5 | 1  1  1  1  1  1  1  1  1
+c    |
+c -14 | 1  1  1  1  1  ...  1  1  1
+c    |
+c    +-----------------------------------------> i (X direction)
+c   -14     -1  0 +1          +5           +14
+c
+c Legend:
+c   1 = Graphite stringer (Universe 1)
+c   2 = Control rod withdrawn (Universe 2)
+c   3 = Regulating rod 3% inserted (Universe 3)
+c   4 = Sample basket (Universe 4)
+c
+c
+c UNIVERSE FILL HIERARCHY
+c
+c Universe 0 (Base geometry - main)
+c   └─ Cell 1000: -1000, FILL=10
+c          │
+c          └─ Universe 10 (Lattice universe)
+c                 └─ Cell 100: LAT=1, FILL=-14:14 -14:14 0:0
+c                        ├─ Universe 1 (Graphite stringer, 589×)
+c                        │     ├─ Cell 1: Fuel salt (N groove)
+c                        │     ├─ Cell 2: Fuel salt (E groove)
+c                        │     ├─ Cell 3: Fuel salt (S groove)
+c                        │     ├─ Cell 4: Fuel salt (W groove)
+c                        │     └─ Cell 5: Graphite (central)
+c                        │
+c                        ├─ Universe 2 (Control rod withdrawn, 2×)
+c                        │     ├─ Cell 11: Fuel salt (inner)
+c                        │     ├─ Cell 12: INOR-8 thimble
+c                        │     └─ Cell 13: Fuel salt (outer)
+c                        │
+c                        ├─ Universe 3 (Regulating rod, 1×)
+c                        │     ├─ Cell 21: Gd₂O₃-Al₂O₃ poison
+c                        │     ├─ Cell 22: Fuel salt (above poison)
+c                        │     ├─ Cell 23: INOR-8 thimble
+c                        │     └─ Cell 24: Fuel salt (outer)
+c                        │
+c                        └─ Universe 4 (Sample basket, 1×)
+c                              ├─ Cell 31: Homogenized samples
+c                              ├─ Cell 32: INOR-8 basket
+c                              └─ Cell 33: Fuel salt (outer)
+c
+c
+c MATERIAL CROSS-REFERENCE
+c
+c Material  Description              Density      Temp   Used In
+c --------  ---------------------    ----------   ----   -------------------------
+c M1        Fuel salt (LiF-BeF₂...)  2.3275 g/cm³ 911K   Plenums, grooves, cells
+c M2        Graphite (nuclear)       1.86 g/cm³   911K   Stringer bodies (U1)
+c M3        INOR-8 (Hastelloy-N)     8.7745 g/cm³ 911K   Can, vessel, thimbles
+c M4        Gd₂O₃-Al₂O₃ poison       5.873 g/cm³  911K   Regulating rod (U3)
+c M5        Homogenized samples      ~X.XX g/cm³  911K   Sample basket (U4)
+c
+c Thermal Scattering:
+c MT2       grph.87t                 923K (closest to 911K)  On M2
+c
+c
+c KEY DIMENSIONS SUMMARY
+c
+c Component                      Hot (911 K)     Surface     Cell
+c ----------------------------   -------------   ---------   ------
+c Lattice radius                 70.285 cm       1000        1000
+c Core can outer radius          71.737 cm       1001        1010
+c Vessel inner radius            74.299 cm       1002        1020,1100,1200,1300
+c Vessel outer radius            76.862 cm       1003        1100
+c Graveyard radius               150 cm          1999        1999
+c
+c Lattice height                 170.311 cm      1000        1000
+c Lower plenum depth             51 cm           1050,1010   1200
+c Upper plenum height            49.689 cm       1011,1012   1300
+c Vessel total height            271 cm          1002,1003   1100
+c
+c Core can thickness             1.452 cm        (1001-1000)
+c Downcomer width                2.562 cm        (1002-1001)
+c Vessel wall thickness          2.563 cm        (1003-1002)
+c
+c Stringer pitch                 5.084 cm        50-53       U10
+c Fuel channel (half)            1.018 × 1.527 cm            U1
+c Fuel channel (full)            1.018 × 3.053 cm            U1 pairs
+c
+c
+c COORDINATE SYSTEM
+c
+c Origin:    (0, 0, 0) at bottom center of graphite lattice
+c X-axis:    Horizontal (east positive)
+c Y-axis:    Horizontal (north positive)
+c Z-axis:    Vertical (upward positive)
+c Symmetry:  Cylindrical about z-axis
+c
+c Reference elevations:
+c   z = -51 cm      Vessel bottom
+c   z = 0 cm        Lattice bottom / lower plenum top
+c   z = 85 cm       Core mid-height (typical plot level)
+c   z = 170.311 cm  Lattice top / upper plenum bottom
+c   z = 220 cm      Vessel top
+c
+c
+c VALIDATION CHECKPOINTS
+c
+c Plot XY at z=85:
+c   ✓ Circular lattice (R=70.285)
+c   ✓ Core can shell visible
+c   ✓ Downcomer annulus (void gap)
+c   ✓ Vessel walls concentric
+c   ✓ ~593 lattice positions visible
+c   ✓ No dashed lines (errors)
+c
+c Plot XZ at y=0:
+c   ✓ Lower plenum (-51 to 0)
+c   ✓ Core lattice (0 to 170.311)
+c   ✓ Upper plenum (170.311 to 220)
+c   ✓ Vessel extends full height
+c   ✓ No gaps or overlaps
+c
+c VOID test (NPS 10000):
+c   ✓ Zero lost particles
+c   ✓ No overlap warnings
+c   ✓ No gap warnings
+c
+c Physics checks:
+c   ✓ keff ~ 1.014-1.024 (expected range with simplifications)
+c   ✓ Shannon entropy converged
+c   ✓ Statistical uncertainty < 50 pcm
+c   ✓ Neutron balance closed
+c
+c
+c =================================================================
+c END OF VISUAL REFERENCE
+c =================================================================

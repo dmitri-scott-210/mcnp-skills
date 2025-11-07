@@ -1,0 +1,86 @@
+c ========================================================================
+c Material 4: MSRE Control Rod Poison (Gd2O3-Al2O3)
+c ========================================================================
+c Application: Control rod poison material for MSRE control rods
+c Composition: 70 wt% Gd2O3, 30 wt% Al2O3
+c Density: 5.873 g/cm3 (specify in cell card as -5.873)
+c Temperature: 911 K (638°C)
+c Library: ENDF/B-VIII.0 (.80c)
+c
+c ------------------------------------------------------------------------
+c Composition Calculation
+c ------------------------------------------------------------------------
+c Basis: 100g mixture (70g Gd2O3 + 30g Al2O3)
+c
+c Molecular Weights:
+c   Gd2O3: 362.498 g/mol
+c   Al2O3: 101.961 g/mol
+c
+c Moles:
+c   70g Gd2O3 / 362.498 g/mol = 0.193105 mol
+c   30g Al2O3 / 101.961 g/mol = 0.294230 mol
+c
+c Atom Moles (stoichiometry: Gd2O3 -> 2 Gd + 3 O, Al2O3 -> 2 Al + 3 O):
+c   Gd: 2 × 0.193105 = 0.386209 mol
+c   Al: 2 × 0.294230 = 0.588460 mol
+c   O (from Gd2O3): 3 × 0.193105 = 0.579314 mol
+c   O (from Al2O3): 3 × 0.294230 = 0.882690 mol
+c   O (total):                    1.462004 mol
+c
+c Total atom moles: 0.386209 + 0.588460 + 1.462004 = 2.436673 mol
+c
+c Atom Fractions (normalized):
+c   Gd: 0.386209 / 2.436673 = 0.158498
+c   Al: 0.588460 / 2.436673 = 0.241502
+c   O:  1.462004 / 2.436673 = 0.600000
+c   Sum: 1.000000 (verified)
+c
+c ------------------------------------------------------------------------
+c Physics Notes
+c ------------------------------------------------------------------------
+c Natural Gadolinium is an excellent neutron absorber:
+c   Gd-155: σ_abs ≈ 61,000 barns (thermal)
+c   Gd-157: σ_abs ≈ 254,000 barns (thermal)
+c   Natural Gd: σ_abs ≈ 49,000 barns (thermal)
+c
+c Using natural Gd (64000.80c) includes all 7 stable isotopes:
+c   Gd-152, Gd-154, Gd-155, Gd-156, Gd-157, Gd-158, Gd-160
+c
+c Aluminum oxide (Al2O3) serves as a ceramic matrix/binder
+c
+c No thermal scattering (MT) card needed:
+c   - Heavy metal oxide at elevated temperature
+c   - Thermal scattering treatment not critical for control poison
+c
+c ------------------------------------------------------------------------
+c MCNP Material Definition
+c ------------------------------------------------------------------------
+M4   64000.80c  0.158498  $ Gd (natural, strong neutron absorber)
+     13027.80c  0.241502  $ Al-27 (only stable isotope)
+     8016.80c   0.600000  $ O-16 (99.76% natural abundance)
+c
+c ------------------------------------------------------------------------
+c Temperature Card
+c ------------------------------------------------------------------------
+c Temperature: 911 K (638°C)
+c Conversion: T[MeV] = T[K] × 8.617×10⁻¹¹
+c           = 911 × 8.617×10⁻¹¹ = 7.8501×10⁻⁸ MeV
+TMP4  7.8501E-08
+c
+c ------------------------------------------------------------------------
+c Cell Card Usage Example
+c ------------------------------------------------------------------------
+c Cell# Mat#  Density    Surface  Importance
+c 4     4     -5.873     -14      IMP:N=1  $ Control rod poison
+c
+c ------------------------------------------------------------------------
+c Validation Checklist
+c ------------------------------------------------------------------------
+c [✓] Composition: 70 wt% Gd2O3, 30 wt% Al2O3
+c [✓] Atom fractions calculated correctly (sum = 1.0)
+c [✓] ZAID format: ZZZAAA.80c (ENDF/B-VIII.0)
+c [✓] Natural gadolinium (64000) for strong absorption
+c [✓] Temperature: 911 K = 7.8501E-08 MeV
+c [✓] Density: 5.873 g/cm³ (cell card: -5.873)
+c [✓] Material number: m4 (matches MSRE design specification)
+c ========================================================================
