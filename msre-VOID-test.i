@@ -57,12 +57,20 @@ c
 33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
+c Universe 8: Graphite Filler (for positions outside core)
+c -------------------------------------------------------------------
+c Used in FILL array for lattice positions outside cylindrical core
+c
+80  2  -1.86  50 -51 52 -53 54 -55  U=8  IMP:N=1  $ Graphite filler element
+c
+c -------------------------------------------------------------------
 c Universe 1: Lattice Array (28×28×1)
 c -------------------------------------------------------------------
 c Core radius: 70.285 cm, Pitch: 5.084 cm → 28×28 array
-c THIS universe contains the LAT=1 lattice with FILL array
+c LAT=1 requires 6 planes (BOX), not cylinder!
+c Array size: 28 × 5.084 = 142.352 cm (±71.176 cm)
 c
-100  0  -1000  U=1 LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1  $ Lattice cell
+100  0  -1004 1005 -1006 1007 -1008 1009  U=1 LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 10 10 10 10 0 0 0 0 0 0 0
@@ -182,9 +190,21 @@ c -------------------------------------------------------------------
 61  RCC  0 0 0  0 0 170.311  2.71435   $ Basket outer
 c
 c -------------------------------------------------------------------
+c Universe 1: Lattice Container Surfaces (BOX for LAT=1)
+c -------------------------------------------------------------------
+c LAT=1 REQUIRES 6 axis-aligned planes, NOT cylinder!
+c Array: 28×28, Pitch: 5.084 cm, Total: 142.352 cm (±71.176 cm)
+1004  PX  -71.176                         $ Lattice -X boundary
+1005  PX   71.176                         $ Lattice +X boundary
+1006  PY  -71.176                         $ Lattice -Y boundary
+1007  PY   71.176                         $ Lattice +Y boundary
+1008  PZ   0.0                            $ Lattice bottom
+1009  PZ  170.311                         $ Lattice top
+c
+c -------------------------------------------------------------------
 c Universe 0: Base Geometry Surfaces
 c -------------------------------------------------------------------
-1000  RCC  0 0 0  0 0 170.311  70.285  $ Lattice boundary
+1000  RCC  0 0 0  0 0 170.311  70.285  $ Core cylinder (for cell 1000)
 1001  RCC  0 0 0  0 0 170.311  71.737  $ Core can outer
 1002  RCC  0 0 -51  0 0 271  74.299    $ Vessel inner
 1003  RCC  0 0 -51  0 0 271  76.862    $ Vessel outer
