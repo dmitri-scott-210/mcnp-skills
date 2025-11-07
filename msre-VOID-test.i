@@ -57,12 +57,12 @@ c
 33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
-c Universe 10: Lattice Container (LAT=1, 29×29×1 array)
+c Universe 1: Lattice Container (LAT=1, single element)
 c -------------------------------------------------------------------
 c Surface order: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
-c FILL array: i varies fastest (Fortran ordering)
+c This cell fills with Universe 10 (graphite stringer geometry)
 c
-100  0  50 -51 52 -53 54 -55  U=1 FILL=1 LAT=1  IMP:N=1
+100  0  50 -51 52 -53 54 -55  U=1 FILL=10 LAT=1  IMP:N=1
 c
 c Central pattern (user-confirmed):
 c   (0,0):   Universe 1 (graphite stringer)
