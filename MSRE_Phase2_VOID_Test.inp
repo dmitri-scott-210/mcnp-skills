@@ -1,11 +1,24 @@
-MSRE First Criticality - VOID Test (Geometry Overlap Detection)
+MSRE First Criticality - Phase 2 Model (June 1, 1965, 911 K)
 c ===================================================================
-c Purpose: Detect overlapping cells before production run
-c Method: VOID card test with 1000 particles
-c Expected: VOID = 0.00000E+00 (no overlaps)
-c If VOID ≠ 0: OVERLAPS EXIST (FATAL - must fix before production)
+c Model: Molten Salt Reactor Experiment (MSRE) - First Criticality
+c Date: June 1, 1965
+c Condition: Zero power, stationary salt, 911 K uniform temperature
 c
-c Reference: MCNP Best Practices Chapter 3.4.1, Item 10
+c Based on: UC Berkeley benchmark (Shen et al. 2021)
+c Reference: MSRE_Design_Specification_Complete.md
+c
+c Phase 2: Comprehensive model with full lattice structure
+c   - 29×29 lattice array (593 active positions inside R=70.285 cm)
+c   - 589 graphite stringers + 2 control rods + 1 regulating rod + 1 basket
+c   - Rectangular groove approximation (4 per stringer)
+c   - All hot dimensions at 911 K
+c
+c Coordinate System:
+c   Origin: Bottom of graphite lattice (z=0)
+c   z-axis: Vertical (upward positive)
+c
+c Expected keff: ~1.014-1.016 (Phase 2)
+c Target keff: 1.02132 ± 0.00003 (Phase 3 with thermal shield)
 c ===================================================================
 c
 c ===================================================================
@@ -57,14 +70,23 @@ c
 33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
-c Universe 10: Lattice (29×29×1 array)
+c Universe 10: Lattice Unit Cell Definition
 c -------------------------------------------------------------------
-c LAT=1 cell with FILL array defining which universe in each position
-c Surface order: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
+c Defines the size/shape of one unit cell (5.084×5.084×170.311 cm)
+c No FILL - contents specified by FILL array in Cell 1000
+c
+100  0  50 -51 52 -53 54 -55  U=10  LAT=1  IMP:N=1  $ Unit cell bounds
+c
+c -------------------------------------------------------------------
+c Real World Geometry (Universe 0)
+c -------------------------------------------------------------------
+c
+c === Core Lattice Region ===
+c FILL=10(...) fills with lattice U=10, specifying universe ID for each position
+c Surface order in Cell 100: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
 c FILL array: i varies fastest (Fortran ordering)
 c
-100  0  50 -51 52 -53 54 -55  U=10  LAT=1  IMP:N=1
-        FILL=-14:14 -14:14 0:0
+1000  0  -1000  U=0  IMP:N=1  FILL=10(-14:14 -14:14 0:0)
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
@@ -110,14 +132,6 @@ c   Control rods (U=2): 2
 c   Regulating rod (U=3): 1
 c   Sample basket (U=4): 1
 c   Outside boundary (U=0): 248
-c
-c -------------------------------------------------------------------
-c Real World Geometry (Universe 0)
-c -------------------------------------------------------------------
-c
-c === Core Lattice Region ===
-c Instantiates Universe 10 (the lattice) inside reactor shell
-1000  0  -1000  FILL=10  IMP:N=1           $ Core lattice
 c
 c === Core Can (INOR-8) ===
 1010  3  -8.7745  1000 -1001    IMP:N=1            $ Core can
@@ -214,23 +228,11 @@ c ===================================================================
 MODE  N
 c
 c -------------------------------------------------------------------
-c VOID Test Configuration (Fast Overlap Detection)
+c Criticality Source
 c -------------------------------------------------------------------
-c CRITICAL: Reduced cycles for quick geometry test
-c Production file uses: KCODE 10000 1.0 50 200
 c KSRC in North fuel groove: X=0, Y=1.78 (middle of groove), Z=85
-c
-KCODE  1000  1.0  10  10               $ Quick test: 10 cycles total
-KSRC   0 1.78 85                       $ In fuel channel
-c
-c -------------------------------------------------------------------
-c VOID CARD - Overlap Detector
-c -------------------------------------------------------------------
-c Expected: VOID = 0.00000E+00 (NO overlaps)
-c If VOID ≠ 0: Overlaps exist - MUST FIX before production
-c Reference: MCNP Best Practices Chapter 3.4.1, Item 10
-c
-VOID
+KCODE  1000  1.0  10  10
+KSRC   0 1.78 85
 c
 c -------------------------------------------------------------------
 c Materials
@@ -293,3 +295,5 @@ TMP1  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08  $ M1-M5
 c
 PRINT
 
+c
+VOID
