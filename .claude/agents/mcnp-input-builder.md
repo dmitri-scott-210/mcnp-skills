@@ -1,7 +1,6 @@
 ---
 name: mcnp-input-builder
 description: Specialist in creating MCNP6 input files from scratch with proper three-block structure, formatting conventions, and card organization for fixed-source and criticality problems.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

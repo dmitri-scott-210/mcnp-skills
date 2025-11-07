@@ -1,7 +1,6 @@
 ---
 name: mcnp-burnup-builder
 description: Build burnup/depletion calculations using BURN card for fuel evolution, activation, and isotopic inventory tracking with CINDER90 integration
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

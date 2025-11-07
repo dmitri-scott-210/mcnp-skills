@@ -1,7 +1,6 @@
 ---
 name: mcnp-mesh-builder
 description: Build TMESH and FMESH mesh tally specifications for spatial distribution analysis
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

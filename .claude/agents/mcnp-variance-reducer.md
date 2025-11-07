@@ -1,7 +1,6 @@
 ---
 name: mcnp-variance-reducer
 description: Implements and optimizes variance reduction techniques including cell importance (IMP), weight windows (WWG), DXTRAN, and advanced methods. Specialist in VR strategy selection, FOM optimization, and iterative refinement to achieve 10-1000× efficiency improvements.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

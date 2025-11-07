@@ -1,7 +1,6 @@
 ---
 name: mcnp-warning-analyzer
 description: Specialist in interpreting and addressing MCNP warning messages including material warnings, physics warnings, statistical warnings, and convergence issues to ensure result validity.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

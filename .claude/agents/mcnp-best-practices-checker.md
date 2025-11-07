@@ -1,7 +1,6 @@
 ---
 name: mcnp-best-practices-checker
 description: Specialist in reviewing MCNP inputs against the comprehensive 57-item best practices checklist from Chapter 3.4 to ensure correct and efficient simulations before running.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

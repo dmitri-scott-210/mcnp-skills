@@ -1,7 +1,6 @@
 ---
 name: mcnp-isotope-lookup
 description: "Specialist in looking up isotope properties including ZAID format, atomic masses, natural abundances, decay data, and cross-section library availability for MCNP material and source definitions. Essential for correct material composition and source specifications."
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

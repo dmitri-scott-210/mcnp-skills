@@ -1,7 +1,6 @@
 ---
 name: mcnp-criticality-analyzer
 description: Specialist in analyzing KCODE output (keff, entropy, source convergence) and interpreting confidence intervals for criticality calculations
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

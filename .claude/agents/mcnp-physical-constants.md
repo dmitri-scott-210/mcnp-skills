@@ -1,7 +1,6 @@
 ---
 name: mcnp-physical-constants
 description: "Specialist in providing fundamental physical constants, particle properties, and nuclear data needed for MCNP calculations including conversion factors, masses, energies, and cross-section benchmarks. Essential for accurate density calculations, energy conversions, and physics validations."
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

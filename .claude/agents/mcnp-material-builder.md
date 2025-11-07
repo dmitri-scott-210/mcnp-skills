@@ -1,7 +1,6 @@
 ---
 name: mcnp-material-builder
 description: Specialist in building MCNP material definitions using M/MT/TMP cards with proper ZAID selection, thermal scattering, and density calculations.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

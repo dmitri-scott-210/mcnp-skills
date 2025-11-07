@@ -1,7 +1,6 @@
 ---
 name: mcnp-source-builder
 description: Build MCNP source definitions using SDEF/KCODE/SSR with spatial, energy, and directional distributions
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

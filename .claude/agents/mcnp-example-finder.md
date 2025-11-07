@@ -1,7 +1,6 @@
 ---
 name: mcnp-example-finder
 description: Specialist in finding relevant MCNP example files, primers, and documentation sections for specific problem types including geometry patterns, source definitions, tally setups, and physics configurations.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

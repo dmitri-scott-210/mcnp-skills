@@ -1,7 +1,6 @@
 ---
 name: mcnp-cell-checker
 description: Specialist in MCNP cell card validation for universe, lattice, and fill correctness. Expert in U/FILL references, LAT specifications, fill array dimensions, and nesting hierarchy validation.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

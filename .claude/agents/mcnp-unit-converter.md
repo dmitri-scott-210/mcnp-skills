@@ -1,7 +1,6 @@
 ---
 name: mcnp-unit-converter
 description: "Specialist in converting between different unit systems for MCNP input parameters including energy, length, density, temperature, cross sections, activity, mass, angle, and time units. Essential for ensuring physical consistency and reducing unit-mismatch errors."
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: mcnp-physics-builder
 description: Configure MCNP physics options using MODE/PHYS/CUT/TMP cards for particle transport, energy cutoffs, and temperature-dependent cross sections
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

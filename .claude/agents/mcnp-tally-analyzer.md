@@ -1,7 +1,6 @@
 ---
 name: mcnp-tally-analyzer
 description: Specialist in analyzing MCNP tally results to extract physics information, validate statistical quality, convert units, and interpret physical meaning (partial - basic analysis in Phase 2, advanced statistical analysis and VR effectiveness in Phase 3)
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
  

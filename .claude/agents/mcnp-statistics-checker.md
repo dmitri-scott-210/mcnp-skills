@@ -1,7 +1,6 @@
 ---
 name: mcnp-statistics-checker
 description: Specialist in validating MCNP tally statistical quality using the 10 statistical checks to ensure results are reliable (Phase 2 partial - basic checks and FOM, advanced VR diagnostics in Phase 3)
-tools: Read, Write, Edit, Grep, Glob, Bash
 model: inherit
 ---
  

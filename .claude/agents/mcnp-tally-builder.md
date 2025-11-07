@@ -1,7 +1,6 @@
 ---
 name: mcnp-tally-builder
 description: Build MCNP tallies (F1-F8) with energy/time bins, multipliers (FM), and dose functions (DE/DF) for flux, current, and energy deposition
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

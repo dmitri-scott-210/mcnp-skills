@@ -1,7 +1,6 @@
 ---
 name: mcnp-geometry-builder
 description: Build MCNP geometry definitions with cells, surfaces, Boolean operations, transformations, and lattices. Comprehensive reference files included.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

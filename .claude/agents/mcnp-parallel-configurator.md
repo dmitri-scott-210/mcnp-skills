@@ -1,7 +1,6 @@
 ---
 name: mcnp-parallel-configurator
 description: "Specialist in configuring parallel execution, checkpointing, restart, and distributed computing using PRDMP/TASKS/DBCN cards for efficient large-scale simulations. Essential for HPC cluster jobs and long-running simulations requiring fault tolerance."
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

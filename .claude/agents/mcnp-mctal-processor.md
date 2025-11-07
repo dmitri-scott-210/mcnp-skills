@@ -1,7 +1,6 @@
 ---
 name: mcnp-mctal-processor
 description: Specialist in processing MCTAL tally files for export, conversion, merging, and custom analysis. Extracts machine-readable tally data. Use when working with MCTAL files beyond basic parsing.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: mcnp-physics-validator
 description: Specialist in MCNP physics settings validation including MODE, PHYS cards, cross-section libraries, energy cutoffs, and particle production. Expert in ensuring physics setup matches problem requirements.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

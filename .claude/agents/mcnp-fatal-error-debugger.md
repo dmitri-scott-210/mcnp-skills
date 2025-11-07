@@ -1,7 +1,6 @@
 ---
 name: mcnp-fatal-error-debugger
 description: Specialist in diagnosing and fixing MCNP fatal errors including geometry errors, input syntax errors, source problems, and BAD TROUBLE messages. Expert in systematic debugging procedures.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

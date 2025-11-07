@@ -1,7 +1,6 @@
 ---
 name: mcnp-output-parser
 description: Specialist in parsing MCNP output files (OUTP, MCTAL, HDF5, XDMF) extracting tallies, warnings, mesh results, and particle tracks. Use when analyzing MCNP simulation results.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: mcnp-lattice-builder
 description: Build MCNP repeated structures (U/LAT/FILL) for reactor cores, fuel assemblies, and complex geometries with hierarchical organization; essential for reactor-to-MCNP translation and flux-based grouping
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

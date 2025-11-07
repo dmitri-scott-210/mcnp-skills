@@ -1,7 +1,6 @@
 ---
 name: mcnp-plotter
 description: Specialist in visualizing MCNP geometry, tally results, mesh data, and statistical convergence for verification, analysis, and publication-quality figures.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

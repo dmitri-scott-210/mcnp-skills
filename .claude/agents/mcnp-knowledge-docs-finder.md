@@ -1,7 +1,6 @@
 ---
 name: mcnp-knowledge-docs-finder
 description: Specialist in using knowledge_base Python tools (doc_indexer.py, example_finder.py, error_patterns.py) to search and retrieve MCNP documentation, examples, and error solutions from 72 markdown docs and 1,147+ example files.
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

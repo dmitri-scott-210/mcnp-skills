@@ -1,7 +1,6 @@
 ---
 name: mcnp-ww-optimizer
 description: Build and optimize weight window variance reduction using WWN/WWE/WWT/WWP/WWG cards and MESH-based automatic generation. Specialist in WWG parameter tuning, mesh design, iterative optimization, and WWINP file management.
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

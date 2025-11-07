@@ -1,7 +1,6 @@
 ---
 name: mcnp-template-generator
 description: "Specialist in creating reusable MCNP input templates for common problem types including shielding, criticality, dose calculations, and activation analysis. Accelerates input development and ensures best practices through standardized starting points."
-tools: Read, Write, Edit, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 

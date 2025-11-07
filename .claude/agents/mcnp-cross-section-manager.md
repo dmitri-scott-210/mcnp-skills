@@ -1,7 +1,6 @@
 ---
 name: mcnp-cross-section-manager
 description: "Specialist in managing and verifying MCNP cross-section libraries including checking xsdir availability, diagnosing library errors, finding alternatives for missing data, and understanding library versions and types. Essential for preventing runtime errors and ensuring proper data usage."
-tools: Read, Grep, Glob, Bash, SlashCommand
 model: inherit
 ---
 
