@@ -111,11 +111,11 @@ class MCNPInputValidator:
 
         blank_count = len(blank_lines)
 
-        # Check for exactly 2 blank lines
-        if blank_count != 2:
+        # Check for exactly 3 blank lines (after cells, after surfaces, at EOF)
+        if blank_count != 3:
             self.errors.append(
                 f"FATAL: Invalid blank line count. "
-                f"Expected 2, found {blank_count}. "
+                f"Expected 3, found {blank_count}. "
                 f"Blank lines at: {blank_lines}"
             )
 
