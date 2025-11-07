@@ -67,10 +67,9 @@ c -------------------------------------------------------------------
 c Universe 1: Lattice Array (28×28×1)
 c -------------------------------------------------------------------
 c Core radius: 70.285 cm, Pitch: 5.084 cm → 28×28 array
-c LAT=1 requires 6 planes (BOX), not cylinder!
 c Array size: 28 × 5.084 = 142.352 cm (±71.176 cm)
 c
-100  0  -1004 1005 -1006 1007 -1008 1009  U=1 LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1
+100  0  -1004  U=1 LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1  $ Lattice in RPP box
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 10 10 10 10 10 10 10 10 10 10 10 10 10 0 0 0 0 0 0 0
@@ -190,21 +189,15 @@ c -------------------------------------------------------------------
 61  RCC  0 0 0  0 0 170.311  2.71435   $ Basket outer
 c
 c -------------------------------------------------------------------
-c Universe 1: Lattice Container Surfaces (BOX for LAT=1)
+c Universe 1: Lattice Container Surface (RPP box for LAT=1)
 c -------------------------------------------------------------------
-c LAT=1 REQUIRES 6 axis-aligned planes, NOT cylinder!
 c Array: 28×28, Pitch: 5.084 cm, Total: 142.352 cm (±71.176 cm)
-1004  PX  -71.176                         $ Lattice -X boundary
-1005  PX   71.176                         $ Lattice +X boundary
-1006  PY  -71.176                         $ Lattice -Y boundary
-1007  PY   71.176                         $ Lattice +Y boundary
-1008  PZ   0.0                            $ Lattice bottom
-1009  PZ  170.311                         $ Lattice top
+1004  RPP  -71.176 71.176  -71.176 71.176  0.0 170.311  $ Lattice box
 c
 c -------------------------------------------------------------------
 c Universe 0: Base Geometry Surfaces
 c -------------------------------------------------------------------
-1000  RCC  0 0 0  0 0 170.311  70.285  $ Core cylinder (for cell 1000)
+1000  RCC  0 0 0  0 0 170.311  70.285  $ Core cylinder (contains RPP)
 1001  RCC  0 0 0  0 0 170.311  71.737  $ Core can outer
 1002  RCC  0 0 -51  0 0 271  74.299    $ Vessel inner
 1003  RCC  0 0 -51  0 0 271  76.862    $ Vessel outer
