@@ -191,8 +191,9 @@ c
 c -------------------------------------------------------------------
 c Universe 1: Lattice Container Surface (RPP box for LAT=1)
 c -------------------------------------------------------------------
-c Array: 28×28, Pitch: 5.084 cm, Total: 142.352 cm (±71.176 cm)
-1004  RPP  -71.176 71.176  -71.176 71.176  0.0 170.311  $ Lattice box
+c MUST fit inside cylinder radius 70.285 cm
+c RPP dimensions: ±70.285 cm (matches cylinder radius exactly)
+1004  RPP  -70.285 70.285  -70.285 70.285  0.0 170.311  $ Lattice box
 c
 c -------------------------------------------------------------------
 c Universe 0: Base Geometry Surfaces
