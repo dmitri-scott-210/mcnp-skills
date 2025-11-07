@@ -23,7 +23,7 @@ c
 2   1  -2.3275  -102   U=10  IMP:N=1  VOL=265.7    $ East groove
 3   1  -2.3275  -103   U=10  IMP:N=1  VOL=265.7    $ South groove
 4   1  -2.3275  -104   U=10  IMP:N=1  VOL=265.7    $ West groove
-5   2  -1.86     #1  #2  #3  #4    U=10 IMP:N=1         $ Graphite
+5   2  -1.86     -100 #1  #2  #3  #4    U=10 IMP:N=1    $ Graphite (bounded by lattice element)
 c
 100  0  -100  U=1 LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1  $ Lattice with control rods
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -63,7 +63,7 @@ c Poison withdrawn above core (z > 129.54 cm)
 c
 11  1  -2.3275  -30  U=2  IMP:N=1  VOL=3011.3    $ Inner fuel salt
 12  3  -8.7745  30 -31  U=2  IMP:N=1  VOL=263.4  $ INOR-8 thimble
-13  1  -2.3275  31 -100  U=2  IMP:N=1  VOL=944.4  $ Outer salt
+13  1  -2.3275  -100 31  U=2  IMP:N=1  VOL=944.4  $ Outer salt (fill lattice element)
 c
 c -------------------------------------------------------------------
 c Universe 3: Regulating Rod - 3% Inserted (1 position at -1,-1)
@@ -74,7 +74,7 @@ c
 22  4  -5.873   -40  42 -43  U=3  IMP:N=1  VOL=1364.5    $ Poison region
 23  1  -2.3275  -40  43  U=3  IMP:N=1  VOL=916.2     $ Fuel above poison
 24  3  -8.7745  40 -41  U=3  IMP:N=1  VOL=263.4  $ INOR-8 thimble
-25  1  -2.3275  41 -100  U=3  IMP:N=1  VOL=944.4  $ Outer salt
+25  1  -2.3275  -100 41  U=3  IMP:N=1  VOL=944.4  $ Outer salt (fill lattice element)
 c
 c -------------------------------------------------------------------
 c Universe 4: Sample Basket (1 position at +1,-1) USER CONFIRMED
@@ -84,7 +84,7 @@ c Contents: Homogenized (17.4% graphite + 5.8% INOR + 76.8% fuel)
 c
 31  5  -2.6206  -60  U=4  IMP:N=1  VOL=3717.6    $ Homogenized interior
 32  3  -8.7745  60 -61  U=4  IMP:N=1  VOL=131.9  $ INOR-8 basket wall
-33  1  -2.3275  61 -100  U=4  IMP:N=1  VOL=531.6  $ Outer salt
+33  1  -2.3275  -100 61  U=4  IMP:N=1  VOL=531.6  $ Outer salt (fill lattice element)
 c
 c -------------------------------------------------------------------
 c Reactor Geometry (Universe 0): Lattice Container (LAT=1, 29×29×1 array)
@@ -230,7 +230,7 @@ c Expected: VOID = 0.00000E+00 (NO overlaps)
 c If VOID ≠ 0: Overlaps exist - MUST FIX before production
 c Reference: MCNP Best Practices Chapter 3.4.1, Item 10
 c
-c VOID
+VOID
 c
 c -------------------------------------------------------------------
 c Materials
@@ -243,7 +243,7 @@ M1   3006.71c  1.367E-08               $ Li-6  (0.005%)
      3007.71c  2.733E-05               $ Li-7  (99.995%)
      4009.71c  5.219E-05               $ Be-9
      9019.71c  1.734E-04               $ F-19
-     40000     8.556E-06               $ Zr (natural)
+     40000.71c 8.556E-06               $ Zr (natural)
      92234.71c 4.436E-09               $ U-234
      92235.71c 6.397E-08               $ U-235 (1.409 wt%)
      92236.71c 2.923E-09               $ U-236
@@ -280,7 +280,7 @@ M5   3006.71c  1.367E-08               $ Li-6  (from fuel)
      3007.71c  2.733E-05               $ Li-7
      4009.71c  5.219E-05               $ Be-9
      9019.71c  1.734E-04               $ F-19
-     40000.71c 8.556E-06               $ Zr
+     40000.71c 8.556E-06               $ Zr (natural)
      92234.71c 4.436E-09               $ U-234
      92235.71c 6.397E-08               $ U-235
      92236.71c 2.923E-09               $ U-236
