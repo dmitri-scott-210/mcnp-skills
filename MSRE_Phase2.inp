@@ -70,22 +70,14 @@ c
 33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
-c Universe 10: Lattice Unit Cell (5.084×5.084×170.311 cm)
+c Universe 10: Lattice (29×29×1 array)
 c -------------------------------------------------------------------
-c Defines single unit cell that gets repeated in the lattice
-c Contains Universes 1-4 based on FILL array in Cell 1000
-c
-100  0  50 -51 52 -53 54 -55  U=10  LAT=1  FILL=1  IMP:N=1  $ Unit cell
-c
-c -------------------------------------------------------------------
-c Real World Geometry (Universe 0)
-c -------------------------------------------------------------------
-c
-c === Core Lattice Region ===
+c LAT=1 cell with FILL array defining which universe in each position
 c Surface order: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
 c FILL array: i varies fastest (Fortran ordering)
 c
-1000  0  -1000  U=0  IMP:N=1  FILL=-14:14 -14:14 0:0  10
+100  0  50 -51 52 -53 54 -55  U=10  LAT=1  IMP:N=1
+        FILL=-14:14 -14:14 0:0
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
@@ -131,6 +123,14 @@ c   Control rods (U=2): 2
 c   Regulating rod (U=3): 1
 c   Sample basket (U=4): 1
 c   Outside boundary (U=0): 248
+c
+c -------------------------------------------------------------------
+c Real World Geometry (Universe 0)
+c -------------------------------------------------------------------
+c
+c === Core Lattice Region ===
+c Instantiates Universe 10 (the lattice) inside reactor shell
+1000  0  -1000  FILL=10  IMP:N=1           $ Core lattice
 c
 c === Core Can (INOR-8) ===
 1010  3  -8.7745  1000 -1001    IMP:N=1            $ Core can
