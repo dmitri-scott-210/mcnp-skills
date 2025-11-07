@@ -1,0 +1,303 @@
+===============================================================================
+MSRE PHASE 2 GEOMETRY PLOTTING INSTRUCTIONS
+===============================================================================
+
+**CRITICAL REQUIREMENT:** Geometry plotting is Best Practice Item 1.2
+**Reference:** MCNP Manual Chapter 6 (Geometry Plotting)
+**Purpose:** Visual verification of geometry before running MCNP
+
+Geometry plotting catches ~90% of errors before expensive simulation runs.
+This is NOT optional - it is a requirement for correct MCNP usage.
+
+===============================================================================
+STEP 1: LAUNCH MCNP PLOTTER
+===============================================================================
+
+Command:
+--------
+mcnp6 ip i=MSRE_Phase2.inp
+
+Expected Output:
+----------------
+MCNP should load the input file and display the interactive plotter interface.
+You'll see a command prompt where you can enter plot commands.
+
+===============================================================================
+STEP 2: PLOT XY VIEW (TOP VIEW AT MID-HEIGHT)
+===============================================================================
+
+Command:
+--------
+plot origin=0 0 85 basis=xy extent=150 150
+
+Parameters Explained:
+---------------------
+- origin=0 0 85      : Plot center at (X=0, Y=0, Z=85 cm) - core mid-height
+- basis=xy           : View looking down Z-axis (top view)
+- extent=150 150     : Plot 150 cm × 150 cm area
+
+What to Look For:
+-----------------
+✓ EXPECTED:
+  • Circular core boundary at R=70.285 cm
+  • 29×29 lattice grid visible inside core (593 active positions)
+  • Different colors for different materials:
+    - Fuel salt (M1): One color
+    - Graphite (M2): Different color
+    - INOR-8 (M3): Different color
+  • Clean solid lines at all cell boundaries
+  • Lattice pattern clearly visible
+
+✗ ERRORS TO DETECT:
+  • Dashed lines = GAPS in geometry (FATAL)
+  • Multiple colors at same location = OVERLAPS (FATAL)
+  • Missing lattice grid = FILL array error
+  • Wrong number of elements = indexing error
+
+Save Command:
+-------------
+color              (Show color legend - which material is which color)
+plot origin=0 0 85 basis=xy extent=150 150 file=msre_xy_view.ps
+
+This saves a PostScript file for documentation.
+
+===============================================================================
+STEP 3: PLOT XZ VIEW (SIDE VIEW - VERTICAL)
+===============================================================================
+
+Command:
+--------
+plot origin=0 0 85 basis=xz extent=150 300
+
+Parameters Explained:
+---------------------
+- origin=0 0 85      : Same center point
+- basis=xz           : View looking along Y-axis (side view)
+- extent=150 300     : 150 cm horizontal × 300 cm vertical
+
+What to Look For:
+-----------------
+✓ EXPECTED:
+  • Lattice from Z=0 to Z=170.311 cm (core height)
+  • Lower plenum from Z=-51 to Z=0 cm (fuel salt)
+  • Upper plenum from Z=170.311 to Z=220 cm (fuel salt)
+  • Downcomer annulus visible (void region)
+  • Vessel walls visible outside core
+  • Clean vertical lines
+
+✗ ERRORS TO DETECT:
+  • Dashed vertical lines = gaps between regions
+  • Missing plenums = geometry incomplete
+  • Wrong Z-heights = dimensional errors
+
+Save Command:
+-------------
+plot origin=0 0 85 basis=xz extent=150 300 file=msre_xz_view.ps
+
+===============================================================================
+STEP 4: PLOT YZ VIEW (FRONT VIEW - VERTICAL)
+===============================================================================
+
+Command:
+--------
+plot origin=0 0 85 basis=yz extent=150 300
+
+Parameters Explained:
+---------------------
+- origin=0 0 85      : Same center point
+- basis=yz           : View looking along X-axis (front view)
+- extent=150 300     : Same as XZ view
+
+What to Look For:
+-----------------
+Same as XZ view but from perpendicular angle.
+Verifies cylindrical symmetry of geometry.
+
+Save Command:
+-------------
+plot origin=0 0 85 basis=yz extent=150 300 file=msre_yz_view.ps
+
+===============================================================================
+STEP 5: ZOOM IN ON LATTICE CENTER (DETAILED VIEW)
+===============================================================================
+
+Command:
+--------
+plot origin=0 0 85 basis=xy extent=30 30
+
+Purpose:
+--------
+Verify individual lattice elements and control rod positions.
+
+What to Look For:
+-----------------
+✓ EXPECTED:
+  • Center element at (0,0) = graphite stringer (U=1)
+  • Element at (-1,+1) = control rod (U=2)
+  • Element at (+1,+1) = control rod (U=2)
+  • Element at (-1,-1) = regulating rod (U=3)
+  • Element at (+1,-1) = sample basket (U=4)
+  • Each element 5.084 cm × 5.084 cm
+  • 4 fuel grooves visible in graphite stringers
+
+User Confirmed Pattern:
+-----------------------
+       (+1,+1)
+         CR2
+          |
+(-1,+1)   |    Center
+  CR1 ----+---- (0,0)
+          |     STR
+          |
+         RR3  (+1,-1)
+       (-1,-1) BASKET
+
+CR1/CR2 = Control rods withdrawn (U=2)
+RR3 = Regulating rod 3% inserted (U=3)
+STR = Graphite stringer (U=1)
+BASKET = Sample basket (U=4)
+
+===============================================================================
+STEP 6: CHECK FOR LOST PARTICLE REGIONS
+===============================================================================
+
+Strategy:
+---------
+1. Plot several Z-heights to verify vertical uniformity:
+   - Z=10 cm  (near bottom)
+   - Z=85 cm  (mid-height)
+   - Z=160 cm (near top)
+
+Commands:
+---------
+plot origin=0 0 10 basis=xy extent=150 150
+plot origin=0 0 85 basis=xy extent=150 150
+plot origin=0 0 160 basis=xy extent=150 150
+
+What to Look For:
+-----------------
+✓ Geometry should look consistent at all heights
+✗ Dashed lines at ANY height = geometry error
+
+===============================================================================
+STEP 7: VERIFY UNIVERSE STRUCTURE
+===============================================================================
+
+Command:
+--------
+label 1          (Turn on cell labeling)
+plot origin=0 0 85 basis=xy extent=30 30
+
+Purpose:
+--------
+Verify cell numbers and universe assignments are correct.
+
+Expected Cell Numbers:
+----------------------
+At center of lattice (origin=0 0 85):
+- Graphite cells: 1, 2, 3, 4, 5 (Universe 1)
+- Control rod cells: 11, 12, 13 (Universe 2)
+- Regulating rod cells: 21-25 (Universe 3)
+- Sample basket cells: 31-33 (Universe 4)
+
+===============================================================================
+STEP 8: EXIT PLOTTER
+===============================================================================
+
+Command:
+--------
+end              (Exit the plotter)
+
+===============================================================================
+VALIDATION CHECKLIST
+===============================================================================
+
+After completing all plots, verify:
+
+[ ] XY view shows circular core with 29×29 lattice
+[ ] XZ view shows proper vertical structure (plenums, core, vessel)
+[ ] YZ view matches XZ view (cylindrical symmetry)
+[ ] Zoom view shows correct central pattern (user-confirmed positions)
+[ ] NO dashed lines anywhere (dashed = gaps = FATAL)
+[ ] NO color overlaps (overlap = FATAL)
+[ ] Cell labels match expected universe structure
+[ ] All 3 views saved as PostScript files for documentation
+
+===============================================================================
+INTERPRETING PLOT RESULTS
+===============================================================================
+
+**PASSED:**
+  • All lines solid (no dashes)
+  • Each location has exactly one material
+  • Lattice pattern visible and correct
+  • Central pattern matches user confirmation
+  → Proceed to VOID test
+
+**FAILED - Dashed Lines:**
+  • Dashed line = GAP in geometry
+  • Particles will be lost when they enter gap
+  • MUST FIX before running MCNP
+  • Common causes:
+    - Missing cell definition
+    - Boolean operator error
+    - Surface sense error
+  → Debug geometry, re-plot, repeat until clean
+
+**FAILED - Color Overlaps:**
+  • Two colors at same point = OVERLAP
+  • MCNP will use wrong material densities
+  • Results will be WRONG (no error message!)
+  • MUST FIX before running
+  • Common causes:
+    - Incorrect Boolean intersection
+    - Surface definition error
+    - Universe fill error
+  → Debug geometry, run VOID test
+
+**FAILED - Wrong Pattern:**
+  • Central pattern doesn't match user confirmation
+  • FILL array indexing error
+  • Check Fortran ordering (i-fastest)
+  • Verify FILL=-14:14 -14:14 0:0 calculation
+  → Correct FILL array, re-plot
+
+===============================================================================
+NEXT STEPS AFTER PLOTTING
+===============================================================================
+
+If plots PASS (all solid lines, no overlaps, correct pattern):
+  1. Proceed to VOID test (MSRE_Phase2_VOID_Test.inp)
+  2. Run: mcnp6 i=MSRE_Phase2_VOID_Test.inp o=void_test.out
+  3. Check: grep -i void void_test.out
+  4. Expected: void     0.00000E+00
+  5. If VOID=0: Proceed to Step 2.7 (Initial MCNP Run)
+
+If plots FAIL (dashed lines or overlaps):
+  1. DO NOT proceed to MCNP run (will fail or give wrong answers)
+  2. Debug geometry using plot information
+  3. Fix errors in MSRE_Phase2.inp
+  4. Re-validate with all 5 validators
+  5. Re-plot geometry
+  6. Repeat until plots PASS
+
+===============================================================================
+DOCUMENTATION
+===============================================================================
+
+For critical work, save these files:
+  • msre_xy_view.ps   (top view)
+  • msre_xz_view.ps   (side view)
+  • msre_yz_view.ps   (front view)
+  • Screenshot of zoom view showing central pattern
+  • This checklist with boxes checked
+
+Include in project documentation as proof of geometry verification.
+
+===============================================================================
+END OF PLOTTING INSTRUCTIONS
+===============================================================================
+
+**Time Required:** 30 minutes (interactive plotting + verification)
+**Critical Level:** MANDATORY (Best Practice Item 1.2)
+**Next Step:** VOID Test (Best Practice Item 1.10)
