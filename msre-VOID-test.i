@@ -57,26 +57,19 @@ c
 33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
-c Universe 1: Lattice Container (LAT=1, single element)
+c Universe 1: Simple wrapper for graphite stringer
 c -------------------------------------------------------------------
-c Surface order: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
-c This cell fills with Universe 10 (graphite stringer geometry)
+c This is a simple universe that fills with Universe 10 (graphite stringer)
 c
-100  0  50 -51 52 -53 54 -55  U=1 FILL=10 LAT=1  IMP:N=1
-c
-c Central pattern (user-confirmed):
-c   (0,0):   Universe 1 (graphite stringer)
-c   (-1,+1): Universe 2 (control rod withdrawn)
-c   (+1,+1): Universe 2 (control rod withdrawn)
-c   (-1,-1): Universe 3 (regulating rod 3% inserted)
-c   (+1,-1): Universe 4 (sample basket)
+100  0  50 -51 52 -53 54 -55  U=1 FILL=10  IMP:N=1
 c
 c -------------------------------------------------------------------
-c Real World Geometry (Universe 0)
+c Universe 99: Lattice Array (29×29×1)
 c -------------------------------------------------------------------
+c THIS is the actual lattice with the array of universes 0,1,2,3,4
+c Surface boundaries define the 29×29 lattice pitch
 c
-c === Core Lattice Region ===
-1000  0  -1000  LAT=1  FILL=-14:14 -14:14 0:0  IMP:N=1      $ Core lattice
+999  0  -1000  U=99 LAT=1  FILL=-14:14 -14:14 0:0  IMP:N=1  $ Lattice cell
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
@@ -106,6 +99,20 @@ c === Core Lattice Region ===
              0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+c
+c Central pattern in lattice (user-confirmed):
+c   (0,0):   Universe 1 (graphite stringer)
+c   (-1,+1): Universe 2 (control rod withdrawn)
+c   (+1,+1): Universe 2 (control rod withdrawn)
+c   (-1,-1): Universe 3 (regulating rod 3% inserted)
+c   (+1,-1): Universe 4 (sample basket)
+c
+c -------------------------------------------------------------------
+c Real World Geometry (Universe 0)
+c -------------------------------------------------------------------
+c
+c === Core Lattice Region ===
+1000  0  -1000  FILL=99  IMP:N=1                            $ Fill with lattice universe
 c
 c === Core Can (INOR-8) ===
 1010  3  -8.7745  1000 -1001    IMP:N=1            $ Core can
