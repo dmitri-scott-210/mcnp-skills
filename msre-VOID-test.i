@@ -19,11 +19,11 @@ c 5.084 × 5.084 cm graphite with 4 machined grooves
 c Each groove: 1.018 cm wide × 1.5265 cm deep
 c Adjacent grooves form 3.053 cm fuel channels
 c
-1   1  -2.3275  -10 11 -12 13 -54 55  U=1  IMP:N=1  VOL=265.7    $ North groove
-2   1  -2.3275  -16 17 -18 19 -54 55  U=1  IMP:N=1  VOL=265.7    $ East groove
-3   1  -2.3275  -20 21 -22 23 -54 55  U=1  IMP:N=1  VOL=265.7    $ South groove
-4   1  -2.3275  -24 25 -26 27 -54 55  U=1  IMP:N=1  VOL=265.7    $ West groove
-5   2  -1.86    50 -51 52 -53 -54 55  #1 #2 #3 #4  U=1  IMP:N=1  VOL=3337.3  $ Graphite
+1   1  -2.3275  -10 11 -12 13 54 -55  U=10  IMP:N=1  VOL=265.7    $ North groove
+2   1  -2.3275  -16 17 -18 19 54 -55  U=10  IMP:N=1  VOL=265.7    $ East groove
+3   1  -2.3275  -20 21 -22 23 54 -55  U=10  IMP:N=1  VOL=265.7    $ South groove
+4   1  -2.3275  -24 25 -26 27 54 -55  U=10  IMP:N=1  VOL=265.7    $ West groove
+5   2  -1.86    50 -51 52 -53 54 -55  #1 #2 #3 #4  U=10  IMP:N=1  VOL=3337.3  $ Graphite
 c
 c -------------------------------------------------------------------
 c Universe 2: Control Rod - Withdrawn (2 positions at -1,+1 and +1,+1)
@@ -31,20 +31,20 @@ c -------------------------------------------------------------------
 c Thimble: 5.08 cm OD, 0.1651 cm wall
 c Poison withdrawn above core (z > 129.54 cm)
 c
-11  1  -2.3275  -30  -54 55  U=2  IMP:N=1  VOL=3011.3    $ Inner fuel salt
-12  3  -8.7745  30 -31  -54 55  U=2  IMP:N=1  VOL=263.4  $ INOR-8 thimble
-13  1  -2.3275  31 50 -51 52 -53  -54 55  U=2  IMP:N=1  VOL=944.4  $ Outer salt
+11  1  -2.3275  -30  54 -55  U=2  IMP:N=1  VOL=3011.3    $ Inner fuel salt
+12  3  -8.7745  30 -31  54 -55  U=2  IMP:N=1  VOL=263.4  $ INOR-8 thimble
+13  1  -2.3275  31 50 -51 52 -53  54 -55  U=2  IMP:N=1  VOL=944.4  $ Outer salt
 c
 c -------------------------------------------------------------------
 c Universe 3: Regulating Rod - 3% Inserted (1 position at -1,-1)
 c -------------------------------------------------------------------
 c Poison at z = 41.287 to 118.364 cm (3% insertion = 5.11 cm)
 c
-21  1  -2.3275  -40  -54 42  U=3  IMP:N=1  VOL=731.0     $ Fuel below poison
-22  4  -5.873   -40  -42 43  U=3  IMP:N=1  VOL=1364.5    $ Poison region
-23  1  -2.3275  -40  -43 55  U=3  IMP:N=1  VOL=916.2     $ Fuel above poison
-24  3  -8.7745  40 -41  -54 55  U=3  IMP:N=1  VOL=263.4  $ INOR-8 thimble
-25  1  -2.3275  41 50 -51 52 -53  -54 55  U=3  IMP:N=1  VOL=944.4  $ Outer salt
+21  1  -2.3275  -40  54 -42  U=3  IMP:N=1  VOL=731.0     $ Fuel below poison
+22  4  -5.873   -40  42 -43  U=3  IMP:N=1  VOL=1364.5    $ Poison region
+23  1  -2.3275  -40  43 -55  U=3  IMP:N=1  VOL=916.2     $ Fuel above poison
+24  3  -8.7745  40 -41  54 -55  U=3  IMP:N=1  VOL=263.4  $ INOR-8 thimble
+25  1  -2.3275  41 50 -51 52 -53  54 -55  U=3  IMP:N=1  VOL=944.4  $ Outer salt
 c
 c -------------------------------------------------------------------
 c Universe 4: Sample Basket (1 position at +1,-1) USER CONFIRMED
@@ -52,18 +52,31 @@ c -------------------------------------------------------------------
 c Basket: 5.4287 cm OD, 0.079 cm wall
 c Contents: Homogenized (17.4% graphite + 5.8% INOR + 76.8% fuel)
 c
-31  5  -2.6206  -60  -54 55  U=4  IMP:N=1  VOL=3717.6    $ Homogenized interior
-32  3  -8.7745  60 -61  -54 55  U=4  IMP:N=1  VOL=131.9  $ INOR-8 basket wall
-33  1  -2.3275  61 50 -51 52 -53  -54 55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
+31  5  -2.6206  -60  54 -55  U=4  IMP:N=1  VOL=3717.6    $ Homogenized interior
+32  3  -8.7745  60 -61  54 -55  U=4  IMP:N=1  VOL=131.9  $ INOR-8 basket wall
+33  1  -2.3275  61 50 -51 52 -53  54 -55  U=4  IMP:N=1  VOL=531.6  $ Outer salt
 c
 c -------------------------------------------------------------------
 c Universe 10: Lattice Container (LAT=1, 29×29×1 array)
 c -------------------------------------------------------------------
-c Surface order: -50 51 -52 53 -54 55 defines i(X), j(Y), k(Z)
+c Surface order: 50 -51 52 -53 54 -55 defines i(X), j(Y), k(Z)
 c FILL array: i varies fastest (Fortran ordering)
 c
-100  0  50 -51 52 -53 54 -55  U=10  LAT=1  IMP:N=1
-        FILL=-14:14 -14:14 0:0
+100  0  50 -51 52 -53 54 -55  U=1 FILL=1 LAT=1  IMP:N=1
+c
+c Central pattern (user-confirmed):
+c   (0,0):   Universe 1 (graphite stringer)
+c   (-1,+1): Universe 2 (control rod withdrawn)
+c   (+1,+1): Universe 2 (control rod withdrawn)
+c   (-1,-1): Universe 3 (regulating rod 3% inserted)
+c   (+1,-1): Universe 4 (sample basket)
+c
+c -------------------------------------------------------------------
+c Real World Geometry (Universe 0)
+c -------------------------------------------------------------------
+c
+c === Core Lattice Region ===
+1000  0  -1000    FILL=-14:14 -14:14 0:0  IMP:N=1           $ Core lattice
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
@@ -94,20 +107,6 @@ c
              0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0
              0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 c
-c Central pattern (user-confirmed):
-c   (0,0):   Universe 1 (graphite stringer)
-c   (-1,+1): Universe 2 (control rod withdrawn)
-c   (+1,+1): Universe 2 (control rod withdrawn)
-c   (-1,-1): Universe 3 (regulating rod 3% inserted)
-c   (+1,-1): Universe 4 (sample basket)
-c
-c -------------------------------------------------------------------
-c Real World Geometry (Universe 0)
-c -------------------------------------------------------------------
-c
-c === Core Lattice Region ===
-1000  0  -1000          FILL=10  IMP:N=1           $ Core lattice
-c
 c === Core Can (INOR-8) ===
 1010  3  -8.7745  1000 -1001    IMP:N=1            $ Core can
 c
@@ -128,7 +127,7 @@ c
 c === Outer Boundaries ===
 1900  0  1003 -1999  1050 -1051  IMP:N=1           $ Void outside
 1999  0  1999  IMP:N=0                             $ Graveyard
- 
+
 c ===================================================================
 c BLOCK 2: SURFACE CARDS
 c ===================================================================
@@ -196,10 +195,34 @@ c -------------------------------------------------------------------
 1050  PZ  -51.0                         $ Lower plenum bottom
 1051  PZ  220.0                         $ Vessel top
 1999  RCC  0 0 -100  0 0 400  150      $ Graveyard
- 
+
 c ===================================================================
 c BLOCK 3: DATA CARDS
 c ===================================================================
+MODE  N
+c
+c -------------------------------------------------------------------
+c VOID Test Configuration (Fast Overlap Detection)
+c -------------------------------------------------------------------
+c CRITICAL: Reduced cycles for quick geometry test
+c Production file uses: KCODE 10000 1.0 50 200
+c KSRC in North fuel groove: X=0, Y=1.78 (middle of groove), Z=85
+c
+KCODE  1000  1.0  10  10               $ Quick test: 10 cycles total
+KSRC   -1.78 0 85                          $ Core center
+        1.78 0 85
+        0 -1.78 85
+        0 -1.78 85
+c
+c -------------------------------------------------------------------
+c VOID CARD - Overlap Detector
+c -------------------------------------------------------------------
+c Expected: VOID = 0.00000E+00 (NO overlaps)
+c If VOID ≠ 0: Overlaps exist - MUST FIX before production
+c Reference: MCNP Best Practices Chapter 3.4.1, Item 10
+c
+VOID
+c
 c -------------------------------------------------------------------
 c Materials
 c -------------------------------------------------------------------
@@ -259,28 +282,4 @@ c
 c Temperature Cards (911 K = 7.8501E-08 MeV)
 TMP1  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08  7.8501E-08  $ M1-M5
 c
-MODE  N
-c
-c -------------------------------------------------------------------
-c VOID Test Configuration (Fast Overlap Detection)
-c -------------------------------------------------------------------
-c CRITICAL: Reduced cycles for quick geometry test
-c Production file uses: KCODE 10000 1.0 50 200
-c
-KCODE  1000  1.0  10  10               $ Quick test: 10 cycles total
-KSRC   -2.542 0 85                          $ Core center
-        2.542 0 85
-        0 -2.542 85
-        0 -2.542 85
-c
-c -------------------------------------------------------------------
-c VOID CARD - Overlap Detector
-c -------------------------------------------------------------------
-c Expected: VOID = 0.00000E+00 (NO overlaps)
-c If VOID ≠ 0: Overlaps exist - MUST FIX before production
-c Reference: MCNP Best Practices Chapter 3.4.1, Item 10
-c
-VOID
-c
 PRINT
- 
