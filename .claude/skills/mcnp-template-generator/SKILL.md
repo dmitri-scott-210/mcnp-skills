@@ -1,326 +1,538 @@
----
-category: A
-name: mcnp-template-generator
-description: Create reusable MCNP input templates for common problem types including shielding, criticality, dose calculations, and activation analysis
-version: 2.0.0
-activation_keywords:
-  - template
-  - generate template
-  - input template
-  - starting point
-  - example input
-  - boilerplate
----
-
-# MCNP Template Generator Skill
+# MCNP Template Generator
 
 ## Purpose
 
-Generate reusable MCNP input templates for common problem types to accelerate input development, ensure best practices, and maintain consistency across projects.
+Automate the generation of multiple MCNP input files from a single master template using Jinja2 templating and CSV data files. Essential for multi-cycle burnup calculations, parameter studies, and configuration management.
 
 ## When to Use This Skill
 
-- Starting new MCNP project (need quick starting point)
-- Repeating similar simulations (parameter studies, shielding variations)
-- Training new users (provide standard examples)
-- Ensuring team consistency
-- Rapid prototyping of geometries
+**Use this skill when**:
+- ✅ Generating multiple MCNP inputs with similar geometry but varying parameters
+- ✅ Modeling reactor operating history (multiple cycles with different control positions)
+- ✅ Conducting parameter sensitivity studies (varying enrichment, temperature, materials)
+- ✅ Managing configuration variants (different operational states of same reactor)
+- ✅ Automating benchmark series (same model, different conditions)
 
-## Prerequisites
+**Do NOT use this skill when**:
+- ❌ Building a single one-off MCNP input (use mcnp-input-builder instead)
+- ❌ Need real-time coupling or dynamic simulations
+- ❌ Template complexity exceeds benefit (< 3 variants)
 
-- **mcnp-input-builder**: Input file structure
-- **mcnp-geometry-builder**: Basic geometry
-- **mcnp-material-builder**: Material definitions
-- **mcnp-source-builder**: Source specifications
-- **mcnp-tally-builder**: Tally definitions
+## Core Workflow
 
-## Core Concepts - Quick Reference
+### Step 1: Identify Parameterizable Sections
 
-### Template Types
+**Analyze existing MCNP input** to find:
+- Sections that vary between cycles/scenarios
+- Parameters driven by operational data
+- Geometry/material variants
 
-| Type | Use Case | Customization |
-|------|----------|---------------|
-| **Complete** | Ready to run with minor edits | Replace parameters |
-| **Skeleton** | Structure only | Fill in all sections |
-| **Parameterized** | Script-generated | Modify Python script |
+**Example findings**:
+```
+Fixed Content:
+  - Reactor core geometry (always the same)
+  - Structural materials
+  - Physics cards (mostly constant)
 
-### Common Problem Templates
-
-| Problem Type | Template | Key Features |
-|--------------|----------|--------------|
-| Shielding | Simple sphere, multilayer slab | Point source, dose tallies |
-| Criticality | Bare sphere, reflected sphere | KCODE, keff tallies |
-| Dose | Ambient dose, effective dose | DE/DF cards, ICRP factors |
-| Activation | Simple activation | BURN card, decay photons |
-
-**Detailed Reference**: See `problem_type_catalog.md` for complete template descriptions.
-
-## Python Tool
-
-### template_generator.py - Create Custom Templates
-
-```bash
-# Interactive mode
-python template_generator.py
-
-# Generate shielding template
-python template_generator.py --type shielding --geometry sphere
-
-# Generate criticality template
-python template_generator.py --type criticality --geometry sphere
-
-# Custom output
-python template_generator.py --type dose --output my_dose.i
+Variable Content:
+  - Control drum positions (vary by cycle)
+  - Neck shim rod states (vary by cycle)
+  - Test assembly configurations (vary by design)
+  - Material compositions (evolve with burnup)
 ```
 
-**Detailed Documentation**: See `scripts/README.md` for usage guide.
+### Step 2: Create Jinja2 Template
 
-## Decision Tree: Template Selection
+**Convert input → template** by replacing variable sections with placeholders:
 
-```
-START: What problem type?
-  |
-  +--> Shielding
-  |      ├─> Simple geometry → shielding_sphere.i
-  |      └─> Multilayer → shielding_slab.i
-  |
-  +--> Criticality
-  |      ├─> Bare system → criticality_bare.i
-  |      └─> Reflected → criticality_reflected.i
-  |
-  +--> Dose
-  |      ├─> Point dose → dose_ambient.i
-  |      └─> Organ dose → dose_effective.i
-  |
-  └─> Activation
-         └─> Simple → activation_simple.i
+**Before** (MCNP input):
+```mcnp
+c Control drum surfaces
+  981   c/z   48.0375  -18.1425  9.195  $ DRUM E1 AT 85 DEGREES
+  982   c/z   31.5218  -27.3612  9.195  $ DRUM E2 AT 85 DEGREES
 ```
 
-## Use Cases
-
-### Use Case 1: Quick Shielding Study
-
-**Objective**: Dose from point source through lead shield
-
-**Using Template**:
-```bash
-# Copy template
-python template_generator.py --type shielding --geometry sphere --output shield_study.i
-
-# Edit parameters (opens in editor)
-# - Source strength: 1.0E10 n/s
-# - Shield material: Lead (Z=82)
-# - Shield thickness: 5 cm
-# - Detector distance: 100 cm
-
-# Run MCNP
-mcnp6 inp=shield_study.i
+**After** (Jinja2 template):
+```jinja2
+c Control drum surfaces
+{{oscc_surfaces}}
 ```
 
-**Result**: Complete input in <5 minutes
+**Template syntax**:
+- `{{variable}}` - Simple variable substitution
+- No loops/conditionals in template (keep logic in Python)
+- Template remains valid MCNP input (can be tested standalone)
 
-### Use Case 2: Criticality Calculation
+### Step 3: Design CSV Data Files
 
-**Objective**: keff of bare U-235 sphere
+**Create structured data files** for parameters:
 
-**Using Template**:
-```bash
-# Generate template
-python template_generator.py --type criticality --geometry sphere
-
-# Template includes:
-# - KCODE card pre-configured
-# - Material M1 (U-235 metal)
-# - F4 and F7 tallies
-# - Appropriate NPS
-
-# Modify sphere radius, run
-mcnp6 inp=criticality_sphere.i
+**Example: control_positions.csv**
+```csv
+Cycle, Timestep, Time_Interval_hrs, OSCC_NE_deg, OSCC_SE_deg
+138B, 1, 24.0, 80, 85
+138B, 2, 24.0, 82, 87
+...
+145A, 53, 18.5, 75, 78
 ```
 
-### Use Case 3: Custom Template Library
+**Schema design principles**:
+- One row per timestep or configuration
+- Cycle/scenario identifier column
+- Time interval column (for averaging)
+- Clear column names with units
 
-**Objective**: Create project-specific templates
+### Step 4: Apply Time-Weighted Averaging
 
-**Workflow**:
-```bash
-# Create directory
-mkdir my_project_templates
-
-# Generate base templates
-python template_generator.py --type shielding --output my_project_templates/base_shield.i
-python template_generator.py --type dose --output my_project_templates/base_dose.i
-
-# Customize templates with project-specific:
-# - Material library references
-# - Standard tally configurations
-# - Comment headers
-# - NPS defaults
-
-# Use templates for all project simulations
-```
-
-## Template Catalog
-
-### Shielding Templates
-
-**shielding_sphere.i** - Point source, spherical shield
-- Simple geometry (2 cells)
-- Point isotropic source
-- F2 current tally at shield surface
-- F4 flux tally beyond shield
-
-**shielding_slab.i** - Plane source, multilayer slab
-- 3-layer geometry (configurable)
-- Planar source
-- F2 transmission tally
-- Energy bins for spectrum
-
-### Criticality Templates
-
-**criticality_bare.i** - Bare fissile sphere
-- Single sphere geometry
-- KCODE configured
-- F4 flux, F7 fission tallies
-- Standard materials (U-235, Pu-239)
-
-**criticality_reflected.i** - Reflected sphere
-- Core + reflector geometry
-- KCODE with skip/run cycles
-- Detailed tallies
-- Water or beryllium reflector options
-
-### Dose Templates
-
-**dose_ambient.i** - Ambient dose equivalent
-- Point source
-- H*(10) dose conversion (ICRP-74)
-- DE/DF cards pre-configured
-- F6 or F4+FM tallies
-
-**dose_effective.i** - Effective dose
-- Phantom geometry included
-- Organ tallies
-- ICRP-116 coefficients
-- Energy-dependent conversion
-
-### Activation Templates
-
-**activation_simple.i** - Basic activation
-- Target material
-- BURN card configured
-- Decay photon tallies
-- Post-irradiation times
-
-## Template Customization
-
-### Quick Parameter Replacement
-
-Templates use `[PARAMETER]` placeholders:
-
-```
-c ===== PARAMETERS TO CUSTOMIZE =====
-c [SOURCE_STRENGTH] = Source strength (particles/s)
-c [SHIELD_THICKNESS] = Shield thickness (cm)
-c [SHIELD_MATERIAL] = Material number
-c =====================================
-
-M1  [SHIELD_MATERIAL]  -[DENSITY]  $ Shield material
-```
-
-**Find and replace**:
-```bash
-sed -i 's/\[SOURCE_STRENGTH\]/1.0E10/g' input.i
-sed -i 's/\[SHIELD_THICKNESS\]/5.0/g' input.i
-```
-
-### Script-Based Generation
-
-Use Python for complex parameterization:
+**Collapse operational history** into representative values:
 
 ```python
-# generate_from_template.py
-import sys
+# Read CSV data
+data = pd.read_csv('control_positions.csv')
 
-template = open('template.i').read()
+# Group by cycle
+for cycle in cycles:
+    cycle_data = data[data['Cycle'] == cycle]
+    time_intervals = cycle_data['Time_Interval_hrs'].values
 
-# Replace parameters
-params = {
-    'RADIUS': 10.0,
-    'THICKNESS': 5.0,
-    'SOURCE': '1.0E10'
-}
+    # Time-weighted average
+    ave_angle_ne = (cycle_data['OSCC_NE_deg'] * time_intervals).sum() / time_intervals.sum()
 
-for key, value in params.items():
-    template = template.replace(f'[{key}]', str(value))
+    # Snap to predefined values (if applicable)
+    predefined_angles = [0, 25, 40, 50, 60, 65, 75, 80, 85, 100, 120, 125, 150]
+    closest_angle = predefined_angles[np.argmin(np.abs(predefined_angles - ave_angle_ne))]
+```
 
-# Write output
-with open('generated.i', 'w') as f:
-    f.write(template)
+**For binary states** (0/1):
+```python
+ave_state = (states * time_intervals).sum() / time_intervals.sum()
+representative_state = int(np.rint(ave_state))  # Round to 0 or 1
+```
+
+### Step 5: Render Template
+
+**Apply data to template** using Jinja2:
+
+```python
+from jinja2 import Environment, FileSystemLoader
+
+env = Environment(loader=FileSystemLoader('./'))
+template = env.get_template('base_model.template')
+
+for cycle in cycles:
+    # Prepare data for this cycle
+    data = {
+        'oscc_surfaces': oscc_surfaces[cycle],
+        'ne_cells': ne_cells[cycle],
+        'se_cells': se_cells[cycle],
+        # ... other cycle-specific data
+    }
+
+    # Render template
+    output = template.render(**data)
+
+    # Write output file
+    with open(f'mcnp/input_{cycle}.i', 'w') as f:
+        f.write(output)
+```
+
+### Step 6: Validate Generated Inputs
+
+**Pre-check before MCNP execution**:
+- ✅ All placeholders filled (no remaining `{{...}}`)
+- ✅ Cell/surface/material numbers consistent
+- ✅ File sizes reasonable (compare to base input)
+- ✅ Visual inspection of key sections
+
+## Key Concepts
+
+### Jinja2 Template Variables
+
+**Simple substitution** (most common):
+```jinja2
+{{variable_name}}
+```
+
+**In Python**:
+```python
+template.render(variable_name="replacement text")
+```
+
+**Multi-line strings**:
+```python
+ne_cells = """c
+  702   71 4.55926e-02    701   -702  100  -200
+c
+  707   71 4.55926e-02    706   -707  100  -200
+"""
+template.render(ne_cells=ne_cells)
+```
+
+### Time-Weighted Averaging
+
+**Formula**:
+```
+Average = Σ(value_i × duration_i) / Σ(duration_i)
+```
+
+**Use cases**:
+- **Continuous parameters**: Power, temperature, control angles
+- **Binary parameters**: Shim rods in/out (round to 0 or 1 after averaging)
+- **Discrete parameters**: Snap to nearest predefined value
+
+**Why this works**: Represents the "effective" configuration over the cycle duration
+
+### Systematic File Naming
+
+**Pattern**: `<base>_<cycle>_<optional>.i`
+
+**Examples**:
+- `bench_138B.i` (cycle 138B)
+- `bench_139A.i` (cycle 139A)
+- `sensitivity_case01_enr45.i` (sensitivity study, case 1, 4.5% enrichment)
+
+**Benefits**:
+- Easy sorting and identification
+- Traceability to data sources
+- Supports automation scripts
+
+### Directory Organization
+
+**Recommended structure**:
+```
+project/
+├── base_model.template          # Master template (version controlled)
+├── generation_script.py         # Rendering script (version controlled)
+├── data/
+│   ├── power.csv               # Operational data (version controlled)
+│   ├── control_positions.csv  # (version controlled)
+│   └── cycle_definitions.csv  # (version controlled)
+├── mcnp/                       # Generated inputs (excluded from git)
+│   ├── bench_138B.i
+│   ├── bench_139A.i
+│   └── ...
+└── plots/                      # QA plots (excluded from git)
+    ├── power_vs_time.png
+    └── control_angles.png
+```
+
+**Version control**:
+- ✅ Commit: template, scripts, CSV data
+- ❌ Exclude: generated inputs (can be regenerated)
+
+## Working Examples
+
+### Example 1: Multi-Cycle Burnup Study
+
+**Scenario**: Generate 13 MCNP inputs representing reactor operating history
+
+**Files**:
+- `bench.template` (13,727 lines) - ATR quarter-core with AGR-1 test
+- `power.csv` - Power by lobe vs time (616 timesteps)
+- `oscc.csv` - Control drum angles vs time
+- `neck_shim.csv` - Neck shim insertion states vs time
+
+**Workflow**:
+1. Read CSV files → group by cycle (13 cycles)
+2. Time-average power, drum angles, shim states per cycle
+3. Render template 13 times with cycle-specific data
+4. Output: `bench_138B.i`, `bench_139A.i`, ..., `bench_145A.i`
+
+**See**: `example_inputs/agr1_burnup_workflow.py`
+
+### Example 2: Enrichment Sensitivity Study
+
+**Scenario**: Vary fuel enrichment from 3% to 5% in 0.5% increments
+
+**Files**:
+- `pwr_assembly.template` - Base PWR assembly
+- `enrichment_study.csv` - Enrichment values and case IDs
+
+**Workflow**:
+1. Define enrichment values: [3.0, 3.5, 4.0, 4.5, 5.0]
+2. For each enrichment, generate material cards with updated U-235 fraction
+3. Render template with enrichment-specific materials
+4. Output: `pwr_enr30.i`, `pwr_enr35.i`, ..., `pwr_enr50.i`
+
+**See**: `example_inputs/enrichment_study_workflow.py`
+
+### Example 3: Control Rod Worth Curves
+
+**Scenario**: Calculate reactivity vs control rod position (0-100% withdrawn)
+
+**Files**:
+- `core_model.template` - Full core model
+- `control_rod_positions.csv` - Rod positions (11 cases: 0%, 10%, ..., 100%)
+
+**Workflow**:
+1. Define rod positions: 0 to 100% in 10% increments
+2. For each position, calculate geometry of control rod cells
+3. Render template with position-specific geometry
+4. Output: `core_rod_000.i`, `core_rod_010.i`, ..., `core_rod_100.i`
+
+**See**: `example_inputs/control_rod_study_workflow.py`
+
+## Common Pitfalls and Fixes
+
+### Pitfall 1: Leftover Template Variables
+
+**Error**: Generated input contains `{{variable}}` (not replaced)
+
+**Cause**: Variable name mismatch between template and rendering script
+
+**Fix**:
+```python
+# Check for leftover placeholders
+if '{{' in output or '}}' in output:
+    raise ValueError(f"Template variables not fully replaced in {filename}")
+```
+
+### Pitfall 2: Wrong Time Averaging
+
+**Error**: Averaging over wrong time base
+
+**Fix**: Always use weighted average with duration:
+```python
+# WRONG: Simple mean (ignores timestep duration)
+ave_power = power.mean()
+
+# RIGHT: Time-weighted average
+ave_power = (power * time_interval).sum() / time_interval.sum()
+```
+
+### Pitfall 3: Inconsistent File Naming
+
+**Error**: Cannot identify which file corresponds to which cycle
+
+**Fix**: Use systematic naming with cycle identifier
+```python
+# WRONG: Generic numbering
+filename = f'input_{i}.i'
+
+# RIGHT: Cycle identifier in name
+filename = f'bench_{cycle}.i'  # cycle = '138B', '139A', etc.
+```
+
+### Pitfall 4: Missing Data Validation
+
+**Error**: CSV data incomplete, script crashes mid-generation
+
+**Fix**: Validate data before rendering
+```python
+# Check all cycles present in CSV
+cycles_in_data = set(data['Cycle'].unique())
+missing = set(expected_cycles) - cycles_in_data
+if missing:
+    raise ValueError(f"Missing cycles in CSV: {missing}")
 ```
 
 ## Validation Checklist
 
-- [ ] Template has header with description and instructions
-- [ ] All [PARAMETER] placeholders documented
-- [ ] Geometry is correct (no overlaps, verified with plots)
-- [ ] Materials realistic (densities, compositions)
-- [ ] Source appropriate for problem type
-- [ ] Tallies relevant to physics question
-- [ ] NPS sufficient for statistics (or marked as [NPS])
-- [ ] MODE card appropriate (N, P, N P, etc.)
-- [ ] KCODE configured correctly (if criticality)
-- [ ] Comments explain key choices
+Before running generated MCNP inputs:
+
+- [ ] Template syntax valid (no `{{...}}` remaining)
+- [ ] All CSV data files present and complete
+- [ ] Time-weighted averaging applied correctly
+- [ ] Generated files have correct naming pattern
+- [ ] Visual inspection of key sections (materials, geometry)
+- [ ] File sizes reasonable (compare to base input)
+- [ ] Cell/surface/material numbering consistent
+- [ ] Created QA plots for operational data
+
+## Reference Files
+
+For detailed guidance:
+- **template_conversion_guide.md** - How to convert inputs → templates
+- **csv_integration_reference.md** - CSV schema design
+- **time_averaging_algorithms.md** - Averaging methods
+- **jinja2_reference.md** - Jinja2 syntax for MCNP
+- **workflow_patterns.md** - Complete workflow examples
+
+## Tools and Scripts
+
+### analyze_input.py
+
+Analyze existing MCNP input to identify parameterizable sections:
+```bash
+python scripts/analyze_input.py base_input.i
+```
+
+**Output**: Report of candidate template variables
+
+### create_template.py
+
+Convert MCNP input to Jinja2 template:
+```bash
+python scripts/create_template.py base_input.i --output base.template --variables oscc_surfaces,ne_cells
+```
+
+### design_csv_schema.py
+
+Generate CSV template for data collection:
+```bash
+python scripts/design_csv_schema.py --cycles 13 --parameters power,oscc_angle,shim_state --output data_template.csv
+```
+
+### render_template.py
+
+Render template with data:
+```bash
+python scripts/render_template.py base.template --data cycle_data.csv --output-dir mcnp/
+```
+
+### time_averaging.py
+
+Utilities for time-weighted averaging:
+```python
+from scripts.time_averaging import time_weighted_average, snap_to_discrete, round_binary
+
+ave_power = time_weighted_average(power_values, time_intervals)
+closest_angle = snap_to_discrete(ave_angle, predefined_angles)
+shim_state = round_binary(ave_insertion)
+```
+
+## Integration with Other Skills
+
+**Works with**:
+- **mcnp-input-builder**: Create initial base input → convert to template
+- **mcnp-lattice-builder**: Generate lattice fill arrays programmatically → insert in template
+- **mcnp-material-builder**: Generate material cards for parameter studies
+- **mcnp-input-validator**: Validate all generated inputs before MCNP execution
+- **mcnp-burnup-builder**: Create depletion sequences from multi-cycle inputs
 
 ## Best Practices
 
-1. **Document Parameters**: List all customizable values in header
-2. **Use Clear Placeholders**: `[VALUE]` or `999.99` (easy to find)
-3. **Include Instructions**: Step-by-step customization guide
-4. **Test Templates**: Verify they run without errors
-5. **Standard Organization**: Consistent structure across templates
-6. **Version Control**: Track template changes
-7. **Minimal Customization**: Keep required edits to minimum
-8. **Realistic Defaults**: Use physically reasonable values
-9. **Comment Rationale**: Explain non-obvious choices
-10. **Provide Examples**: Include sample customized versions
+### 1. Keep Template Minimal
 
-## Resources and References
+**Principle**: Only parameterize what actually varies
 
-### Pre-Made Templates
-- `templates/shielding_sphere.i` - Point source shielding
-- `templates/shielding_slab.i` - Slab transmission
-- `templates/criticality_bare.i` - Bare sphere keff
-- `templates/criticality_reflected.i` - Reflected sphere
-- `templates/dose_ambient.i` - Ambient dose equivalent
-- `templates/activation_simple.i` - Basic activation
+```
+✅ Good: 3-6 template variables (cycle-dependent parameters)
+❌ Bad: 50+ template variables (overly complex)
+```
 
-### Python Tools
-- `scripts/template_generator.py` - Generate custom templates
-- `scripts/README.md` - Tool documentation
+### 2. Separate Concerns
 
-### Reference Files
-- `problem_type_catalog.md` - Complete template descriptions
-- `template_customization_guide.md` - Advanced customization techniques
+**Principle**: Template = structure, CSV = data, Python = logic
 
-### Related MCNP Skills
-- **mcnp-input-builder**: Basic input structure
-- **mcnp-geometry-builder**: Geometry creation
-- **mcnp-material-builder**: Material definitions
-- **mcnp-source-builder**: Source specifications
-- **mcnp-tally-builder**: Tally configurations
+```
+Template: Fixed geometry + placeholders
+CSV: Operational parameters (power, angles, states)
+Python: Time averaging, geometry generation, rendering
+```
 
-### External Resources
-- **MCNP Primer**: Example problems by problem type
-- **LA-UR-16-29043**: MCNP6.2 Feature Enhancements
-- **Project Templates**: Organization-specific libraries
+### 3. Validate Early and Often
 
----
+**Principle**: Catch errors before expensive MCNP runs
 
-**Version**: 2.0.0
-**Last Updated**: 2025-11-06
-**Status**: Production-ready with template library
+```python
+# After reading CSV
+validate_data_completeness(data, expected_cycles)
 
----
+# After rendering
+check_template_variables(output)
+validate_mcnp_syntax(output)
 
-**End of MCNP Template Generator Skill**
+# Before MCNP execution
+plot_qa_diagnostics(data)
+```
+
+### 4. Document Data Sources
+
+**Principle**: Ensure reproducibility
+
+```python
+# Add metadata to generated inputs
+header = f"""c Generated by {script_name} on {datetime.now()}
+c Data sources: {', '.join(csv_files)}
+c Cycle: {cycle}
+c Average power: {ave_power:.4f} MW
+c Control drum angle: {drum_angle}°
+"""
+```
+
+### 5. Version Control Strategy
+
+**Principle**: Track sources, not generated files
+
+```gitignore
+# Commit these
+*.template
+*.csv
+generation_script.py
+
+# Exclude these
+mcnp/*.i
+plots/*.png
+```
+
+## Common Use Cases
+
+### Use Case 1: Multi-Cycle Reactor Burnup
+
+**Challenge**: Model 13 reactor operating cycles with different control positions
+
+**Solution**:
+- Template: Fixed core geometry + {{control_positions}}
+- CSV: Power, control drum angles, shim states vs time
+- Workflow: Time-average each cycle → generate 13 static inputs
+
+**Benefit**: 1 template + CSV → 13 MCNP inputs in seconds
+
+### Use Case 2: Material Property Sensitivity
+
+**Challenge**: Study impact of fuel density variation (±5%)
+
+**Solution**:
+- Template: Fixed geometry + {{fuel_density}}
+- CSV: Density values (-5%, -2.5%, 0%, +2.5%, +5%)
+- Workflow: Generate material cards with varying density
+
+**Benefit**: Systematic exploration of uncertainty
+
+### Use Case 3: Geometry Configuration Management
+
+**Challenge**: Model reactor with 5 different test assemblies in flux trap
+
+**Solution**:
+- Template: Core + {{test_assembly_cells}}
+- Python: Generate test assembly geometry variants
+- Workflow: Render 5 inputs with different assemblies
+
+**Benefit**: Consistent core, variable test section
+
+## Troubleshooting
+
+### Problem: Template renders but MCNP fails
+
+**Check**:
+1. Are cell/surface/material numbers unique?
+2. Are all surfaces referenced in cells defined?
+3. Are all materials referenced in cells defined?
+4. Run with `print` card to see full geometry
+
+### Problem: Time averaging gives unrealistic values
+
+**Check**:
+1. Are time intervals in correct units (hrs, days)?
+2. Is sum of time intervals correct?
+3. Plot averaged values vs time to visualize
+
+### Problem: Generated files have wrong parameters
+
+**Check**:
+1. CSV data loaded correctly (check Pandas dtypes)
+2. Cycle identifier matching correctly
+3. Variable names in template match rendering script
+
+## Additional Resources
+
+**External references**:
+- Jinja2 documentation: https://jinja.palletsprojects.com/
+- Pandas CSV parsing: https://pandas.pydata.org/docs/user_guide/io.html#csv-text-files
+- MCNP input syntax: LA-UR-17-29981 (MCNP6.2 manual)
+
+**Related skills**:
+- mcnp-input-builder (create base inputs)
+- mcnp-burnup-builder (depletion sequences)
+- mcnp-cycle-manager (workflow orchestration - future skill)

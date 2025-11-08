@@ -87,26 +87,39 @@ class LibraryConverter:
 
         return count, sorted(zaids_changed)
 
-    def convert_selective(self, old_lib, new_lib, zaid_list):
+    def convert_selective(self, old_lib, new_lib, zaid_list, preview=False):
         """Convert only specific ZAIDs
 
         Args:
             old_lib: Old library identifier
             new_lib: New library identifier
             zaid_list: List of ZAID numbers to convert (e.g., ['1001', '92235'])
+            preview: If True, show changes without applying
 
         Returns: Number of changes made
         """
         count = 0
+        modified_lines = []
 
         for zaid in zaid_list:
             pattern = re.compile(rf'{zaid}\.{re.escape(old_lib)}')
             for i, line in enumerate(self.lines):
                 if pattern.search(line):
-                    self.lines[i] = pattern.sub(f'{zaid}.{new_lib}', line)
+                    if preview:
+                        new_line = pattern.sub(f'{zaid}.{new_lib}', line)
+                        print(f"Line {i+1} ({zaid}):")
+                        print(f"  Before: {line.rstrip()}")
+                        print(f"  After:  {new_line.rstrip()}")
+                    else:
+                        self.lines[i] = pattern.sub(f'{zaid}.{new_lib}', line)
                     count += 1
 
-        print(f"Converted {count} specific ZAID(s)")
+        if preview:
+            print(f"\nPREVIEW: {count} specific ZAID conversion(s) would be made")
+            print("Run without --preview to apply changes")
+        else:
+            print(f"Converted {count} specific ZAID(s)")
+
         return count
 
     def check_thermal_libraries(self):
@@ -221,7 +234,7 @@ Cross-Section Libraries:
         if args.old and args.new:
             # Selective conversion
             if args.zaids:
-                converter.convert_selective(args.old, args.new, args.zaids)
+                converter.convert_selective(args.old, args.new, args.zaids, preview=args.preview)
             # Full conversion
             else:
                 converter.convert_library(args.old, args.new, args.preview)

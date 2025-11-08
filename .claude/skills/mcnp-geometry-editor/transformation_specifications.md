@@ -562,4 +562,349 @@ $ Note: det=-1, AVOID unless necessary
 
 ---
 
+## Fill Transformations for Lattice Positioning
+
+### Overview
+
+Fill transformations position entire universe structures at specified locations with optional rotation. This is essential for placing lattice universes within parent geometries, particularly in multi-level reactor structures.
+
+**Syntax:**
+```
+FILL=universe_number (dx dy dz)
+FILL=universe_number (dx dy dz) TR_number
+```
+
+**Applications:**
+- Positioning fuel compacts in capsules
+- Placing assemblies in reactor core
+- Translating repeated structures
+- Rotating lattice orientations
+
+---
+
+### Basic Fill Transformation (Translation Only)
+
+**Example:** Position compact lattice at specific location in capsule
+
+```mcnp
+c Compact lattice universe (u=1110)
+91110 0  -91118  u=1110 lat=1  fill=0:0 0:0 -15:15  &
+     [... fill array ...]
+
+c Cell that fills with compact lattice
+91111 0  -97011  98005 -98051  fill=1110  (25.547039 -24.553123 19.108100)
+                               ↑ Universe     ↑ Translation vector (x, y, z)
+
+c Bounding surfaces
+97011 c/z  25.547039 -24.553123  0.63500  $ Cylinder centered at fill position
+98005 pz   17.81810   $ Bottom z-plane
+98051 pz   20.35810   $ Top z-plane
+```
+
+**Interpretation:**
+- Universe 1110 origin placed at (25.547039, -24.553123, 19.108100) in global coordinates
+- All geometry in u=1110 translated by this vector
+- Lattice axes remain aligned with global axes (no rotation)
+
+---
+
+### Fill Transformation with Rotation
+
+**Method 1: Using TR Card Reference**
+
+```mcnp
+c Define transformation (rotation + translation)
+*TR91  24.553123 -25.547039 19.108100  0 0 30  1
+       ↑ Translation to Stack 2              ↑ 30° rotation about Z
+                                                ↑ Degrees mode
+
+c Cell with transformed fill
+91111 0  -97011  98005 -98051  fill=1110  trcl=91
+                               ↑ Universe     ↑ References TR91
+```
+
+**Method 2: Combined Syntax (MCNP6)**
+
+```mcnp
+c Some MCNP versions allow combined fill + TR syntax
+91111 0  -97011  98005 -98051  fill=1110 (24.553123 -25.547039 19.108100) tr=91
+```
+
+**Note:** Syntax varies by MCNP version - check manual for your version
+
+---
+
+### Fill Transformation Validation
+
+**Critical Checks:**
+
+1. **Bounding Surface Alignment**
+   ```
+   - Fill position should match bounding surface center
+   - For c/z: center (x, y) = fill (x, y)
+   - For pz: z-range should bracket fill z-position
+   ```
+
+2. **Translation Vector Components**
+   ```
+   - X, Y: Position in radial plane (for cylindrical geometries)
+   - Z: Axial position
+   - Units: cm (MCNP default)
+   ```
+
+3. **Lattice Extent**
+   ```
+   - Bounding surface must enclose entire filled universe
+   - Lattice extent = N × pitch (for rectangular lattices)
+   - For hex: extent ≈ (max_index) × pitch × √3
+   ```
+
+**Example Validation:**
+```mcnp
+c Fill transformation
+fill=1110 (25.547039 -24.553123 19.108100)
+
+c Check bounding surface
+97011 c/z  25.547039 -24.553123  0.63500
+           ↑ Center matches fill x,y ✓
+
+c Check z-planes
+98005 pz   17.81810   $ Z_min
+98051 pz   20.35810   $ Z_max
+c Fill z = 19.108 is between 17.818 and 20.358 ✓
+
+c Check lattice fits in cylinder
+c Lattice extent: ±0.65 cm (from u=1110 bounding surface)
+c Cylinder radius: 0.635 cm ≈ 0.65 cm ✓
+```
+
+---
+
+### Multiple Fill Transformations
+
+**Example:** Three stacks in hexagonal arrangement
+
+```mcnp
+c Stack 1 at 120° (hexagonal position)
+91111 0  -97011  98005 -98051  fill=1110  (25.547039 -24.553123 19.108100)
+97011 c/z  25.547039 -24.553123  0.63500
+
+c Stack 2 at 180° (60° rotation from Stack 1)
+91112 0  -97012  98005 -98051  fill=1110  (24.553123 -25.547039 19.108100)
+97012 c/z  24.553123 -25.547039  0.63500
+
+c Stack 3 at 240° (120° rotation from Stack 1)
+91113 0  -97013  98005 -98051  fill=1110  (23.000000 -26.000000 19.108100)
+97013 c/z  23.000000 -26.000000  0.63500
+
+c Hexagonal spacing calculation:
+c θ = 120°, 180°, 240° (60° intervals)
+c R = 36 cm (pitch radius)
+c x = x_center + R×cos(θ)
+c y = y_center + R×sin(θ)
+```
+
+---
+
+### Fill Transformation Coordinate Systems
+
+**Interpretation:**
+
+**Without TR card:**
+```mcnp
+fill=universe (dx dy dz)
+```
+- Translation in **global coordinate system**
+- No rotation
+- Simple offset of universe origin
+
+**With TR card (TRCL):**
+```mcnp
+fill=universe  trcl=n
+```
+- TR card defines full transformation
+- Translation AND rotation possible
+- More complex, but more flexible
+
+**Order of Operations (with TR card):**
+1. Apply rotation (about universe origin)
+2. Apply translation
+3. Result: universe rotated and positioned
+
+---
+
+### Hexagonal Fill Patterns
+
+**Example:** Three compacts in triangular arrangement (120° spacing)
+
+```mcnp
+c Central axis at (43.55, -55.73) in global coordinates
+c Compact positions at R = 36 cm, 120° intervals
+
+c Calculate positions:
+c   θ₁ = 120°: x = 43.55 + 36×cos(120°) = 43.55 - 18 = 25.55
+c              y = -55.73 + 36×sin(120°) = -55.73 + 31.18 = -24.55
+c   θ₂ = 180°: x = 43.55 + 36×cos(180°) = 43.55 - 36 = 7.55
+c              y = -55.73 + 36×sin(180°) = -55.73 + 0 = -55.73
+c   θ₃ = 240°: x = 43.55 + 36×cos(240°) = 43.55 - 18 = 25.55
+c              y = -55.73 + 36×sin(240°) = -55.73 - 31.18 = -86.91
+
+c Compact cells with fill transformations
+91111 0  -97011  98005 -98051  fill=1110  (25.55 -24.55 19.108)  $ Stack 1
+91112 0  -97012  98005 -98051  fill=1110  (7.55 -55.73 19.108)   $ Stack 2
+91113 0  -97013  98005 -98051  fill=1110  (25.55 -86.91 19.108)  $ Stack 3
+```
+
+---
+
+### Editing Fill Transformations
+
+**Scenario 1: Reposition Single Fill**
+
+```mcnp
+c BEFORE: Stack at position A
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+
+c AFTER: Move to position B
+91111 0  -97011  98005 -98051  fill=1110  (24.553 -25.547 19.108)
+c Update bounding surface center to match
+97011 c/z  24.553 -25.547  0.63500  $ Updated center
+```
+
+**Scenario 2: Add Rotation to Existing Fill**
+
+```mcnp
+c BEFORE: Translation only
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+
+c AFTER: Add 45° rotation
+*TR91  25.547 -24.553 19.108  0 0 45  1  $ 45° about Z
+91111 0  -97011  98005 -98051  fill=1110  trcl=91
+```
+
+**Scenario 3: Scale Fill Position (with geometry)**
+
+```mcnp
+c BEFORE: Original position
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+
+c AFTER: Scale geometry 1.2×, position scales too
+91111 0  -97011  98005 -98051  fill=1110  (30.656 -29.464 22.930)
+c                                          ↑ 25.547×1.2  ↑ -24.553×1.2  ↑ 19.108×1.2
+c Bounding surfaces also scaled
+97011 c/z  30.656 -29.464  0.762  $ R: 0.635×1.2
+98005 pz   21.382  $ Z: 17.818×1.2
+98051 pz   24.429  $ Z: 20.358×1.2
+```
+
+---
+
+### Common Errors with Fill Transformations
+
+**Error 1: Bounding Surface Mismatch**
+
+```mcnp
+c ERROR: Fill position doesn't match bounding surface
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+97011 c/z  20.000 -20.000  0.635  ✗ Center at (20, -20), fill at (25.55, -24.55)
+```
+
+**Fix:**
+```mcnp
+c CORRECT: Center matches fill
+97011 c/z  25.547 -24.553  0.635  ✓
+```
+
+---
+
+**Error 2: Fill Outside Bounding Surface**
+
+```mcnp
+c ERROR: Lattice extent exceeds bounding surface
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+c Lattice extent from u=1110: ±0.85 cm
+97011 c/z  25.547 -24.553  0.635  ✗ R=0.635 < extent=0.85
+```
+
+**Fix:**
+```mcnp
+c CORRECT: Bounding surface encloses lattice
+97011 c/z  25.547 -24.553  0.900  ✓ R=0.90 > extent=0.85
+```
+
+---
+
+**Error 3: Z-Position Outside Z-Planes**
+
+```mcnp
+c ERROR: Fill z not within z-plane range
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 25.000)
+98005 pz   17.818  $ Z_min
+98051 pz   20.358  $ Z_max
+c Fill z=25.0 > Z_max=20.358 ✗
+```
+
+**Fix:**
+```mcnp
+c CORRECT: Fill z within range
+91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+c 17.818 < 19.108 < 20.358 ✓
+```
+
+---
+
+### Best Practices for Fill Transformations
+
+1. **Match bounding surface to fill position**
+   - Cylinder center = fill (x, y)
+   - Z-planes bracket fill z ± lattice extent
+
+2. **Document fill positions**
+   ```mcnp
+   c Stack 1 at 120° hexagonal position (R=36 cm)
+   91111 0  -97011  98005 -98051  fill=1110  (25.547 -24.553 19.108)
+   ```
+
+3. **Validate before running**
+   - Check bounding surface alignment
+   - Verify lattice fits within bounds
+   - Plot geometry to visualize
+
+4. **Use systematic positioning**
+   - Hexagonal: θ = 0°, 60°, 120°, 180°, 240°, 300°
+   - Rectangular: x = i×pitch, y = j×pitch
+   - Document pattern in comments
+
+5. **Preserve positions when scaling**
+   - If scaling geometry, decide if positions scale too
+   - Document whether centers move or stay fixed
+
+---
+
+### Quick Reference
+
+**Basic fill transformation:**
+```
+fill=universe (x y z)
+```
+
+**Fill with rotation:**
+```
+*TRn  x y z  angles  1
+fill=universe  trcl=n
+```
+
+**Validation checks:**
+- [ ] Bounding surface center = fill (x,y)
+- [ ] Z-planes bracket fill z
+- [ ] Lattice extent < bounding surface radius
+- [ ] Translation vector reasonable (not extreme values)
+- [ ] Plot shows fill positioned correctly
+
+---
+
+**END OF FILL TRANSFORMATION SECTION**
+
+---
+
 **END OF TRANSFORMATION SPECIFICATIONS**

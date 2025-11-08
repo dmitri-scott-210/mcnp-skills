@@ -1,0 +1,34 @@
+======================================================================
+MCNP CROSS-REFERENCE VALIDATION REPORT
+File: test_input.i
+======================================================================
+
+SECTION 1: FATAL ERRORS
+----------------------------------------------------------------------
+[1] Cell 60106 references undefined surface 1119
+    Location: Line 456
+
+[2] Cell 200 references undefined material 50
+    Location: Line 67
+
+[3] Circular universe reference: 100 → 200 → 100
+
+[4] Universe 1234 is filled but not declared (no cells with u=1234)
+
+SECTION 2: WARNINGS
+----------------------------------------------------------------------
+✓ No warnings
+
+SECTION 3: STATISTICS
+----------------------------------------------------------------------
+Total cells:     150
+Total surfaces:  75
+Total materials: 25
+Total universes: 10
+
+SECTION 4: SUMMARY
+----------------------------------------------------------------------
+❌ VALIDATION FAILED: 4 fatal error(s)
+   Input file will NOT run successfully in MCNP
+
+======================================================================

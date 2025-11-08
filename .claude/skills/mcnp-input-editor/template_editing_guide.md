@@ -1,0 +1,447 @@
+# Template Editing Guide
+
+Comprehensive guide for editing template-based MCNP input workflows.
+
+## Template Anatomy
+
+### Jinja2 Template Structure
+
+```
+bench.template (13,727 lines)
+├── Static ATR geometry (lines 1-620)
+├── {{ne_cells}} ← VARIABLE (line 621)
+├── Static NE water cells (lines 622-673)
+├── {{se_cells}} ← VARIABLE (line 674)
+├── Static geometry (lines 675-1429)
+├── {{cells}} ← VARIABLE (line 1430)
+├── Static geometry (lines 1431-1781)
+├── {{oscc_surfaces}} ← VARIABLE (line 1782)
+├── Static surfaces (lines 1783-2213)
+├── {{surfaces}} ← VARIABLE (line 2214)
+├── Static surfaces/data (lines 2215-13602)
+└── {{materials}} ← VARIABLE (line 13603)
+```
+
+**Static sections**: Edit directly in template
+**Variable sections**: Edit in generation script or CSV data
+
+### Common Template Patterns
+
+**Pattern 1: Simple variable substitution**
+```jinja2
+{{power_MW}}  $ Power level
+{{enrichment}}  $ U-235 enrichment
+```
+**Edit in**: Generation script
+
+**Pattern 2: Cycle-dependent geometry**
+```jinja2
+{{ne_cells}}  $ Neck shim configuration for this cycle
+```
+**Edit in**: CSV data (neck_shim.csv)
+
+**Pattern 3: Conditional blocks**
+```jinja2
+{% if use_variance_reduction %}
+  IMP:N=4
+{% else %}
+  IMP:N=1
+{% endif %}
+```
+**Edit in**: Generation script (boolean flag)
+
+## Editing Workflows
+
+### Workflow 1: Add Static Geometry
+
+**Task**: Add new fuel assembly to ATR model
+
+**Steps**:
+1. Edit template (NOT generated inputs)
+   ```mcnp
+   c Fuel Element 16 (NEW)
+   60316 2316 7.969921E-02  1116 -1118 74 -29 53 100 -110
+   ```
+
+2. Add corresponding surfaces
+   ```mcnp
+   1116 c/z  30.533  0.0  7.658
+   1118 c/z  30.533  0.0  8.837
+   ```
+
+3. Add material definition
+   ```mcnp
+   m2316  ...isotopes...
+   ```
+
+4. Regenerate ALL inputs
+   ```bash
+   python create_inputs.py
+   ```
+
+5. Validate first output
+   ```bash
+   python input_editor.py bench_138B.i --validate
+   ```
+
+### Workflow 2: Update CSV-Driven Parameter
+
+**Task**: Correct power value at timestep 312
+
+**Steps**:
+1. Edit CSV file
+   ```csv
+   Cycle,Timestep,Power(MW)
+   138B,312,23.78  # Was: 23.45 (WRONG)
+   ```
+
+2. Regenerate (script reads CSV)
+   ```bash
+   python create_inputs.py
+   ```
+
+3. Check time-averaged values changed
+   ```bash
+   # Old: Average power = 23.45 MW
+   # New: Average power = 23.51 MW
+   ```
+
+4. Verify in generated inputs
+   ```bash
+   grep "power" bench_138B.i
+   ```
+
+### Workflow 3: Modify Template Variable Logic
+
+**Task**: Change how neck shim states are averaged
+
+**Steps**:
+1. Edit generation script
+   ```python
+   # Old: Round to 0 or 1
+   condition = int(np.rint(ave_insertion))
+
+   # New: Use threshold
+   condition = 1 if ave_insertion > 0.6 else 0
+   ```
+
+2. Document change
+   ```python
+   # UPDATED 2025-11-08: Changed threshold from 0.5 to 0.6
+   ```
+
+3. Regenerate
+   ```bash
+   python create_inputs.py
+   ```
+
+4. Compare old vs. new
+   ```bash
+   diff -u bench_138B_old.i bench_138B.i | less
+   ```
+
+## Decision Trees
+
+### Decision Tree 1: Where to Make Edit?
+
+```
+Need to change parameter in generated input
+  |
+  +--> Is parameter in CSV data?
+       |
+       +--[Yes]------------> Edit CSV → Regenerate all
+       |                    Examples: power, control positions, time steps
+       |
+       +--[No]----------+
+                        |
+                        +--> Is parameter in template?
+                             |
+                             +--[Yes, static]-----> Edit template → Regenerate all
+                             |                     Examples: geometry, materials, physics cards
+                             |
+                             +--[Yes, variable]---> Check if template variable
+                             |                     If {{variable}}, edit generation script
+                             |
+                             +--[No]-------------> Edit generated input directly
+                                                   Examples: one-off corrections, experiments
+```
+
+### Decision Tree 2: Edit vs. Regenerate?
+
+```
+Found parameter to change
+  |
+  +--> Affects ALL cycle inputs?
+       |
+       +--[Yes]---------> Edit template/CSV → Regenerate
+       |
+       +--[No]---------+
+                       |
+                       +--> One-time experiment?
+                            |
+                            +--[Yes]-----> Edit generated file directly (document!)
+                            +--[No]------> Consider if should be in template
+```
+
+## Identifying Template-Generated Inputs
+
+**Clues that input was template-generated**:
+1. Multiple similar files with systematic names (`bench_138B.i`, `bench_139A.i`, ...)
+2. Presence of `.template` file in directory
+3. Presence of generation script (`create_inputs.py`)
+4. Presence of CSV data files (`power.csv`, `oscc.csv`)
+5. Comment in input: `c Generated by create_inputs.py on 2025-11-07`
+
+**If template-generated, DON'T edit individual outputs!**
+
+## When Direct Editing is OK
+
+**Edit generated input directly when**:
+1. One-time experiment (testing sensitivity)
+2. Quick fix for immediate run (will regenerate later)
+3. Parameter not in template or CSV
+4. Template/script no longer available
+5. Change only affects ONE input, not all
+
+**Always note in file if editing manually**:
+```mcnp
+c MANUAL EDIT 2025-11-08: Increased enrichment 3.0→3.2% for sensitivity test
+c NOTE: This file modified AFTER generation, regenerating will overwrite!
+m10  92235.70c 0.032  92238.70c 0.968  $ Was 0.030/0.970
+```
+
+## Troubleshooting
+
+### Problem: Template variables not substituting
+
+**Symptoms**: `{{variable}}` appears literally in generated input
+
+**Causes**:
+1. Variable not passed to `template.render()`
+2. Variable name misspelled
+3. Template not using Jinja2 syntax
+
+**Fix**:
+```python
+# Check render call
+full_input = template.render(
+    ne_cells=ne_cells[cycle],  # ← Variable must be here
+    oscc_surfaces=oscc_surfaces[cycle],
+    ...
+)
+```
+
+### Problem: Regeneration overwrites manual edits
+
+**Symptoms**: Changes made directly to `bench_138B.i` are lost
+
+**Cause**: Regeneration always overwrites output files
+
+**Prevention**:
+1. **DON'T** edit generated files if you have template
+2. **ALWAYS** edit template/CSV/script instead
+3. If must edit manually, rename file: `bench_138B_modified.i`
+
+**Recovery**:
+- If manual edit was important, add it to template
+- If temporary, recreate manually after regeneration
+
+### Problem: Same change needed in template AND generated files
+
+**Situation**: Template exists but isn't being used anymore
+
+**Solution**:
+1. Edit template (for future use)
+2. Edit generated files (for current use)
+3. Document that they're now out of sync
+
+**Better solution**: Always regenerate from template!
+
+## Reference: Generation Script Patterns
+
+### Pattern 1: Time-Weighted Averaging
+
+```python
+# Compute average over cycle
+ave_power = (power * time_interval).sum() / cum_time[-1]
+
+# Use in template
+template.render(power=ave_power)
+```
+
+### Pattern 2: Discrete Value Selection
+
+```python
+# Snap continuous value to discrete library
+angles = [0, 25, 40, 50, 60, 65, 75, 80, 85, 100, 120, 125, 150]
+ave_angle = 82.3  # Time-averaged
+closest_angle = find_closest(angles, ave_angle)  # Returns 85
+
+# Use in template
+template.render(oscc_surfaces=drum_surfaces[closest_angle])
+```
+
+### Pattern 3: Binary State from Continuous
+
+```python
+# Round continuous insertion (0-1) to binary state
+ave_insertion = 0.78  # Time-averaged
+condition = int(np.rint(ave_insertion))  # Returns 1 (inserted)
+
+mat = {0: (10, 1.00E-1), 1: (71, 4.56E-2)}[condition]
+
+# Use in template
+template.render(ne_cells=generate_shim_cells(mat))
+```
+
+## Template Editing Best Practices
+
+1. **Always document template changes**
+   ```jinja2
+   c UPDATED 2025-11-08: Changed graphite density 1.70 → 1.85 g/cm³
+   m2  -1.85  6012.00c 0.99  6013.00c 0.01
+   mt2 grph.18t
+   ```
+
+2. **Validate template before regenerating**
+   ```bash
+   # Test render first (if using Jinja2)
+   python -c "from jinja2 import Template; print(Template(open('bench.template').read()).render(...))"
+   ```
+
+3. **Regenerate and compare**
+   ```bash
+   # Backup old
+   cp bench_138B.i bench_138B_old.i
+
+   # Regenerate
+   python create_inputs.py
+
+   # Compare old vs. new
+   diff -u bench_138B_old.i bench_138B.i | less
+   ```
+
+4. **Update README/documentation**
+   ```markdown
+   ## Template Variables
+   - {{ne_cells}} - NE neck shim cells (cycle-dependent)
+   - {{oscc_surfaces}} - Control drum positions (cycle-dependent)
+   - {{power}} - Time-averaged power (cycle-dependent)
+   ```
+
+5. **Version control template changes**
+   ```bash
+   git add bench.template create_inputs.py
+   git commit -m "Added 130° control drum position to library"
+   ```
+
+## Example: Complete Template Edit Workflow
+
+### Scenario: Add New Control Drum Angle
+
+**Current**: Library has angles [0, 25, 40, 50, 60, 65, 75, 80, 85, 100, 120, 125, 150]
+**Needed**: Add 130° position
+
+**Step 1: Edit generation script**
+```python
+# In create_inputs.py
+
+# OLD:
+angles = [0, 25, 40, 50, 60, 65, 75, 80, 85, 100, 120, 125, 150]
+
+# NEW:
+angles = [0, 25, 40, 50, 60, 65, 75, 80, 85, 100, 120, 125, 130, 150]  # Added 130
+
+# Generate surface definitions for 130°
+surf_130 = generate_drum_surfaces(angle=130)
+ne_surfaces[130] = surf_130
+```
+
+**Step 2: Document change**
+```python
+# UPDATED 2025-11-08: Added 130° control drum position
+# Required for new operating condition analysis
+```
+
+**Step 3: Test generation**
+```bash
+# Generate one cycle to test
+python create_inputs.py --cycles 138B
+
+# Validate
+python input_editor.py bench_138B.i --validate
+
+# Check surfaces added
+grep "130" bench_138B.i
+```
+
+**Step 4: Generate all cycles**
+```bash
+# If test passed, generate all
+python create_inputs.py
+
+# Validate all
+for f in bench_*.i; do
+  python input_editor.py "$f" --validate
+done
+```
+
+**Step 5: Commit**
+```bash
+git add create_inputs.py bench_*.i
+git commit -m "Added 130° control drum position to library
+
+- Updated angle library in create_inputs.py
+- Regenerated all 13 cycle inputs
+- Validated all outputs"
+```
+
+## Common Template Types
+
+### Type 1: Pure Jinja2 Template
+
+```jinja2
+c MCNP Input - {{cycle}}
+c Power: {{power_MW}} MW
+c
+{% for cell in fuel_cells %}
+{{cell.number}} {{cell.material}} {{cell.density}} {{cell.geometry}}
+{% endfor %}
+```
+
+**Pros**: Clean separation of template and data
+**Cons**: Requires Jinja2 engine
+
+### Type 2: Python String Formatting
+
+```python
+template = """
+c MCNP Input - {cycle}
+c Power: {power_MW} MW
+c
+{fuel_cells}
+"""
+
+output = template.format(cycle=cycle, power_MW=power, fuel_cells=cells_str)
+```
+
+**Pros**: Simple, no dependencies
+**Cons**: Limited control flow
+
+### Type 3: Hybrid (Static + Variables)
+
+```
+# Template has variable markers
+# Script replaces with str.replace()
+
+template = open('bench.template').read()
+template = template.replace('{{ne_cells}}', ne_cells[cycle])
+template = template.replace('{{oscc_surfaces}}', oscc_surfaces[cycle])
+```
+
+**Pros**: Works with any template
+**Cons**: Manual tracking of variables
+
+---
+
+**END OF GUIDE**

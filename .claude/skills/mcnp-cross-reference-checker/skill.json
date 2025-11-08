@@ -1,0 +1,25 @@
+{
+  "name": "mcnp-cross-reference-checker",
+  "description": "Validates MCNP input cross-references (cells→surfaces, cells→materials, universes) to catch fatal errors before runtime",
+  "version": "2.0.0",
+  "keywords": [
+    "mcnp",
+    "validation",
+    "cross-reference",
+    "debugging",
+    "quality-assurance",
+    "error-detection",
+    "universe-hierarchy",
+    "lattice-validation"
+  ],
+  "capabilities": [
+    "cell-surface-validation",
+    "cell-material-validation",
+    "universe-hierarchy-validation",
+    "circular-reference-detection",
+    "numbering-conflict-detection",
+    "automated-validation-reports",
+    "lattice-array-validation",
+    "void-cell-type-detection"
+  ]
+}

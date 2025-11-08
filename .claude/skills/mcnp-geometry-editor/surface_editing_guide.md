@@ -599,4 +599,454 @@ After 1.5× scale: VOL=3375.0  $ Must update!
 
 ---
 
+## Hexagonal Geometry Surface Editing
+
+### RHP (Right Hexagonal Prism) - Complete Reference
+
+**Format:**
+```
+RHP  vx vy vz  hx hy hz  r1 r2 r3
+```
+
+**Parameters:**
+- **v** = (vx, vy, vz): Base center position (origin of hexagon)
+- **h** = (hx, hy, hz): Height vector (axis of prism, base to top)
+- **r** = (r1, r2, r3): R-vector (perpendicular to h, points to face center)
+
+**Key Relationships:**
+- **Hexagonal pitch**: pitch = |r| × √3 (NOT |r|!)
+- **R-vector magnitude**: |r| = apothem (distance from center to face midpoint)
+- **Height**: |h| = prism height
+- **R perpendicular to h**: r · h = 0 (usually, but not strictly required)
+
+---
+
+### RHP Parameters and Geometry
+
+**Example:**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+```
+
+**Interpretation:**
+- **Origin**: (0, 0, 0) - base center at global origin
+- **Height vector**: (0, 0, 68) - extends 68 cm along +Z axis
+- **R-vector**: (0, 1.6, 0) - points 1.6 cm along +Y axis
+  - Magnitude: |r| = 1.6 cm (apothem)
+  - Hexagonal pitch: 1.6 × 1.732 = 2.771 cm
+  - Hexagon oriented with **flat sides parallel to X-Z plane**
+
+**Visualization:**
+```
+Top view (looking down -Z):
+
+       Flat side
+      ___________
+     /           \
+    /             \
+   |       ●       |  ← R-vector points to this flat side (along +Y)
+    \             /      Center at (0,0)
+     \___________/       Apothem R = 1.6 cm
+                         Pitch = R×√3 = 2.771 cm
+
+Height: 68 cm (along Z)
+```
+
+---
+
+### Hexagonal Pitch Calculation
+
+**Formula:**
+```
+pitch = |R| × √3
+```
+
+Where:
+- |R| = magnitude of R-vector = apothem
+- √3 ≈ 1.732
+- pitch = distance between parallel sides of hexagon
+
+**Example:**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+c                              ↑ R-vector
+
+R-vector: (0, 1.6, 0)
+|R| = sqrt(0² + 1.6² + 0²) = 1.6 cm
+pitch = 1.6 × 1.732 = 2.771 cm
+```
+
+**For hexagonal lattices (LAT=2):**
+- Lattice spacing = pitch
+- Pin positions separated by pitch × √3
+- RHP surface defines SINGLE hexagonal cell
+- Lattice FILL indices determine array extent
+
+---
+
+### Editing RHP Surfaces
+
+#### Edit 1: Change Hexagonal Pitch (Scale R-Vector)
+
+**Original:**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+c Pitch = 1.6 × √3 = 2.771 cm
+```
+
+**Scaled 1.2× (larger pitch):**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.92 0
+c                              ↑ R = 1.6 × 1.2 = 1.92 cm
+c New pitch = 1.92 × √3 = 3.325 cm
+```
+
+**Verification:**
+- R-vector magnitude: 1.92 cm ✓
+- Height vector unchanged: 68 cm ✓
+- Pitch increased by 1.2× (2.771 → 3.325 cm) ✓
+
+---
+
+#### Edit 2: Change Prism Height (Scale H-Vector)
+
+**Original:**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+c Height = 68 cm
+```
+
+**Scaled 1.5× (taller prism):**
+```mcnp
+100 rhp  0 0 0  0 0 102  0 1.6 0
+c                      ↑ H = 68 × 1.5 = 102 cm
+c R-vector unchanged
+c Pitch unchanged = 2.771 cm
+```
+
+**Verification:**
+- Height vector: 102 cm ✓
+- R-vector unchanged: 1.6 cm ✓
+- Pitch unchanged: 2.771 cm ✓
+
+---
+
+#### Edit 3: Rotate Hexagon (Rotate R-Vector)
+
+**Original (R along +Y):**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+c Hexagon with flat sides parallel to X-Z plane
+```
+
+**Rotated 30° about Z-axis:**
+
+**Method 1: Calculate rotated R-vector**
+```
+Rotation matrix (30° about Z):
+[cos(30°)  -sin(30°)  0] [0  ]   [0.866×0 - 0.5×1.6 ]   [-0.8  ]
+[sin(30°)   cos(30°)  0] [1.6] = [0.5×0 + 0.866×1.6 ] = [1.386 ]
+[0          0         1] [0  ]   [0                 ]   [0     ]
+
+cos(30°) = 0.866
+sin(30°) = 0.5
+```
+
+```mcnp
+100 rhp  0 0 0  0 0 68  -0.8 1.386 0
+c                              ↑ Rotated R-vector
+c Magnitude: sqrt(0.8² + 1.386²) = 1.6 ✓
+c Pitch unchanged: 1.6 × √3 = 2.771 cm ✓
+```
+
+**Method 2: Use TR card**
+```mcnp
+*TR100  0 0 0  0 0 30  1  $ 30° rotation about Z
+100  100  rhp  0 0 0  0 0 68  0 1.6 0
+     ↑ Uses TR100
+```
+
+**Effect of 30° rotation:**
+- Original: Flat sides parallel to X-Z plane
+- Rotated: Hexagon rotated 30° → points now align with ±Y axes
+- Pitch magnitude preserved: 2.771 cm ✓
+
+---
+
+#### Edit 4: Move RHP (Translate Origin)
+
+**Original (centered at origin):**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+```
+
+**Translated to (50, 30, 10):**
+```mcnp
+100 rhp  50 30 10  0 0 68  0 1.6 0
+c        ↑ New origin (base center)
+c                  ↑ Height vector unchanged (relative to new origin)
+c                          ↑ R-vector unchanged
+```
+
+**Interpretation:**
+- Base center at (50, 30, 10)
+- Top center at (50, 30, 78) [base + h]
+- Orientation unchanged (R-vector same)
+- Pitch unchanged
+
+---
+
+#### Edit 5: Uniform Scaling (All Dimensions)
+
+**Original:**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+```
+
+**Scaled 1.3× (all dimensions):**
+```mcnp
+100 rhp  0 0 0  0 0 88.4  0 2.08 0
+c        ↑ Origin unchanged (at 0,0,0)
+c                  ↑ H = 68 × 1.3 = 88.4 cm
+c                           ↑ R = 1.6 × 1.3 = 2.08 cm
+c Pitch = 2.08 × √3 = 3.603 cm (was 2.771 cm)
+```
+
+**Verification:**
+- Height scaled: 68 → 88.4 cm ✓
+- R-vector scaled: 1.6 → 2.08 cm ✓
+- Pitch scaled: 2.771 → 3.603 cm ✓
+- Volume scaled by 1.3³ = 2.197 ✓
+
+---
+
+### RHP Orientation and R-Vector Direction
+
+**R-vector defines hexagon orientation:**
+
+**Case 1: R along +Y (flat sides parallel to X-Z)**
+```mcnp
+100 rhp  0 0 0  0 0 68  0 1.6 0
+```
+```
+Top view:
+      ___________
+     /           \
+    /             \
+   |       ●----→  |  R points to flat side (along +Y)
+    \             /
+     \___________/
+```
+
+**Case 2: R along +X (flat sides parallel to Y-Z)**
+```mcnp
+100 rhp  0 0 0  0 0 68  1.6 0 0
+```
+```
+Top view:
+        /\
+       /  \
+      /    \
+     |  ●→ |  R points to flat side (along +X)
+      \    /
+       \  /
+        \/
+```
+
+**Case 3: R at 45° (flat side at 45°)**
+```mcnp
+100 rhp  0 0 0  0 0 68  1.131 1.131 0
+c                              ↑ R = (1.131, 1.131, 0)
+c                              |R| = sqrt(1.131² + 1.131²) = 1.6 cm
+c                              Angle = 45° from +X
+```
+
+**Key Point:** R-vector direction determines hexagon orientation, NOT size
+
+---
+
+### Hexagonal Symmetry and Rotation
+
+**60° Rotational Symmetry:**
+- Hexagons have 6-fold symmetry
+- Rotating by 60° produces identical hexagon (if uniform)
+- Rotating by 30° changes flat-to-flat to point-to-point orientation
+
+**Example: 60° Rotation**
+```
+Original R-vector: (0, 1.6, 0)
+After 60° rotation about Z:
+  x' = 0×cos(60°) - 1.6×sin(60°) = -1.386
+  y' = 0×sin(60°) + 1.6×cos(60°) = 0.8
+  R' = (-1.386, 0.8, 0)
+
+Magnitude: |R'| = sqrt(1.386² + 0.8²) = 1.6 ✓
+Pitch unchanged: 2.771 cm ✓
+```
+
+**Special Angles:**
+- 0°, 60°, 120°, 180°, 240°, 300° → Same orientation (6-fold symmetry)
+- 30°, 90°, 150°, 210°, 270°, 330° → Point-to-point (rotated by 30°)
+
+---
+
+### RHP Editing Patterns
+
+**Pattern 1: Scale Assembly (Preserve Orientation)**
+```mcnp
+c Original
+100 rhp  0 0 0  0 0 68  0 1.6 0
+
+c Scaled 1.2× (all dimensions)
+100 rhp  0 0 0  0 0 81.6  0 1.92 0
+c Scale H: 68 × 1.2 = 81.6
+c Scale R: 1.6 × 1.2 = 1.92
+c Orientation preserved (R still along +Y)
+```
+
+**Pattern 2: Change Pitch Only (Preserve Height)**
+```mcnp
+c Original (pitch = 2.771 cm)
+100 rhp  0 0 0  0 0 68  0 1.6 0
+
+c New pitch = 3.0 cm
+c Required R = pitch / √3 = 3.0 / 1.732 = 1.732 cm
+100 rhp  0 0 0  0 0 68  0 1.732 0
+c Height unchanged, R increased for larger pitch
+```
+
+**Pattern 3: Rotate Assembly (Preserve Size)**
+```mcnp
+c Original
+100 rhp  0 0 0  0 0 68  0 1.6 0
+
+c Rotated 45° about Z
+c R' = (R×cos(45°), R×sin(45°), 0) assuming R was along +X
+c But R is along +Y, so:
+c R' = (-R×sin(45°), R×cos(45°), 0) = (-1.131, 1.131, 0)
+100 rhp  0 0 0  0 0 68  -1.131 1.131 0
+c Magnitude preserved: |R'| = 1.6 ✓
+```
+
+---
+
+### Hexagonal Lattice (LAT=2) Considerations
+
+**RHP defines SINGLE hexagonal cell:**
+```mcnp
+c Hexagonal lattice cell
+400 0  -400  u=400 lat=2  fill=-3:3 -3:3 0:0  &
+    [... fill array ...]
+
+c RHP surface (defines ONE hexagonal cell)
+400 rhp  0 0 0  0 0 68  0 1.6 0
+c This RHP is the "unit cell" - lattice replicates it
+```
+
+**Lattice extent determined by FILL indices:**
+- `fill=-3:3` means 7×7 grid (but hexagonal, not rectangular)
+- Total hexagons in 7-ring pattern: 127 (not 49!)
+- RHP pitch = spacing between hexagon centers
+
+**When editing hexagonal lattice:**
+1. RHP surface: defines single cell geometry
+2. FILL indices: determine how many cells
+3. Lattice bounding surface: must enclose all filled cells
+
+---
+
+### RHP Validation Checklist
+
+After editing RHP surface:
+- [ ] **R-vector magnitude**: |R| = sqrt(r1² + r2² + r3²)
+- [ ] **Pitch calculation**: pitch = |R| × √3
+- [ ] **Height vector**: |h| = sqrt(hx² + hy² + hz²)
+- [ ] **Perpendicularity** (if intended): r · h = 0
+- [ ] **Orientation**: R-vector points toward intended face
+- [ ] **Bounding**: RHP encloses intended region
+- [ ] **Lattice fit** (if LAT=2): cells fit within bounding surface
+
+---
+
+### Common RHP Errors
+
+**Error 1: Confusing |R| with Pitch**
+```mcnp
+c WRONG: Using pitch value as R
+c Intended pitch: 3.0 cm
+100 rhp  0 0 0  0 0 68  0 3.0 0  ✗
+c This gives pitch = 3.0 × √3 = 5.196 cm (NOT 3.0!)
+
+c CORRECT: R = pitch / √3
+100 rhp  0 0 0  0 0 68  0 1.732 0  ✓
+c Pitch = 1.732 × √3 = 3.0 cm ✓
+```
+
+---
+
+**Error 2: Scaling Only R (Forgetting H)**
+```mcnp
+c WRONG: Scale R but not H
+c Intent: Uniform 1.5× scale
+100 rhp  0 0 0  0 0 68  0 2.4 0  ✗
+c R scaled: 1.6 × 1.5 = 2.4 ✓
+c H NOT scaled: still 68 (should be 102) ✗
+
+c CORRECT: Scale both R and H
+100 rhp  0 0 0  0 0 102  0 2.4 0  ✓
+c R: 1.6 × 1.5 = 2.4 ✓
+c H: 68 × 1.5 = 102 ✓
+```
+
+---
+
+**Error 3: Wrong Rotation Calculation**
+```mcnp
+c WRONG: Rotating R-vector without preserving magnitude
+c Original: R = (0, 1.6, 0)
+c Attempt 60° rotation (incorrect calculation)
+100 rhp  0 0 0  0 0 68  -1.5 0.9 0  ✗
+c Magnitude: sqrt(1.5² + 0.9²) = 1.75 ≠ 1.6 ✗
+
+c CORRECT: Preserve magnitude
+c cos(60°) = 0.5, sin(60°) = 0.866
+c R' = (0×0.5 - 1.6×0.866, 0×0.866 + 1.6×0.5, 0)
+c    = (-1.386, 0.8, 0)
+100 rhp  0 0 0  0 0 68  -1.386 0.8 0  ✓
+c Magnitude: sqrt(1.386² + 0.8²) = 1.6 ✓
+```
+
+---
+
+### Quick Reference: RHP Editing
+
+**Scale pitch:**
+```
+R_new = R_old × scale_factor
+pitch_new = pitch_old × scale_factor
+```
+
+**Scale height:**
+```
+H_new = H_old × scale_factor
+```
+
+**Rotate about Z (preserving magnitude):**
+```
+R' = (R_x×cos(θ) - R_y×sin(θ), R_x×sin(θ) + R_y×cos(θ), R_z)
+```
+
+**Translate:**
+```
+v_new = v_old + translation_vector
+H unchanged
+R unchanged
+```
+
+---
+
+**END OF HEXAGONAL GEOMETRY SECTION**
+
+---
+
 **END OF SURFACE EDITING GUIDE**

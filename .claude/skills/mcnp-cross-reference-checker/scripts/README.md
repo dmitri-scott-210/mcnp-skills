@@ -10,9 +10,9 @@
 This directory contains Python scripts for automated cross-reference validation and dependency analysis of MCNP input files.
 
 **Available Scripts:**
-1. **mcnp_cross_reference_checker.py** - Core validation library
-2. **dependency_visualizer.py** - Dependency graph visualization (planned)
-3. **cross_reference_validator.py** - CLI validation tool (planned)
+1. **cross_reference_validator.py** - Main CLI validation tool (NEW - RECOMMENDED)
+2. **mcnp_cross_reference_checker.py** - Legacy validation library
+3. **dependency_visualizer.py** - Dependency graph visualization (planned)
 4. **reference_fixer.py** - Automated fix suggestions (planned)
 
 ---
@@ -30,6 +30,184 @@ python >= 3.8
 ```bash
 pip install graphviz  # For DOT format diagrams
 ```
+
+---
+
+## Script 0: cross_reference_validator.py (RECOMMENDED)
+
+### Description
+**NEW in v2.0** - Comprehensive command-line validator with advanced features:
+- Cell → Surface validation
+- Cell → Material validation (with void cell type detection)
+- Universe hierarchy validation
+- Circular universe reference detection
+- Duplicate ID detection
+- Formatted validation reports
+
+### Usage
+
+**Basic validation:**
+```bash
+python cross_reference_validator.py <mcnp_input_file>
+```
+
+**Example:**
+```bash
+python cross_reference_validator.py reactor_model.i
+```
+
+### Output
+
+The script generates two outputs:
+
+1. **Console output**: Validation report printed to screen
+2. **Report file**: `<input_filename>_validation_report.txt` saved to disk
+
+### Exit Codes
+
+- **0**: Validation passed (no fatal errors)
+- **1**: Validation failed (fatal errors detected)
+
+### What It Validates
+
+| Check Type | Description | Severity |
+|------------|-------------|----------|
+| Cell → Surface | All surfaces in cell geometry exist | FATAL |
+| Cell → Material | All materials referenced exist (excludes void) | FATAL |
+| Universe Fill | All filled universes are declared | FATAL |
+| Circular Universe | No cyclic dependencies in fill chains | FATAL |
+| Duplicate IDs | No duplicate cell/surface/material IDs | FATAL |
+
+### Example Output - Passing
+
+```
+======================================================================
+MCNP CROSS-REFERENCE VALIDATION REPORT
+File: simple_pwr_pin.i
+======================================================================
+
+SECTION 1: FATAL ERRORS
+----------------------------------------------------------------------
+✓ No fatal errors detected
+
+SECTION 2: WARNINGS
+----------------------------------------------------------------------
+✓ No warnings
+
+SECTION 3: STATISTICS
+----------------------------------------------------------------------
+Total cells:     5
+Total surfaces:  6
+Total materials: 3
+Total universes: 1
+
+SECTION 4: SUMMARY
+----------------------------------------------------------------------
+✅ VALIDATION PASSED
+   No fatal cross-reference errors detected
+
+======================================================================
+```
+
+### Example Output - Failing
+
+```
+======================================================================
+MCNP CROSS-REFERENCE VALIDATION REPORT
+File: test_input.i
+======================================================================
+
+SECTION 1: FATAL ERRORS
+----------------------------------------------------------------------
+[1] Cell 60106 references undefined surface 1119
+    Location: Line 456
+
+[2] Cell 200 references undefined material 50
+    Location: Line 67
+
+[3] Circular universe reference: 100 → 200 → 100
+
+SECTION 2: WARNINGS
+----------------------------------------------------------------------
+✓ No warnings
+
+SECTION 3: STATISTICS
+----------------------------------------------------------------------
+Total cells:     150
+Total surfaces:  75
+Total materials: 25
+Total universes: 10
+
+SECTION 4: SUMMARY
+----------------------------------------------------------------------
+❌ VALIDATION FAILED: 4 fatal error(s)
+   Input file will NOT run successfully in MCNP
+
+======================================================================
+```
+
+### Integration with Workflows
+
+**Pre-Run Validation Script:**
+```bash
+#!/bin/bash
+# Validate input before submitting MCNP job
+
+INPUT_FILE="reactor.i"
+
+# Run validation
+python cross_reference_validator.py $INPUT_FILE
+
+# Check exit code
+if [ $? -eq 0 ]; then
+    echo "Validation passed - submitting MCNP job"
+    mcnp6 i=$INPUT_FILE
+else
+    echo "Validation failed - fix errors before running"
+    exit 1
+fi
+```
+
+**Batch Validation:**
+```bash
+#!/bin/bash
+# Validate all input files in directory
+
+for file in *.i; do
+    echo "Validating $file..."
+    python cross_reference_validator.py "$file"
+    echo ""
+done
+```
+
+### Performance
+
+- **Small models** (< 100 cells): < 1 second
+- **Medium models** (100-1000 cells): 1-5 seconds
+- **Large models** (1000+ cells, e.g., AGR-1): 5-15 seconds
+
+Much faster than waiting for MCNP to fail!
+
+### Void Cell Handling
+
+The validator properly distinguishes three types of void cells (material 0):
+
+**1. Lattice Container (valid void):**
+```mcnp
+100 0  -10  u=100 lat=1  fill=-2:2 -2:2 0:0
+```
+
+**2. Fill Target (valid void):**
+```mcnp
+200 0  -20  fill=100
+```
+
+**3. True Void (valid void):**
+```mcnp
+999 0  9999  $ Particle termination
+```
+
+Only non-zero material IDs are validated against the materials block.
 
 ---
 

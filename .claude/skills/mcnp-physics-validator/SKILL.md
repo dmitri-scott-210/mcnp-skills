@@ -410,6 +410,206 @@ MT1 grph.20t    ← S(α,β) for C in graphite
 - Acceptable for fast systems
 - Important for thermal systems
 
+## CRITICAL: Systematic Thermal Scattering Validation
+
+### Materials Requiring S(α,β) Treatment
+
+**MCNP uses free gas scattering by default** - this is WRONG for thermal systems!
+
+**ALWAYS require MT cards for**:
+1. ✅ **Graphite** (C) - ANY reactor with graphite (HTGR, RBMK, fast reactor reflectors)
+2. ✅ **Light water** (H₂O) - PWR, BWR, research reactors, pools
+3. ✅ **Heavy water** (D₂O) - CANDU, research reactors
+4. ✅ **Polyethylene** (CH₂) - Shielding, neutron sources
+5. ✅ **Beryllium metal** (Be) - Reflectors, moderators
+6. ✅ **Beryllium oxide** (BeO) - Reflectors
+
+### Temperature-Dependent Library Selection
+
+**CRITICAL**: S(α,β) libraries are temperature-dependent!
+
+**Graphite Libraries**:
+```mcnp
+c Cold critical (room temperature)
+mt1 grph.10t  $ 296K
+
+c HTGR operating conditions
+mt1 grph.18t  $ 600K ← MOST COMMON
+
+c High-temperature HTGR
+mt1 grph.22t  $ 800K
+mt1 grph.24t  $ 1000K
+
+c VHTR conditions
+mt1 grph.26t  $ 1200K
+
+c Accident conditions
+mt1 grph.28t  $ 1600K
+mt1 grph.30t  $ 2000K
+```
+
+**Water Libraries**:
+```mcnp
+c Room temperature (cold critical)
+mt2 lwtr.10t  $ 294K
+
+c PWR operating
+mt2 lwtr.11t  $ 325K (cold leg ~52°C)
+mt2 lwtr.13t  $ 350K (average ~77°C) ← COMMON
+mt2 lwtr.14t  $ 400K (hot leg ~127°C)
+
+c Supercritical / BWR
+mt2 lwtr.16t  $ 500K
+mt2 lwtr.20t  $ 800K (steam)
+```
+
+**Selection Rule**: Use library closest to actual operating temperature!
+
+### Validation Procedure
+
+**Step 1**: Identify all materials with moderator/reflector isotopes:
+```python
+for material in materials:
+    has_carbon = check_for_isotopes(material, ['6000', '6012', '6013'])
+    has_hydrogen = check_for_isotopes(material, ['1001'])
+    has_deuterium = check_for_isotopes(material, ['1002'])
+    has_beryllium = check_for_isotopes(material, ['4009'])
+    has_oxygen = check_for_isotopes(material, ['8016'])
+```
+
+**Step 2**: Check for MT cards:
+```python
+if has_carbon and MODE includes 'N':
+    if no MT card with 'grph':
+        ERROR: "CRITICAL - Missing graphite thermal scattering"
+        Impact: "Wrong thermal spectrum, reactivity error 1000-5000 pcm"
+        Fix: "Add mt{material_id} grph.18t (or appropriate temperature)"
+
+if has_hydrogen and has_oxygen:
+    if no MT card with 'lwtr':
+        ERROR: "CRITICAL - Missing water thermal scattering"
+        Impact: "Inaccurate thermal neutron treatment"
+        Fix: "Add mt{material_id} lwtr.13t (or appropriate temperature)"
+```
+
+**Step 3**: Verify temperature appropriateness:
+```python
+if MT card has 'grph.10t' but operating_temp > 400K:
+    WARNING: "Using room-temperature graphite S(α,β) at elevated temperature"
+    Recommendation: "Use grph.18t (600K) or higher temperature library"
+```
+
+### Example: HTGR Fuel Compact Validation
+
+**TRISO particle with 5 carbon layers**:
+```mcnp
+c Kernel (UCO fuel)
+m1  $ No MT needed (fuel, not moderator)
+   92235.00c  0.20
+   92238.00c  0.80
+    6012.00c  0.32
+    8016.00c  1.36
+
+c Buffer (porous carbon)
+m2
+    6012.00c  0.989
+    6013.00c  0.011
+mt2 grph.18t  ← REQUIRED! (600K operating)
+
+c IPyC (Inner Pyrolytic Carbon)
+m3
+    6012.00c  0.989
+    6013.00c  0.011
+mt3 grph.18t  ← REQUIRED!
+
+c SiC (Silicon Carbide)
+m4  $ No MT needed (ceramic, not thermal scatterer)
+   14028.00c  0.50
+    6012.00c  0.50
+
+c OPyC (Outer Pyrolytic Carbon)
+m5
+    6012.00c  0.989
+    6013.00c  0.011
+mt5 grph.18t  ← REQUIRED!
+
+c Matrix (Graphite)
+m6
+    6012.00c  0.989
+    6013.00c  0.011
+mt6 grph.18t  ← REQUIRED!
+```
+
+**Validation**:
+- ✅ Materials 2, 3, 5, 6 (carbon layers) have MT cards
+- ✅ All use grph.18t (600K) for HTGR operating conditions
+- ✅ Material 1 (kernel) doesn't need MT (fuel)
+- ✅ Material 4 (SiC) doesn't need MT (ceramic)
+
+### Common Mistakes
+
+**Mistake 1**: Missing graphite S(α,β) entirely
+```mcnp
+c WRONG - NO MT CARD!
+m1
+    6012.00c  0.989
+    6013.00c  0.011
+c ❌ Missing: mt1 grph.18t
+```
+
+**Mistake 2**: Wrong temperature library
+```mcnp
+c WRONG - Room temp library for 600K operating reactor!
+m1
+    6012.00c  0.989
+    6013.00c  0.011
+mt1 grph.10t  ← Should be grph.18t for HTGR!
+```
+
+**Mistake 3**: Water without S(α,β)
+```mcnp
+c WRONG - NO MT CARD FOR WATER!
+m2
+    1001.70c  2.0
+    8016.70c  1.0
+c ❌ Missing: mt2 lwtr.13t
+```
+
+**Mistake 4**: Mixed Be + H₂O missing one S(α,β)
+```mcnp
+c WRONG - ONLY water S(α,β), missing beryllium!
+m3
+    1001.70c  0.01
+    8016.70c  0.005
+    4009.60c  0.98
+mt3 lwtr.10t  ← INCOMPLETE! Need: mt3 lwtr.10t be.01t
+```
+
+### Impact Summary
+
+| Missing MT Card | Reactivity Error | Spectrum Error | Flux Error |
+|-----------------|------------------|----------------|------------|
+| Graphite | 1000-5000 pcm | Hardened | 10-20% |
+| Water | 500-2000 pcm | Hardened | 5-15% |
+| Heavy water | 800-3000 pcm | Hardened | 10-25% |
+| Beryllium | 200-1000 pcm | Slight | 2-10% |
+
+**Conclusion**: Missing MT cards are **NOT optional warnings** - they are **CRITICAL ERRORS** that invalidate results!
+
+### Validation Checklist
+
+Before running any thermal neutron calculation:
+
+- [ ] Identified all materials with C, H, D, Be
+- [ ] Verified MT cards present for ALL moderator/reflector materials
+- [ ] Checked MT library temperature matches operating conditions
+- [ ] Confirmed grph.XXt for ALL graphite materials (not just some)
+- [ ] Verified lwtr.XXt or hwtr.XXt for ALL water materials
+- [ ] Checked for dual S(α,β) (e.g., Be + H₂O needs BOTH be.01t and lwtr.XXt)
+- [ ] Reviewed MCNP output for "free gas scattering" warnings
+
+**Remember**: MCNP will run without MT cards but results will be WRONG!
+
 ## Integration with Other Skills
 
 **Workflow:**

@@ -8,13 +8,542 @@
 
 ## Overview
 
-These 57 practices ensure correct and efficient MCNP simulations. They exist because users got wrong answers by skipping them. This is not optional advice - these are requirements for reliable results.
+These practices ensure correct and efficient MCNP simulations, extended with professional reactor modeling standards. They exist because users got wrong answers by skipping them. This is not optional advice - these are requirements for reliable results.
 
 **Organization:**
-- **Phase 1: Problem Setup** (22 items) - Before first run
+- **Phase 0: Professional Modeling Standards** (15 items) - BEFORE input creation
+- **Phase 1: Problem Setup** (30 items) - Before first run (22 standard + 8 reactor-specific)
 - **Phase 2: Preproduction** (20 items) - During short test runs
 - **Phase 3: Production** (10 items) - During long production runs
 - **Phase 4: Criticality** (5 items) - Additional for KCODE problems
+
+---
+
+## Phase 0: Professional Modeling Standards (PRE-SETUP)
+
+**Purpose:** Establish professional practices BEFORE creating MCNP input files
+
+**When:** Before ANY input file creation, especially for reactor models
+
+**Critical for:** Large models (>100 cells), automated generation, publication, licensing, collaboration
+
+### Project Organization (Items 1-5)
+
+#### 0.1. Version Control from Start
+
+**Practice:** Initialize version control before creating files
+
+**Why:**
+- Enables rollback if errors introduced
+- Enables collaboration among team members
+- Required for reproducible research
+- Tracks evolution of model
+- Essential for publication and licensing
+
+**How:**
+```bash
+git init
+git add .
+git commit -m "Initial reactor model - baseline configuration"
+git tag v1.0-baseline
+```
+
+**For large projects:**
+- Commit frequently (after each working increment)
+- Use meaningful commit messages
+- Tag releases (v1.0, v2.0, etc.)
+- Create branches for major changes
+
+**Consequence of skipping:**
+- Cannot recover from mistakes
+- Cannot collaborate effectively
+- Cannot prove reproducibility
+- Publication rejection risk
+
+---
+
+#### 0.2. Design Numbering Scheme BEFORE Implementation
+
+**Practice:** Plan systematic numbering conventions before coding geometry
+
+**Why:**
+- Prevents conflicts in large models (1000+ entities)
+- Enables instant identification of relationships
+- Simplifies debugging
+- Enables automated generation
+- Reduces human error
+
+**Proven Patterns:**
+
+**Hierarchical encoding (HTGR example):**
+```
+Cell numbering: 9[capsule][stack][2×compact][sequence]
+cell_id = 90000 + cap*1000 + stack*100 + 2*(comp-1)*10 + seq
+
+Example: Cell 91234 = Capsule 1, Stack 2, Compact 2, Sequence 4
+```
+
+**Range allocation:**
+- 60000s: ATR fuel elements
+- 90000s: Experiment geometry
+- 2000-2999: Layer 1 assemblies
+- 3000-3999: Layer 2 assemblies
+- 9000-9999: Reflector/boundaries
+
+**Document in header:**
+```mcnp
+c NUMBERING CONVENTION:
+c   Cells:     9XYZW where X=capsule, Y=stack, Z=compact, W=component
+c   Surfaces:  9XYZ matching cell hierarchy
+c   Materials: 9XYZ matching cell hierarchy
+c   Universes: XYZ (condensed cell numbering)
+```
+
+**Consequence of skipping:**
+- Numbering conflicts (later overwrites earlier)
+- Impossible debugging in 10,000-line files
+- Cannot systematically generate geometry
+
+---
+
+#### 0.3. Separate Data from Logic
+
+**Practice:** External data in CSV/JSON files, not hardcoded in input
+
+**Why:**
+- Enables parameter studies (change CSV, regenerate)
+- Makes validation easier (inspect data separately)
+- Reduces errors (data entry once, not per input)
+- Enables version control of data
+
+**Example structure:**
+```
+project/
+├── data/
+│   ├── power.csv            # Experimental measurements
+│   ├── positions.csv        # Control positions
+│   ├── materials.json       # Material compositions
+│   └── geometry.json        # Dimensions
+├── scripts/
+│   └── create_input.py      # Generation logic
+└── outputs/
+    └── reactor.i            # Generated input
+```
+
+**CSV example (power.csv):**
+```csv
+cycle,lobe,power_MW,duration_days
+138B,NE,1.2,42.5
+138B,SE,1.3,42.5
+139A,NE,1.4,38.2
+```
+
+**Usage in script:**
+```python
+import pandas as pd
+power_df = pd.read_csv('data/power.csv')
+ne_power = power_df[power_df['lobe'] == 'NE']['power_MW'].values[0]
+```
+
+**Consequence of skipping:**
+- Hardcoded values spread across 10,000+ lines
+- Impossible to find and change systematically
+- High error rate in manual updates
+
+---
+
+#### 0.4. Document Provenance of ALL Values
+
+**Practice:** Every number traceable to source
+
+**Why:**
+- Required for validation
+- Required for licensing
+- Enables error checking
+- Builds confidence in model
+- Required for publication peer review
+
+**How to document:**
+```mcnp
+c Fuel density: 10.5 g/cm³ (ORNL/TM-2006/12, Table 3.2)
+m1  92235.70c 0.045  92238.70c 0.955  $ Enrichment: INL/EXT-10-17686
+    8016.70c 2.0                      $ Stoichiometric UO2
+
+c Graphite density: 1.74 g/cm³ (IG-110 vendor data, Toyo Tanso)
+m2  6012.00c 0.9890  6013.00c 0.0110  $ Natural carbon
+mt2 grph.18t                          $ 600K (operating temperature)
+```
+
+**Provenance file (data_sources.md):**
+```markdown
+## Fuel Composition
+- Source: INL/EXT-10-17686, "AGR-1 Irradiation Test Specification"
+- Enrichment: 19.75% U-235
+- Kernel diameter: 350 μm (measured, ±10 μm)
+
+## Graphite Properties
+- Source: Toyo Tanso IG-110 product specification
+- Density: 1.74 g/cm³ (nominal)
+- Purity: >99.9% carbon
+```
+
+**Consequence of skipping:**
+- Cannot validate model
+- Cannot defend to reviewers
+- Cannot identify error sources
+- Publication rejection
+
+---
+
+#### 0.5. README with Complete Workflow
+
+**Practice:** Document how to regenerate inputs from scratch
+
+**Why:**
+- Enables reproducibility
+- Onboards new team members
+- Documents methodology
+- Required for publication
+
+**Essential README contents:**
+
+1. **Purpose and scope**
+2. **Dependencies** (software versions)
+3. **Data files** (what each contains)
+4. **Generation workflow** (step-by-step)
+5. **Validation criteria** (how to verify)
+6. **Expected outputs**
+
+**Example README.md:**
+````markdown
+# HTGR Reactor Model
+
+## Purpose
+Shutdown dose rate calculations for decommissioning strategy evaluation.
+
+## Dependencies
+- Python 3.11.0
+- numpy 1.24.0
+- pandas 2.0.0
+- jinja2 3.1.2
+- MCNP6.2 (build 2020-02-14)
+- Cross sections: ENDF/B-VII.1
+
+## Regeneration from Scratch
+```bash
+cd reactor-model/
+python create_inputs.py
+python validate_inputs.py
+```
+
+Expected: 13 inputs in mcnp/ directory, 0 validation errors
+
+## Data Files
+- power.csv: Experimental power history (source: ECAR-3569)
+- positions.csv: Control drum angles (source: ATR operations)
+- materials.json: Fuel compositions (source: INL/EXT-10-17686)
+
+## Validation
+- Geometry plotted: `mcnp6 ip i=mcnp/reactor.i`
+- VOID test passed: 0 lost particles
+- Volume check: MCNP vs CAD < 2%
+````
+
+**Consequence of skipping:**
+- Cannot reproduce results
+- Wastes future time re-deriving workflow
+- Publication rejection
+
+---
+
+### Geometry Design (Items 6-9)
+
+#### 0.6. Plan Universe Hierarchy BEFORE Coding
+
+**Practice:** Draw containment tree diagram before implementation
+
+**Why:**
+- Prevents circular references
+- Allocates number ranges systematically
+- Identifies all nesting levels
+- Simplifies implementation
+
+**Example hierarchy (HTGR):**
+```
+Level 1: TRISO particle (u=XXX4)
+    ├── Kernel (innermost)
+    ├── Buffer
+    ├── IPyC
+    ├── SiC
+    └── OPyC (outermost)
+
+Level 2: Particle lattice (u=XXX6, LAT=1)
+    └── 15×15 rectangular array of TRISO
+
+Level 3: Compact stack (u=XXX0, LAT=1)
+    └── Vertical 1×1×31 array
+
+Level 4: Fuel channel (u=XXX1)
+    └── Cylinder filled with compact lattice
+
+Level 5: Assembly (u=XXX0, LAT=2)
+    └── Hexagonal lattice
+
+Level 6: Core
+    └── Multiple assemblies
+```
+
+**Number allocation:**
+- Level 1 particles: u=XXX4 (last digit 4)
+- Level 2 lattices: u=XXX6 (last digit 6)
+- Level 3 stacks: u=XXX0 (last digit 0)
+- Etc.
+
+**Consequence of skipping:**
+- Circular references (u=100 fill=200, u=200 fill=100)
+- MCNP fatal errors
+- Difficult debugging
+
+---
+
+#### 0.7. Choose Lattice Types Appropriately
+
+**Practice:** Select LAT=1 vs LAT=2 based on physics
+
+**When to use LAT=1 (rectangular):**
+- PWR fuel assemblies (square grid)
+- Vertical stacks (1×1×N)
+- Rectangular arrays
+- Most TRISO particle lattices
+
+**When to use LAT=2 (hexagonal):**
+- HTGR cores (hex fuel blocks)
+- Fast reactor assemblies (hex ducts)
+- Hexagonal fuel pins
+- Any honeycomb pattern
+
+**Mixed types allowed:**
+```
+Level 2: Particle lattice (LAT=1) inside compact
+Level 5: Assembly lattice (LAT=2) in core
+```
+
+**Document choice:**
+```mcnp
+c LAT=1 selected for particle array (regular grid packing)
+1116  10  -1.0  -1116  u=1116  lat=1  fill=-7:7 -7:7 0:0  ...
+
+c LAT=2 selected for assembly layout (hexagonal core)
+2000  0        -2000  u=2000  lat=2  fill=-6:6 -6:6 0:0  ...
+```
+
+**Consequence of wrong choice:**
+- LAT=2 with RPP surface → fatal error
+- Wrong physics (rectangular when should be hex)
+
+---
+
+#### 0.8. Validate Lattice Dimensions Mathematically
+
+**Practice:** Pre-calculate element counts before coding
+
+**Formula:**
+```
+Elements = (IMAX-IMIN+1) × (JMAX-JMIN+1) × (KMAX-KMIN+1)
+```
+
+**CRITICAL:** Account for zero!
+```
+fill=-7:7 -7:7 0:0
+  I: -7 to 7 = 15 elements (not 14!)
+  J: -7 to 7 = 15 elements
+  K: 0 to 0 = 1 element
+  Total: 15 × 15 × 1 = 225 elements
+```
+
+**Surface extent validation:**
+```
+Rectangular: Surface extent = N × pitch
+  15 elements × 0.1 cm pitch = 1.5 cm
+  RPP: -0.75 to 0.75 (extent 1.5 cm) ✓
+
+Hexagonal: Match RHP dimensions
+  R = 1.6 cm → Pitch = 1.6 × √3 = 2.77 cm
+```
+
+**Consequence of skipping:**
+- Off-by-one errors → fatal error
+- Surface/lattice mismatch → lost particles
+- Very hard to debug
+
+---
+
+#### 0.9. Use Systematic Cell/Surface Correlation
+
+**Practice:** Cell N uses surfaces NXXX, material mN
+
+**Example:**
+```mcnp
+91234  9123  -1.0  -91234 -91235 91236  imp:n=1  $ Cell uses surfaces 9123X
+91234  so  0.0350                                 $ Surface matches cell number
+m9123  6012.00c 0.99                              $ Material matches cell number
+```
+
+**Benefits:**
+- Instant relationship identification
+- Simplified debugging
+- Reduced cross-reference errors
+
+**Consequence of skipping:**
+- Hard to find which surfaces define which cells
+- Time-consuming debugging
+
+---
+
+### Materials (Items 10-12)
+
+#### 0.10. Thermal Scattering REQUIRED
+
+**Practice:** ALWAYS add MT cards for graphite, water, Be, polyethylene
+
+**CRITICAL:** Omission causes 1000-5000 pcm reactivity error!
+
+**Required for:**
+- ✅ ALL graphite (any reactor type)
+- ✅ ALL water (light or heavy)
+- ✅ Polyethylene (shielding)
+- ✅ Beryllium, BeO (reflectors)
+
+**Temperature selection:**
+```mcnp
+c HTGR operating (600K)
+m1  6012.00c 0.9890  6013.00c 0.0110
+mt1 grph.18t  $ 600K library
+
+c HTGR cold critical (294K)
+m2  6012.00c 0.9890  6013.00c 0.0110
+mt2 grph.10t  $ 294K library
+
+c PWR operating (350K)
+m3  1001.70c 2.0  8016.70c 1.0
+mt3 lwtr.13t  $ 350K library
+
+c Heavy water CANDU (325K)
+m4  1002.70c 2.0  8016.70c 1.0
+mt4 hwtr.11t  $ 325K library
+```
+
+**Consequence of skipping:**
+- 1000-5000 pcm reactivity error
+- WRONG keff
+- WRONG reaction rates
+- Invalid results
+
+**See:** thermal_scattering_reference.md for complete library guide
+
+---
+
+#### 0.11. Temperature-Consistent Cross Sections
+
+**Practice:** Match S(α,β) temperature to neutronics temperature
+
+**Good:**
+```mcnp
+c All ENDF/B-VII.0 (.70c), 600K thermal treatment
+m1  92235.70c ...  92238.70c ...  6012.70c ...
+mt1 grph.18t  $ 600K matches operating temperature
+```
+
+**Bad:**
+```mcnp
+c Mixed evaluations - AVOID!
+m2  92235.70c ...  92238.21c ...  6012.80c ...
+mt2 grph.18t
+```
+
+**Consequence of mixing:**
+- Inconsistent evaluations
+- Potential double-counting or gaps
+- Hard to defend in reviews
+
+---
+
+#### 0.12. Material Density Specifications Consistent
+
+**Practice:** Know and document density convention
+
+**Convention:**
+- Negative = g/cm³ (mass density)
+- Positive = atoms/barn-cm (atom density)
+
+**Document:**
+```mcnp
+c UO2 fuel, mass density 10.5 g/cm³
+m1  92235.70c 0.045  92238.70c 0.955  8016.70c 2.0
+
+c Graphite moderator, atom density 0.0785 atoms/barn-cm
+m2  6012.00c 0.9890  6013.00c 0.0110
+```
+
+**Validate:**
+- Atom fractions sum to 1 (for compounds)
+- Density reasonable for material (compare handbook)
+
+---
+
+### Automation (Items 13-15)
+
+#### 0.13. Automate for ≥3 Similar Cases
+
+**Practice:** Use templates or scripts when generating 3+ similar inputs
+
+**When to automate:**
+- ✅ More than 3 similar cases
+- ✅ Parameters change frequently
+- ✅ Geometry follows algorithmic pattern
+- ✅ High error risk in manual entry
+- ✅ Reproducibility critical
+
+**When NOT to automate:**
+- ❌ One-time model
+- ❌ Highly irregular geometry
+- ❌ Automation effort > manual effort
+
+**See:** automation_guide.md for detailed patterns
+
+---
+
+#### 0.14. Validate Generated Outputs
+
+**Practice:** Automated checking of generated inputs
+
+**Validations:**
+- Compare to reference case (if exists)
+- Check numbering conflicts
+- Verify cross-references
+- Check lattice dimensions
+- Verify thermal scattering
+
+**See:** reactor_model_checker.py script
+
+---
+
+#### 0.15. Reproducible Generation
+
+**Practice:** Single command regenerates all inputs
+
+**Goal:**
+```bash
+python create_all_inputs.py
+```
+
+**Requirements:**
+- Scripts version-controlled
+- External data frozen (known versions)
+- Dependencies documented
+- No manual steps
+
+**See:** reproducibility_checklist.md
 
 ---
 
