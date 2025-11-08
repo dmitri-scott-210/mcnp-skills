@@ -1,0 +1,60 @@
+======================================================================
+MCNP CROSS-REFERENCE VALIDATION REPORT
+File: agr1_model.i
+======================================================================
+
+SECTION 1: FATAL ERRORS
+----------------------------------------------------------------------
+✓ No fatal errors detected
+
+SECTION 2: WARNINGS
+----------------------------------------------------------------------
+[1] Surface 9999 is defined but never used in any cell
+    Location: Line 5234
+    Impact: No functional impact, but may indicate unused geometry
+    Action: Remove if truly unused, or verify cells should reference it
+
+[2] Material 8888 is defined but never used in any cell
+    Location: Line 12456
+    Impact: No functional impact
+    Action: Remove if truly unused
+
+SECTION 3: STATISTICS
+----------------------------------------------------------------------
+Total cells:     1,607
+Total surfaces:  725
+Total materials: 385
+Total universes: 288
+
+Numbering Analysis:
+  Cells:
+    Range 60000-69999: 150 cells (ATR fuel elements)
+    Range 90000-99999: 1440 cells (AGR-1 compacts)
+    Range 99900-99999: 10 cells (boundary/void cells)
+
+  Surfaces:
+    Range 1-999: 205 global surfaces (planes, cylinders)
+    Range 9000-9999: 720 compact surfaces
+    Range 97000-98999: 100 capsule surfaces
+
+  Materials:
+    Range 2000-2999: 210 ATR fuel materials
+    Range 9000-9999: 175 AGR materials
+
+  Universes:
+    Range 100-999: 288 compact universes
+    Hierarchy depth: 5 levels (particle → lattice → compact → stack → capsule)
+
+Surface Reuse Statistics:
+  Most referenced surfaces:
+    Surface 100 (pz plane): Referenced by 52 cells
+    Surface 110 (pz plane): Referenced by 48 cells
+    Surface 1111 (sphere): Referenced by 6 cells (TRISO layers)
+
+SECTION 4: SUMMARY
+----------------------------------------------------------------------
+✅ VALIDATION PASSED
+   No fatal cross-reference errors detected
+⚠️  2 WARNINGS: Review recommended but not critical
+
+======================================================================

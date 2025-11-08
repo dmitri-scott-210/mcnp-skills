@@ -293,3 +293,219 @@ mcnp-cell-checker       → Cell parameter optimization
 9. **Use completed builder skills as standards** - Validator checks against mcnp-input-builder, mcnp-geometry-builder, etc. for consistent quality
 
 10. **Escalate to specialized checkers when needed** - For complex inputs, use mcnp-geometry-checker, mcnp-cross-reference-checker after basic validation
+
+---
+
+## CRITICAL VALIDATION CATEGORIES
+
+### 1. FILL Array Validation (LAT=1 AND LAT=2)
+
+**Purpose**: Prevent fatal "wrong number of lattice fill entries" errors
+
+**Checks performed:**
+- ✅ Dimension calculation: (IMAX-IMIN+1) × (JMAX-JMIN+1) × (KMAX-KMIN+1)
+- ✅ Repeat notation expansion: `U nR` = (n+1) total copies
+- ✅ Element count matches declared fill range
+- ✅ All filled universes are defined
+- ✅ Lattice type matches surface type (LAT=1→RPP, LAT=2→RHP)
+
+**Example error caught:**
+```mcnp
+c INVALID - dimension mismatch
+100 0 -1 u=200 lat=1 fill=-7:7 -7:7 0:0  $ Need 15×15×1=225 elements
+    [... only 200 universe numbers provided ...]  $ ← ERROR: 25 missing!
+```
+
+**Tool**: `scripts/fill_array_validator.py`
+
+---
+
+### 2. Universe Cross-Reference Validation
+
+**Purpose**: Prevent circular references, undefined universe errors, geometry failures
+
+**Checks performed:**
+- ✅ All filled universes are defined before use
+- ✅ No circular dependencies (A→B, B→A or longer cycles)
+- ✅ Universe 0 never explicitly defined
+- ✅ Fill references point to valid LAT cells or simple cells
+- ✅ Hierarchy depth reasonable (<10 levels)
+
+**Example error caught:**
+```mcnp
+c INVALID - circular reference
+100 0 -1 u=10 fill=20  $ u=10 fills with u=20
+200 0 -2 u=20 fill=10  $ ← ERROR: u=20 fills with u=10 (circular!)
+```
+
+**Tool**: `scripts/universe_cross_reference_checker.py`
+
+---
+
+### 3. Numbering Conflict Detection
+
+**Purpose**: Prevent duplicate IDs causing ambiguous definitions
+
+**Checks performed:**
+- ✅ No duplicate cell IDs
+- ✅ No duplicate surface IDs
+- ✅ No duplicate material IDs
+- ✅ No duplicate universe IDs
+- ✅ Optional: Systematic numbering pattern verification
+- ✅ Optional: Cell-material-surface correlation warnings
+
+**Example error caught:**
+```mcnp
+c INVALID - duplicate cell ID
+100 1 -10.0 -1 u=10  $ Cell 100
+...
+100 2 -6.5 -2 u=20   $ ← ERROR: Cell 100 defined twice!
+```
+
+**Tool**: `scripts/numbering_conflict_detector.py`
+
+---
+
+### 4. Thermal Scattering Verification
+
+**Purpose**: Catch missing MT cards that cause 1000-5000 pcm reactivity errors
+
+**Materials requiring S(α,β) libraries:**
+
+| Material | Detection | Required MT Card | Temperature Options |
+|----------|-----------|------------------|---------------------|
+| **Graphite** | ZAID 6000, 6012, 6013 | `grph.XXt` | 10t (296K), 18t (600K), 22t (800K), ... |
+| **Light water** | H-1 + O-16 | `lwtr.XXt` | 10t (294K), 11t (325K), 13t (350K), 14t (400K), ... |
+| **Heavy water** | H-2 + O-16 | `hwtr.XXt` | 10t (294K), 11t (325K) |
+| **Polyethylene** | H-1 + C (ratio ~2:1) | `poly.XXt` | 10t (296K), 20t (350K) |
+| **Beryllium metal** | ZAID 4009 | `be.XXt` | 10t (296K), 20t (400K), ... |
+| **Beryllium oxide** | Be + O | `beo.XXt` | 10t (296K), 20t (400K), ... |
+
+**Checks performed:**
+- ✅ Scan all materials for thermal scatterers
+- ✅ Verify MT card exists for each
+- ✅ Warn if temperature-inappropriate (e.g., grph.10t for 900K reactor)
+- ✅ Flag missing MT cards as CRITICAL errors
+
+**Example error caught:**
+```mcnp
+c CRITICAL ERROR - missing thermal scattering
+m1  $ Graphite moderator
+    6012.00c  0.9890
+    6013.00c  0.0110
+c ← MISSING: mt1 grph.18t  $ Will cause wrong thermal spectrum!
+```
+
+**Tool**: `scripts/thermal_scattering_validator.py`
+
+**Impact:** Missing MT cards cause:
+- ❌ Wrong thermal neutron spectrum (hardened)
+- ❌ Incorrect reactivity (1000-5000 pcm error typical)
+- ❌ Wrong spatial flux distribution
+- ❌ Invalid benchmark comparisons
+
+---
+
+### 5. Surface-Cell Consistency Checks
+
+**Purpose**: Prevent "surface XXX not found" fatal errors
+
+**Checks performed:**
+- ✅ Parse all surface references from cell boolean expressions
+- ✅ Verify all surfaces defined in surfaces section
+- ✅ Check material references (all materials defined)
+- ✅ Detect common typos (e.g., 1000 vs 100)
+- ✅ Warn about unreferenced surfaces (dead geometry)
+
+**Example error caught:**
+```mcnp
+c INVALID - undefined surface
+100 1 -10.0  -1000 2000  $ References surfaces 1000, 2000
+...
+c Surfaces section:
+100 so 5.0   $ ← ERROR: surface 1000 undefined (typo?)
+200 pz 10.0  $ ← ERROR: surface 2000 undefined
+```
+
+**Tool**: `scripts/surface_cell_consistency.py`
+
+---
+
+## VALIDATION WORKFLOW
+
+### Pre-Run Validation Process
+
+```
+1. Parse MCNP input file
+   ├─ Identify cells, surfaces, materials, universes
+   └─ Extract LAT specifications and FILL arrays
+
+2. Run all validators in sequence:
+   ├─ Fill array validator (LAT=1 and LAT=2)
+   ├─ Universe cross-reference checker
+   ├─ Numbering conflict detector
+   ├─ Thermal scattering verifier
+   └─ Surface-cell consistency checker
+
+3. Report results:
+   ├─ CRITICAL errors (must fix before running)
+   ├─ WARNINGS (should fix, but may run)
+   └─ SUGGESTIONS (best practices)
+
+4. Generate validation report
+   └─ Save to input_filename_validation_report.txt
+```
+
+### Usage Examples
+
+**Command-line usage:**
+```bash
+# Validate single file
+python scripts/fill_array_validator.py bench_138B.i
+
+# Check specific validation category
+python scripts/thermal_scattering_validator.py bench_138B.i
+python scripts/universe_cross_reference_checker.py bench_138B.i
+```
+
+**Python API usage:**
+```python
+from scripts.fill_array_validator import FillArrayValidator
+
+# Validate fill arrays
+validator = FillArrayValidator('bench_138B.i')
+validator.print_report()
+
+# Or get results programmatically
+results = validator.validate()
+if results['errors']:
+    print("CRITICAL ERRORS FOUND:")
+    for error in results['errors']:
+        print(f"  - {error}")
+else:
+    print("✓ No critical errors detected")
+```
+
+---
+
+## VALIDATION SEVERITY LEVELS
+
+### CRITICAL (Must fix before running):
+- ❌ FILL array dimension mismatch
+- ❌ Circular universe references
+- ❌ Duplicate numbering (cells, surfaces, materials, universes)
+- ❌ Undefined surface references
+- ❌ Undefined material references
+- ❌ Missing thermal scattering for graphite, water, etc.
+
+### WARNING (Should fix):
+- ⚠️ Universe hierarchy depth >6 levels
+- ⚠️ Unreferenced surfaces (dead geometry)
+- ⚠️ Temperature-inappropriate S(α,β) library
+- ⚠️ Non-systematic numbering (hard to maintain)
+
+### SUGGESTION (Best practice):
+- 💡 Use repeat notation for long fill arrays
+- 💡 Add comments documenting universe hierarchy
+- 💡 Use systematic numbering scheme
+- 💡 Specify volumes for tally cells

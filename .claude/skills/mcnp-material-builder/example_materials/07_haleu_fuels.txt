@@ -1,0 +1,189 @@
+HALEU Fuel Material Library
+================================================================================
+Application: High-Assay Low-Enriched Uranium (HALEU) fuel materials
+Source: Advanced reactors, SMRs, microreactors
+Complexity: Standard
+Materials: HALEU UO2 at various enrichments (>5%, <20%)
+================================================================================
+c
+c HALEU Definition: Enrichment between 5% and 20% U-235
+c - Above typical LWR limit (5%)
+c - Below HEU threshold (20%)
+c - Applications: Microreactors, SMRs, long-life cores
+c
+c ========================================================================
+c Material 1: HALEU UO2 at 10% Enrichment
+c Density: 10.5 g/cm3
+c Temperature: 1000 K
+c Composition: 10% U-235, 90% U-238
+c Application: Microreactor, compact cores
+c ========================================================================
+M1   92235.80c  0.10     $ U-235 (10% enrichment)
+     92238.80c  0.90     $ U-238
+      8016.80c  2.0      $ O-16
+TMP1  8.62e-8             $ 1000 K
+c
+c ========================================================================
+c Material 2: HALEU UO2 at 12% Enrichment
+c Density: 10.4 g/cm3
+c Temperature: 1000 K
+c Composition: 12% U-235, 88% U-238
+c Application: Advanced SMR designs
+c ========================================================================
+M2   92235.80c  0.12
+     92238.80c  0.88
+      8016.80c  2.0
+TMP2  8.62e-8
+c
+c ========================================================================
+c Material 3: HALEU UO2 at 15% Enrichment
+c Density: 10.4 g/cm3
+c Temperature: 1100 K
+c Composition: 15% U-235, 85% U-238
+c Application: Long-life microreactors (10+ years)
+c ========================================================================
+M3   92235.80c  0.15
+     92238.80c  0.85
+      8016.80c  2.0
+TMP3  9.48e-8             $ 1100 K
+c
+c ========================================================================
+c Material 4: HALEU UO2 at 19.75% Enrichment (Maximum HALEU)
+c Density: 10.3 g/cm3
+c Temperature: 1000 K
+c Composition: 19.75% U-235, 80.25% U-238
+c Application: Maximum HALEU enrichment (<20% regulatory limit)
+c ========================================================================
+M4   92235.80c  0.1975
+     92238.80c  0.8025
+      8016.80c  2.0
+TMP4  8.62e-8
+c
+c ========================================================================
+c Material 5: HALEU UO2 with U-234 (High Fidelity)
+c Density: 10.4 g/cm3
+c Temperature: 1000 K
+c Composition: 15% U-235 with U-234 and U-236
+c Application: High-fidelity calculations
+c ========================================================================
+M5   92234.80c  0.0012   $ U-234 (~0.8% of U-235 content)
+     92235.80c  0.15     $ U-235 (15% enrichment)
+     92236.80c  0.0001   $ U-236 (trace contamination)
+     92238.80c  0.8487   $ U-238 (balance)
+      8016.80c  2.0      $ O-16
+TMP5  8.62e-8
+c
+c ========================================================================
+c Material 6: HALEU Metallic Fuel (U-10Zr, 15% enriched)
+c Density: 15.6 g/cm3
+c Temperature: 900 K
+c Composition: 90% U (15% enriched), 10% Zr by weight
+c Application: Fast spectrum microreactor
+c ========================================================================
+M6   92235.80c  -0.135   $ U-235 (15% of U, 90% U in alloy)
+     92238.80c  -0.765   $ U-238 (85% of U, 90% U in alloy)
+     40000.60c  -0.100   $ Zr-nat (10 wt%)
+TMP6  7.75e-8
+c
+c ========================================================================
+c Material 7: HALEU UCO for TRISO (19.75% enriched)
+c Density: 10.924 g/cm3
+c Temperature: 900 K
+c Composition: UC0.32O1.36, 19.75% enriched
+c Application: HTGR TRISO fuel kernel
+c ========================================================================
+M7   92234.00c  3.34179E-03  $ U-234
+     92235.00c  1.99636E-01  $ U-235 (19.75% enriched)
+     92236.00c  1.93132E-04  $ U-236
+     92238.00c  7.96829E-01  $ U-238
+      6012.00c  0.3217217    $ C-12
+      6013.00c  0.0035783    $ C-13
+      8016.00c  1.3613       $ O-16 (>1.0 valid!)
+TMP7  7.75e-8
+c
+c ========================================================================
+c NOTES AND USAGE
+c ========================================================================
+c
+c 1. HALEU Definition and Regulations:
+c    - HALEU: 5% < enrichment < 20%
+c    - Above: Typical LWR maximum (5%)
+c    - Below: HEU threshold (20%, safeguards/security)
+c    - Regulatory status: Category II nuclear material
+c
+c 2. Applications by Enrichment:
+c    - 5-10%: Extended burnup LWRs, some SMRs
+c    - 10-15%: Microreactors, compact cores
+c    - 15-20%: Long-life cores (>10 years), HTGRs
+c    - 19.75%: Maximum HALEU (commonly used for TRISO)
+c
+c 3. Temperature Considerations:
+c    - Microreactors: 800-1000 K typical
+c    - HTGR (TRISO): 900-1200 K
+c    - SMR: 800-1100 K similar to conventional LWR
+c
+c 4. Enrichment vs Core Size:
+c    - Higher enrichment → smaller core
+c    - HALEU enables compact, transportable designs
+c    - Microreactors: 1-20 MWe, very compact
+c
+c 5. U-234 and U-236 Inclusion:
+c    - U-234: ~0.8% of U-235 content (natural ratio)
+c    - U-236: Trace (<0.02%) from reprocessing
+c    - Include for high-fidelity calculations
+c    - Can omit for scoping studies
+c
+c 6. Fuel Forms:
+c    - UO2: Most common, established technology
+c    - Metallic (U-Zr): Fast spectrum microreactors
+c    - UCO: HTGR TRISO kernels
+c    - UN, U3Si2: Alternative high-density forms
+c
+c 7. Burnup Characteristics:
+c    - Higher enrichment → longer cycle length
+c    - Example: 19.75% can achieve >10 years
+c    - Reduced refueling, simplified operations
+c    - Increased Pu production (proliferation concern)
+c
+c 8. HALEU Supply:
+c    - Limited commercial availability (as of 2025)
+c    - DOE HALEU program developing supply chain
+c    - Downblending from HEU stockpiles
+c    - New enrichment capacity needed
+c
+c 9. Safety Implications:
+c    - Higher enrichment → more excess reactivity
+c    - Requires burnable poisons (Gd, Er)
+c    - Negative reactivity feedbacks essential
+c    - Passive safety features in microreactors
+c
+c 10. For Complete Coverage:
+c     - See fuel_compositions_reference.md for all fuel types
+c     - Includes LWR (2-5%), HALEU (5-20%), MOX, metallic, etc.
+c     - See ZAID_selection_guide.md for library selection
+c     - See burnup_tracking_guide.md for depletion isotopes
+c
+c ========================================================================
+c EXAMPLE APPLICATIONS
+c ========================================================================
+c
+c 1. eVinci Microreactor (Westinghouse):
+c    - HALEU metallic fuel, ~15% enrichment
+c    - Heat pipe cooling
+c    - 5 MWe, 15+ year core life
+c
+c 2. X-energy Xe-100 (HTGR):
+c    - TRISO UCO, 19.75% enrichment
+c    - Helium cooling
+c    - 80 MWe, pebble bed design
+c
+c 3. NuScale SMR (potential HALEU variant):
+c    - UO2 fuel, 10-12% enrichment
+c    - Water cooling
+c    - 77 MWe, extended cycle length
+c
+c 4. Kilopower (NASA):
+c    - HALEU metallic fuel, 19.75% enrichment
+c    - Stirling conversion
+c    - 1-10 kWe, space/remote power
+c

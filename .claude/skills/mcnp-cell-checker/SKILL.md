@@ -372,7 +372,222 @@ return cell_valid and geom_valid
 * Chapter 5.5.5.3: FILL keyword - Fill specifications and arrays
 * Chapter 3.4.1: Best practices for geometry setup
 * Chapter 10.1.3: Repeated structures examples
- 
+
 ---
- 
+
+## ADVANCED VALIDATION CAPABILITIES
+
+### Universe Hierarchy Validation
+
+mcnp-cell-checker validates complex universe hierarchies including:
+
+1. **Universe Definition Checking**
+   - All universes referenced in FILL are defined
+   - Universe 0 never explicitly defined (reserved for global)
+   - Unique universe numbers (no conflicts)
+
+2. **Circular Reference Detection**
+   - Detects cycles in universe fill chains (A→B→C→A)
+   - Uses depth-first search algorithm
+   - Reports complete cycle path for debugging
+
+3. **Nesting Depth Analysis**
+   - Computes nesting depth for each universe
+   - Warns if depth >6 levels (performance impact)
+   - Validates child-before-parent definition order
+
+**Example Usage**:
+```
+User: "Check my MCNP input for universe errors"
+
+Assistant will:
+✓ Parse all u=XXXX declarations
+✓ Parse all fill=XXXX directives
+✓ Build universe dependency graph
+✓ Detect circular references
+✓ Compute nesting depths
+✓ Report all errors/warnings
+```
+
+### FILL Array Validation
+
+mcnp-cell-checker validates FILL array specifications:
+
+1. **Dimension Checking**
+   - Calculates required elements: (IMAX-IMIN+1)×(JMAX-JMIN+1)×(KMAX-KMIN+1)
+   - Counts provided elements (accounting for repeat notation)
+   - Reports mismatches with detailed explanation
+
+2. **Repeat Notation Parsing**
+   - Correctly interprets `U nR` = (n+1) total copies
+   - Expands repeat notation for validation
+   - Detects malformed repeat syntax
+
+3. **Universe Reference Checking**
+   - All filled universes are defined
+   - No undefined universe references in arrays
+
+**Example Validation**:
+```mcnp
+c VALID - 15×15×1 = 225 elements
+91108 0 -91117 u=1116 lat=1 fill=-7:7 -7:7 0:0
+     [... 225 universe numbers ...]
+✓ FILL array validated: 225 elements (15×15×1)
+
+c INVALID - dimension mismatch
+91110 0 -91118 u=1110 lat=1 fill=0:0 0:0 -15:15 1117 2R 1116 24R
+❌ ERROR: Need 31 elements but only 28 provided
+```
+
+### Lattice Specification Validation
+
+mcnp-cell-checker validates both LAT=1 (rectangular) and LAT=2 (hexagonal):
+
+1. **Surface Type Matching**
+   - LAT=1 → requires RPP bounding surface
+   - LAT=2 → requires RHP bounding surface
+   - Reports type mismatches
+
+2. **Dimension Consistency** (optional, requires surface parsing)
+   - Checks surface extent matches lattice element count
+   - Validates pitch calculations
+
+**Example Validation**:
+```mcnp
+c VALID LAT=1
+91117 rpp -0.04 0.04 -0.04 0.04 -0.05 0.05
+91108 0 -91117 u=1116 lat=1 fill=-7:7 -7:7 0:0
+✓ LAT=1 with RPP surface (correct)
+
+c INVALID LAT=2
+200 rpp -10 10 -10 10 0 68  $ Wrong surface type!
+201 0 -200 u=300 lat=2 fill=-6:6 -6:6 0:0
+❌ ERROR: LAT=2 requires RHP surface, not RPP
+```
+
+### Cross-Reference Validation
+
+mcnp-cell-checker validates all entity references:
+
+1. **Cell → Surface**
+   - All surfaces in Boolean expressions are defined
+   - No undefined surface references
+
+2. **Cell → Material**
+   - All non-zero materials are defined
+   - Void cell (material 0) usage validated:
+     - With `lat=1/2 fill=...` → lattice container ✓
+     - With `fill=U` → universe fill target ✓
+     - Standalone → true void ✓
+
+3. **Cell → Universe**
+   - Universe assignments use unique numbers
+   - Multiple cells can share same universe (by design)
+
+**Example Validation**:
+```mcnp
+c VALID cross-references
+91101 9111 -10.924 -91111 u=1114
+✓ Surface 91111 defined
+✓ Material 9111 defined
+✓ Universe 1114 assigned
+
+c INVALID - undefined surface
+91101 9111 -10.924 -99999 u=1114
+❌ ERROR: Surface 99999 not defined
+```
+
+## VALIDATION REPORT FORMAT
+
+When validation completes, mcnp-cell-checker provides structured report:
+
+```
+=== MCNP Cell Validation Report ===
+
+SUMMARY:
+  Total Cells: 1607
+  Total Universes: 288
+  Total Surfaces Referenced: 725
+  Total Materials Referenced: 130
+
+  Errors: 0
+  Warnings: 3
+  Info: 12
+
+UNIVERSE HIERARCHY:
+  Maximum Nesting Depth: 6 levels
+  Root Universes: 72
+  Lattice Universes: 144
+
+  ✓ No circular references detected
+  ✓ All universes defined before use
+  ⚠ Universe 2345 has depth 7 (performance warning)
+
+FILL ARRAY VALIDATION:
+  Total Lattice Cells: 144
+
+  ✓ Cell 91108: 225 elements (15×15×1)
+  ✓ Cell 91110: 31 elements (1×1×31) with repeat notation
+  ✓ Cell 92108: 225 elements (15×15×1)
+  [... all validated ...]
+
+LATTICE VALIDATION:
+  Total LAT=1 (rectangular): 144
+  Total LAT=2 (hexagonal): 0
+
+  ✓ All rectangular lattices use RPP surfaces
+  ✓ No hexagonal lattice surface type errors
+
+CROSS-REFERENCES:
+  ✓ All surfaces defined (725/725)
+  ✓ All materials defined (130/130)
+  ✓ All universes defined (288/288)
+
+DETAILED ERRORS/WARNINGS:
+  [List of all errors, warnings, info messages with line numbers]
+```
+
+## PYTHON TOOL USAGE
+
+```python
+from cell_validator import MCNPCellValidator
+
+validator = MCNPCellValidator('input.i')
+validator.parse_input()
+validator.validate_all()
+report = validator.generate_report()
+print(report)
+```
+
+## BEST PRACTICES FOR COMPLEX REACTOR MODELS
+
+When building complex reactor models:
+
+1. **Use systematic numbering schemes**
+   - Encode hierarchy in universe numbers (XYZW pattern)
+   - Correlate cell/surface/material numbers
+   - Reserve number ranges for subsystems
+
+2. **Define universes bottom-up**
+   - Define leaf universes first (no fills)
+   - Then define parent universes that fill with leaves
+   - Finally define root universes
+
+3. **Validate incrementally**
+   - Check small models before scaling up
+   - Test lattice definitions with 2×2 arrays first
+   - Expand to full size only after validation
+
+4. **Document universe hierarchy**
+   - Comment showing containment tree
+   - Note nesting depth
+   - Explain numbering scheme
+
+5. **Use comments extensively**
+   - Document every cell, surface, material, universe
+   - Note geometric locations
+   - Explain FILL array patterns
+
+---
+
 **END OF MCNP CELL CHECKER SKILL**

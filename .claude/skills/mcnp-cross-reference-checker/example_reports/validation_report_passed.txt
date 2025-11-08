@@ -1,0 +1,26 @@
+======================================================================
+MCNP CROSS-REFERENCE VALIDATION REPORT
+File: simple_pwr_pin.i
+======================================================================
+
+SECTION 1: FATAL ERRORS
+----------------------------------------------------------------------
+✓ No fatal errors detected
+
+SECTION 2: WARNINGS
+----------------------------------------------------------------------
+✓ No warnings
+
+SECTION 3: STATISTICS
+----------------------------------------------------------------------
+Total cells:     5
+Total surfaces:  6
+Total materials: 3
+Total universes: 1
+
+SECTION 4: SUMMARY
+----------------------------------------------------------------------
+✅ VALIDATION PASSED
+   No fatal cross-reference errors detected
+
+======================================================================
