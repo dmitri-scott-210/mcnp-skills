@@ -1,9 +1,0 @@
-Test Input - Deliberately Broken
-c This has missing blank lines and other errors
-
-1 1 -2.7 -1 imp:n=1
-2 0 1 imp:n=0
-1 so 5.0
-MODE N
-M1 13027 1.0
-NPS 1000
