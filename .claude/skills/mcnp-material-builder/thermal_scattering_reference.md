@@ -321,6 +321,88 @@ warning. multiple S(alpha,beta) tables affect hydrogen in material 1.
 
 ---
 
+## CRITICAL REMINDER: Graphite MT Cards
+
+### Impact of Missing Graphite S(α,β)
+
+**Found in professional reactor models**: AGR-1 HTGR model had 50+ graphite materials with **ZERO MT cards**!
+
+**Physics errors**:
+- Free-gas scattering used instead of crystalline binding
+- Thermal spectrum too hard (overestimates high-energy tail)
+- Reactivity error: 1000-5000 pcm (model-dependent)
+- Flux distribution spatially incorrect
+- Benchmark validation FAILS
+
+**Materials requiring graphite MT cards**:
+```mcnp
+c Pure graphite (moderator, reflector)
+M1   6012.00c  0.9890  6013.00c  0.0110
+MT1  C-GRPH.43t  $ REQUIRED! (600K example)
+
+c TRISO buffer (porous carbon)
+M2   6012.00c  0.9890  6013.00c  0.0110
+MT2  C-GRPH.43t  $ REQUIRED!
+
+c PyC coating layers (dense pyrolytic carbon)
+M3   6012.00c  0.9890  6013.00c  0.0110
+MT3  C-GRPH.43t  $ REQUIRED!
+
+c Graphite matrix
+M4   6012.00c  0.9890  6013.00c  0.0110
+MT4  C-GRPH.43t  $ REQUIRED!
+
+c SiC with carbon (may benefit from MT card)
+M5  14000.00c  0.5  6012.00c  0.4890  6013.00c  0.0110
+MT5  C-GRPH.43t  $ Recommended for thermal systems
+```
+
+**Temperature selection for graphite**:
+
+| Reactor State | Temperature | S(α,β) Table | Code |
+|---------------|-------------|--------------|------|
+| Cold critical | 293 K | C-GRPH.40t | grph.40t |
+| Startup | 400 K | C-GRPH.41t | grph.41t |
+| Low power | 500 K | C-GRPH.42t | grph.42t |
+| Operating (typical HTGR) | 600 K | C-GRPH.43t | grph.43t |
+| High power | 700 K | C-GRPH.44t | grph.44t |
+| Very high temp | 800 K | C-GRPH.45t | grph.45t |
+| VHTR normal | 1000 K | C-GRPH.46t | grph.46t |
+| VHTR high temp | 1200 K | C-GRPH.47t | grph.47t |
+| Accident conditions | 1600 K | C-GRPH.48t | grph.48t |
+| Maximum | 2000 K | C-GRPH.49t | grph.49t |
+
+**CRITICAL DECISION**:
+```
+Modeling graphite-containing reactor?
+  ├─→ Thermal neutrons present (E < 1 eV)?
+  │    ├─→ YES: MT card MANDATORY
+  │    └─→ NO (fast reactor): MT card optional
+  │
+  └─→ What temperature?
+       ├─→ Match TMP card temperature
+       └─→ Use closest available S(α,β) table
+```
+
+**Validation script** (use before running):
+```bash
+python scripts/thermal_scattering_checker.py input.i
+```
+
+Expected output:
+```
+Checking material M1 (carbon detected):
+  ✅ MT1 card present: C-GRPH.43t
+  ✅ Temperature match: TMP1 = 5.17e-8 MeV (600K), MT1 = 600K
+
+Checking material M2 (carbon detected):
+  ❌ ERROR: No MT card found for carbon-containing material M2!
+  ❌ CRITICAL: Missing thermal scattering will cause physics errors!
+  FIX: Add MT2  C-GRPH.43t (or appropriate temperature)
+```
+
+---
+
 ## See Also
 
 - **Material Specifications:** `material_card_specifications.md` for M card keywords

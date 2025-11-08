@@ -105,3 +105,83 @@ c 8. Fast Spectrum Considerations:
 c    - NO S(alpha,beta) needed (high energy neutrons)
 c    - Doppler feedback important (fuel temperature coefficient)
 c    - Sodium void worth is key safety parameter
+c
+c ========================================================================
+c ENHANCED EXAMPLES: Metallic Fuels
+c ========================================================================
+c
+c ========================================================================
+c Material 10: U-10Zr Metallic Fuel (19.75% enriched)
+c Density: 15.8 g/cm3
+c Temperature: 900 K
+c Composition: 90% U, 10% Zr by weight
+c Application: EBR-II type fuel, Gen-IV fast reactors
+c ========================================================================
+M10  92235.80c  -0.1778  $ U-235 (19.75% of U, 90% U in alloy)
+     92238.80c  -0.7222  $ U-238 (80.25% of U, 90% U in alloy)
+     40000.60c  -0.1000  $ Zr-nat (10 wt%)
+TMP10 7.75e-8
+c
+c ========================================================================
+c Material 11: U-Pu-Zr Ternary Alloy (Fast Breeder)
+c Density: 15.5 g/cm3
+c Temperature: 1000 K
+c Composition: 70% U, 20% Pu, 10% Zr by weight
+c Application: Fast breeder reactor fuel
+c ========================================================================
+M11  92235.80c  -0.014   $ U-235 (2% enriched, 70% U)
+     92238.80c  -0.686   $ U-238 (98% of U, 70% U)
+     94239.80c  -0.120   $ Pu-239 (60% of Pu, 20% Pu)
+     94240.80c  -0.050   $ Pu-240 (25% of Pu, 20% Pu)
+     94241.80c  -0.022   $ Pu-241 (11% of Pu, 20% Pu)
+     94242.80c  -0.008   $ Pu-242 (4% of Pu, 20% Pu)
+     40000.60c  -0.100   $ Zr-nat (10 wt%)
+TMP11 8.62e-8
+c
+c ========================================================================
+c Material 12: MOX Fuel for Fast Reactor
+c Density: 10.2 g/cm3
+c Temperature: 1100 K
+c Composition: 7% PuO2, reactor-grade Pu
+c Application: Alternative to metallic fuel
+c ========================================================================
+M12  92235.80c  0.002    $ U-235 (depleted U)
+     92238.80c  0.928    $ U-238
+     94238.80c  0.0014   $ Pu-238 (2% of Pu)
+     94239.80c  0.0399   $ Pu-239 (57% of Pu)
+     94240.80c  0.0175   $ Pu-240 (25% of Pu)
+     94241.80c  0.0077   $ Pu-241 (11% of Pu)
+     94242.80c  0.0035   $ Pu-242 (5% of Pu)
+      8016.80c  2.0      $ O-16
+TMP12 9.48e-8
+c
+c ========================================================================
+c METALLIC FUEL NOTES:
+c ========================================================================
+c
+c 1. U-Zr Alloy Properties:
+c    - High density: 15.8 g/cm3 (compact core)
+c    - Thermal conductivity: ~10× better than oxide
+c    - Low melting point: ~1400 K (design constraint)
+c    - Zr content: 6-10% typical
+c
+c 2. U-Pu-Zr Ternary Alloy:
+c    - Used in fast breeder reactors
+c    - Pu content: 15-25% typical
+c    - Breeding ratio >1.0 achievable
+c    - Requires reprocessing capability
+c
+c 3. Weight Fractions (negative values):
+c    - Example: -0.1778 means 17.78 wt%
+c    - Must sum to -1.0
+c    - Use for alloys and mixtures by weight
+c
+c 4. Comparison: Metallic vs Oxide Fuel:
+c    - Metallic: Higher density, better conductivity, lower melting
+c    - Oxide: Higher melting, more experience, simpler fabrication
+c    - Metallic: Breeding, Pu production
+c    - Oxide: Power reactors, established technology
+c
+c 5. For more fuel compositions:
+c    - See fuel_compositions_reference.md for complete coverage
+c    - Includes UO2, MOX, UCO, metallic, HALEU, research fuels

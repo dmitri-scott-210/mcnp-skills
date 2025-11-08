@@ -176,6 +176,107 @@ M4   1001.80c  -0.01  6000.80c  -0.001  8016.80c  -0.529  &
 
 **Expected Results:** Accurate gamma and neutron attenuation for dose calculations
 
+### Use Case 5: Graphite Moderator/Reflector (CRITICAL FOR THERMAL REACTORS)
+
+**Scenario:** Define graphite for HTGR moderator, reflector, or TRISO coating layers.
+
+**Goal:** Proper thermal neutron scattering with temperature-appropriate S(α,β) library.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 5: Graphite at 600 K (operating temperature)
+c Density: 1.75 g/cm3
+c Natural carbon isotopic composition
+c S(alpha,beta) thermal scattering REQUIRED
+c ========================================================================
+M5   6012.00c  0.9890  6013.00c  0.0110
+MT5  C-GRPH.43t
+TMP5  5.17e-8
+```
+
+**Key Points:**
+- MT card is MANDATORY for graphite in thermal reactors
+- Match MT temperature to TMP: 600 K → grph.43t (see thermal_scattering_reference.md)
+- Impact of missing MT: 1000-5000 pcm reactivity error, wrong spectrum
+- C-12 and C-13 natural abundances (98.90% and 1.10%)
+- Temperature selection critical: grph.40t (293K) vs grph.43t (600K) vs grph.46t (1000K)
+
+**Expected Results:** Correct thermal neutron thermalization, accurate reactivity
+
+**CRITICAL WARNING:** Professional reactor models have been found with MISSING graphite MT cards.
+This causes significant physics errors. ALWAYS include MT card for graphite!
+
+### Use Case 6: UCO TRISO Fuel Kernel (Advanced)
+
+**Scenario:** Define uranium carbide-oxide (UCO) fuel kernel for TRISO particles in HTGR.
+
+**Goal:** Specify UCO stoichiometry with 19.75% U-235 enrichment.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 6: UCO Kernel (UC0.32O1.36) at 19.75% enrichment
+c Density: 10.924 g/cm3
+c Stoichiometric ratios (MCNP normalizes internally)
+c ========================================================================
+M6   92234.00c  3.34179E-03  $ U-234
+     92235.00c  1.99636E-01  $ U-235 (19.75% enriched)
+     92236.00c  1.93132E-04  $ U-236
+     92238.00c  7.96829E-01  $ U-238
+      6012.00c  0.3217217    $ C-12
+      6013.00c  0.0035783    $ C-13
+      8016.00c  1.3613       $ O-16 (>1.0 is valid!)
+TMP6  7.75e-8
+```
+
+**Key Points:**
+- Oxygen fraction >1.0 is VALID - represents stoichiometric ratio UC₀.₃₂O₁.₃₆
+- MCNP normalizes using cell density: cell card has `-10.924` (g/cm³)
+- Enrichment in U-235: 19.75% typical for TRISO fuel
+- Temperature: 900K typical centerline, adjust for your application
+- See triso_fuel_reference.md for complete 5-layer TRISO structure
+
+**Expected Results:** Correct UCO fuel physics, proper fission rates
+
+**For more fuel types:** See fuel_compositions_reference.md (UO₂, MOX, UCO, metallic, HALEU)
+
+### Use Case 7: Depleted Fuel with Burnup Tracking (Advanced)
+
+**Scenario:** Define depleted fuel composition after burnup with fission products and Pu buildup.
+
+**Goal:** Track important isotopes for accurate reactivity and spectrum.
+
+**Implementation:**
+```
+c ========================================================================
+c Material 7: Depleted UO2 Fuel (after ~30 GWd/MTU burnup)
+c Density: 10.2 g/cm3
+c Tracks actinides and key fission products
+c ========================================================================
+M7   92235.70c  0.010    $ U-235 (depleted from ~4.5%)
+     92238.70c  0.945    $ U-238 (slightly depleted)
+      8016.70c  2.0      $ O-16
+     94239.70c  0.005    $ Pu-239 (bred from U-238)
+     94240.70c  0.002    $ Pu-240 (bred from Pu-239)
+     94241.70c  0.001    $ Pu-241 (bred from Pu-240)
+     54135.70c  1.0e-8   $ Xe-135 (strong absorber, equilibrium)
+     62149.70c  5.0e-9   $ Sm-149 (strongest FP absorber)
+     64157.70c  1.0e-10  $ Gd-157 (ultra-strong absorber)
+TMP7  8.62e-8
+```
+
+**Key Points:**
+- Track actinide buildup: Pu-239/240/241 from U-238 capture
+- Track strong absorbers: Xe-135, Sm-149, Gd-157 (huge impact on reactivity)
+- See burnup_tracking_guide.md for complete isotope list (25+ isotopes typical)
+- Fission product concentrations from depletion calculation (ORIGEN, MONTEBURNS)
+- Depleted U-235: dropped from ~4.5% to ~1.0% after burnup
+
+**Expected Results:** Accurate depleted fuel reactivity, poison effects
+
+**For burnup setup:** See burnup_tracking_guide.md for which isotopes to track and why
+
 ## Common Errors and Solutions
 
 ### Error 1: Cross Section Not Found
@@ -210,6 +311,40 @@ M4   1001.80c  -0.01  6000.80c  -0.001  8016.80c  -0.529  &
 1. Identify materials with H, Be, C, O, D, Zr in thermal spectrum
 2. Add MT card: `MT1  H-H2O.40t` for water
 3. See thermal_scattering_reference.md for complete table listing
+
+### Error 4: Missing Graphite Thermal Scattering (CRITICAL)
+
+**Symptom:** k-eff 1000-5000 pcm lower than expected, thermal flux distribution incorrect
+
+**Cause:** Missing MT card for graphite in thermal reactor
+
+**WRONG:**
+```
+M1   6012.00c  0.9890  6013.00c  0.0110  $ Graphite - NO MT CARD!
+```
+
+**RIGHT:**
+```
+M1   6012.00c  0.9890  6013.00c  0.0110
+MT1  C-GRPH.43t  $ <- ESSENTIAL for thermal reactors!
+TMP1  5.17e-8    $ Match temperature (600K)
+```
+
+**Impact:** This is a CRITICAL ERROR found even in professional reactor models.
+Missing graphite S(α,β) causes:
+- Free-gas scattering instead of crystalline binding
+- Harder thermal spectrum
+- Wrong reactivity (typically 1000-5000 pcm error)
+- Invalid benchmark comparisons
+
+**Solution:**
+1. ALWAYS add MT card for graphite in thermal systems
+2. Match MT table temperature to TMP card temperature
+3. Use temperature-appropriate table: grph.40t (293K), grph.43t (600K), grph.46t (1000K)
+4. See thermal_scattering_reference.md for complete table listing
+5. Use scripts/thermal_scattering_checker.py to validate
+
+**For full list of materials requiring MT cards:** See thermal_scattering_reference.md
 
 **For full error catalog:** See material_error_catalog.md (10 errors with diagnosis/fixes)
 
@@ -290,3 +425,6 @@ Result: Validated PWR pin cell input ready for simulation
 8. **Use M0 card** to set default libraries for all materials in large inputs (reduces card clutter)
 9. **Check natural vs isotopic** - use natural element ZAIDs (ZZZ000) when isotopic detail doesn't matter
 10. **Test materials separately** in simple geometries before using in complex models
+11. **ALWAYS add MT cards for graphite** in thermal reactors (HTGR, RBMK, graphite-moderated) - even professional models have missed this critical requirement
+12. **Match MT table temperature to operating conditions** - grph.40t (cold), grph.43t (operating), grph.46t (high-temp)
+13. **Track fission products in burnup** - minimum Xe-135, Sm-149, Gd-157 for accurate depletion (see burnup_tracking_guide.md)

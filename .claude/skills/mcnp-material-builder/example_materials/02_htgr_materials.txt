@@ -94,3 +94,108 @@ c 6. Material Modifications:
 c    - PyC density: Buffer 1.0, IPyC/OPyC ~1.9 g/cm3
 c    - SiC stoichiometry: Always 1:1 Si:C ratio
 c    - Graphite: May add impurities for real designs
+c
+c ========================================================================
+c ENHANCED EXAMPLES: Complete TRISO 5-Layer with MT Cards
+c ========================================================================
+c
+c ========================================================================
+c Material 10: UCO Fuel Kernel (AGR-1 Type)
+c Density: 10.924 g/cm3
+c Temperature: 900 K
+c Composition: UC0.32O1.36, 19.75% enriched
+c Application: UCO kernel (reduced CO production vs UO2)
+c ========================================================================
+M10  92234.00c  3.34179E-03  $ U-234
+     92235.00c  1.99636E-01  $ U-235 (19.75% enriched)
+     92236.00c  1.93132E-04  $ U-236
+     92238.00c  7.96829E-01  $ U-238
+      6012.00c  0.3217217    $ C-12
+      6013.00c  0.0035783    $ C-13
+      8016.00c  1.3613       $ O-16 (>1.0 is valid!)
+TMP10 7.75e-8
+c
+c ========================================================================
+c Material 11: Buffer Layer (Porous Carbon)
+c Density: 1.10 g/cm3
+c Temperature: 600 K
+c Composition: Natural carbon
+c Application: TRISO buffer (accommodates fission gas)
+c CRITICAL: MT card REQUIRED!
+c ========================================================================
+M11   6012.00c  0.9890  6013.00c  0.0110
+MT11  C-GRPH.43t  $ MANDATORY for thermal systems!
+TMP11 5.17e-8
+c
+c ========================================================================
+c Material 12: IPyC Layer (Inner Pyrolytic Carbon)
+c Density: 1.912 g/cm3
+c Temperature: 600 K
+c Composition: Dense pyrolytic carbon
+c Application: TRISO IPyC (diffusion barrier)
+c CRITICAL: MT card REQUIRED!
+c ========================================================================
+M12   6012.00c  0.9890  6013.00c  0.0110
+MT12  C-GRPH.43t  $ MANDATORY!
+TMP12 5.17e-8
+c
+c ========================================================================
+c Material 13: SiC Layer (Silicon Carbide)
+c Density: 3.207 g/cm3
+c Temperature: 600 K
+c Composition: Stoichiometric SiC with isotopic Si
+c Application: TRISO SiC (pressure vessel, FP retention)
+c NOTE: MT card recommended for carbon component
+c ========================================================================
+M13  14028.00c  0.9223  $ Si-28 (92.23%)
+     14029.00c  0.0467  $ Si-29 (4.67%)
+     14030.00c  0.0310  $ Si-30 (3.10%)
+      6012.00c  0.9890  $ C-12
+      6013.00c  0.0110  $ C-13
+MT13  C-GRPH.43t  $ Recommended for thermal systems
+TMP13 5.17e-8
+c
+c ========================================================================
+c Material 14: OPyC Layer (Outer Pyrolytic Carbon)
+c Density: 1.901 g/cm3
+c Temperature: 600 K
+c Composition: Dense pyrolytic carbon
+c Application: TRISO OPyC (protects SiC)
+c CRITICAL: MT card REQUIRED!
+c ========================================================================
+M14   6012.00c  0.9890  6013.00c  0.0110
+MT14  C-GRPH.43t  $ MANDATORY!
+TMP14 5.17e-8
+c
+c ========================================================================
+c Material 15: Graphite Matrix
+c Density: 1.256 g/cm3
+c Temperature: 600 K
+c Composition: Natural carbon binder
+c Application: Matrix binding TRISO particles in compact
+c CRITICAL: MT card REQUIRED!
+c ========================================================================
+M15   6012.00c  0.9890  6013.00c  0.0110
+MT15  C-GRPH.43t  $ MANDATORY for moderator!
+TMP15 5.17e-8
+c
+c ========================================================================
+c CRITICAL WARNINGS:
+c ========================================================================
+c
+c 1. ALL carbon-containing materials MUST have MT cards in thermal systems!
+c    - Missing MT cards cause 1000-5000 pcm reactivity errors
+c    - Professional models have been found with missing graphite MT cards
+c    - Always use scripts/thermal_scattering_checker.py to validate
+c
+c 2. UCO kernel: Oxygen fraction >1.0 is VALID
+c    - Represents stoichiometric ratio UC0.32O1.36, not atom fraction
+c    - MCNP normalizes using cell density specification
+c
+c 3. Temperature matching: MT table must match TMP card
+c    - grph.40t (293K), grph.43t (600K), grph.46t (1000K)
+c    - See thermal_scattering_reference.md for complete listing
+c
+c 4. For complete TRISO specifications:
+c    - See triso_fuel_reference.md for dimensions, packing fractions
+c    - See fuel_compositions_reference.md for all fuel types
