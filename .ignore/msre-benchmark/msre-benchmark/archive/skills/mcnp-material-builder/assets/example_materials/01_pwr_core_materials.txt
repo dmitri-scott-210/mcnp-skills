@@ -1,0 +1,79 @@
+PWR Core Material Library
+================================================================================
+Application: Pressurized Water Reactor (PWR) core materials
+Source: Standard PWR design parameters
+Complexity: Intermediate
+Materials: UO2 fuel (4.5%), Zircaloy-4, borated water, SS-304
+================================================================================
+c
+c ========================================================================
+c Material 1: UO2 Fuel, 4.5% U-235 Enrichment
+c Density: 10.4 g/cm3 (accounting for 95% theoretical density)
+c Temperature: 1200 K (fuel centerline average)
+c Application: PWR fuel pellets
+c ========================================================================
+M1   92235.80c  0.045  92238.80c  0.955  8016.80c  2.0
+TMP1  1.03e-7
+c
+c ========================================================================
+c Material 2: Zircaloy-4 Cladding
+c Density: 6.56 g/cm3
+c Temperature: 620 K (cladding outer surface)
+c Composition: Zr 98.23%, Sn 1.45%, Fe 0.21%, Cr 0.10%, O 0.125%
+c Application: Fuel rod cladding
+c ========================================================================
+M2   40000.80c  -0.9823  50000.80c  -0.0145  26000.80c  -0.0021  &
+     24000.80c  -0.0010  8016.80c  -0.00125
+TMP2  5.34e-8
+c
+c ========================================================================
+c Material 3: Light Water Moderator/Coolant (Borated)
+c Density: 0.72 g/cm3 (at operating conditions 580 K, 15.5 MPa)
+c Temperature: 580 K (core average coolant)
+c Boron: 500 ppm for reactivity control (typical mid-cycle)
+c Application: Moderator and primary coolant
+c ========================================================================
+M3   1001.80c  2.0  8016.80c  1.0  5010.80c  0.0001  5011.80c  0.0004
+MT3  H-H2O.42t
+TMP3  5.00e-8
+c
+c ========================================================================
+c Material 4: Stainless Steel 304 (Core Baffle)
+c Density: 8.0 g/cm3
+c Temperature: 580 K (same as coolant)
+c Composition: Fe 70%, Cr 19%, Ni 10%, Mn 1%
+c Application: Core internal structures
+c ========================================================================
+M4   26000.80c  -0.70  24000.80c  -0.19  28000.80c  -0.10  &
+     25055.80c  -0.01
+TMP4  5.00e-8
+c
+c ========================================================================
+c NOTES AND USAGE
+c ========================================================================
+c
+c 1. Temperature Selection:
+c    - Fuel: 1200 K is average, actual varies 800-1800 K radially
+c    - Cladding: 620 K is outer surface, varies through thickness
+c    - Coolant: 580 K is core average (inlet ~560 K, outlet ~600 K)
+c
+c 2. Boron Concentration:
+c    - 500 ppm shown is typical mid-cycle
+c    - BOL (Beginning of Life): 1000-1500 ppm
+c    - EOL (End of Life): 0-50 ppm
+c    - Adjust 5010/5011 fractions proportionally
+c
+c 3. Water Density:
+c    - 0.72 g/cm3 at 580 K operating conditions
+c    - Room temperature: 1.0 g/cm3
+c    - Use appropriate density in cell card
+c
+c 4. S(alpha,beta) Selection:
+c    - H-H2O.42t (373.6 K) used as closest to 580 K operating
+c    - H-H2O.43t (600 K) available for higher accuracy
+c    - Must match temperature in TMP card
+c
+c 5. Material Modifications:
+c    - Change enrichment: Adjust 92235/92238 ratio in M1
+c    - Change boron: Scale 5010/5011 fractions for ppm change
+c    - Change temperatures: Update TMP values and MT table if needed

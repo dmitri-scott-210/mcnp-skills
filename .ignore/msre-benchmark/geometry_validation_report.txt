@@ -1,0 +1,429 @@
+================================================================================
+MSRE GEOMETRY VALIDATION REPORT
+================================================================================
+Input File: /home/user/mcnp-skills/msre-benchmark/msre-model-v1.inp
+Validation Date: 2025-11-05
+Model: MSRE First Criticality Benchmark - Phase 2 Comprehensive Model
+Benchmark: Zero power (10 W), stationary salt, 911 K
+
+================================================================================
+OVERALL STATUS: FAIL
+================================================================================
+The geometry contains 6 CRITICAL ERRORS that will prevent MCNP from running
+successfully and 1 major dimensional discrepancy.
+
+*** ZERO LOST PARTICLES CANNOT BE GUARANTEED WITH THESE ERRORS ***
+
+================================================================================
+GEOMETRY STATISTICS
+================================================================================
+
+Cell Count:          22 cells total
+  - Universe 0:      12 cells (200-202, 210-211, 220, 230, 240-241, 250, 260, 999)
+  - Universe 1:       5 cells (1-5, fuel stringer unit cell)
+  - Universe 2:       3 cells (11-13, control rod thimble)
+  - Universe 3:       3 cells (21-23, sample basket)
+  - Universe 10:      1 cell (100, lattice definition)
+
+Surface Count:       45 surfaces defined (101-125, 201-202, 301-302, 500-505, 600-613)
+                     2 surfaces MISSING (214, 215)
+
+Lattice Structure:   28x28 rectangular lattice (784 positions)
+                     FILL array: -13:14, -13:14, 0:0
+                     Pitch: 5.084 cm
+
+Universe Hierarchy:  U=0 → U=10 (FILL) → U=1, U=2, U=3
+
+================================================================================
+CRITICAL ERRORS (WILL CAUSE FATAL ERRORS)
+================================================================================
+
+ERROR 1: UNDEFINED SURFACES 214 and 215
+----------------------------------------
+Severity: FATAL
+Location: Universe 2 (cells 11-13) and Universe 3 (cells 21-23)
+
+Surfaces 214 and 215 are referenced in 6 cells but NEVER DEFINED in the
+surface card section.
+
+Affected cells:
+  Cell 11: "3  -5.873  -201  -214 215  U=2"  (control rod poison)
+  Cell 12: "4  -8.7745  201 -202  -214 215  U=2"  (thimble wall)
+  Cell 13: "1  -2.3275  202  -214 215  U=2"  (fuel salt)
+  Cell 21: "5  -2.5  -301  -214 215  U=3"  (sample contents)
+  Cell 22: "4  -8.7745  301 -302  -214 215  U=3"  (basket wall)
+  Cell 23: "1  -2.3275  302  -214 215  U=3"  (fuel salt)
+
+MCNP will terminate with: "fatal error. surface ### not found."
+
+Required fix:
+  Add to surface cards section:
+    214  PZ   0.0       $ Control rod/basket bottom (matches 124, 504, 605)
+    215  PZ   170.311   $ Control rod/basket top (matches 125, 505)
+
+
+ERROR 2: CELL 200 WRONG SURFACE REFERENCE
+-------------------------------------------
+Severity: FATAL - Creates impossible/undefined geometry
+Location: Line 147, Cell 200 (Core lattice region)
+
+Current definition:
+  200  0  -600 -604 605  FILL=10  IMP:N=1  $ Core lattice region
+
+Problem:
+  Surface 604 is "CZ 76.862" (vessel outer RADIUS), but used as if it's an
+  AXIAL plane. Cell 200 needs axial boundaries, not radial.
+
+Corrected definition:
+  200  0  -600 -607 605  FILL=10  IMP:N=1  $ Core lattice region
+
+Explanation:
+  -600: inside core radius (r < 70.285 cm)
+  -607: below top of core can (z < 174.219 cm)
+   605: above lattice bottom (z > 0.0 cm)
+
+
+ERROR 3: CELL 202 WRONG SURFACE REFERENCE
+-------------------------------------------
+Severity: FATAL - Creates impossible geometry
+Location: Line 153, Cell 202 (Upper plenum)
+
+Current definition:
+  202  1  -2.3275  -600  604 -607  IMP:N=1  $ Upper plenum (salt)
+
+Problem:
+  "-600 604" means "inside 70.285 cm AND outside 76.862 cm" which is
+  geometrically IMPOSSIBLE (empty cell).
+
+Corrected definition:
+  202  1  -2.3275  -600  607 -609  IMP:N=1  $ Upper plenum (salt)
+
+Explanation:
+  -600: inside core radius (r < 70.285 cm)
+   607: above top of core can (z > 174.219 cm)
+  -609: below top of upper head (z < 210.0 cm)
+
+
+ERROR 4: CELL 240 IMPOSSIBLE BOOLEAN EXPRESSION
+------------------------------------------------
+Severity: FATAL - Empty cell (no valid space)
+Location: Line 169, Cell 240 (Lower head)
+
+Current definition:
+  240  4  -8.7745  -604 -608 606  IMP:N=1  $ Lower head
+
+Problem:
+  "-608 606" means "z < -20.0 AND z > -6.475" which is IMPOSSIBLE.
+  Cell contains zero volume.
+
+Corrected definition:
+  240  4  -8.7745  -604  606 -608  IMP:N=1  $ Lower head
+
+Explanation:
+  -604: inside vessel (r < 76.862 cm)
+   606: below bottom of lower head (z < -6.475 cm)
+  -608: above extended bottom (z > -20.0 cm)
+  Combined: -20.0 < z < -6.475 (valid region)
+
+
+ERROR 5: CELL 260 IMPOSSIBLE BOOLEAN EXPRESSION
+------------------------------------------------
+Severity: FATAL - Empty cell (no valid space)
+Location: Line 177, Cell 260 (Thermal shield)
+
+Current definition:
+  260  8  -7.9  610 -611 -612 613  IMP:N=1  $ Thermal shield
+
+Problem:
+  "-612 613" means "z < -100.0 AND z > 300.0" which is IMPOSSIBLE.
+  Cell contains zero volume.
+
+Corrected definition:
+  260  8  -7.9  610 -611  612 -613  IMP:N=1  $ Thermal shield
+
+Explanation:
+   610: outside insulation (r > 93.09 cm)
+  -611: inside shield radius (r < 158.75 cm)
+   612: above bottom extent (z > -100.0 cm)
+  -613: below top extent (z < 300.0 cm)
+  Combined: 93.09 < r < 158.75 and -100.0 < z < 300.0 (valid annulus)
+
+
+ERROR 6: CELL 999 MALFORMED BOOLEAN EXPRESSION
+-----------------------------------------------
+Severity: FATAL - Incorrect void boundary
+Location: Line 180, Cell 999 (Outside world)
+
+Current definition:
+  999  0  611:-612:612:-613  IMP:N=0  $ Void outside
+
+Problem:
+  "612:-613" contains "612" (z > -100) OR "-613" (z < 300) which is TRUE
+  for nearly all space, creating geometry conflicts.
+
+Corrected definition:
+  999  0  611 : -612 : 613  IMP:N=0  $ Void outside
+
+Explanation:
+  611: outside thermal shield (r > 158.75), OR
+  -612: below bottom extent (z < -100.0), OR
+  613: above top extent (z > 300.0)
+  This properly defines everything OUTSIDE the thermal shield boundaries.
+
+================================================================================
+DIMENSIONAL DISCREPANCIES
+================================================================================
+
+DISCREPANCY 1: CORE HEIGHT MISMATCH
+------------------------------------
+Severity: MAJOR
+Impact: Affects criticality calculation, geometry fidelity
+
+  Benchmark specification: 166.724 cm
+  Input file surfaces:     170.311 cm (surfaces 125, 505)
+
+  Difference:     +3.587 cm (2.15% too tall)
+  Axial range:    z = 0.0 to z = 170.311 cm
+
+Affected surfaces:
+  - Surface 125 (PZ 170.311): Universe 1 unit cell top
+  - Surface 505 (PZ 170.311): Lattice boundary top
+
+Required correction:
+  125  PZ   166.724   $ +Z boundary (top) - CORRECTED TO BENCHMARK
+  505  PZ   166.724   $ +Z lattice boundary (top) - CORRECTED TO BENCHMARK
+
+Note: This affects core volume, which will impact keff. Current model has
+~2.15% more core volume than benchmark specification.
+
+
+DISCREPANCY 2: BENCHMARK DIMENSIONS CHECK
+------------------------------------------
+
+Core Radius:
+  ✓ PASS - Surface 600 = 70.285 cm (matches benchmark exactly)
+
+Core Height:
+  ✗ FAIL - 170.311 cm vs 166.724 cm benchmark (see above)
+
+Fuel Channels:
+  ! WARNING - Lattice configuration produces wrong channel count
+
+  Benchmark specification:  1,140 fuel channels
+  Current model potential:  ~2,400 channels (if all ~600 lattice cells use U=1)
+
+  Analysis:
+  - 28x28 lattice = 784 total positions
+  - Approximately 600 positions inside 70.285 cm radius
+  - Current FILL array uses Universe 1 (4 channels) for ~777 positions
+  - This gives 777×4 ≈ 3,100 channels if all were inside core
+  - Actual count inside cylinder ≈ 600×4 = 2,400 channels
+
+  To achieve 1,140 channels:
+  - Need 1,140/4 = 285 fuel stringers (Universe 1)
+  - Remaining ~315 positions should be graphite-only or control elements
+
+  Note: This is a modeling issue, not a geometry error, but affects
+  benchmark fidelity.
+
+================================================================================
+GEOMETRY COVERAGE ANALYSIS
+================================================================================
+
+Universe 0 Coverage: INCOMPLETE (due to errors above)
+
+  Once errors are fixed, coverage should be:
+  ✓ Core region: Filled with lattice (Cell 200)
+  ✓ Lower plenum: Filled with salt mix (Cell 201)
+  ✓ Upper plenum: After fixing, will contain salt (Cell 202)
+  ✓ Core can: Two shells (Cells 210-211)
+  ✓ Downcomer: Void annulus (Cell 220)
+  ✓ Vessel wall: INOR-8 (Cell 230)
+  ✓ Vessel heads: Simplified top/bottom (Cells 240-241, need fixes)
+  ✓ Insulation: Vermiculite layer (Cell 250)
+  ✓ Thermal shield: Stainless steel (Cell 260, needs fix)
+  ✓ Outside void: IMP:N=0 (Cell 999, needs fix)
+
+Universe 1 Coverage: APPEARS COMPLETE
+  - 4 fuel channels properly defined (Cells 1-4)
+  - Graphite stringer fills remaining space with complement operator (Cell 5)
+  - Axial extent: 0.0 to 170.311 cm
+
+Universe 2 Coverage: CANNOT VERIFY (missing surfaces 214, 215)
+Universe 3 Coverage: CANNOT VERIFY (missing surfaces 214, 215)
+
+Universe 10 Coverage: PROPERLY DEFINED
+  - Rectangular lattice LAT=1
+  - FILL array: 28×28×1 (784 elements)
+  - 6 control rod positions (Universe 2)
+  - 3 sample basket positions (Universe 3)
+  - 775 fuel stringer positions (Universe 1)
+
+================================================================================
+SURFACE CROSS-REFERENCE CHECK
+================================================================================
+
+Surfaces defined but not used: NONE (all surfaces are referenced)
+
+Surfaces referenced but not defined: 214, 215 (CRITICAL ERROR - see above)
+
+All cell→surface references (excluding 214, 215):
+  ✓ All referenced surfaces exist in surface card section
+  ✓ Surface types match usage (CZ for radial, PX/PY/PZ for planes)
+
+================================================================================
+LATTICE/UNIVERSE STRUCTURE VALIDATION
+================================================================================
+
+Universe Nesting: VALID STRUCTURE
+  Level 0 (Universe 0): Real world geometry
+    └─ Level 1 (Universe 10): Lattice container
+         └─ Level 2: Unit cells (Universe 1, 2, 3)
+
+Lattice Cell 100: VALID STRUCTURE
+  - LAT=1 (rectangular lattice): Correct
+  - Surface order: -500 501 -502 503 -504 505 = -X +X -Y +Y -Z +Z: Correct
+  - FILL range: -13:14 -13:14 0:0 (28×28×1): Correct
+  - Array data: 784 universe numbers provided: Complete
+
+FILL Operation in Cell 200: WILL WORK AFTER FIXING CELL 200
+  - FILL=10 correctly references Universe 10
+  - Universe 10 contains lattice which fills U=1, U=2, U=3
+  - Creates proper nested structure
+
+Lattice Boundaries vs Core Boundaries:
+  - Lattice box: 142.35 × 142.35 × 170.31 cm
+  - Core cylinder: R=70.285 cm, H=170.31 cm (should be 166.724)
+  - Lattice exceeds core radially: Trimmed by cell 200 cylindrical boundary
+  - This is ACCEPTABLE design: Lattice positions outside core cylinder
+    are automatically excluded by the FILL cell geometry
+
+================================================================================
+BOOLEAN EXPRESSION ANALYSIS
+================================================================================
+
+Cells with complex Boolean expressions:
+
+Cell 5 (Universe 1): -120 121 -122 123 -124 125 #1 #2 #3 #4
+  Status: VALID
+  Interpretation: Box minus four fuel channels
+  Complexity: Manageable (6 surfaces + 4 complements)
+
+Cell 100 (Lattice): -500 501 -502 503 -504 505
+  Status: VALID
+  Interpretation: Rectangular box for lattice
+  Note: Correct surface ordering for MCNP lattice indexing
+
+Cells 200-260: Various radial/axial combinations
+  Status: INVALID (Cells 200, 202, 240, 260 have errors - see CRITICAL ERRORS)
+
+Cell 999: 611:-612:612:-613
+  Status: INVALID (Malformed - see CRITICAL ERRORS)
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+IMMEDIATE ACTIONS REQUIRED (Fix before running MCNP):
+
+1. Add missing surface definitions:
+   214  PZ   0.0       $ Control rod/basket bottom
+   215  PZ   170.311   $ Control rod/basket top (or 166.724 if height corrected)
+
+2. Fix Cell 200 (line 147):
+   Change: 200  0  -600 -604 605  FILL=10  IMP:N=1
+   To:     200  0  -600 -607 605  FILL=10  IMP:N=1
+
+3. Fix Cell 202 (line 153):
+   Change: 202  1  -2.3275  -600  604 -607  IMP:N=1
+   To:     202  1  -2.3275  -600  607 -609  IMP:N=1
+
+4. Fix Cell 240 (line 169):
+   Change: 240  4  -8.7745  -604 -608 606  IMP:N=1
+   To:     240  4  -8.7745  -604  606 -608  IMP:N=1
+
+5. Fix Cell 260 (line 177):
+   Change: 260  8  -7.9  610 -611 -612 613  IMP:N=1
+   To:     260  8  -7.9  610 -611  612 -613  IMP:N=1
+
+6. Fix Cell 999 (line 180):
+   Change: 999  0  611:-612:612:-613  IMP:N=0
+   To:     999  0  611 : -612 : 613  IMP:N=0
+
+7. Correct core height to match benchmark:
+   Change: 125  PZ   170.311
+   To:     125  PZ   166.724
+
+   Change: 505  PZ   170.311
+   To:     505  PZ   166.724
+
+GEOMETRY VERIFICATION COMMANDS:
+
+After fixes, run these MCNP commands to verify geometry:
+
+1. Geometry plotting (check for overlaps):
+
+   Add to end of input file:
+   c --- Geometry plots for verification ---
+   c Radial slice at core midheight (z=83.362)
+   IP  EX=150 OR=150 0 83.362 LA=0
+
+   c Axial slice through center (x=0)
+   IP  PX=0 OR=0 0 83.362 EX=100 LA=0
+
+   c 3D perspective view
+   IP  OR=150 100 200 EX=200 LA=0
+
+2. Void check (lost particle diagnostic):
+
+   Run with: mcnp6 i=msre-model-v1.inp VOID
+
+3. Run with limited particles first:
+
+   Change KCODE to: KCODE 1000 1.0 5 10
+   Verify ZERO lost particles in output
+   Then restore: KCODE 100000 1.0 50 200
+
+4. Check output for warnings:
+
+   After run, search output for:
+   - "warning"
+   - "cell volume"
+   - "source"
+   - "lost particle"
+
+BENCHMARK FIDELITY IMPROVEMENTS (Phase 3):
+
+1. Review lattice FILL array to achieve exactly 1,140 fuel channels
+2. Verify control rod positions match actual MSRE layout
+3. Refine vessel head geometry (currently simplified as flat sections)
+4. Add control rod insertion positions (51", 51", 46.6" from specification)
+
+================================================================================
+SUMMARY
+================================================================================
+
+Geometry Status: FAIL
+
+Critical Issues: 6 errors that will cause MCNP fatal errors
+  ✗ Missing surfaces 214, 215
+  ✗ Cell 200 wrong surface reference
+  ✗ Cell 202 impossible geometry
+  ✗ Cell 240 impossible Boolean expression
+  ✗ Cell 260 impossible Boolean expression
+  ✗ Cell 999 malformed Boolean expression
+
+Major Issues: 1 dimensional discrepancy
+  ✗ Core height 3.587 cm too tall (2.15% error)
+
+Minor Issues: 1 modeling concern
+  ! Fuel channel count doesn't match benchmark (design issue, not geometry error)
+
+ZERO LOST PARTICLES: Cannot be achieved until all critical errors are fixed.
+
+With the recommended fixes, the geometry should be valid and ready for
+initial criticality calculations.
+
+================================================================================
+END OF REPORT
+================================================================================

@@ -1,0 +1,32 @@
+Example 1: Basic Flux Spectrum (F4 with Energy Bins)
+
+PURPOSE:
+Demonstrate F4 track-length flux tally with energy binning to calculate neutron energy spectrum in a water sphere.
+
+GEOMETRY:
+- Simple spherical water volume (10 cm radius)
+- Point isotropic source at center (14.1 MeV neutrons)
+
+TALLY DETAILS:
+- F4:N = Track-length estimator of cell flux
+- E4 card = 10 energy bins spanning thermal (1E-10 MeV) to fast (15 MeV)
+- SD4 card = Volume specification for flux normalization (particles/cm²)
+
+KEY LEARNING POINTS:
+1. F4 tallies volume-averaged flux (requires volume specification)
+2. E4 card creates energy spectrum (10 bins from thermal to fast)
+3. SD4 overrides MCNP-calculated volume (useful for irregular cells)
+4. Energy bins should span expected spectrum range
+5. Results show how 14.1 MeV neutrons thermalize in water
+
+EXPECTED OUTPUT:
+- Flux vs energy showing:
+  - Peak at 14.1 MeV (source energy, uncollided)
+  - Slowing-down distribution from 14 → 1 MeV
+  - Thermal peak at ~0.025 eV (thermalized neutrons)
+
+VARIATIONS TO TRY:
+- Change source energy (1 MeV, 2.5 MeV, fission spectrum)
+- Vary water sphere radius (5 cm, 20 cm, 50 cm)
+- Add energy bins (use LOG or ILOG shortcuts)
+- Try different materials (iron, concrete, lead)

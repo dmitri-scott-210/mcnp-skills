@@ -1,0 +1,42 @@
+Example 2: Point Detector Dose (F5 with DE/DF)
+
+PURPOSE:
+Calculate dose rate at a detector location using F5 point detector with flux-to-dose conversion factors.
+
+GEOMETRY:
+- Void geometry (no scattering, direct line-of-sight calculation)
+- Fission spectrum source at origin
+- Detector at 100 cm distance
+
+TALLY DETAILS:
+- F5:N = Point detector next-event estimator
+- Format: F5:N  x y z R (detector at x,y,z with exclusion radius R)
+- R=0.5 cm exclusion radius (particles within 0.5 cm of detector are excluded)
+- DE5/DF5 = Dose conversion factors (ANSI/ANS-6.1.1-1977 standard)
+- DE5 = Energy grid for interpolation
+- DF5 = Flux-to-dose factors in rem/h per (neutron/cm²/s)
+
+KEY LEARNING POINTS:
+1. F5 gives flux at a POINT (not volume-averaged like F4)
+2. Next-event estimator = high efficiency for localized detectors
+3. Exclusion radius R prevents statistical issues for nearby particles
+4. DE/DF converts flux to dose equivalent using standard factors
+5. Result is dose rate (rem/h per source particle)
+
+DOSE CONVERSION:
+- DE5 energies must cover source spectrum range
+- DF5 values from ICRP-74, ICRP-116, or ANSI/ANS-6.1.1-1977
+- Interpolation: logarithmic (default) between energy points
+- Units: rem/h or Sv/h (depends on DF values used)
+
+EXPECTED OUTPUT:
+- Dose rate at detector (rem/h per source particle)
+- To get absolute dose rate: multiply by source strength (particles/s)
+- Typical result: ~1E-8 rem/h per neutron/s for this geometry
+
+VARIATIONS TO TRY:
+- Add shielding (concrete wall between source and detector)
+- Multiple detectors (F15, F25, F35 at different locations)
+- Change to ICRP-60 factors: DF5 IC=99 IU=1 FAC=-3
+- Vary detector distance (50 cm, 200 cm, 500 cm)
+- Add energy bins to E5 card for dose spectrum
