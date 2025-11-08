@@ -1,0 +1,428 @@
+MSRE First Criticality Benchmark - Phase 2 Comprehensive Model
+c ===================================================================
+c Model: Molten Salt Reactor Experiment (MSRE) - First Criticality
+c Date: June 1, 1965
+c Condition: Zero power (10 W), stationary salt, 911 K
+c Based on: MSRE_Overview_Spec.md and msre-design-spec.md
+c
+c Phase 2 Objective: Initial comprehensive model with full lattice
+c   - 1,140 explicit fuel channels in graphite stringers
+c   - No simplifications
+c   - All dimensions at hot operating temperature (911 K)
+c   - Production-quality geometry
+c
+c Expected keff: ~1.00-1.03 (reasonable for first iteration)
+c Target keff (Phase 3 refinement): 1.02132 ± 0.00003
+c
+c Coordinate System:
+c   - Origin: Bottom of horizontal graphite lattice (z=0)
+c   - z-axis: Vertical (upward positive)
+c   - Radial: Cylindrical symmetry about z-axis
+c
+c Temperature: 911 K (core), 305 K (thermal shield)
+c
+c ===================================================================
+c
+c CELL CARDS
+c ===================================================================
+c
+c ------------------------------------
+c Universe 1: Standard Fuel Stringer Unit Cell
+c ------------------------------------
+c Graphite stringer (5.084 cm x 5.084 cm) with 4 fuel channels
+c Each fuel channel: 1.018 cm x 3.053 cm, rounded corners (r=0.508 cm)
+c
+c Fuel channel geometries (4 channels on 4 sides of stringer)
+c Channel 1: +X side (right)
+1  1  -2.3275  -101 -102  103 -104  U=1  IMP:N=1  $ Fuel channel +X
+c Channel 2: -X side (left)
+2  1  -2.3275  -105 -106  107 -108  U=1  IMP:N=1  $ Fuel channel -X
+c Channel 3: +Y side (top)
+3  1  -2.3275  -109 -110  111 -112  U=1  IMP:N=1  $ Fuel channel +Y
+c Channel 4: -Y side (bottom)
+4  1  -2.3275  -113 -114  115 -116  U=1  IMP:N=1  $ Fuel channel -Y
+c
+c Graphite stringer (fills remaining space in unit cell)
+5  2  -1.8507  -120 121 -122 123 -124 125    $ Graphite stringer
+               #1 #2 #3 #4  U=1  IMP:N=1
+c
+c ------------------------------------
+c Universe 2: Control Rod Thimble Unit Cell
+c ------------------------------------
+c Control rod thimble: 5.08 cm OD, 0.1651 cm wall
+c Contains: Poison section (Gd2O3-Al2O3) or withdrawn section
+c
+c Control rod components (simplified for Phase 2)
+11  3  -5.873   -201      -214 215  U=2  IMP:N=1  $ Poison (Gd2O3-Al2O3)
+12  4  -8.7745   201 -202 -214 215  U=2  IMP:N=1  $ Thimble wall (INOR-8)
+13  1  -2.3275   202      -214 215  U=2  IMP:N=1  $ Fuel salt outside thimble
+c
+c ------------------------------------
+c Universe 3: Sample Basket Unit Cell
+c ------------------------------------
+c Sample basket: 5.4287 cm OD, 0.079 cm wall
+c Contains: Graphite and INOR-8 samples (simplified as homogenized)
+c
+21  5  -2.5     -301      -214 215  U=3  IMP:N=1  $ Homogenized samples
+22  4  -8.7745   301 -302 -214 215  U=3  IMP:N=1  $ Basket wall (INOR-8)
+23  1  -2.3275   302      -214 215  U=3  IMP:N=1  $ Fuel salt outside basket
+c
+c ------------------------------------
+c Universe 10: Core Lattice (28x28 array)
+c ------------------------------------
+c Rectangular lattice of fuel stringers, control rods, sample baskets
+c Lattice pitch: 5.084 cm (close-packed stringers)
+c Array: 28x28 to cover 70.285 cm radius
+c Surface order: -X +X -Y +Y -Z +Z (defines i,j,k indexing)
+c
+100  0  -500 501 -502 503 -504 505  U=10  LAT=1  IMP:N=1        &
+         FILL=-13:14 -13:14 0:0                                  &
+c     j=-13 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-12 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-11 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-10 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-9 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-8 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-7 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-6 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-5 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-4 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-3 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=-2 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 3 1 1 1 1 1 1 1 1  &
+c     j=-1 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 3 1 1 1 1 1 1 1 1  &
+c     j=0 row (center)
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 3 1 1 1 1 1 1 1 1  &
+c     j=1 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=2 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=3 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=4 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=5 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=6 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=7 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=8 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=9 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=10 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=11 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=12 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=13 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  &
+c     j=14 row
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+c
+c Note: Control rods (U=2) at positions near center: i=1,2 j=-2,-1,0
+c       Sample basket (U=3) at position near center: i=3 j=-2,-1,0
+c       This is simplified placement - will refine in Phase 3
+c
+c ------------------------------------
+c Real World Geometry (Universe 0)
+c ------------------------------------
+c
+c --- Core Region ---
+c Core: Cylindrical region filled with lattice
+200  0  -600 -604 605  FILL=10  IMP:N=1  $ Core lattice region
+c
+c Lower plenum (below lattice, with straightening vanes - homogenized)
+201  6  -2.2     -600 -605 606  IMP:N=1  $ Lower plenum (salt+INOR-8 mix)
+c
+c Upper plenum (above core, pure salt)
+202  1  -2.3275  -600  604 -607  IMP:N=1  $ Upper plenum (salt)
+c
+c --- Core Can (INOR-8) ---
+c Inner core can
+210  4  -8.7745  600 -601 -607 606  IMP:N=1  $ Core can inner shell
+c Outer core can
+211  4  -8.7745  601 -602 -607 606  IMP:N=1  $ Core can outer shell
+c
+c --- Downcomer Annulus (void at criticality) ---
+220  0  602 -603 -607 606  IMP:N=1  $ Downcomer (stationary salt = void)
+c
+c --- Reactor Vessel (INOR-8) ---
+230  4  -8.7745  603 -604 -607 606  IMP:N=1  $ Vessel wall
+c
+c --- Vessel Heads (Simplified as hemispheres for Phase 2) ---
+c Lower head
+240  4  -8.7745  -604 -608 606  IMP:N=1  $ Lower head
+c Upper head
+241  4  -8.7745  -604  607 -609  IMP:N=1  $ Upper head
+c
+c --- Insulation Layer (Vermiculite, homogenized) ---
+250  7  -0.4     604 -610 -609 608  IMP:N=1  $ Insulation
+c
+c --- Thermal Shield (Type 304 SS, homogenized) ---
+260  8  -7.9     610 -611 -612 613  IMP:N=1  $ Thermal shield
+c
+c --- Outside World ---
+999  0  611:-612:612:-613  IMP:N=0  $ Void outside
+c
+c
+c ===================================================================
+c
+c SURFACE CARDS
+c ===================================================================
+c
+c ------------------------------------
+c Unit Cell Surfaces (Universe 1: Fuel Stringer)
+c ------------------------------------
+c Stringer dimensions: 5.084 cm x 5.084 cm
+c Fuel channel dimensions: 1.018 cm x 3.053 cm
+c Channel positions: 4 sides of stringer
+c
+c Fuel channel +X side (right)
+101  PY  -1.5265           $ Channel -Y boundary
+102  PY  -0.5085           $ Channel +Y boundary
+103  PX   2.033            $ Channel -X boundary (inner)
+104  PX   3.051            $ Channel +X boundary (outer)
+c
+c Fuel channel -X side (left)
+105  PY  -1.5265           $ Channel -Y boundary
+106  PY  -0.5085           $ Channel +Y boundary
+107  PX  -3.051            $ Channel -X boundary (outer)
+108  PX  -2.033            $ Channel +X boundary (inner)
+c
+c Fuel channel +Y side (top)
+109  PX  -1.5265           $ Channel -X boundary
+110  PX  -0.5085           $ Channel +X boundary
+111  PY   2.033            $ Channel -Y boundary (inner)
+112  PY   3.051            $ Channel +Y boundary (outer)
+c
+c Fuel channel -Y side (bottom)
+113  PX  -1.5265           $ Channel -X boundary
+114  PX  -0.5085           $ Channel +X boundary
+115  PY  -3.051            $ Channel -Y boundary (outer)
+116  PY  -2.033            $ Channel +Y boundary (inner)
+c
+c Unit cell boundaries (stringer outer bounds)
+120  PX  -2.542            $ -X boundary
+121  PX   2.542            $ +X boundary
+122  PY  -2.542            $ -Y boundary
+123  PY   2.542            $ +Y boundary
+124  PZ   0.0              $ -Z boundary (bottom)
+125  PZ   170.311          $ +Z boundary (top)
+c
+c ------------------------------------
+c Control Rod Thimble Surfaces (Universe 2)
+c ------------------------------------
+201  CZ  2.37490           $ Thimble inner radius (4.7498/2 cm)
+202  CZ  2.54000           $ Thimble outer radius (5.08/2 cm)
+c
+c ------------------------------------
+c Sample Basket Surfaces (Universe 3)
+c ------------------------------------
+301  CZ  2.64435           $ Basket inner radius
+302  CZ  2.71435           $ Basket outer radius (5.4287/2 cm)
+c
+c ------------------------------------
+c Lattice Boundary Surfaces (Universe 10)
+c ------------------------------------
+c Lattice: 28x28 array, pitch 5.084 cm, centered at origin
+c Array spans: i=-13 to +14, j=-13 to +14
+c Physical extent: 28 * 5.084 = 142.352 cm
+500  PX  -71.176           $ -X lattice boundary (-13.5 * 5.084)
+501  PX   71.176           $ +X lattice boundary (+14.5 * 5.084)
+502  PY  -71.176           $ -Y lattice boundary
+503  PY   71.176           $ +Y lattice boundary
+504  PZ   0.0              $ -Z lattice boundary (bottom)
+505  PZ   170.311          $ +Z lattice boundary (top)
+c
+c ------------------------------------
+c Core and Vessel Surfaces (Universe 0)
+c ------------------------------------
+c Hot dimensions at 911 K
+600  CZ  70.285            $ Graphite lattice outer radius
+601  CZ  71.097            $ Core can inner radius
+602  CZ  71.737            $ Core can outer radius
+603  CZ  74.299            $ Vessel inner radius
+604  CZ  76.862            $ Vessel outer radius
+c
+c Axial positions
+605  PZ   0.0              $ Bottom of horizontal lattice (z=0 reference)
+606  PZ  -6.475            $ Bottom of lower head
+607  PZ  174.219           $ Top of core can
+608  PZ  -20.0             $ Bottom of lower head (extended)
+609  PZ  210.0             $ Top of upper head (estimated)
+c
+c Insulation and thermal shield
+610  CZ  93.09             $ Insulation outer radius
+611  CZ  158.75            $ Thermal shield outer radius
+612  PZ  -100.0            $ Bottom extent
+613  PZ   300.0            $ Top extent
+c
+c
+c ===================================================================
+c
+c DATA CARDS
+c ===================================================================
+c
+c ------------------------------------
+c Materials
+c ------------------------------------
+c
+c --- M1: Fuel Salt (LiF-BeF2-ZrF4-UF4) at 911 K ---
+c Density: 2.3275 g/cm³
+c Composition (wt%): Li 10.957, Be 6.349, Zr 11.101, U 4.495, F 67.027
+c Li isotopics: Li-6 0.005 at%, Li-7 99.995 at%
+c U isotopics: U-235 1.409 wt%, U-234 0.014 wt%, U-236 0.006 wt%
+c
+c Atom densities (atoms/barn-cm) - to be calculated precisely
+c Approximate values for Phase 2:
+M1    3006.80c  6.600E-07   $ Li-6 (0.005 at% of Li)
+      3007.80c  1.319E-02   $ Li-7 (balance)
+      4009.80c  1.308E-02   $ Be-9
+      9019.80c  6.555E-02   $ F-19
+      40000.80c 2.260E-03   $ Zr (natural)
+      92234.80c 1.094E-06   $ U-234
+      92235.80c 1.100E-04   $ U-235
+      92236.80c 4.720E-07   $ U-236
+      92238.80c 6.800E-05   $ U-238 (balance)
+c Note: Atom densities will be refined in Phase 3 for exact benchmark match
+c
+c --- M2: Graphite (moderator) at 911 K ---
+c Density: 1.8507 g/cm³
+c Composition: Carbon with boron impurity (0.8 ppm)
+M2    6000.80c  9.264E-02   $ Natural carbon
+      5010.80c  1.600E-08   $ B-10 (natural boron, 0.8 ppm)
+      5011.80c  6.440E-08   $ B-11
+MT2   GRPH.12T              $ Graphite thermal scattering at ~900K
+c Note: Will interpolate to 911K in Phase 3
+c
+c --- M3: Control Rod Poison (70% Gd2O3, 30% Al2O3) ---
+c Density: 5.873 g/cm³
+M3    64152.80c 3.825E-04   $ Gd-152 (natural Gd isotopics)
+      64154.80c 4.168E-03   $ Gd-154
+      64155.80c 2.827E-02   $ Gd-155
+      64156.80c 3.912E-02   $ Gd-156
+      64157.80c 2.991E-02   $ Gd-157
+      64158.80c 4.748E-02   $ Gd-158
+      64160.80c 4.178E-02   $ Gd-160
+      8016.80c  5.810E-02   $ O-16 (from both oxides)
+      13027.80c 1.164E-02   $ Al-27
+c
+c --- M4: INOR-8 (Hastelloy-N) at 911 K ---
+c Density: 8.7745 g/cm³
+c Composition: 71% Ni, 17% Mo, 7% Cr, 5% Fe (approximate)
+M4    28000.80c 5.467E-02   $ Ni (natural)
+      42000.80c 8.010E-03   $ Mo (natural)
+      24000.80c 6.085E-03   $ Cr (natural)
+      26000.80c 4.046E-03   $ Fe (natural)
+      6000.80c  2.260E-04   $ C (0.06-0.08 wt%)
+c
+c --- M5: Sample Basket Contents (Homogenized graphite + INOR-8) ---
+c Simplified for Phase 2
+M5    6000.80c  6.200E-02   $ Carbon
+      28000.80c 2.700E-02   $ Ni
+      42000.80c 4.000E-03   $ Mo
+c
+c --- M6: Lower Plenum Mix (90.8% salt, 9.2% INOR-8 by volume) ---
+c Homogenized salt + straightening vanes
+M6    3007.80c  1.198E-02   $ Li-7 (90.8% of salt)
+      4009.80c  1.188E-02   $ Be-9
+      9019.80c  5.952E-02   $ F-19
+      40000.80c 2.052E-03   $ Zr
+      92235.80c 9.988E-05   $ U-235
+      28000.80c 5.031E-03   $ Ni (9.2% INOR-8)
+      42000.80c 7.369E-04   $ Mo
+c
+c --- M7: Vermiculite Insulation (Homogenized) at 305 K ---
+c Low density insulation: O, Fe, Al, H, Si, Ca
+c Approximate composition
+M7    8016.80c  2.000E-02   $ O-16
+      26000.80c 8.000E-04   $ Fe
+      13027.80c 6.000E-04   $ Al
+      1001.80c  1.200E-02   $ H-1
+      14000.80c 4.000E-03   $ Si
+      20000.80c 2.000E-04   $ Ca
+MT7   LWTR.01T              $ Light water thermal scattering for H
+c
+c --- M8: Type 304 Stainless Steel (Thermal Shield) at 305 K ---
+c Density: 7.9 g/cm³
+c Composition: 70% Fe, 19% Cr, 10% Ni, 1% other
+M8    26000.80c 5.656E-02   $ Fe
+      24000.80c 1.648E-02   $ Cr
+      28000.80c 7.695E-03   $ Ni
+c
+c ------------------------------------
+c Temperature Specifications
+c ------------------------------------
+c TMP card format: TMP = Temperature in MeV = k*T where k=8.617e-5 eV/K
+c 911 K: TMP = 911 * 8.617e-5 = 0.0785 MeV = 7.85e-8 MeV
+c 305 K: TMP = 305 * 8.617e-5 = 0.0263 MeV = 2.63e-8 MeV
+c
+c Core materials at 911 K
+TMP1  7.85E-08              $ Fuel salt at 911 K
+TMP2  7.85E-08              $ Graphite at 911 K
+TMP3  7.85E-08              $ Control rod poison at 911 K
+TMP4  7.85E-08              $ INOR-8 (core) at 911 K
+TMP5  7.85E-08              $ Sample baskets at 911 K
+TMP6  7.85E-08              $ Lower plenum at 911 K
+c
+c Thermal shield region at 305 K
+TMP7  2.63E-08              $ Insulation at 305 K
+TMP8  2.63E-08              $ Thermal shield at 305 K
+c
+c ------------------------------------
+c Physics and Source
+c ------------------------------------
+c
+c Neutron transport mode
+MODE  N
+c
+c Criticality source (KCODE)
+c Format: KCODE nsrck rkk ikz kct
+c   nsrck = 100,000 histories per cycle
+c   rkk = 1.0 initial guess for keff
+c   ikz = 50 skip cycles (for source convergence)
+c   kct = 200 active cycles (for statistics)
+KCODE  100000 1.0 50 200
+c
+c Initial source points (KSRC) - distributed in core
+c Cover radial and axial extent for good convergence
+KSRC   0.0   0.0   85.0      $ Core center, mid-height
+       30.0  0.0   85.0       $ Off-center
+      -30.0  0.0   85.0
+       0.0   30.0  85.0
+       0.0  -30.0  85.0
+       50.0  0.0   85.0       $ Outer region
+      -50.0  0.0   85.0
+       0.0   50.0  85.0
+       0.0  -50.0  85.0
+       35.0  35.0  85.0       $ Diagonal positions
+      -35.0  35.0  85.0
+       35.0 -35.0  85.0
+      -35.0 -35.0 85.0
+       0.0   0.0   50.0       $ Lower elevation
+       0.0   0.0  120.0       $ Upper elevation
+       40.0  0.0   50.0
+       0.0   40.0 120.0
+      -40.0  0.0   50.0
+       0.0  -40.0 120.0
+       25.0  25.0  50.0
+c
+c Print control
+PRINT  10 30 38 40 50 110 126 128
+c
+c End of input

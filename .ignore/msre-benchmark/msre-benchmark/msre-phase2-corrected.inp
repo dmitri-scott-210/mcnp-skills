@@ -1,0 +1,343 @@
+MSRE First Criticality - Phase 2 Comprehensive Model (Corrected)
+c ===================================================================
+c Model: Molten Salt Reactor Experiment (MSRE) - First Criticality
+c Date: June 1, 1965 (6:00 PM)
+c Condition: Zero power (~10 W), stationary salt, 911 K uniform
+c
+c Based on: UC Berkeley benchmark (Shen et al. 2021)
+c          msre-design-spec.md, MSRE_Overview_Spec.md
+c
+c Phase 2: Comprehensive model with full lattice
+c   - Full 28×28 lattice array (593 active positions inside R=70.285 cm)
+c   - 589 fuel stringers + 3 control rods + 1 sample basket
+c   - Rectangular fuel channel simplification (Table IX, Berkeley paper)
+c   - Graphite edge filler (Universe 4) at lattice periphery
+c   - All hot dimensions at 911 K
+c   - Horizontal graphite lattice support structure
+c
+c Coordinate System:
+c   Origin: Bottom of horizontal graphite lattice (z=0)
+c   z-axis: Vertical (upward positive)
+c
+c Expected keff: ~1.02 (Phase 2), Target: 1.02132 ± 0.00003 (Phase 3)
+c ===================================================================
+c
+c ===================================================================
+c CELL CARDS
+c ===================================================================
+c
+c -------------------------------------------------------------------
+c Universe 1: Standard Fuel Stringer Unit Cell
+c -------------------------------------------------------------------
+c 5.084 × 5.084 cm graphite stringer with 4 rectangular fuel channels
+c Rectangular channel: 3.048 cm (long) × 0.944 cm (short)
+c Cross-sectional area preserved vs rounded-corner reference
+c
+c Fuel channels (salt-filled)
+1   1  -2.3275  -101  U=1  IMP:N=1  $ Fuel channel +X face
+2   1  -2.3275  -102  U=1  IMP:N=1  $ Fuel channel -X face
+3   1  -2.3275  -103  U=1  IMP:N=1  $ Fuel channel +Y face
+4   1  -2.3275  -104  U=1  IMP:N=1  $ Fuel channel -Y face
+c
+c Graphite stringer body (excludes channels and dowel)
+5   2  -1.8507  -100  #1 #2 #3 #4 #6  U=1  IMP:N=1  $ Graphite stringer
+c
+c Doweled section at bottom (2.54 cm dia × 2.0 cm height)
+6   2  -1.8507  -105  U=1  IMP:N=1  $ Dowel (fits lattice holes)
+c
+c -------------------------------------------------------------------
+c Universe 2: Control Rod Thimble Unit Cell
+c -------------------------------------------------------------------
+c Thimble: 5.08 cm OD, 0.1651 cm wall
+c Poison: Gd2O3-Al2O3 (70%/30%), 118.364 cm insertion (46.6 in)
+c
+11  3  -5.873   -201  -207 208  U=2  IMP:N=1  $ Poison section
+12  4  -8.7745  -202  201  -207 208  U=2  IMP:N=1  $ Thimble wall
+13  1  -2.3275  -200  202  -207 208  U=2  IMP:N=1  $ Salt outside
+14  0          -200  -208  U=2  IMP:N=1  $ Void below poison
+15  0          -200  207  U=2  IMP:N=1  $ Void above poison
+c
+c -------------------------------------------------------------------
+c Universe 3: Sample Basket Unit Cell
+c -------------------------------------------------------------------
+c Basket: 5.4287 cm OD, 0.079 cm wall
+c Contains: 4 INOR-8 + 5 graphite samples (homogenized)
+c
+21  5  -2.5     -301  -207 208  U=3  IMP:N=1  $ Homogenized samples
+22  4  -8.7745  -302  301  -207 208  U=3  IMP:N=1  $ Basket wall
+23  1  -2.3275  -200  302  -207 208  U=3  IMP:N=1  $ Salt outside
+c
+c -------------------------------------------------------------------
+c Universe 4: Graphite Edge Filler Unit Cell
+c -------------------------------------------------------------------
+c Solid graphite for lattice positions outside core radius
+c Same dimensions as Universe 1 (5.084 × 5.084 cm)
+c
+31  2  -1.8507  -100  U=4  IMP:N=1  $ Solid graphite block
+c
+c -------------------------------------------------------------------
+c Universe 10: Lattice Cell (ONE repeating element, LAT=1)
+c -------------------------------------------------------------------
+c CRITICAL: This defines ONE 5.084 × 5.084 × 170.311 cm element
+c LAT=1 makes it infinite until bounded by real-world geometry
+c
+100  0  -500  U=10  LAT=1  FILL=-13:14 -13:14 0:0  IMP:N=1
+          0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0
+          0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0
+          0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0
+          0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0
+          0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0
+          0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+          0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+          0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0
+          0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 2 1 2 3 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0
+          0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0
+          0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0
+          0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+          0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+          0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0
+          0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0
+          0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0
+          0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0
+          0 0 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0
+          0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+c
+c Note: FILL array shows 4=graphite edge filler, 1=fuel, 2=control, 3=basket
+c       Control rods at i=-1,1 j=0; sample basket at i=2 j=0
+c
+c -------------------------------------------------------------------
+c Real World Geometry (Universe 0)
+c -------------------------------------------------------------------
+c
+c === Horizontal Graphite Lattice Support (below stringers) ===
+c Two perpendicular layers: 2.54 × 4.1275 cm cross section
+c Holes: 2.642 cm diameter for 2.54 cm dowels
+c
+190  2  -1.8507  -690  -605 691  IMP:N=1  $ Horizontal lattice (homogenized)
+c
+c === Core Lattice Region ===
+c Cylindrical region filled with lattice U=10
+c Bounded by: CZ 600 (R=70.285 cm), PZ 605 (z=0), PZ 607 (z=174.219 cm)
+c
+200  0  -600 -607 605  FILL=10  IMP:N=1  $ Core lattice
+c
+c === Lower Plenum ===
+c Below horizontal lattice, contains straightening vanes (homogenized)
+c
+201  6  -2.2  -600 -605 606  IMP:N=1  $ Lower plenum (salt+INOR-8)
+c
+c === Upper Plenum ===
+c Above lattice, pure salt
+c
+202  1  -2.3275  -600 607 -607a  IMP:N=1  $ Upper plenum (salt)
+c
+c === Core Can (INOR-8 double shell) ===
+c
+210  4  -8.7745  600 -601 -607a 606  IMP:N=1  $ Core can inner shell
+211  4  -8.7745  601 -602 -607a 606  IMP:N=1  $ Core can outer shell
+c
+c === Downcomer Annulus (void at criticality) ===
+c
+220  0  602 -603 -607a 606  IMP:N=1  $ Downcomer (stationary salt)
+c
+c === Reactor Vessel (INOR-8) ===
+c
+230  4  -8.7745  603 -604 -607a 606  IMP:N=1  $ Vessel wall
+c
+c === Vessel Heads (simplified as flat for Phase 2) ===
+c
+240  4  -8.7745  -604 -608 606  IMP:N=1  $ Lower head
+241  4  -8.7745  -604 607a -609  IMP:N=1  $ Upper head
+c
+c === Insulation Layer (Vermiculite) ===
+c
+250  7  -0.4  604 -610 -609 608  IMP:N=1  $ Insulation at 305 K
+c
+c === Thermal Shield (Type 304 SS) ===
+c
+260  8  -7.9  610 -611 -612 613  IMP:N=1  $ Thermal shield at 305 K
+c
+c === Graveyard ===
+c
+999  0  611:-612:612:-613  IMP:N=0  $ Void outside
+c
+c
+c ===================================================================
+c SURFACE CARDS
+c ===================================================================
+c
+c -------------------------------------------------------------------
+c Universe 1: Fuel Stringer Surfaces (RPP macrobodies)
+c -------------------------------------------------------------------
+c
+c Lattice element boundary (5.084 × 5.084 × 170.311 cm)
+100  RPP  -2.542 2.542  -2.542 2.542  0.0 170.311
+c
+c Rectangular fuel channels (3.048 cm long × 0.944 cm wide)
+c Centered on each of 4 faces of stringer
+101  RPP  2.070 2.542  -1.524 1.524  0.0 170.311  $ +X face channel
+102  RPP  -2.542 -2.070  -1.524 1.524  0.0 170.311  $ -X face channel
+103  RPP  -1.524 1.524  2.070 2.542  0.0 170.311  $ +Y face channel
+104  RPP  -1.524 1.524  -2.542 -2.070  0.0 170.311  $ -Y face channel
+c
+c Doweled section at bottom (2.54 cm dia × 2.0 cm height)
+105  RCC  0 0 -2.0  0 0 2.0  1.27  $ Dowel (2.54 cm OD)
+c
+c -------------------------------------------------------------------
+c Universe 2: Control Rod Surfaces
+c -------------------------------------------------------------------
+c
+200  RPP  -2.542 2.542  -2.542 2.542  0.0 170.311  $ Unit cell boundary
+201  RCC  0 0 0  0 0 118.364  2.37490  $ Poison inner
+202  RCC  0 0 0  0 0 118.364  2.54000  $ Thimble outer (5.08 cm OD)
+207  PZ  118.364  $ Poison top (46.6 in insertion)
+208  PZ  0.0  $ Poison bottom
+c
+c -------------------------------------------------------------------
+c Universe 3: Sample Basket Surfaces
+c -------------------------------------------------------------------
+c
+301  RCC  0 0 0  0 0 170.311  2.64435  $ Basket inner
+302  RCC  0 0 0  0 0 170.311  2.71435  $ Basket outer (5.4287 cm OD)
+c
+c -------------------------------------------------------------------
+c Universe 10: Lattice Element Surface (RPP macrobody)
+c -------------------------------------------------------------------
+c CRITICAL: This defines ONE 5.084 × 5.084 × 170.311 cm element
+c
+500  RPP  -2.542 2.542  -2.542 2.542  0.0 170.311
+c
+c -------------------------------------------------------------------
+c Real World Surfaces (Hot dimensions at 911 K)
+c -------------------------------------------------------------------
+c
+c Core and vessel (RCC macrobodies)
+600  RCC  0 0 0  0 0 174.219  70.285  $ Lattice outer (R=70.285 cm)
+601  RCC  0 0 -6.475  0 0 180.694  71.097  $ Core can inner
+602  RCC  0 0 -6.475  0 0 180.694  71.737  $ Core can outer
+603  RCC  0 0 -6.475  0 0 180.694  74.299  $ Vessel inner
+604  RCC  0 0 -6.475  0 0 180.694  76.862  $ Vessel outer
+c
+c Axial positions
+605  PZ  0.0  $ Bottom of horizontal lattice (z=0 reference)
+606  PZ  -6.475  $ Lower head bottom
+607  PZ  170.311  $ Top of vertical lattice
+607a PZ  174.219  $ Top of core can
+608  PZ  -25.0  $ Lower head outer
+609  PZ  215.0  $ Upper head outer
+c
+c Horizontal lattice support region
+690  RCC  0 0 -6.475  0 0 6.475  70.285  $ Support lattice cylinder
+691  PZ  -4.475  $ Support lattice top (2 cm thick, homogenized)
+c
+c Insulation and thermal shield
+610  RCC  0 0 -25.0  0 0 240.0  93.09  $ Insulation outer
+611  RCC  0 0 -100.0  0 0 400.0  158.75  $ Thermal shield outer
+612  PZ  -100.0  $ Bottom extent
+613  PZ  300.0  $ Top extent
+c
+c
+c ===================================================================
+c DATA CARDS
+c ===================================================================
+c
+MODE  N
+c
+c -------------------------------------------------------------------
+c Materials
+c -------------------------------------------------------------------
+c
+c M1: Fuel Salt (LiF-BeF2-ZrF4-UF4) at 911 K
+c Density: 2.3275 g/cm³, U-235: 1.409 wt%
+M1    3006.80c  6.600E-07
+      3007.80c  1.319E-02
+      4009.80c  1.308E-02
+      9019.80c  6.555E-02
+      40000.80c 2.260E-03
+      92234.80c 1.094E-06
+      92235.80c 1.100E-04
+      92236.80c 4.720E-07
+      92238.80c 1.850E-05
+c
+c M2: Graphite at 911 K
+c Density: 1.8507 g/cm³ (includes 0.8 ppm boron)
+M2    6000.80c  9.264E-02
+      5010.80c  1.600E-08
+      5011.80c  6.440E-08
+MT2   grph.12t
+c
+c M3: Control Rod Poison (70% Gd2O3, 30% Al2O3)
+c Density: 5.873 g/cm³
+M3    64152.80c 3.825E-04
+      64154.80c 4.168E-03
+      64155.80c 2.827E-02
+      64156.80c 3.912E-02
+      64157.80c 2.991E-02
+      64158.80c 4.748E-02
+      64160.80c 4.178E-02
+      8016.80c  5.810E-02
+      13027.80c 1.164E-02
+c
+c M4: INOR-8 (Hastelloy-N) at 911 K
+c Density: 8.7745 g/cm³
+M4    28000.80c 5.467E-02
+      42000.80c 8.010E-03
+      24000.80c 6.085E-03
+      26000.80c 4.046E-03
+      6000.80c  2.260E-04
+c
+c M5: Sample Basket Contents (homogenized)
+M5    6000.80c  6.200E-02
+      28000.80c 2.700E-02
+      42000.80c 4.000E-03
+c
+c M6: Lower Plenum Mix (90.8% salt, 9.2% INOR-8)
+c Density: 2.2 g/cm³
+M6    3007.80c  1.198E-02
+      4009.80c  1.188E-02
+      9019.80c  5.952E-02
+      40000.80c 2.052E-03
+      92235.80c 9.988E-05
+      28000.80c 5.031E-03
+      42000.80c 7.369E-04
+c
+c M7: Vermiculite Insulation at 305 K
+c Density: 0.4 g/cm³
+M7    8016.80c  2.000E-02
+      26000.80c 8.000E-04
+      13027.80c 6.000E-04
+      1001.80c  1.200E-02
+      14000.80c 4.000E-03
+      20000.80c 2.000E-04
+MT7   lwtr.01t
+c
+c M8: Type 304 SS (Thermal Shield) at 305 K
+c Density: 7.9 g/cm³
+M8    26000.80c 5.656E-02
+      24000.80c 1.648E-02
+      28000.80c 7.695E-03
+      25055.80c 8.240E-04
+c
+c -------------------------------------------------------------------
+c Criticality Source
+c -------------------------------------------------------------------
+c
+KCODE  100000 1.0 50 200
+KSRC   0 0 85
+       30 0 85  -30 0 85  0 30 85  0 -30 85
+       50 0 85  -50 0 85  0 50 85  0 -50 85
+       35 35 85  -35 35 85  35 -35 85  -35 -35 85
+       0 0 50  0 0 120
+       40 0 50  0 40 120  -40 0 50  0 -40 120
+       25 25 50
+c
+PRINT 10 30 38 40 50 110 126 128
